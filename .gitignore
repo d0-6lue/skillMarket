@@ -1,0 +1,8 @@
+/.metadata/
+Servers/
+*.classpath
+*.project
+*.MF
+*.jar
+skillMarketPrj/.settings/
+skillMarketPrj/src/main/webapp/WEB-INF/.gitignore
