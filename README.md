@@ -1,2 +1,2 @@
 # skillMarket
-kh_362class_pm / tea4_SemiProject
+kh_362class_pm / team4_SemiProject
