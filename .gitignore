@@ -6,3 +6,4 @@ Servers/
 *.jar
 skillMarketPrj/.settings/
 skillMarketPrj/src/main/webapp/WEB-INF/.gitignore
+skillMarketPrj/.gitignore
