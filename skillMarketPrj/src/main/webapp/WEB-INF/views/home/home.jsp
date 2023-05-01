@@ -13,7 +13,7 @@
 
 	<div class="wrap">
 
-
+		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 		<main></main>
 		
