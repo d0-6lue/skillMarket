@@ -2,3 +2,51 @@
     width: 1000px;
     height: 225px;
 }
+.footer-area {
+    width: 1000px;
+    height: 225px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 400px repeat(3, 200px);
+
+    border-top: 1px solid rgb(119, 119, 119);
+}
+
+.footer-elem {
+    height: 150px;
+    align-self: center;
+}
+
+.footer-header {
+    font-size: 17px;
+    color: rgb(28, 28, 28);
+}
+
+.footer-link {
+    margin-top: 15px;
+
+    font-size: 16px;
+    color: rgb(28, 28, 28);
+}
+
+.cs-center-info {
+    margin-top: 15px;
+
+    font-size: 15px;
+    color: rgb(119, 119, 119);
+}
+
+.cs-center-btn {
+    width: 100px;
+    height: 50px;
+    margin-top: 20px;
+
+    font-size: 18px;
+    color: rgb(28, 28, 28);
+
+    border: 1px solid rgb(141, 141, 141);
+    border-radius: 12px;
+
+    background-color: rgba(217, 217, 217, 0);
+}
