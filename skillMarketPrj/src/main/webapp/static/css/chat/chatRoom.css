@@ -1,0 +1,228 @@
+.horizontal-border {
+    width: 1000;
+    height: 25px;
+    margin: auto;
+
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+/* 가장 큰 노란 상자 */
+.chat-area {
+    width: 955px;
+    height: 850px;
+    margin: 10px auto;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: rgb(252,216,45);
+}
+
+/* 오른쪽 회색 유틸 상자 */
+.chat-util {
+    width: 220px;
+    height: 800px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-color: rgb(236,236,236);
+}
+
+/* 유틸 상단 */
+.chat-util-top {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 거래상대 */
+.chat-opponent {
+    width: 220px;
+    height: 60px;
+    
+    font-size: 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* 판매자 or 구매자* */
+.opponent-category {
+
+    margin: 10px 5px;
+
+}
+
+/* 거래 상대의 넥네임 */
+.opponent-nick {
+
+    text-align: end;
+}
+
+/* 경계선 */
+.chat-util-horizontal-border {
+    width: 200px;
+    height: 10px;
+
+    margin: 5px 10px;
+
+    border-bottom: 1px solid black;
+}
+
+/* 프로젝트명 */
+.project-title {
+    font-size: 28px;
+    margin: 10px 5px;
+}
+
+/* 프로젝트 썸네일(홍보 이미지) */
+.project-thumbnail {
+    width: 120px;
+    height: 120px;
+
+    margin: 5px 5px;
+
+    background-color: aquamarine;
+}
+
+/* 프로젝트 설명 */
+.project-info {
+    width: 200px;
+    height: 100px;
+
+    margin: 5px 5px;
+
+    font-size: 18px;
+}
+
+/* 유틸 하단 */
+.chat-util-bottom {
+    width: 100%;
+    height: 80px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 요청하기 버튼 */
+.request-btn {
+    width: 155px;
+    height: 55px;
+
+    font-size: 25px;
+
+    border: 0px;
+
+    background-color: rgb(252,216,45);
+}
+
+/* 채팅 박스 감싸려고 */
+.chat-box-wrap {
+    width: 660px;
+    height: 800px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 채팅 박스 */
+.chat-box {
+    width: 660px;
+    height: 730px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgba(50,88,163, 0.88);
+}
+
+/* 챗 클래스 */
+.chat {
+    width: 400px;
+    margin: 5px 10px;
+
+    border-radius: 12px;
+
+    background-color: white;
+
+    overflow: auto;
+
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+.chat::-webkit-scrollbar {
+    display: none;
+}
+
+/* 채팅 정보 */
+.chat-info {
+    height: 33px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* 보낸사람, 보낸시간 */
+.chat-sender .chat-enroll-time {
+    font-size: 16px;
+}
+
+/* 채팅 내용 */
+.chat-contents {
+
+    display: flex;
+    align-items: center;
+}
+
+/* 보낸 사람이 나일때 */
+.my-chat {
+    align-self: flex-end;
+}
+.my-chat-contents {
+    justify-self: end;
+}
+
+/* 채팅 인풋이랑 버튼 */
+.chat-input-btn {
+    width: 660px;
+    height: 60px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* 채팅 인풋 */
+.chat-msg {
+    width: 560px;
+    height: 55px;
+
+    border: 1px solid rgb(141, 141, 141);
+
+    background-color: rgb(255, 255, 255);
+}
+
+/* 채팅 보내기 버튼 */
+.chat-send-btn {
+    width: 90px;
+    height: 50px;
+
+    border: 0px solid transparent;
+    border-radius: 8px;
+
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+
