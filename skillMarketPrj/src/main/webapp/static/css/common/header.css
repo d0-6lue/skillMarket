@@ -1,10 +1,18 @@
+.header{
+
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    /* border: 1px solid black; */
+    border-bottom: 1px solid rgb(0, 0, 0);
+
+}
+
 .header-area{
 
     width: 1000px;
-    position: sticky;
-    top: 0;
     margin: auto;
-    /* border: 1px solid black; */
 }
 
 .header-yellowarea{
