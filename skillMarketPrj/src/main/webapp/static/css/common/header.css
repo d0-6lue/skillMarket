@@ -1,9 +1,10 @@
 .header-area{
+
     width: 1000px;
+    position: sticky;
+    top: 0;
     margin: auto;
     /* border: 1px solid black; */
-    
-
 }
 
 .header-yellowarea{
@@ -50,12 +51,14 @@
 }
 
 .header-search > input{
+    margin-left: 15px;
     border: none;
     outline: none;
+    width: 270px;
 }
 
 .header-search > button{
-    margin-left: 40px;
+    /* margin-left: 10px; */
     border: none;
     background-color: white;
 }
@@ -68,14 +71,19 @@
     align-items: center;
 }
 
-.header-menu > ul{
+ul{
     list-style: none;
     
 }
 
-.header-menu > ul > li{
+li{
     float: left;
     margin-right: 20px;
+}
+
+.header-menu >  ul > li > a {
+    color: black;
+    text-decoration: none;
 }
 
 .nav-area{
@@ -88,4 +96,21 @@
 
 .nav-area > div{
     margin-right: 60px;
+}
+
+.nav-area > #category-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-area > div > a{
+
+    color: black;
+    text-decoration: none;
+
+}
+
+.category-spl{
+    margin-left: 10px;
 }
