@@ -15,6 +15,7 @@
 
 	<div class="header-yellowarea"></div>
     
+    <div class="header">
 
         <div class="header-area">
             
@@ -57,6 +58,11 @@
             </div>
             
         </div>
+
+
+    </div>
+
+        
 
 
 </body>
