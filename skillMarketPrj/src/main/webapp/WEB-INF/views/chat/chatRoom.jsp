@@ -64,10 +64,10 @@
                             </div>
                         </div>
                         <div class="chat my-chat">
-                            <div class="chat-info">
+                            <div class="chat-info my-chat-info">
                                 <span class="regular chat-enroll-time">보낸시간 23/05/01 21:24</span>
                             </div>
-                            <div class="regular chat-contents my-chat-contents">
+                            <div class="regular chat-contents">
                                 내가 보낸 채팅 내용 ~~~
                             </div>
                         </div>

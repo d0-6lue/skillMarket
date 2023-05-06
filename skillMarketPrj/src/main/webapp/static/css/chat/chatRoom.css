@@ -193,9 +193,11 @@
 .my-chat {
     align-self: flex-end;
 }
-.my-chat-contents {
-    justify-self: end;
+.my-chat-info {
+    display: flex;
+    justify-content: end;
 }
+
 
 /* 읽음 표시 */
 .readcheck { 
