@@ -38,7 +38,7 @@
                     <ul>
                         <li class="bold"><a href="">전문가 등록</a></li>
                         <li class="bold"><a href="">로그인</a></li>
-                        <li class="bold"><a href="">회원가입</a></li>
+                        <li class="bold"><a href="${root}/join">회원가입</a></li>
     
                     </ul>
                 </div>
