@@ -1,0 +1,162 @@
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+/* 커뮤니티 전체 영역 (헤더)칸 */
+.community-title-box{
+    width: 100%;
+    height: 120px;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items : center
+}
+
+
+/* 글자 감싸는 칸 */
+.community-header-content {
+    width: 950px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+/* 커뮤니티 제목입니다. */
+.community-title{
+    width: 950px;
+    height: 20px;
+    font-size: 24px;
+}
+
+/* 소통해보세요 글쓰기버튼 ~ */
+.community-desc-content{
+    width: 950px;
+    height: 20px;
+    font-size: 16px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*  커뮤니티 메인칸입니다*/
+.community-box{
+    width: 950px;
+    height: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+    align-items: center;
+    background-color: beige;
+}
+
+/* 커뮤니티 왼쪽영역 감싸는 칸 */
+.community-left-side{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 160px;
+    height: 100%;
+}
+
+/* 커뮤니티 메인 오른쪽 정보칸 (검색, 게시글 정보영역,정렬) */
+.community-body-content{
+    display: flex;
+    height: 100%;
+    width: 800px;
+}
+
+/* 노란색 상자  */
+.search-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height : 100%;
+    width : 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+
+/* 검색창 */
+.search-content {
+    height: 100px;
+    width: 600px;
+    margin-top: 50px;
+}
+
+/* 검색내용 입력 칸 */
+.form-control {
+    font-size: 22px; 
+    text-align: center;
+}
+
+.search-btn {
+    font-size: 22px; 
+    padding: 5px 12px; 
+    height: 40px; 
+    line-height: 1.5; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 정렬 박스 감싸는 칸 ~ */
+.posts-container-menu-bar{
+    display: flex;
+    padding-bottom: 12px;
+    width: 600px;
+    border: 0;
+    border-bottom: 1px solid #000;
+}
+
+/* 정렬 메뉴바 (버튼들) */
+.order-pc{
+    display: flex;
+    flex-direction: row;
+}
+
+/* 정렬 버튼 보더 색상 없앰 */
+ul.order-pc li button{
+    border: none;
+    background-color: transparent;
+}
+
+/* 주제바 */
+.topic-group {
+    width: 160px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.topic-group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.topic-group ul li {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.topic-group ul li:hover {
+background-color: #F8C925;
+}
+
+.topic-group ul li a {
+color: inherit;
+text-decoration: none;
+}
+
+.topic-group ul li:not(:last-child) {
+margin-right: 10px;
+}
