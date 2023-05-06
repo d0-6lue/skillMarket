@@ -11,20 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.team4.skillmarket.community.service.FreeBoardService;
 import com.team4.skillmarket.community.vo.FreeBoardVo;
 
 @WebServlet("/community/*")
 public class CommunityController extends HttpServlet {
-
-    private FreeBoardService freeBoardService;
     
     //커뮤니티 조회하기 ~
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
     	
-    	request.getRequestDispatcher("/WEB-INF/views/community/post/write.jsp").forward(request, response);
+    	request.getRequestDispatcher("/WEB-INF/views/community/board.jsp").forward(request, response);
     }
     
     //커뮤니티 게시글 작성
