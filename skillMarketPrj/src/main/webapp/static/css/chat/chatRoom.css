@@ -14,7 +14,7 @@
 /* 가장 큰 노란 상자 */
 .chat-area {
     width: 955px;
-    height: 850px;
+    height: 724px;
     margin: 10px auto;
 
     display: flex;
@@ -27,7 +27,7 @@
 /* 오른쪽 회색 유틸 상자 */
 .chat-util {
     width: 220px;
-    height: 800px;
+    height: 700px;
 
     display: flex;
     flex-direction: column;
@@ -127,7 +127,7 @@
 /* 채팅 박스 감싸려고 */
 .chat-box-wrap {
     width: 660px;
-    height: 800px;
+    height: 724px;
 
     display: flex;
     flex-direction: column;
@@ -138,7 +138,7 @@
 /* 채팅 박스 */
 .chat-box {
     width: 660px;
-    height: 730px;
+    height: 660px;
 
     display: flex;
     flex-direction: column;
@@ -168,6 +168,8 @@
 .chat-info {
     height: 33px;
 
+    margin: 1px 5px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -179,6 +181,9 @@
 
 /* 채팅 내용 */
 .chat-contents {
+    margin: 5px 5px;
+
+    word-break:break-all;
 
     display: flex;
     align-items: center;
@@ -188,14 +193,22 @@
 .my-chat {
     align-self: flex-end;
 }
-.my-chat-contents {
-    justify-self: end;
+.my-chat-info {
+    display: flex;
+    justify-content: end;
+}
+
+
+/* 읽음 표시 */
+.readcheck { 
+    color: rgb(252,216,45);
+    text-shadow: 1px 1px 1px rgba(25, 25, 25, 0.88);
 }
 
 /* 채팅 인풋이랑 버튼 */
 .chat-input-btn {
     width: 660px;
-    height: 60px;
+    height: 55px;
 
     display: flex;
     justify-content: space-evenly;
@@ -205,7 +218,7 @@
 /* 채팅 인풋 */
 .chat-msg {
     width: 560px;
-    height: 55px;
+    height: 45px;
 
     border: 1px solid rgb(141, 141, 141);
 
@@ -215,7 +228,7 @@
 /* 채팅 보내기 버튼 */
 .chat-send-btn {
     width: 90px;
-    height: 50px;
+    height: 45px;
 
     border: 0px solid transparent;
     border-radius: 8px;
@@ -224,5 +237,124 @@
 }
 
 
+/* 요청서 */
+.request_ {
+    width: 388px;
+    height: 180px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-evenly;
+    align-items:center;
+
+    background-color: rgb(252,216,45);
+}
+
+/* 요청서 제목 */
+.request-title {
+    height: 30px;
+
+    font-size: 24px;
+    text-align: center;
+}
+
+/* 요청서 내용 */
+.request-content {
+
+    width: 380px;
+    height: 100px;
+
+    background-color: rgb(255, 255, 255);
+
+}
+
+/* 요청서 확인하기 */
+.request-check-btn {
+    width: 124px;
+    height: 30px;
+
+    font-size: 20px;
+    text-align: center;
+
+    background-color: rgb(255, 255, 255);
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
 
 
+/* 요청 모달 */
+.request-modal {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+
+    display: none;
+    align-items: center;
+
+    background-color: rgba(25, 25, 25, 0.33);
+}
+.modal-active {
+    display: flex;
+}
+
+
+/* 요청 */
+.request-modal-wrap {
+    width: 100%;
+    height: 60%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    background-color: rgba(225, 225, 225, 0.88);
+}
+
+
+.request-modal-title {
+    font-size: 32px;
+    margin: 0px 35px;
+}
+
+.subhead {
+    font-size: 20px;
+    margin: 0px 70px;
+}
+
+.request-modal-content {
+    display: flex;
+}
+
+#request-content-textarea {
+    resize: none;
+}
+
+.modal-btns {
+    width: 70%;
+
+    align-self: center;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.request-modal-btn {
+    width: 150px;
+    height: 50px;
+
+    font-size: 24px;
+
+    background-color: rgb(255, 255, 255);
+}
+
+.request-modal-cancle-btn {
+    width: 150px;
+    height: 50px;
+
+    font-size: 24px;
+
+    background-color: rgb(255, 255, 255);
+}
