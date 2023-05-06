@@ -13,7 +13,7 @@ public class JDBCTemplate {
 		try {
 			String driver = "oracle.jdbc.driver.OracleDriver";
 			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			String username = "C##SEMI";
+			String username = "C##SKILLMARKET";
 			String password = "1234";
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url , username, password);
