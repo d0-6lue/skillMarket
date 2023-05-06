@@ -53,7 +53,7 @@
                     <a class="bold" href="">인기견적서</a>
                 </div>
                 <div>
-                    <a class="bold" href="">커뮤니티</a>
+                    <a class="bold" href="${root}/community/all">커뮤니티</a>
                 </div>
             </div>
             
