@@ -15,3 +15,59 @@
 .logo-iconimg > img{
     width: 250px;
 }
+
+.normal-join-area{
+    width: 600px;
+    height: 1200px;
+    border: 1px solid rgb(188, 188, 188);
+    border-radius: 8px;
+    margin: auto;
+}
+
+.join-title{
+    margin-top: 50px;
+    font-size: 40px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.join-form-area{
+    width: 450px;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.join-form-text{
+    margin-left: 10px;
+    font-size: 20px;
+    color: 636363;
+    margin-bottom: 15px;
+}
+
+.join-form-input{
+    height: 60px;
+    padding-left: 20px;
+    border-radius: 8px;
+    border: 1px solid #8D8D8D;
+    margin-bottom: 30px;
+}
+
+.join-form-input2{
+    height: 60px;
+    padding-left: 20px;
+    border-radius: 8px;
+    border: 1px solid #8D8D8D;
+    margin-bottom: 10px;
+}
+
+input[type="submit"]{
+    margin-top: 20px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: #FCD82D;
+    border: none;
+    font-size: 18px;
+}
