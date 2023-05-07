@@ -49,3 +49,22 @@
     justify-content: center;
     align-items: center;
 }
+
+.favorite-category{
+    width: 1000px;
+    margin: auto;
+}
+
+.favorite-category-area{
+    margin-top: 100px;
+}
+
+.favorite-category-title{
+    font-size: 25px;
+    margin-bottom: 30px;
+    color: rgb(84, 84, 84);
+}
+
+.favorite-category-detail{
+    display: flex;
+}

@@ -61,11 +61,40 @@
 
 				</div>
 
-				
+			</div>
+
+			<div class="favorite-category">
+
+				<div class="favorite-category-area">
+
+					<div class="favorite-category-title bold">인기 카테고리</div>
+					<div class="favorite-category-detail">
+						<a class="main-category-detail-can" href="">
+							<img src="" alt="로고이미지">
+							<div>IT/프로그래밍</div>
+						</a>
+						<a class="main-category-detail-can" href="">
+							<img src="" alt="로고이미지">
+							<div>IT/프로그래밍</div>
+						</a>
+						<a class="main-category-detail-can" href="">
+							<img src="" alt="로고이미지">
+							<div>IT/프로그래밍</div>
+						</a>
+						<a class="main-category-detail-can" href="">
+							<img src="" alt="로고이미지">
+							<div>IT/프로그래밍</div>
+						</a>
+						<a class="main-category-detail-can" href="">
+							<img src="" alt="로고이미지">
+							<div>IT/프로그래밍</div>
+						</a>
+					</div>
+					
+				</div>
 
 			</div>
 
-			
 
 		</main>
 		
