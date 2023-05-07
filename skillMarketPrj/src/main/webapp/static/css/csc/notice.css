@@ -10,7 +10,6 @@
 .header-area{
 
     width: 1000px;
-    height: 240px;
     margin: auto;
 }
 
@@ -61,7 +60,7 @@ ul{
     
 }
 
-li{
+.header-menu > ul > li{
     float: left;
     margin-right: 20px;
 }
@@ -73,85 +72,72 @@ li{
 }
 
 .header-search{
-    width: 1000px;
-    height: 100px;
+    width: 950px;
+    height: 60px;
     display: flex;
-    justify-content: center;
-    align-items: end;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
 }
 
 .header-search-area{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 500px;
-    height: 45px;
+    width: 330px;
+    height: 30px;
     border-radius: 22px;
     border: 1px solid black;
-    background-color: #FFDF45;
+    background-color: white;
 }
 
 .header-search-area > input{
-    margin-left: 40px;
+    margin-left: 14px;
     border: none;
     outline: none;
     width: 270px;
-    background-color: #FFDF45;
+    background-color: white;
 }
 
 .header-search-area > button{
-    margin-right: 20px;
+    margin-right: 10px;
     border: none;
-    background-color: #FFDF45;
+    background-color: white;
 }
 
-.main-area{
-    width: 900px;
+main{
+    width: 1000px;
     margin: auto;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 .notice-area{
-    margin-top: 60px;
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .notice-title{
     font-size: 40px;
-    display: inline-block;
 }
 
-.notice-go{
-    display: inline-block;
-    margin-left: 10px;
+.notice-ul{
+    margin-top: 30px;
 }
 
-.faq-area{
-    margin-top: 80px;
-}
-
-.faq-title{
-    font-size: 40px;
-    display: inline-block;
-}
-
-.faq-go{
-    display: inline-block;
-    margin-left: 10px;
-}
-
-.csc-table{
-    margin-top: 20px;
+.notice-ul > li {
+    margin-top: 30px;
     font-size: 20px;
 }
 
-tr{
-    
-    padding-top: 20px;
-    border-bottom: 1px solid #BBBBBB;
+.notice-btn{
+    margin-top: 60px;
+    width: 350px;
+    height: 60px;
+    background-color: white;
+    border: 1px solid #B4B4B4;
+    border-radius: 30px;
 }
 
-td{
-    width: 900px;
-    padding-top: 10px;
-    padding-bottom: 5px;
-}

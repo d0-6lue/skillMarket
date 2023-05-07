@@ -8,8 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="${root}/static/css/csc/csc.css">
-
+<link rel="stylesheet" href="${root}/static/css/csc/notice.css">
 </head>
 <body>
 
@@ -34,8 +33,11 @@
                 </div>
     
             </div>
+        </div>
 
+    </div>
             <div class="header-search">
+                <div class="bold">고객센터 > 공지사항</div>
                 <div class="header-search-area">
                     <input type="text" placeholder="검색">
                     <button>
@@ -47,52 +49,25 @@
             </div>
             
             
-        </div>
 
-    </div>
 
     <main>
-        <div class="main-area">
-            <div class="notice-area">
-                <div class="bold notice-title">공지사항</div>
-                <div class="notice-go"><a href="${root}/notice">더보기</a></div>
-                <table class="csc-table">
-                    <tr>
-                        <td>공지사항 제목입니다</td>
-                    </tr>
-                    <tr>
-                        <td>공지사항 제목입니다</td>
-                    </tr>
-                    <tr>
-                        <td>공지사항 제목입니다</td>
-                    </tr>
-                    <tr>
-                        <td>공지사항 제목입니다</td>
-                    </tr>
-                </table>
-            </div>
 
-            <div class="faq-area">
-                <div class="faq-title bold">FAQ</div>
-                <div class="faq-go"><a href="${root}/faq">더보기</a></div>
-                <table class="csc-table">
-                    <tr>
-                        <td>공지사항 제목입니다</td>
-                    </tr>
-                    <tr>
-                        <td>공지사항 제목입니다</td>
-                    </tr>
-                    <tr>
-                        <td>공지사항 제목입니다</td>
-                    </tr>
-                    <tr>
-                        <td>공지사항 제목입니다</td>
-                    </tr>
-                </table>
-            </div>
+        <div class="notice-area">
+            <div class="notice-title bold">공지사항</div>
+
+            <ul class="notice-ul">
+                <li>[공지]공지사항 제목입니다.</li>
+                <li>[공지]공지사항 제목입니다.</li>
+                <li>[공지]공지사항 제목입니다.</li>
+                <li>[공지]공지사항 제목입니다.</li>
+                <li>[공지]공지사항 제목입니다.</li>
+                <li>[공지]공지사항 제목입니다.</li>
+            </ul>
+
+            <button class="notice-btn">더보기</button>
 
         </div>
-        
 
     </main>
 
