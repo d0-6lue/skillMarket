@@ -87,7 +87,7 @@ ul{
     width: 330px;
     height: 30px;
     border-radius: 22px;
-    border: 1px solid black;
+    border: 1px solid #7C7C7C;
     background-color: white;
 }
 
@@ -109,6 +109,7 @@ main{
     width: 950px;
     margin: auto;
     margin-top: 50px;
+    margin-bottom: 60px;
 }
 
 .inquiry-title{
@@ -121,6 +122,56 @@ main{
 }
 
 .inquiry-form-text{
+    margin-top: 30px;
     font-size: 25px;
     font-weight: 600;
+}
+
+.inquiry-categroy{
+    margin-top: 20px;
+    padding-left: 10px;
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #7C7C7C;
+}
+.inquiry-title-box{
+    margin-top: 20px;
+    width: 800px;
+    height: 50px;
+    border-radius: 10px;
+    padding-left: 10px;
+    border: 1px solid #7C7C7C;
+}
+
+.inquiry-content-box{
+    margin-top: 20px;
+    width: 800px;
+    height: 250px;
+    border-radius: 10px;
+    padding-top: 15px;
+    padding-left: 10px;
+    border: 1px solid #7C7C7C;
+    resize: none;
+
+}
+
+.inquiry-submit-box{
+    margin-top: 60px;
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inquiry-submit-btn{
+    background-color: #FCD82D;
+    border: none;
+    width: 300px;
+    height: 60px;
+    font-size: 30px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
