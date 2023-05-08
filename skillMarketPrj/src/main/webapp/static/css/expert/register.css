@@ -1,0 +1,44 @@
+main{
+    width: 1000px;
+    margin: auto;
+    margin-top: 30px;
+    display: flex;
+}
+
+.nav-expert-area{
+    width: 120px;
+    height: 35px;
+    margin-left: 50px;
+    border-bottom: 3px solid #F8C925;
+    font-size: 20px;
+}
+
+.register-area{
+    margin-left: 60px;
+}
+
+.register-title{
+    font-size: 30px;
+}
+
+.register-body{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-img{
+    background-color: white;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    border: 1px solid black;
+}
+
+.register-content{
+    margin-left: 50px;
+}
+
+select option[value=""][disabled] {
+	display: none;
+}
