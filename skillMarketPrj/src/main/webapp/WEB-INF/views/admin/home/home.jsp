@@ -16,6 +16,12 @@
         <!-- aside -->
         <%@ include file="/WEB-INF/views/admin/common/aside.jsp"%>
 
+        <header>
+            
+            <h1>메인</h1>
+        
+        </header>
+
         <article>
 
             <div>
@@ -233,4 +239,4 @@
 </html>
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
-
+<link rel="stylesheet" href="${root}/static/css/admin/common/aside.css">

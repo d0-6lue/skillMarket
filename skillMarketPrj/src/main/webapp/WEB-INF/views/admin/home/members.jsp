@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고</title>
+<title>회원 관리</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
         
         <header>
             
-            <h1>신고</h1>
+            <h1>회원 관리</h1>
         
         </header>
         
@@ -30,21 +30,29 @@
                 <div class="article_area" id="article_area_1">
                     <div class="container_admin" id="container_area_1">
                         <div>
-                            <div class="subtitle">
-                                <h3>신고처리 요약</h3>
+                            <div class="subtitle" id="members_cnt">
+                                <h3>회원 상태 요약</h3>
+                                <div>
+                                    <div>총 회원수</div>
+                                    <div>99</div>
+                                </div>
                             </div>
                             <div class="statistics statistics_100">
                                 <table id="statistics_1">
                                     <thead>
                                         <tr>
-                                            <th><div>99</div></th>
-                                            <th><span>99</span></th>
+                                            <th class="table_type_1"><div>전문가 회원</div></th>
+                                            <th class="table_type_1"><span>신규 회원</span></th>
+                                            <th class="table_type_1"><span>탈퇴/제제 회원</span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr class="table_type_2">
                                             <td>
                                                 <span>99</span>
+                                            </td>
+                                            <td>
+                                                <span>999</span>
                                             </td>
                                             <td>
                                                 <span>999</span>
@@ -62,25 +70,21 @@
                 <div class="article_area" id="article_area_2">
                     <div class="container_admin" id="container_area_2">
                         <div>
-                            <div class="subtitle" id="members_cnt">
-                                <h3>신고 내역</h3>
-                                <div>
-                                    <div>필터</div>
-                                    <div>미처리</div>
-                                </div>
+                            <div class="subtitle">
+                                <h3>회원 목록</h3>
                             </div>
                             <div class="statistics statistics_list">
                                 <table>
                                     <thead>
                                         <tr>
                                             <th>
-                                                <span>1</span>
+                                                <span>회원번호</span>
                                             </th>
                                             <th>
-                                                <span>22</span>
+                                                <span>제목</span>
                                             </th>
                                             <th>
-                                                <span>333</span>
+                                                <span>일자</span>
                                             </th>
                                         </tr>
                                     </thead>

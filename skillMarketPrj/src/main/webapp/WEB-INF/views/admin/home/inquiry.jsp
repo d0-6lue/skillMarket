@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고</title>
+<title>문의</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
         
         <header>
             
-            <h1>신고</h1>
+            <h1>문의</h1>
         
         </header>
         
@@ -31,7 +31,7 @@
                     <div class="container_admin" id="container_area_1">
                         <div>
                             <div class="subtitle">
-                                <h3>신고처리 요약</h3>
+                                <h3>문의처리 요약</h3>
                             </div>
                             <div class="statistics statistics_100">
                                 <table id="statistics_1">
@@ -63,7 +63,7 @@
                     <div class="container_admin" id="container_area_2">
                         <div>
                             <div class="subtitle" id="members_cnt">
-                                <h3>신고 내역</h3>
+                                <h3>문의 내역</h3>
                                 <div>
                                     <div>필터</div>
                                     <div>미처리</div>

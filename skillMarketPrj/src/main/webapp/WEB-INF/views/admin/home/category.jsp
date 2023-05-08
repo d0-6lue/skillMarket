@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고</title>
+<title>카테고리 관리</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
         
         <header>
             
-            <h1>신고</h1>
+            <h1>카테고리 관리</h1>
         
         </header>
         
@@ -31,27 +31,21 @@
                     <div class="container_admin" id="container_area_1">
                         <div>
                             <div class="subtitle">
-                                <h3>신고처리 요약</h3>
+                                <h3>인기 카테고리</h3>
                             </div>
-                            <div class="statistics statistics_100">
-                                <table id="statistics_1">
-                                    <thead>
-                                        <tr>
-                                            <th><div>99</div></th>
-                                            <th><span>99</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <span>99</span>
-                                            </td>
-                                            <td>
-                                                <span>999</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="statistics statistics_rank">
+                                <div>
+                                    <span>1위</span>
+                                    <span>코딩</span>
+                                </div>
+                                <div>
+                                    <span>2위</span>
+                                    <span>음향/영상</span>
+                                </div>
+                                <div>
+                                    <span>3위</span>
+                                    <span>마케팅</span>
+                                </div>
                             </div>
                             
                         </div>
@@ -62,12 +56,8 @@
                 <div class="article_area" id="article_area_2">
                     <div class="container_admin" id="container_area_2">
                         <div>
-                            <div class="subtitle" id="members_cnt">
-                                <h3>신고 내역</h3>
-                                <div>
-                                    <div>필터</div>
-                                    <div>미처리</div>
-                                </div>
+                            <div class="subtitle">
+                                <h3>카테고리 리스트</h3>
                             </div>
                             <div class="statistics statistics_list">
                                 <table>

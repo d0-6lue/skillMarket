@@ -6,18 +6,16 @@
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/aside.css">
 
-<header>
-            
-    <h1>메인</h1>
 
-</header>
 
 <aside>
-    <div id="logo-area">
-        <div>
-            <img src="static/svg/관리자 페이지 로고.svg" alt="logo">
+    <a href="${root}/admin/home">
+        <div id="logo-area">
+            <div>
+                <img src="${root}/static/svg/관리자 페이지 로고.svg" alt="logo">
+            </div>
         </div>
-    </div>
+    </a>
     
     <div class="side_meue" id="side_1">
         <ul>
@@ -34,7 +32,7 @@
     <div class="side_meue" id="side_2">
         <ul>
             <li>
-                <a href="${root}/admin/main">대시보드</a>
+                <a href="${root}/admin/home">대시보드</a>
             </li>
             <li>
                 <a href="${root}/admin/members">회원 관리</a>
