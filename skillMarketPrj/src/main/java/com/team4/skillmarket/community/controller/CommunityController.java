@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.team4.skillmarket.community.vo.FreeBoardVo;
+//import com.team4.skillmarket.community.vo.FreeBoardVo;
 
 @WebServlet("/community/*")
 public class CommunityController extends HttpServlet {
