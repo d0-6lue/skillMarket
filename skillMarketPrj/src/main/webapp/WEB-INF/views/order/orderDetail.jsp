@@ -97,7 +97,7 @@
                     <div class="bold ">결제수단</div>
                 </div>
 
-                <div class="btn-area horizontal-alignment">
+                <div class="btn-area">
                     <button class="regular back-btn">주문 목록 보기</button>
                 </div>
 

@@ -1,0 +1,107 @@
+main {
+    width: 100%;
+    height: 100%;
+}
+
+.purchase-completed-area { 
+    width: 1000px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-msg {
+    font-size: 32px;
+    text-align: center;
+    margin: 100px;
+    line-height: 2;
+}
+
+/* 수평 정렬 */
+.horizontal-alignment {
+    display: flex;
+}
+
+/* 영수증 테이블 */
+.receipt {
+    width: 900px;
+    height: 200px;
+}
+
+.receipt-table-head {
+    font-size: 24px;
+    margin: 10px 0;
+    padding-top: 10px;
+    border-top: 2px solid black;
+}
+
+.receipt-table-body {
+    font-size: 20px;
+    margin: 10px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.table-body-elem{
+    margin: 10px 0;
+}
+
+.receipt-table-footer {
+    font-size: 28px;
+    padding-bottom: 10px;
+    justify-content: end;
+    border-bottom: 2px solid black;
+    border-spacing: 5px;
+}
+.total-pay {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.receipt-item {
+    width: 500px;
+}
+
+.receipt-quantity {
+    width: 100px;
+}
+
+.receipt-day {
+    width: 150px;
+}
+
+.receipt-price {
+    width: 150px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-end {
+    text-align: end;
+}
+
+/* 결제수단 */
+.payment-method {
+    font-size: 28px;
+    align-self: baseline;
+    margin: 30px 0;
+}
+
+/* 주문목록으로 돌아가기 버튼 */
+.btn-area { 
+    height: 100px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+.order-detail-btn{
+    width: 200px;
+    height: 65px;
+    font-size: 28px;
+    background-color: rgb(248,201,37);
+    border: 0px solid transparent;
+}
