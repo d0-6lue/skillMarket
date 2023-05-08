@@ -13,8 +13,8 @@ public class PuchaseController extends HttpServlet {
 
 		@Override
 		protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 			
+			req.getRequestDispatcher("/WEB-INF/views/purchase/purchase.jsp").forward(req, resp);
 			
 		}
 	
