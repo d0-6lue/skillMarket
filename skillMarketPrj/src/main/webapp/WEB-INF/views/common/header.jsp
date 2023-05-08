@@ -10,6 +10,7 @@
     <title>Insert title here</title>
     <link rel="stylesheet" href="${root}/static/css/common/header.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script defer src="${root}/static/js/common/header.js"></script>
 </head>
 <body>
 
@@ -36,9 +37,9 @@
                 </div>
                 <div class="header-menu">
                     <ul>
-                        <li class="bold"><a href="">전문가 등록</a></li>
-                        <li class="bold"><a href="">로그인</a></li>
-                        <li class="bold"><a href="${root}/join">회원가입</a></li>
+                        <li><a href="">전문가 등록</a></li>
+                        <li><a id="login-modal-add-btn">로그인</a></li>
+                        <li><a href="${root}/join">회원가입</a></li>
     
                     </ul>
                 </div>
@@ -60,6 +61,36 @@
         </div>
 
 
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-body">
+            <div class="m-head">
+                <div class="m-img">
+                    <img src="static/svg/로그인사진.svg" alt="로그인사진">
+                </div>
+                <form action="${root}/login" method="post">
+                <div class="m-main">
+                    <div class="close-btn" id="close-btn">
+                        <span class="material-symbols-outlined">close</span>
+                    </div>
+                    <div class="login-title bold">로그인</div>
+                    
+                        <input type="text" name="loginId" placeholder="아이디를 입력해주세요">
+                        <input type="password" name="loginPwd" placeholder="비밀번호를 입력해주세요">
+                        <br>
+                        <input type="submit" value="로그인" class="login-submit-btn">
+                        <div class="idpwd-search bold">
+                            <a href="${root}/forgot-id">아이디/비밀번호 찾기</a>
+                        </div>
+                        <button class="join-move-btn" type="button">회원가입</button>
+                    </div>
+                </form>
+                    
+            </div>
+            
+            
+        </div>
     </div>
 
         
