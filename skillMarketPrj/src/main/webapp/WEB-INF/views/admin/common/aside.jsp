@@ -59,9 +59,6 @@
             </li>
         </ul>
     </div>
-
-
-
 </aside>
 
 <article></article>
