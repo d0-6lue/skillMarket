@@ -28,7 +28,7 @@
                 
                 <div class="header-menu">
                     <ul>
-                        <li><a href="">문의하기</a></li>
+                        <li><a href="${root}/inquiry">문의하기</a></li>
                         <li><a href="">로그인</a></li>
                     </ul>
                 </div>

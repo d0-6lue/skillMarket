@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="${root}/static/css/csc/notice.css">
+<link rel="stylesheet" href="${root}/static/css/csc/inquiry.css">
 </head>
 <body>
 
@@ -38,7 +38,7 @@
     </div>
     
     <div class="header-search">
-        <div class="bold">고객센터 > 공지사항</div>
+        <div class="bold">고객센터 > 문의하기</div>
         <div class="header-search-area">
             <input type="text" placeholder="검색">
             <button>
@@ -48,31 +48,30 @@
             </button>
         </div>
     </div>
-            
-            
-
 
     <main>
 
-        <div class="notice-area">
-            <div class="notice-title bold">공지사항</div>
+        <div class="inquiry-area">
+            <div class="inquiry-title bold">문의 등록</div>
+            <div class="inquiry-form-area">
+                <form action="${root}/inquiry" method="post">
+                    <div class="inquiry-form-text">문의 유형</div>
+                    <select name="" id="">
+                        <option value=""></option>
+                    </select>
+                    <div class="inquiry-form-text">제목</div>
+                    <input type="text">
+                    <div class="inquiry-form-text">내용</div>
+                    <input type="text">
+                    <br>
+                    <input type="submit" value="문의하기">
+    
+                </form>
 
-            <ul class="notice-ul">
-                <li>[공지]공지사항 제목입니다.</li>
-                <li>[공지]공지사항 제목입니다.</li>
-                <li>[공지]공지사항 제목입니다.</li>
-                <li>[공지]공지사항 제목입니다.</li>
-                <li>[공지]공지사항 제목입니다.</li>
-                <li>[공지]공지사항 제목입니다.</li>
-            </ul>
-
-            <button class="notice-btn">더보기</button>
-
+            </div>
         </div>
 
     </main>
-
-    <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>
 </html>

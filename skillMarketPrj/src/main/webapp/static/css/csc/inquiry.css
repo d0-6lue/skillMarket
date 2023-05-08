@@ -106,41 +106,21 @@ ul{
 }
 
 main{
-    width: 800px;
+    width: 950px;
     margin: auto;
-    margin-top: 100px;
-    margin-bottom: 50px;
-}
-
-.faq-title{
-    font-size: 40px;
-}
-
-.faq-category-area{
-    display: flex;
-    
-    width: 900px;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.faq-category{
-    width: 50%;
     margin-top: 50px;
 }
 
-.faq-category-title{
-    font-size: 30px;
+.inquiry-title{
+    font-size: 35px;
 }
 
-.faq-category > ul {
-    margin-top: 20px;
+.inquiry-form-area{
+    margin-left: 10px;
+    margin-top: 50px;
 }
 
-.faq-category > ul > li {
-    margin-bottom: 20px;
-}
-
-.faq-category > a{
-    text-decoration: none;
+.inquiry-form-text{
+    font-size: 25px;
+    font-weight: 600;
 }
