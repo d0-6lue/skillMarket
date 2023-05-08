@@ -1,8 +1,4 @@
-h3 {
-    font-size: 25px;
-    font-weight: 600;
-    margin-left: 20px;
-}
+
 
 article {
     display: flex;
@@ -90,6 +86,8 @@ article .statistics th {
     width: 50%;
     height: 55px;
 }
+
+
 
 article .statistics #statistics_1 td:nth-child(n+2),th:nth-child(n+2) {
     border-left: 2px solid #bebdbd;
@@ -208,3 +206,64 @@ span.center {
     transform: translate(-50%, -50%); 
 }
 
+h3 {
+    font-size: 25px;
+    font-weight: 800;
+    margin-left: 20px;
+}
+
+
+
+article .statistics th.table_type_1 {
+    width: 33%;
+    height: 55px;
+    
+}
+
+
+#members_cnt {
+    justify-content: space-between;
+}
+
+.subtitle > div {
+    color: #585858;
+    text-align: end;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.subtitle > div > div:last-child {
+    color: #7D7D7D;
+    font-size: 20px;
+}
+
+.table_type_2 span {
+    color: #273F6D;
+}
+
+.table_type_2 td:last-child > span {
+    color: #F36969;
+}
+
+article .statistics_rank {
+    width: 80%;
+    display: grid;
+    grid-template-rows: repeat(3,1fr);  
+    align-items: center;
+    font-size: 15px;
+}
+
+.statistics_rank > div > span {
+    font-size: 16px;
+    color: #656262;
+    font-weight: 600;
+}
+
+.statistics_rank > div > span:nth-child(1) {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.statistics_rank > div:nth-child(1) > span:first-child {color: #E4AA14;}
+.statistics_rank > div:nth-child(2) > span:first-child {color: #AAAAAA;}
+.statistics_rank > div:nth-child(3) > span:first-child {color: #7D6933;}

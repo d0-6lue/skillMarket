@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고</title>
+<title>공지관리</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
         
         <header>
             
-            <h1>신고</h1>
+            <h1>공지관리</h1>
         
         </header>
         
@@ -31,23 +31,33 @@
                     <div class="container_admin" id="container_area_1">
                         <div>
                             <div class="subtitle">
-                                <h3>신고처리 요약</h3>
+                                <h3>최근 공지</h3>
                             </div>
-                            <div class="statistics statistics_100">
-                                <table id="statistics_1">
+                            <div class="statistics statistics_list">
+                                <table >
                                     <thead>
                                         <tr>
-                                            <th><div>99</div></th>
-                                            <th><span>99</span></th>
+                                            <th>
+                                                <span>번호</span>
+                                            </th>
+                                            <th>
+                                                <span>FAQ</span>
+                                            </th>
+                                            <th>
+                                                <span>조회수</span>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
+                                                <span>999</span>
+                                            </td>
+                                            <td>
                                                 <span>99</span>
                                             </td>
                                             <td>
-                                                <span>999</span>
+                                                <span>9</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -62,25 +72,21 @@
                 <div class="article_area" id="article_area_2">
                     <div class="container_admin" id="container_area_2">
                         <div>
-                            <div class="subtitle" id="members_cnt">
-                                <h3>신고 내역</h3>
-                                <div>
-                                    <div>필터</div>
-                                    <div>미처리</div>
-                                </div>
+                            <div class="subtitle">
+                                <h3>공지 목록</h3>
                             </div>
                             <div class="statistics statistics_list">
                                 <table>
                                     <thead>
                                         <tr>
                                             <th>
-                                                <span>1</span>
+                                                <span>번호</span>
                                             </th>
                                             <th>
-                                                <span>22</span>
+                                                <span>제목</span>
                                             </th>
                                             <th>
-                                                <span>333</span>
+                                                <span>조회수</span>
                                             </th>
                                         </tr>
                                     </thead>
@@ -90,10 +96,10 @@
                                                 <span>999</span>
                                             </td>
                                             <td>
-                                                <span>제목1</span>
+                                                <span>99</span>
                                             </td>
                                             <td>
-                                                <span>01/01</span>
+                                                <span>9</span>
                                             </td>
                                         </tr>
                                     </tbody>

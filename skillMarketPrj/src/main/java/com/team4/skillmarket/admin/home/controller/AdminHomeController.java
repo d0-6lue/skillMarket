@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin")
+@WebServlet("/admin/home")
 public class AdminHomeController extends HttpServlet{
 	
 	@Override
