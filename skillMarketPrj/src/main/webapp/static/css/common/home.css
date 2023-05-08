@@ -16,6 +16,10 @@
     font-size: 40px;
 }
 
+main{
+    margin-bottom: 60px;
+}
+
 .main-category{
     width: 1000px;
     margin: auto;
