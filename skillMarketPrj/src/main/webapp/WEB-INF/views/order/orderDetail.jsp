@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/static/css/order/orderDetail.css">
+<script defer src="${root}/static/js/order/orderDetail.js"></script>
 </head>
 <body>
 
