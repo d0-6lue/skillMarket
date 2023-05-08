@@ -38,7 +38,7 @@
                 <div class="header-menu">
                     <ul>
                         <li><a href="">전문가 등록</a></li>
-                        <li><a id="login-modal-add-btn">로그인</a></li>
+                        <li><a class="login-btn" id="login-modal-add-btn">로그인</a></li>
                         <li><a href="${root}/join">회원가입</a></li>
     
                     </ul>
