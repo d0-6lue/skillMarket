@@ -1,0 +1,121 @@
+.header{
+
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    /* border: 1px solid black; */
+    border-bottom: 1px solid rgb(175, 175, 175);
+
+}
+
+.header-area{
+
+    width: 1000px;
+}
+
+.header-detailarea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+
+}
+
+.header-logo{
+    width: 200px;
+    /* border: 1px solid black; */
+}
+
+.header-logoimg{
+    display: flex;
+    align-items: center;
+    justify-content: first baseline;
+}
+
+.header-logoimg > img {
+    height: 90px;
+}
+
+main{
+    width: 1000px;
+    margin: auto;
+}
+
+.find-body{
+    margin-top: 140px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.find-title{
+    font-size: 35px;
+}
+
+.choice-find-btn{
+    margin-top: 60px;
+    display: flex;
+}
+
+.findid-btn{
+    width: 200px;
+    height: 50px;
+    border-bottom: 3px solid #F8C925;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+.findpwd-btn{
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+.findid-title{
+    margin-top: 30px;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.findid-email-title{
+    margin-top: 40px;   
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.findid-email{
+    padding: 10px;
+    width: 500px;
+    height: 45px;
+    border-radius: 6px;
+    border: 1px solid #929292;
+}
+
+.email-btn{
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.email-send-btn{
+    width: 400px;
+    height: 60px;
+    background-color: #F8C925;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+}

@@ -94,6 +94,10 @@ li{
     text-decoration: none;
 }
 
+.login-btn{
+    cursor: pointer;
+}
+
 .nav-area{
     height: 50px;
     display: flex;
