@@ -1,0 +1,146 @@
+.header{
+
+    width: 100%;
+    background-color: #FFDF45;
+    /* border: 1px solid black; */
+    /* border-bottom: 1px solid rgb(0, 0, 0); */
+
+}
+
+.header-area{
+
+    width: 1000px;
+    margin: auto;
+}
+
+
+
+.header-detailarea{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+
+}
+
+.header-logo{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid black; */
+    margin-right: 80px;
+}
+
+.header-csc{
+    margin-left: 10px;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.header-logoimg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logoimg > img {
+    height: 80px;
+}
+
+.header-menu{
+    margin-left: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul{
+    list-style: none;
+    
+}
+
+.header-menu > ul > li{
+    float: left;
+    margin-right: 20px;
+}
+
+.header-menu >  ul > li > a {
+    /* color: black; */
+    color: #3258A3;
+    text-decoration: none;
+}
+
+.header-search{
+    width: 950px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.header-search-area{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 330px;
+    height: 30px;
+    border-radius: 22px;
+    border: 1px solid #7C7C7C;
+    background-color: white;
+}
+
+.header-search-area > input{
+    margin-left: 14px;
+    border: none;
+    outline: none;
+    width: 270px;
+    background-color: white;
+}
+
+.header-search-area > button{
+    margin-right: 10px;
+    border: none;
+    background-color: white;
+}
+
+main{
+    width: 800px;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.faq-title{
+    font-size: 40px;
+}
+
+.faq-category-area{
+    display: flex;
+    
+    width: 900px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.faq-category{
+    width: 50%;
+    margin-top: 50px;
+}
+
+.faq-category-title{
+    font-size: 30px;
+}
+
+.faq-category > ul {
+    margin-top: 20px;
+}
+
+.faq-category > ul > li {
+    margin-bottom: 20px;
+}
+
+.faq-category > a{
+    text-decoration: none;
+}
