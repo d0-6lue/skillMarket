@@ -34,24 +34,27 @@
                 <div class="purchase-table">
                     <div class="purchase-table-head horizontal-alignment">
                         <div class="purchase-item">항목</div>
-                        <div class="purchase-quantity">수량</div>
-                        <div class="purchase-day">작업일</div>
-                        <div class="purchase-price">금액</div>
+                        <div class="purchase-quantity table-subhead">수량</div>
+                        <div class="purchase-day table-subhead">작업일</div>
+                        <div class="purchase-price table-subhead">금액</div>
                     </div>
+
                     <div class="purchase-table-body ">
                         <div class="table-body-elem horizontal-alignment">
                             <div class="regular purchase-item">기초적인 프로젝트</div>
-                            <input type="number" class="purchase-quantity " min="1" value="1">
+                            <div class="purchase-quantity">
+                                <input class="quantity-input" type="number" min="1" value="1">
+                            </div>
                             <div class="regular purchase-day align-center">300일</div>
                             <div class="regular purchase-price align-end">₩ 3,000,000</div>
                         </div>
                         <div class="table-body-elem horizontal-alignment">
-                            <div class="regular purchase-item">기본적인 옵션</div>
-                            <input type="number" class="purchase-quantity " min="0" value="0">
-                            <div class="regular purchase-day align-center">30일</div>
-                            <div class="regular purchase-price align-end">₩ 300,000</div>
+                            <div class="add-elem bold">
+                                +
+                            </div>
                         </div>
                     </div>
+
                     <div class="purchase-table-footer horizontal-alignment">
                         <div class="total-pay horizontal-alignment">
                             <div class="bold ">총 결제금액</div>
@@ -71,17 +74,17 @@
 
                 <div class="payment-table">
                     <div class="purchase-method horizontal-alignment">
-                        <div class="purchase-method-elem skillpoint method-elem-active" id="skillpoint">
-                            <label for="skillpoint">스킬포인트</label>
+                        <div class=" skillpoint" id="skillpoint">
+                            <label for="skillpoint" class="purchase-method-elem method-elem-active">스킬포인트</label>
                         </div>
-                        <div class="purchase-method-elem credit-card method-elem-inactive" id="credit-card">
-                            <label for="credit-card">신용카드</label>
+                        <div class=" credit-card method-elem-inactive" id="credit-card">
+                            <label for="credit-card" class="purchase-method-elem">신용카드</label>
                         </div>
-                        <div class="purchase-method-elem account-transfer method-elem-inactive" id="account-transfer">
-                            <label for="account-transfer">계좌이체</label>
+                        <div class=" account-transfer method-elem-inactive" id="account-transfer">
+                            <label for="account-transfer" class="purchase-method-elem">계좌이체</label>
                         </div>
-                        <div class="purchase-method-elem mobile-phone-payment method-elem-inactive" id="mobile-phone-payment" >
-                            <label for="mobile-phone-payment">휴대폰 결제</label>
+                        <div class=" mobile-phone-payment method-elem-inactive" id="mobile-phone-payment" >
+                            <label for="mobile-phone-payment" class="purchase-method-elem">휴대폰 결제</label>
                         </div>
                     </div>
                     <div class="purchase-method-detail">

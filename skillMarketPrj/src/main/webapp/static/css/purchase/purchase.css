@@ -40,7 +40,6 @@
 /* 구매 테이블 */
 .purchase-table {
     width: 900px;
-    height: 200px;
 }
 
 .purchase-table-head {
@@ -60,6 +59,16 @@
     margin: 10px 0;
 }
 
+.add-elem {
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
 .purchase-table-footer {
     font-size: 28px;
     padding-bottom: 10px;
@@ -73,12 +82,21 @@
     justify-content: space-between;
 }
 
+.table-subhead {
+    text-align: center;
+}
+
 .purchase-item {
     width: 500px;
 }
 
 .purchase-quantity {
     width: 100px;
+    display: flex;
+    justify-content: center;
+}
+.quantity-input {
+    width: 50px;
 }
 
 .purchase-day {
@@ -101,10 +119,11 @@
 
 .purchase-method-title {
     font-size: 24px;
-    margin: 40px 0;
+    padding: 40px 0;
 }
 
 /* 결제 수단 */
+
 .purchase-method {
     justify-content: space-evenly;
 }
@@ -117,9 +136,10 @@
 .purchase-method-elem  {
     font-size: 20px;
     line-height: 2;
-    width: 298px;
+    width: 225px;
     text-align: center;
     border-bottom: 1px solid rgb(248,201,37);
+    cursor: pointer;
 }
 
 /* 액티브 */
