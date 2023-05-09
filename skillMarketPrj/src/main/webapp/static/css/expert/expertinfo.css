@@ -31,15 +31,15 @@ main{
     font-size: 20px;
 }
 
-.myinfo-area{
+.expertinfo-area{
     margin-left: 60px;
 }
 
-.myinfo-title{
+.expertinfo-title{
     font-size: 30px;
 }
 
-.myinfo-body{
+.expertinfo-body{
     margin-top: 30px;
     display: flex;
     justify-content: center;
@@ -78,7 +78,7 @@ main{
     font-size: 12px;
 }
 
-.myinfo-content{
+.expertinfo-content{
     margin-left: 70px;
 }
 
@@ -101,7 +101,7 @@ input[name='memberNick']{
     border: 1px solid #7C7C7C;
 }
 
-input[name='memberEmail']{
+input[name='expertAddress']{
     border-radius: 6px;
     padding-left: 10px;
     width: 500px;
@@ -109,7 +109,7 @@ input[name='memberEmail']{
     border: 1px solid #7C7C7C;
 }
 
-input[name='memberPhone']{
+input[name='expertTime']{
     border-radius: 6px;
     padding-left: 10px;
     width: 500px;
@@ -117,10 +117,38 @@ input[name='memberPhone']{
     border: 1px solid #7C7C7C;
 }
 
-select[name='memberFavorite']{
+select[name='expertField']{
     border-radius: 6px;
     padding-left: 10px;
     width: 500px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+    color: #7C7C7C;
+}
+
+select[name='expertCareerDuring']{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 398px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+    color: #7C7C7C;
+}
+
+.career-btn{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 398px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+    color: #7C7C7C;
+}
+
+.education-btn{
+    border-radius: 6px;
+    padding-left: 10px;
+    margin-left: 20px;
+    width: 398px;
     height: 60px;
     border: 1px solid #7C7C7C;
     color: #7C7C7C;
@@ -131,21 +159,49 @@ select[name='memberFavorite']{
     font-size: 10px;
 }
 
-.myinfo-content-text{
+.expertinfo-content-text{
     margin-top: 35px;
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: 600;
 }
 
-.myinfo-submit-btn{
+.career-content-text{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+textarea[name='expertIntroduction']{
+    width: 500px;
+    height: 180px;
+    resize: none;
+    border-radius: 6px;
+    border: 1px solid #7C7C7C;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.expertinfo-career-area{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-row-gap: 20px;
+    place-items: center;
+}
+
+.education-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expertinfo-submit-btn{
     margin-top: 40px;
     width: 500px;
     display: flex;
     justify-content: end;
 }
 
-.myinfo-submit-btn > input{
+.expertinfo-submit-btn > input{
     border: none;
     border-radius: 6px;
     width: 200px;

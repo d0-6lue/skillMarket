@@ -33,7 +33,7 @@
             <div class="light footer-link ">공지사항</div>
             <div class="footer-link light">자주 묻는 질문</div>
             <div class="footer-link light">이용약관</div>
-            <div class="footer-link light">고객센터</div>
+            <div class="footer-link light"><a href="${root}/csc">고객센터</a></div>
         </div>
         
     </div>

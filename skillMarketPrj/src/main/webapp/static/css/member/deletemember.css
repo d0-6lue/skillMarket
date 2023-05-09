@@ -1,0 +1,126 @@
+main{
+    width: 1000px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    display: flex;
+}
+
+.nav-myinfo-area{
+    width: 120px;
+    height: 35px;
+    margin-left: 60px;
+}
+
+.nav-myinfo-area > ul{
+    margin-top: 20px;
+}
+
+.nav-myinfo-area > ul > li{
+    margin-top: 10px;
+}
+
+.nav-myinfo-area > ul > li > a{
+    color: black;
+    text-decoration: none;
+}
+
+.nav-myinfo-title{
+    padding-bottom: 10px;
+    border-bottom: 3px solid #F8C925;
+    font-size: 20px;
+}
+
+.deletemember-area{
+    margin-left: 60px;
+}
+
+.deletemember-title{
+    font-size: 30px;
+}
+
+.deletemember-body{
+    margin-top: 40px;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+select option[value=""][disabled] {
+	display: none;
+}
+
+.password-text{
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+input[name='memberPwd']{
+    border-radius: 6px;
+    padding-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    width: 700px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+}
+
+.caution-area{
+    margin-top: 20px;
+    background-color: #ECECEC;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.caution-title{
+    font-size: 24px;
+}
+
+.caution-area > ul{
+    margin-top: 20px;
+    margin-left: 20px;
+    list-style-type: disc;
+}
+
+.caution-area > ul > li{
+    margin-top: 10px;
+    font-size: 14px;
+
+}
+
+.caution-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caution-btn-text{
+    margin-left: 10px;
+}
+
+.deletemember-submit-btn{
+    margin-top: 50px;
+    width: 700px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deletemember-submit-btn > input{
+    border: none;
+    border-radius: 6px;
+    width: 200px;
+    height: 60px;
+    background-color: #F8C925;
+    font-size: 20px;
+}
+
+input[disabled]{
+    background-color: #c2c2c2;
+    color: black;
+}
+
+
+
+
