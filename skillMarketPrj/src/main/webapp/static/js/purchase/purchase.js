@@ -19,17 +19,42 @@ function changeMethod() {
         else {
             target.classList.remove("method-elem-active");
         }
+
+        if(id == "skillpoint") {
+
+        }
+        else if(id == "credit-card") {
+
+        }
+        else if(id == "account-transfer") {
+
+        }
+        else if(id == "mobile-phone-payment") {
+
+        }
     
     });
 }
 
+
+// ---------------------------------------------------------------
+let optionNum = 0;
+const maxOptionNume = 2;
+
+const projectPrice = 3000000;
+const projectDay = 300;
+const option1Price = 100000;
+const option1Day = 1;
+const option2Price = 500000;
+const option2Day = 5;
+
+const removeOptionBtn = document.querySelector(".remove-elem");
 
 // 옵션 추가
 const addOptionBtn = document.querySelector(".add-elem");
 addOptionBtn.addEventListener("click", addOption);
 function addOption() {
     const tableElem = document.querySelectorAll(".table-body-elem");
-    console.log(tableElem.length);
 
 
     // table-body-elem
@@ -50,6 +75,9 @@ function addOption() {
     selectOption.classList.add("select-option");
 
     const optionElem = document.createElement("option");
+    optionElem.disabled = true;
+    optionElem.defaultSelected = true;
+    optionElem.hidden = true;
     optionElem.value = "";
     optionElem.innerText = "--옵션을 선택해주세요--";
 
@@ -74,7 +102,6 @@ function addOption() {
     quantityInput.classList.add("regular");
     quantityInput.classList.add("quantity-input");
     purchaseQuantity.append(quantityInput);
-
     tableBodyElem.append(purchaseQuantity);
 
     // purchase-day
@@ -93,20 +120,147 @@ function addOption() {
     
 
     tableElem[tableElem.length - 2].after(tableBodyElem);
+
+    optionNum++;
+
+    if(optionNum == maxOptionNume){
+        addOptionBtn.classList.add("add-elem-inactive");
+    }
+
+    removeOptionBtn.classList.add("remove-elem-active");
+
+    changeLineValue();
 };
 
+// 옵션 삭제
+removeOptionBtn.addEventListener("click" , function() {
 
-// 총금액
-const projectPrice = 3000000;
-const option1Price = 100000;
-const option2Price = 500000;
+    const purchaseTableBody = document.querySelector(".purchase-table-body");
+
+    const tableElem = document.querySelectorAll(".table-body-elem");
+
+    purchaseTableBody.removeChild(tableElem[tableElem.length - 2]);
+
+    optionNum--;
+
+    if(optionNum == 0 ){
+        removeOptionBtn.classList.remove("remove-elem-active");
+    } 
+
+    if(optionNum < maxOptionNume){
+        addOptionBtn.classList.remove("add-elem-inactive");
+    }
+
+});
+
+
+// 수량 변경시 날짜랑 금액 변경
+const tableBodyElems = document.querySelectorAll(".table-body-elem");
+
+const elem = tableBodyElems[0];
+
+const inputNumber = elem.querySelector(".quantity-input");
+
+inputNumber.addEventListener("change", function changeValue() {
+
+    const number = inputNumber.value;
+
+    const purchaseDay = elem.querySelector(".purchase-day");
+    purchaseDay.innerText = ( number * projectDay ) + " 일";
+
+    const pPrice = elem.querySelector(".purchase-price");
+    const newPrice = number * projectPrice;
+    const localPrice = newPrice.toLocaleString("ko-KR");
+    pPrice.innerText = "₩ " + localPrice;
+
+
+    setTotalPrice();
+
+})
+
+// 수량 바뀌면 기간이랑 금액 변경
+function changeLineValue() {
+    const tableBodyElems = document.querySelectorAll(".table-body-elem");
+
+    for(let i = 1; i < tableBodyElems.length - 1; i++) {
+
+        const elem = tableBodyElems[i];
+    
+        const inputNumber = elem.querySelector(".quantity-input");
+    
+        inputNumber.addEventListener("change", function changeValue() {
+    
+            const optionValue = elem.querySelector(".select-option").value;
+
+            const number = inputNumber.value;
+    
+            const purchaseDay = elem.querySelector(".purchase-day");
+            if(optionValue == "option1") {
+                purchaseDay.innerText = ( number * option1Day ) + " 일";
+            }
+            else if(optionValue == "option2") {
+                purchaseDay.innerText = ( number * option2Day ) + " 일";
+            }
+            else {
+                purchaseDay.innerText = " 일";
+            }
+    
+            const pPrice = elem.querySelector(".purchase-price");
+            if(optionValue == "option1") {
+                newPrice = ( number * option1Price );
+                const localPrice = newPrice.toLocaleString("ko-KR");
+                pPrice.innerText = "₩ " + localPrice;
+            }
+            else if(optionValue == "option2") {
+                newPrice = ( number * option2Price );
+                const localPrice = newPrice.toLocaleString("ko-KR");
+                pPrice.innerText = "₩ " + localPrice;
+            }
+            else {
+                purchaseDay.innerText = "";
+            }
+            
+            setTotalPrice();
+    
+        })
+    
+    }
+    
+
+}
+
+
+// 총 작업일 / 총 결제금액
 function setTotalPrice() {
-    const totalPrice = 0;
-    const elems = document.querySelectorAll(".table-body-elem");
+    let totalDay = 0;
+    let totalPrice = 0;
 
-    elems.forEach( elem => {
+    const tableBodyElems = document.querySelectorAll(".table-body-elem");
 
-    } )
+    for(let i = 0 ; i < tableBodyElems.length - 1 ; i++){
+
+        const elem = tableBodyElems[i];
+
+        const lineDay = elem.querySelector(".purchase-day").innerText;
+        const conversionDay = Number(lineDay.substring( 0, (lineDay.length-2) ));
+
+        totalDay += conversionDay;
+
+        const linePrice = elem.querySelector(".purchase-price").innerText;
+        const conversionPrice = Number( linePrice.substring(2).split(",").join("") );
+
+        totalPrice += conversionPrice;
+
+    }
+
+    const totalDayResult = document.querySelector(".total-day-result");
+    totalDayResult.innerText = totalDay + " 일";
+
+    const totalPriceResult = document.querySelector(".total-payment-result");
+
+    const localPrice = totalPrice.toLocaleString("ko-KR");
+    totalPriceResult.innerText = "₩ " + localPrice;
+
 }
 
 
