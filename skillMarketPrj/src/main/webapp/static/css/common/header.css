@@ -79,12 +79,12 @@
     align-items: center;
 }
 
-ul{
+.header-menu > ul{
     list-style: none;
     
 }
 
-li{
+.header-menu >  ul > li{
     float: left;
     margin-right: 20px;
 }

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/delete-member")
+@WebServlet("/my-info/delete-member")
 public class DeleteMember extends HttpServlet{
 
 	@Override
