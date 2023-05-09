@@ -2,6 +2,7 @@ main{
     width: 1000px;
     margin: auto;
     margin-top: 30px;
+    margin-bottom: 60px;
     display: flex;
 }
 
@@ -36,9 +37,133 @@ main{
 }
 
 .register-content{
-    margin-left: 50px;
+    margin-left: 70px;
 }
 
 select option[value=""][disabled] {
 	display: none;
+}
+
+.nick-text{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+input[name='memberNick']{
+    border-radius: 6px;
+    padding-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    width: 500px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+}
+
+input[name='expertAddress']{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 500px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+}
+
+input[name='expertTime']{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 500px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+}
+
+select[name='expertField']{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 500px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+    color: #7C7C7C;
+}
+
+select[name='expertCareerDuring']{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 398px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+    color: #7C7C7C;
+}
+
+.career-btn{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 398px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+    color: #7C7C7C;
+}
+
+.education-btn{
+    border-radius: 6px;
+    padding-left: 10px;
+    margin-left: 20px;
+    width: 398px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+    color: #7C7C7C;
+}
+
+.small{
+    color: #7C7C7C;
+    font-size: 10px;
+}
+
+.register-content-text{
+    margin-top: 35px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.career-content-text{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+textarea[name='expertIntroduction']{
+    width: 500px;
+    height: 180px;
+    resize: none;
+    border-radius: 6px;
+    border: 1px solid #7C7C7C;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.register-career-area{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-row-gap: 20px;
+    place-items: center;
+}
+
+.education-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-submit-btn{
+    margin-top: 40px;
+    width: 500px;
+    display: flex;
+    justify-content: end;
+}
+
+.register-submit-btn > input{
+    border: none;
+    border-radius: 6px;
+    width: 200px;
+    height: 60px;
+    background-color: #F8C925;
+    font-size: 20px;
 }
