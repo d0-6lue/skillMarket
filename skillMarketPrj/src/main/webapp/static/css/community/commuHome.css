@@ -3,7 +3,7 @@
     height: 100%;
 }
 
-/* 커뮤니티 전체 영역 (헤더)칸 */
+/* 커뮤니티 헤더칸 (커뮤니티, 글을 올려 소통해보세요~)  */
 .community-title-box{
     width: 100%;
     height: 120px;
@@ -48,7 +48,6 @@
     justify-content: space-between;
     margin: 10px auto;
     align-items: center;
-    background-color: beige;
 }
 
 /* 커뮤니티 왼쪽영역 감싸는 칸 */
@@ -102,7 +101,7 @@
     justify-content: center;
 }
 
-/* 정렬 박스 감싸는 칸 ~ */
+/* 정렬 박스 감싸는 칸 ~(최신순,정확도순,답변많은순,좋아요 순) */
 .posts-container-menu-bar{
     display: flex;
     padding-bottom: 12px;
@@ -160,3 +159,22 @@ text-decoration: none;
 .topic-group ul li:not(:last-child) {
 margin-right: 10px;
 }
+
+/* 게시글 박스 */
+.list-group {
+    display: flex;
+    align-items: flex-start;
+    width: 600px;
+    height: 150px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
