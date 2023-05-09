@@ -30,7 +30,12 @@
             <div class="register-area">
                 <div class="register-title bold">전문가 등록</div>
                 <div class="register-body">
-                    <div class="profile-img"><img src="" alt="프로필사진"></div>
+                    <div class="profile-area">
+                        <div class="profile-img">
+                            <img src="" alt="프로필사진">
+                        </div>
+                        <button type="button">프로필 변경</button>
+                    </div>
                     <div class="register-content">
                         <div class="nick-text">닉네임</div>
                         <input type="text" name="memberNick" placeholder="닉네임을 입력해주세요">
