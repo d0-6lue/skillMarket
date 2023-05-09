@@ -151,3 +151,19 @@ textarea[name='expertIntroduction']{
     justify-content: center;
     align-items: center;
 }
+
+.register-submit-btn{
+    margin-top: 40px;
+    width: 500px;
+    display: flex;
+    justify-content: end;
+}
+
+.register-submit-btn > input{
+    border: none;
+    border-radius: 6px;
+    width: 200px;
+    height: 60px;
+    background-color: #F8C925;
+    font-size: 20px;
+}

@@ -60,8 +60,8 @@
                             <div class="career-content-text">학력·전공</div>
                             <button class="education-btn" type="button"></button>
                         </div>
-                        <div>
-                            <input type="submit" value="전문가 등록">
+                        <div class="register-submit-btn">
+                            <input class="bold" type="submit" value="전문가 등록">
                         </div>
 
                     </div>
