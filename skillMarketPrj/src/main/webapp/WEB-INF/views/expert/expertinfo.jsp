@@ -40,7 +40,7 @@
                 <div class="expertinfo-body">
                     <div class="profile-area">
                         <div class="profile-img">
-                            <img src="" alt="프로필사진">
+                            <img src="${root}/static/png/예시사진.png" alt="프로필사진">
                         </div>
                         <button class="profile-btn bold" type="button">프로필 변경</button>
                     </div>
