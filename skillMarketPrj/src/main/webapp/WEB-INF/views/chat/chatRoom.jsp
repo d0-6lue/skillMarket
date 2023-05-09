@@ -115,7 +115,7 @@
                 <div class="request-modal-category">
                     <span class="regular subhead">카테고리</span>
                     <select name="request-category" id="request-select">
-                        <option value="">--요청하실 카테고리를 골라주세요--</option>
+                        <option value="" hidden>--요청하실 카테고리를 골라주세요--</option>
                         <option value="deadline-extension">마감기간 연장</option>
                         <option value="deadline-reduce">마감기간 단축</option>
                         <option value="option-add">옵션 추가</option>

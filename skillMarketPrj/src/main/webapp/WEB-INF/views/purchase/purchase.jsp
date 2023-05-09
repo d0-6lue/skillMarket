@@ -26,7 +26,7 @@
                     <div class="project-info-text">
                         <div class="project-title bold">프로젝트명</div>
                         <div class="project-explanation regular">
-                            프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 
+                            프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 
                         </div>
                     </div>
                 </div>
@@ -45,20 +45,28 @@
                             <div class="purchase-quantity">
                                 <input class="quantity-input" type="number" min="1" value="1">
                             </div>
-                            <div class="regular purchase-day align-center">300일</div>
+                            <div class="regular purchase-day align-center">300 일</div>
                             <div class="regular purchase-price align-end">₩ 3,000,000</div>
                         </div>
-                        <div class="table-body-elem horizontal-alignment">
+                        <div class="table-body-elem btn-row horizontal-alignment">
                             <div class="add-elem bold">
                                 +
+                            </div>
+                            <div class="remove-elem bold">
+                                -
                             </div>
                         </div>
                     </div>
 
                     <div class="purchase-table-footer horizontal-alignment">
+                        <div class="total-day horizontal-alignment">
+                            <div class="bold ">총 작업일</div>
+                            <div class="bold total-day-result">300 일</div>
+                        </div>
+                        /
                         <div class="total-pay horizontal-alignment">
                             <div class="bold ">총 결제금액</div>
-                            <div class="bold ">₩ 3,300,000</div>
+                            <div class="bold total-payment-result">₩ 3,000,000</div>
                         </div>
                     </div>
                 </div>
@@ -88,6 +96,10 @@
                         </div>
                     </div>
                     <div class="purchase-method-detail">
+
+                        <div class="purchase-detail-area">
+                            
+                        </div>
 
                     </div>
                 </div>

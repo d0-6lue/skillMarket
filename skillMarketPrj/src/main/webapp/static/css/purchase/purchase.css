@@ -14,6 +14,7 @@
 .project-info {
     margin: 30px 0;
     display: flex;
+    justify-content: space-between;
 }
 /* 프로젝트 썸네일 */
 .project-thumbnail {
@@ -27,6 +28,7 @@
 }
 /* 프로젝트 설명 */
 .project-explanation{
+    width: 750px;
     font-size: 20px;
 
     overflow-x: auto;
@@ -59,6 +61,12 @@
     margin: 10px 0;
 }
 
+.btn-row {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .add-elem {
     width: 30px;
     height: 30px;
@@ -69,12 +77,37 @@
     cursor: pointer;
 }
 
+.add-elem-inactive {
+    visibility: hidden;
+}
+
+.remove-elem {
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 15px;
+    cursor: pointer;
+
+    visibility: hidden;
+}
+
+.remove-elem-active {
+    visibility: visible;
+}
+
 .purchase-table-footer {
     font-size: 28px;
     padding-bottom: 10px;
-    justify-content: end;
+    justify-content: space-between;
     border-bottom: 2px solid black;
     border-spacing: 5px;
+}
+.total-day {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
 }
 .total-pay {
     width: 400px;
@@ -165,6 +198,12 @@
     border-top: 0px solid transparent;
     border-top: 0px solid transparent;
 }
+
+.purchase-detail-area {
+    width: 880px;
+    height: 300px;
+}
+
 
 /* 구매하기 버튼 */
 .purchase-btn {
