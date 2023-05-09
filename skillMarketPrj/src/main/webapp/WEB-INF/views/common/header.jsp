@@ -24,7 +24,7 @@
                 
                 <div class="header-logo">
                     <a href="/skillmarket/home" class="header-logoimg">
-                        <img src="static/svg/메인로고.svg" alt="로고이미지">
+                        <img src="${root}/static/svg/메인로고.svg" alt="로고이미지">
                     </a>
                 </div>
                 <div class="header-search">
@@ -67,7 +67,7 @@
         <div class="modal-body">
             <div class="m-head">
                 <div class="m-img">
-                    <img src="static/svg/로그인사진.svg" alt="로그인사진">
+                    <img src="${root}/static/svg/로그인사진.svg" alt="로그인사진">
                 </div>
                 <form action="${root}/login" method="post">
                 <div class="m-main">

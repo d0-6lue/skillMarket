@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/change-pwd")
+@WebServlet("/my-info/change-pwd")
 public class ChangePwd extends HttpServlet{
 	
 	@Override
