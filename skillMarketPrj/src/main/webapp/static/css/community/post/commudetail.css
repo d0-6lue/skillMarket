@@ -1,0 +1,92 @@
+.main {
+    width: 100%;
+    height: 800px;
+}
+
+/*  회색 박스입니다 ~*/
+/* 커뮤니티 헤더칸 (커뮤니티, 글을 올려 소통해보세요~)  */
+.community-title-box{
+    width: 100%;
+    height: 120px;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items : center;
+    border-bottom: 1px solid;
+}
+
+
+/* 글자 감싸는 칸 */
+.community-header-content {
+    width: 950px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+/* 커뮤니티 제목입니다. */
+.community-title{
+    width: 950px;
+    height: 20px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+/* 주제입니다*/
+.community-desc-content{
+    width: 950px;
+    height: 20px;
+    font-size: 16px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*  커뮤니티 글보는 메인칸입니다*/
+.community-detail-box{
+    width: 950px;
+    height: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border: 1px solid;
+}
+
+/* 사용자 정보 박스 담을 칸 ~ */
+.detail-userinfo-box{
+    width: 950px;
+    height: 150px;
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid;
+}
+
+/* 사용자 정보 박스 */
+.g-0{
+    width: 500px;
+    height: 100px;
+}
+
+/* 게시글 내용입니다. */
+.community-detail-board-info-box{
+    width: 950px;
+    height: 800px;
+}
+
+/* 게시글 댓글 감싸는 상자 */
+.community-detail-reply-content-box{
+    width: 950px;
+    height: 250px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 댓글 감싸는 상자 */
+.community-comment-reply-box{
+    width: 950px;
+    height: 125px;
+}

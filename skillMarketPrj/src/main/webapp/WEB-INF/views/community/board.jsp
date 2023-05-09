@@ -9,6 +9,9 @@
 <meta charset="UTF-8">
 <title>커뮤 홈</title>
 <link rel="stylesheet" href="${root}/static/css/community/commuHome.css">
+<script defer src="${root}/static/js/community/commuHome.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -26,7 +29,7 @@
 				<div class="community-desc-content">
 					<span class="community-desc-text">게시글을 올려 소통해보세요~</span>
 					<span>
-						<a class="btn btn-primary" href="${root}/community/post/write">글쓰기</a>
+						<a class="btn btn-primary" onclick="writePostWithTopic()">글쓰기</a>
 					</span>
 				</div>
 			</div>					
@@ -43,7 +46,7 @@
 							<li><a href="${root}/community/all">전체</a></li>
 							<li><a href="${root}/community/together">함께해요</a></li>
 							<li><a href="${root}/community/qna">궁금해요</a></li>
-							<li><a href="${root}/community/how-much">리뷰</a></li>
+							<li><a href="${root}/community/how-much">얼마에요</a></li>
 						</ul>
 					</div>
 				</div>
@@ -90,6 +93,99 @@
 									</li>
 								</ul>
 							</div>
+
+							<!-- 게시글입니다. -->
+							<br>
+							<div class="list-group">
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action" aria-current="true">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+								<a href="${root}/community/post/detail" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">게시글 제목</h5>
+									<small>3일전</small>
+									</div>
+									<p class="mb-1">게시글 내용</p>
+									<small>게시글 작성자</small>
+								</a>
+							</div>	
+
+							
+
+							
+						
+							
+	
+								
 						</div>
 						<!--메인 오른쪽 끝~  -->
 						
