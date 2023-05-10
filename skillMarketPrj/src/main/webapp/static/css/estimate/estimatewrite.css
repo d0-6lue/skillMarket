@@ -1,25 +1,79 @@
-.main {
+/* 전체 화면 */
+html, body {
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
-
-/*  견적서 메인칸입니다*/
-.estimate-main-box{
+/* 견적서 메인칸 */
+.estimate-main-box {
     width: 950px;
-    height: 1200px;
+    height: 800px;
     display: flex;
     justify-content: space-between;
-    margin: 10px auto;
+    margin: auto;
     align-items: center;
     background-color: beige;
 }
-
-.row{
+/* 왼쪽 사이드바 */
+.sidebar {
     display: flex;
-    flex-direction:row;
+    flex-direction: column;
     justify-content: flex-start;
     width: 200px;
     height: 100%;
+    background-color: #f1f1f1;
+    padding: 20px;
 }
+
+.list-group-item {
+    background-color: #f1f1f1;
+    border: none;
+}
+.list-group-item.active {
+    background-color: #fff;
+    color: #495057;
+    border: none;
+}
+/* 오른쪽 입력 폼 */
+.form {
+    padding: 20px;
+    height: 100%;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-control-lg {
+    border-radius: 15px;
+    height: 100px;
+}
+.btn-next {
+    margin-top: 20px;
+    float: right;
+}
+
+/* 오른쪽 입력폼들 감싸는 상자입니다 ~ */
+.col-8.form{
+    width: 800px;
+}
+
+.estimate-footer-box {
+    width: 100%;
+    height: 100px;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* 다음버튼입니다. */
+.estimate-footer-box .estimate-next-btn {
+margin-right: 180px;
+}
+
+.form-control form-control-lg{
+    resize: none;
+}
+
 
 
