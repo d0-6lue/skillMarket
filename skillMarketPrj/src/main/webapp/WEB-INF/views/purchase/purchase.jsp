@@ -60,13 +60,13 @@
 
                     <div class="purchase-table-footer horizontal-alignment">
                         <div class="total-day horizontal-alignment">
-                            <div class="bold ">총 작업일</div>
-                            <div class="bold total-day-result">300 일</div>
+                            <div class="bold ">마감 예정일</div>
+                            <div class="bold total-day-result"></div>
                         </div>
-                        /
+                        •
                         <div class="total-pay horizontal-alignment">
                             <div class="bold ">총 결제금액</div>
-                            <div class="bold total-payment-result">₩ 3,000,000</div>
+                            <div class="bold total-payment-result"></div>
                         </div>
                     </div>
                 </div>
@@ -98,13 +98,15 @@
                     <div class="purchase-method-detail">
 
                         <div class="purchase-detail-area">
+
+                            <!-- js에서 생성 -->
                             
                         </div>
 
                     </div>
                 </div>
 
-                <button class="purchase-btn">구매하기</button>
+                <button class="purchase-btn bold">구매하기</button>
 
             </div>
 

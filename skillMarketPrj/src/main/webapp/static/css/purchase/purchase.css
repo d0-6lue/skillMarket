@@ -197,11 +197,65 @@
     border: 1px solid rgb(248,201,37);
     border-top: 0px solid transparent;
     border-top: 0px solid transparent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .purchase-detail-area {
-    width: 880px;
-    height: 300px;
+    width: 800px;
+    height: 200px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase-method-select {
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase-method-info {
+    font-size: 20px;
+    height: 50px;
+    line-height: 2;
+}
+
+.horizontal-border {
+    width: 800px;
+    height: 1px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.holding-point-area {
+    height: 30px;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 18px;
+}
+
+.deficient-point-area {
+    height: 30px;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 18px;
+}
+
+.cash-charge-btn {
+    width: 150;
+    height: 50px;
+    margin-top: 65px;
+    font-size: 22px;
+    background-color: rgb(248,201,37);
+    border: 0px solid transparent;
+    align-self: center;
 }
 
 
@@ -209,8 +263,10 @@
 .purchase-btn {
     width: 200;
     height: 65px;
-    margin: 20px 0;
+    margin: 50px 0;
     font-size: 28px;
     background-color: rgb(248,201,37);
+    border: 0px solid transparent;
     align-self: center;
 }
+
