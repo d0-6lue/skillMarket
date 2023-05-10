@@ -98,34 +98,122 @@
     cursor: pointer;
 }
 
-.nav-area{
+/* --------------------------------------------------------------------- */
+/* nav ( 전체카테고리, 인기견적서, 커뮤니티 ) */
+.nav-list {
     height: 50px;
     display: flex;
     align-items: center;
-    margin-left: 40px;
-    
 }
 
-.nav-area > div{
-    margin-right: 60px;
+.nav-elem {
+    width: 150px;
+    height: 100%;
 }
 
-.nav-area > #category-area{
+.nav-alink {
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-.nav-area > div > a{
-
-    color: black;
     text-decoration: none;
+    color: black;
 
+    width: 150px;
+    height: 100%;
 }
 
-.category-spl{
-    margin-left: 10px;
+.first-nav-elem{
+    display: grid;
+    grid-template-columns: 50px 100px;
+    grid-template-rows: 50px;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 150px;
+    height: 100%;
+    margin: 0px 25px;
+
+    cursor: pointer;
 }
+.first-nav-elem:hover {
+    border-bottom: 4px solid rgb(252,216,45);
+}
+.first-nav-elem:hover > .category-bar {
+    visibility: visible;
+}
+
+/* 카테고리 바 + 호버 */
+.category-bar {
+    width: 950px;
+
+    display: grid;
+    grid-template-columns: 150px 800px;
+    visibility: hidden;
+}
+
+.simple-category {
+    width: 150px;
+
+    background-color: rgb(236,236,236);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-menu {
+    width: 120px;
+    height: 160px;
+    padding: 0px 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.big-category, .mid-category {
+    width: 120px;
+    height: 25px;
+    
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+}
+
+.detail-category-area {
+    width: 800px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+
+    visibility: hidden;
+}
+.detail-category-area-active {
+    visibility: visible;
+}
+
+.detail-category {
+    width: 750px;
+    height: 95%;
+
+    display: grid;
+    grid-template-columns: repeat(4, 200px);
+}
+
+.detail-mid-category, .detail-sml-category {
+    width: 120px;
+    height: 22px;
+
+    font-size: 12px;
+}
+
+
+/* --------------------------------------------------------------------- */
+
 
 .modal {
     position: fixed;
