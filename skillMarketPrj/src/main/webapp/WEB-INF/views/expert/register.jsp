@@ -32,9 +32,9 @@
                 <div class="register-body">
                     <div class="profile-area">
                         <div class="profile-img">
-                            <img src="" alt="프로필사진">
+                            <img src="${root}/static/png/예시사진.png" alt="프로필사진">
                         </div>
-                        <button type="button">프로필 변경</button>
+                        <button class="profile-btn" type="button">프로필 등록</button>
                     </div>
                     <div class="register-content">
                         <div class="nick-text">닉네임</div>
