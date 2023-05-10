@@ -14,3 +14,22 @@ function locationOrderDetail() {
 
     location.href = contextPath + "/chat/room";
 };
+
+
+function computeProgress() {
+    let startDay = document.querySelector(".start-day").innerText;
+    let deadline = document.querySelector(".deadline").innerText;
+
+    startDay = new Date(startDay);
+    deadline = new Date(deadline);
+
+    const today = new Date();
+
+    const totalDay = deadline.getTime(); - startDay.getTime();
+    const progressDay = today.getTime() - startDay.getTime();
+
+    const progress = document.querySelector(".progress-rate");
+    progress.innerText = ( (progressDay / totalDay) * 10000 ).toFixed(2) + "%";
+}
+
+computeProgress();

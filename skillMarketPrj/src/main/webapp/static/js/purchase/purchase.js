@@ -4,36 +4,154 @@ const radioBtns = document.querySelectorAll('input[name="purchase-method-radio"]
 
 radioBtns.forEach( radioBtn => {
 
-    radioBtn.addEventListener("click" , changeMethod)
+    radioBtn.addEventListener("click" , e => changeMethod(e))
 });
 
-function changeMethod() {
+function changeMethod(e) {
     radioBtns.forEach( radioBtn => {
 
         const id = radioBtn.getAttribute("id");
+
         const target = document.querySelector('label[for="' + id + '"]');
 
         if(radioBtn.checked) {
             target.classList.add("method-elem-active");
+
+            if(id == "skillpoint") {
+                purchaseDetailAreaToSp();
+    
+                changeHoldingPoint();
+                changeDeficientPoint();
+    
+            }
+            else if(id == "credit-card") {
+                purchaseDetailAreaToCC();
+            }
+            else if(id == "account-transfer") {
+                purchaseDetailAreaToAT();
+            }
+            else if(id == "mobile-phone-payment") {
+                purchaseDetailAreaToMP();
+            }
         }
         else {
             target.classList.remove("method-elem-active");
         }
-
-        if(id == "skillpoint") {
-
-        }
-        else if(id == "credit-card") {
-
-        }
-        else if(id == "account-transfer") {
-
-        }
-        else if(id == "mobile-phone-payment") {
-
-        }
     
     });
+}
+
+function purchaseDetailAreaToSp() {
+
+    const detailArea = document.querySelector(".purchase-detail-area");
+
+    detailArea.replaceChildren("");
+
+    const methodInfo = document.createElement("div");
+    methodInfo.classList.add("purchase-method-info");
+    methodInfo.classList.add("regular");
+    methodInfo.innerText = "스킬마켓 전용 충전형 포인트";
+
+    detailArea.append(methodInfo);
+
+    const line = document.createElement("div");
+    line.classList.add("horizontal-border");
+
+    detailArea.append(line);
+
+    const selectMethod = document.createElement("div");
+    selectMethod.classList.add("purchase-method-select");
+
+    const pointArea = document.createElement("div");
+    pointArea.classList.add("holding-point-area");
+
+    const text1 = document.createElement("div");
+    text1.classList.add("regular");
+    text1.innerText = "보유 포인트";
+
+    pointArea.append(text1);
+
+    const holdingPoint = document.createElement("div");
+    holdingPoint.classList.add("member-holding-point");
+
+    const point = document.createElement("span");
+    point.classList.add("holding-point");
+    point.classList.add("regular");
+
+    const unit = document.createElement("span");
+    unit.classList.add("sp-unit");
+    unit.classList.add("regular");
+    unit.innerText = "sp";
+
+    holdingPoint.append(point);
+    holdingPoint.append(unit);
+
+    pointArea.append(holdingPoint);
+
+    const deficientArea = document.createElement("div");
+    deficientArea.classList.add("deficient-point-area");
+
+    const text2 = document.createElement("div");
+    text2.classList.add("regular");
+    text2.innerText = "부족한 포인트";
+
+    deficientArea.append(text2);
+
+    const tempDiv = document.createElement("div");
+    
+    const deficientPoint = document.createElement("span");
+    deficientPoint.classList.add("deficient-point");
+    deficientPoint.classList.add("regular");
+
+    tempDiv.append(deficientPoint);
+    tempDiv.append(unit);
+
+    deficientArea.append(tempDiv);
+
+    const chargeBtn = document.createElement("button");
+    chargeBtn.classList.add("cash-charge-btn");
+    chargeBtn.classList.add("regular");
+    chargeBtn.innerText = "충전하기";
+
+
+    selectMethod.append(pointArea);
+    selectMethod.append(deficientArea);
+    selectMethod.append(chargeBtn);
+
+    detailArea.append(selectMethod);
+
+}
+purchaseDetailAreaToSp();
+
+
+function purchaseDetailAreaToCC() {
+
+    const detailArea = document.querySelector(".purchase-detail-area");
+
+    detailArea.replaceChildren("");
+
+    detailArea.append("신용카드 거래~~~")
+
+}
+
+function purchaseDetailAreaToAT() {
+
+    const detailArea = document.querySelector(".purchase-detail-area");
+
+    detailArea.replaceChildren("");
+
+    detailArea.append("계좌이체 거래~~~")
+
+}
+
+function purchaseDetailAreaToMP() {
+
+    const detailArea = document.querySelector(".purchase-detail-area");
+
+    detailArea.replaceChildren("");
+
+    detailArea.append("휴대폰 결제 거래~~~")
+
 }
 
 
@@ -151,6 +269,10 @@ removeOptionBtn.addEventListener("click" , function() {
         addOptionBtn.classList.remove("add-elem-inactive");
     }
 
+    setTotalPrice();
+
+    changeDeficientPoint();
+
 });
 
 
@@ -176,6 +298,8 @@ inputNumber.addEventListener("change", function changeValue() {
 
     setTotalPrice();
 
+    changeDeficientPoint();
+
 })
 
 // 수량 바뀌면 기간이랑 금액 변경
@@ -196,9 +320,11 @@ function changeLineValue() {
     
             const purchaseDay = elem.querySelector(".purchase-day");
             if(optionValue == "option1") {
+                
                 purchaseDay.innerText = ( number * option1Day ) + " 일";
             }
             else if(optionValue == "option2") {
+                
                 purchaseDay.innerText = ( number * option2Day ) + " 일";
             }
             else {
@@ -221,6 +347,8 @@ function changeLineValue() {
             }
             
             setTotalPrice();
+
+            changeDeficientPoint();
     
         })
     
@@ -256,12 +384,27 @@ function setTotalPrice() {
     const totalDayResult = document.querySelector(".total-day-result");
     totalDayResult.innerText = totalDay + " 일";
 
+    let today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+    today = year + "/" + month + "/" + date;
+
+    const todayTime = new Date(today);
+    deadlineTime = todayTime.getTime() + ( totalDay * 24 * 60 * 60 * 1000 );
+    deadline = new Date(deadlineTime);
+
+    deadlineStr = deadline.getFullYear() + "/" + (deadline.getMonth() + 1) + "/" + deadline.getDate();
+
+    totalDayResult.innerText = deadlineStr;
+
     const totalPriceResult = document.querySelector(".total-payment-result");
 
     const localPrice = totalPrice.toLocaleString("ko-KR");
     totalPriceResult.innerText = "₩ " + localPrice;
 
 }
+setTotalPrice();
 
 
 
@@ -280,3 +423,32 @@ purchaseBtn.addEventListener("click", () => {
 
     location.href = contextPath + "/purchase/completed";
 })
+
+
+//----------------------------------------------------------------
+// 캐시 결제
+
+function getHoldingPoint() {
+
+    return 3000000;
+}
+
+function changeHoldingPoint() {
+
+    document.querySelector(".holding-point").innerText = getHoldingPoint();
+
+}
+changeHoldingPoint();
+
+function changeDeficientPoint() {
+
+    const totalPayResult = document.querySelector(".total-payment-result");
+
+    const totalPay = (Number)( totalPayResult.innerText.split(",").join("").substring(2) );
+
+    const deficient = getHoldingPoint() - totalPay;
+
+    document.querySelector(".deficient-point").innerText = deficient;
+
+}
+changeDeficientPoint();

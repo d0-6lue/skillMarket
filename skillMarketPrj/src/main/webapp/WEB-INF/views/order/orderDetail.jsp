@@ -38,15 +38,15 @@
                         <div class="date-info horizontal-alignment">
                             <div class="purchase-date horizontal-alignment">
                                 <div class="bold ">구매날짜</div>
-                                <div class="regular ">2022-12-30</div>
+                                <div class="regular start-day">2022/12/30</div>
                             </div>
                             <div class="dead-line-date horizontal-alignment">
-                                <div class="bold ">판매날짜</div>
-                                <div class="regular ">2023-08-16</div>
+                                <div class="bold ">마감날짜</div>
+                                <div class="regular deadline">2023/08/16</div>
                             </div>
                             <div class="date-progress horizontal-alignment">
                                 <div class="bold ">진행률</div>
-                                <div class="regular ">65%</div>
+                                <div class="regular progress-rate"></div>
                             </div>
                         </div>
                         <div class="total-payment-amount horizontal-alignment">
