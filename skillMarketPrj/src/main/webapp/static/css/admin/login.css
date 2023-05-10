@@ -110,4 +110,8 @@ input.submit:focus {
     scale: 1.05;
 }
 
+input.submit:disabled {
+    background-color : #bdbdbd
+}
+
 
