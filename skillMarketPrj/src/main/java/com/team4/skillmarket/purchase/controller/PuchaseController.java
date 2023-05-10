@@ -1,4 +1,4 @@
-package com.team4.skillmarket.purchase;
+package com.team4.skillmarket.purchase.controller;
 
 import java.io.IOException;
 

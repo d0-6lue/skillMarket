@@ -1,0 +1,132 @@
+main {
+    width: 1000px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.refund-title {
+    height: 150px;
+    font-size: 36px;
+    line-height: 2.5;
+}
+
+.horizontal-border {
+    width: 1000px;
+    height: 1px;
+    margin-bottom: 20px;
+
+    border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+.horizontal-border2 {
+    width: 1000px;
+    height: 1px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid rgb(141, 141, 141);
+}
+
+.holding-point-bar {
+    font-size: 22px;
+    width: 95%;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.member-holding-point {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.refund-point-bar {
+    font-size: 22px;
+    width: 95%;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-refund-point {
+    width: 190px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-number {
+    width: 150px;
+    text-align: end;
+}
+
+.result-point-bar {
+    font-size: 22px;
+    width: 95%;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.refund-result-point {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.refund-accound-text {
+    font-size: 24px;
+    height: 50px;
+}
+
+.refund-account-bar {
+    font-size: 22px;
+    width: 95%;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.refund-bank {
+    width: 170px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bank-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.refund-caution {
+    margin-top: 100px;
+}
+.refund-terms {
+    margin-top: 4px;
+}
+
+.refund-caution > a, .refund-terms > a {
+    text-decoration: none;
+    color: rgb(141, 141, 141);
+}
+
+.refund-btn {
+    width: 200px;
+    height: 65px;
+    margin: 50px 0px;
+
+    font-size: 28px;
+
+    background-color: rgb(248,201,37);
+    border: 0px solid transparent;
+
+    align-self: center;
+}
