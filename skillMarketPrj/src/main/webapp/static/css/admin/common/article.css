@@ -232,10 +232,10 @@ article .statistics th.table_type_1 {
     font-weight: 600;
 }
 
-.subtitle > div > div:last-child {
+/* .subtitle > div > div:last-child {
     color: #7D7D7D;
     font-size: 20px;
-}
+} */
 
 .table_type_2 span {
     color: #273F6D;

@@ -13,6 +13,12 @@ public class AdminHomeController extends HttpServlet{
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		if (req.getSession().getAttribute("AdminLoginVo") == null) {
+			resp.sendRedirect(req.getContextPath() + "/admin/login");
+			return;
+		}
+		
 		req.getRequestDispatcher("/WEB-INF/views/admin/home/home.jsp").forward(req, resp);
 	}
 	

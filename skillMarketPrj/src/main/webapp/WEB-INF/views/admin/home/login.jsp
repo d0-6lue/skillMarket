@@ -22,31 +22,15 @@
                     <input class="admin_login admin_login_input" type="text" name="adminId" placeholder="아이디를 입력하세요">
                     <input class="admin_login admin_login_input" type="password" name="adminPwd" placeholder="비밀번호를 입력하세요">
                 </div>
-                <input class="admin_login submit" onclick="login();" type="button" value="로그인">
+                <input class="admin_login submit" type="submit" value="로그인" >
             </form>
             
 
         </div>
     </div>
     
-    <script>
-
-        const adminLogin =  document.querySelectorAll(".admin_login_input");
-
-        // adminLogin.forEach(function (event) {
-        //     event.addEventListener("focus", ()=>{
-        //         event.style.borderColor = "#F8C925"
-        //     })
-        // })
-        
-
-        function login() {
-            console.log(adminId.value);
-        }
-
-    </script>
 
 </body>
 </html>
 <link rel="stylesheet" href="${root}/static/css/admin/login.css">
-<script src="${root}/static/css/admin/login.js"></script>
+<script src="${root}/static/js/admin/login.js"></script>

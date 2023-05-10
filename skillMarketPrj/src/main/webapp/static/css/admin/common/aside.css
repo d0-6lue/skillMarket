@@ -77,11 +77,9 @@ aside{
 }
 
 #logo-area > div > img {
-    margin-top: 7px;
-    width: 139px;
-    height: 105px;
-    object-fit: cover;
-    transform: translate(50,50);
+   
+    height: 95%;
+    
 } 
 
 .side_meue {
