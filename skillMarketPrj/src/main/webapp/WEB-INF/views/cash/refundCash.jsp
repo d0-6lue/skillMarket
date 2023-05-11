@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/refund/refundCash.css">
-<script defer src="${root}/static/js/refund/refundCash.js"></script>
+<link rel="stylesheet" href="${root}/static/css/cash/refundCash.css">
+<script defer src="${root}/static/js/cash/refundCash.js"></script>
 </head>
 <body>
 
