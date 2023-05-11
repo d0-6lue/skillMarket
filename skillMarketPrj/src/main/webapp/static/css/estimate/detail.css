@@ -1,0 +1,181 @@
+/* 견적서 상세보기 css입니다~ */
+
+.main{
+    width: 100%;
+    height: 100%;
+}
+
+/*  메인 박스입니다 ~*/
+.esti-info-box{
+    width: 960px;
+    height: 1800px;
+    display: flex;
+    flex-direction: row;
+    align-items : center;
+    margin: 10px auto;
+}
+
+
+/* 서비스 왼쪽영역 감싸는 칸 */
+.esti-info-main{
+    width: 570px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* 서비스 메뉴바 고정시키려고*/
+.scrollspy-fixed{
+    position: sticky;
+    top : 152px;
+}
+
+/* 프로필 이미지 감싸기 ~ */
+.profile-image-box {
+    display: flex;
+    justify-content: center;
+    width: 450px;
+    height: 400px;
+    position: relative;
+    margin: 60;
+}
+
+/* 프로필 이미지  */
+.profile-img {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+}
+
+/* 서비스 오른쪽 영역 감싸는 칸 */
+.esti-info-aside{
+    position: relative;
+    width: 390px;
+    height: 100%;
+
+}
+
+
+/* 좋아요 감싸기  */
+.like-box{
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 요금표 감싸기 */
+.esti-pricelist-box {
+    box-sizing: border-box;
+    width: 360px;
+    margin: auto 45;
+    margin-top: 45px;
+}
+
+.price-list {
+box-sizing: border-box;
+width: 100%;
+border: 1px solid;
+padding: 30px;
+display: flex;
+flex-direction: column;
+}
+
+.price {
+font-size: 24px;
+font-weight: bold;
+}
+
+.service {
+margin-top: 20px;
+font-weight: bold;
+}
+
+.price-desc {
+margin-top: 10px;
+margin-bottom: 20px;
+}
+
+.jobdate-box {
+display: flex;
+justify-content: flex-start;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.modify-box {
+display: flex;
+justify-content: flex-end;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.text-center {
+text-align: center;
+}
+
+.btn-primary {
+width: 100%;
+}
+
+/* 셀러 프로필 감싸는상자 */
+.seller-profile-box{
+    box-sizing: border-box;
+    position: relative;
+    width: 360px;
+    height: 350px;
+    border: 1px solid;
+    margin: auto;
+    margin: 45px;
+    display: flex;
+    flex-direction: column;
+}
+
+.seller-name-box{
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    font-size: 25px;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+}
+
+.seller-name{
+    margin: 30px 0 0 -250px;
+}
+
+.wrapper {
+    margin: 0 auto;
+    padding: 30px;
+    max-width: 1170px;
+}
+
+.img-seller{
+    margin: -60px 160px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgb(0,0,0);
+    border-radius: 50%;
+}
+
+.seller-container{
+    font-size: 16px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-available-time {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.seller-intro {
+    margin-left: 20px;
+}

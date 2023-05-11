@@ -43,7 +43,7 @@
                     <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                         <div class="form-group">
                             <label for="job-title">제목</label>
-                            <input type="text" class="form-control" id="job-title" placeholder="서비스를 잘 드러낼 수 있는 제목을 입력하세요">
+                            <input type="text" class="form-control" id="job-title" placeholder="서비스를 잘 드러낼 수 있는 제목을 입력하세요 최대 30자까지 가능합니다." maxlength="30">
                         </div>
                         <div class="form-group">
                             <label for="job-category">카테고리</label>
@@ -69,7 +69,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-control-lg">
                             <label for="job-portfolio">포트폴리오</label>
                             <input type="file" name="portfoli-submit">
                         </div>
@@ -79,15 +79,31 @@
                     <div class="tab-pane fade" id="list-price" role="tabpanel" aria-labelledby="list-price-list">
                         <div class="form-group">
                         <label for="job-date">작업일</label>
-                        <input type="text" class="form-control" id="job-date" placeholder="작업일을 입력하세요">
+                        <select class="form-control" id="job-date">
+                            <option value="" disabled selected>작업일</option>
+                            <option value="job-date1">1</option>
+                            <option value="job-date2">2</option>
+                            <option value="job-date3">3</option>
+                            <option value="job-date4">4</option>
+                            <option value="job-date5">5</option>
+                            <option value="job-date6">6</option>
+                        </select>
                         </div>
                         <div class="form-group">
                         <label for="job-duration">작업기간</label>
-                        <input type="text" class="form-control" id="job-duration" placeholder="작업기간을 입력하세요">
+                            <select class="form-control" id="job-duration">
+                                <option value="" disabled selected>작업기간</option>
+                                <option value="job-duration1">1</option>
+                                <option value="job-duration2">2</option>
+                                <option value="job-duration3">3</option>
+                                <option value="job-duration4">4</option>
+                                <option value="job-duration5">5</option>
+                                <option value="job-duration6">6</option>
+                            </select>
                         </div>
                         <div class="form-group">
                         <label for="job-price">금액</label>
-                        <input type="text" class="form-control" id="job-price" placeholder="금액을 입력하세요">
+                            <input type="text" class="form-control" id="job-price" placeholder="5000">
                         </div>
                     </div>
 
@@ -113,12 +129,12 @@
                     <div class="tab-pane fade" id="list-image" role="tabpanel" aria-labelledby="list-image-list">
                         <div class="form-group">
                         <label for="job-mainfile-upload">메인이미지등록(필수)</label>    
-                        <input  class="form-control form-control-lg" type="submit" name="main-file-upload">
+                        <input  class="form-control form-control-lg" type="file" name="main-file-upload">
                         </div>
                         <hr>
                         <div class="form-group">
                             <label for="job-subfile-upload">상세이미지등록(선택)</label>    
-                            <input class="form-control form-control-lg" type="submit" name="sub-file-upload">
+                            <input class="form-control form-control-lg" type="file" name="sub-file-upload">
                         </div>
 
 
