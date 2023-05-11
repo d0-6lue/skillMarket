@@ -26,7 +26,7 @@
                     </div>
                     <div class="profile-nick bold">스킬쟁이123</div>
                     
-                    <button class="profile-btn bold" type="button">전문가로 변환</button>
+                    <a class="profile-btn bold" href="${root}/expert/request-list">전문가로 변환</a>
                 </div>
                 <div class="nav-customer-title-area bold">
                     <div>마이페이지</div>
@@ -45,9 +45,10 @@
                 <div class="cash-title bold">캐시 충전</div>
 
                 <div class="cash-charge-area">
-
-                    <div>충전 캐시</div>
-                    <div>충전할 금액을 선택해주세요</div>
+                    <div class="cash-charge-text">
+                        <div class="cash-charge-title bold">충전 캐시</div>
+                        <div class="cash-charge-title-sub bold">충전할 금액을 선택해주세요</div>
+                    </div>
                     <div class="cash-charge-box-area">
                         <button class="amount-btn" value="50000">5만원</button>
                         <button class="amount-btn" value="100000">10만원</button>
@@ -61,7 +62,7 @@
                         </div>
                     </div>
                     
-                    <button class="charge-btn">충전하기</button>
+                    <button disable="" class="charge-btn bold yellow">충전하기</button>
                 </div>
 
             </div>

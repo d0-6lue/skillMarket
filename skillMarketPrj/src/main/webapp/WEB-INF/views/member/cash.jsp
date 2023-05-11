@@ -24,7 +24,7 @@
                         <img src="${root}/static/png/예시사진.png" alt="프로필사진">
                     </div>
                     <div class="profile-nick bold">스킬쟁이123</div>
-                    <button class="profile-btn bold" type="button">전문가로 변환</button>
+                    <a class="profile-btn bold" href="${root}/expert/request-list">전문가로 변환</a>
                 </div>
                 <div class="nav-customer-title-area bold">
                     <div>마이페이지</div>

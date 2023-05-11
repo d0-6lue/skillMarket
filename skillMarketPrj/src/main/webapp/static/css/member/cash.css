@@ -45,9 +45,15 @@ main{
     width: 250px;
     height: 50px;
     border-radius: 25px;
-    border: 1px solid black;
-    background-color: white;
+    background-color: #3258A3;
     font-size: 18px;
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .nav-customer-area > ul{

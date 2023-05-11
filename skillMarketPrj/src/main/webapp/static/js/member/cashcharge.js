@@ -22,9 +22,24 @@ const chargeBtn = document.querySelector(".charge-btn");
 chargeBtn.addEventListener("click", (a)=>{
 
     let result = document.querySelector(".result-amount");
+
+    if(result.value == ''){
+        return null;
+    }
+
     result = result.value;
 
     const contextPath = getContextPath();
 
     location.href = contextPath + "/cash/charge?amount=" + result;
 })
+
+// function btnDisabled(){
+//     if(chargeBtn.value == ''){
+//         chargeBtn.disabled = true;
+//     }else{
+//         chargeBtn.disabled = false;
+//     }
+// }
+
+// btnDisabled();
