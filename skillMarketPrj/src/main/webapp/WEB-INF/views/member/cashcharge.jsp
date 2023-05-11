@@ -10,6 +10,7 @@
     <title>Insert title here</title>
     <link rel="stylesheet" href="${root}/static/css/member/cashcharge.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script defer src="${root}/static/js/member/cashcharge.js"></script>
 </head>
 <body>
 
@@ -48,19 +49,19 @@
                     <div>충전 캐시</div>
                     <div>충전할 금액을 선택해주세요</div>
                     <div class="cash-charge-box-area">
-                        <button value="50000">5만원</button>
-                        <button value="100000">10만원</button>
-                        <button value="300000">30만원</button>
-                        <button value="500000">50만원</button>
-                        <button value="100000">100만원</button>
-                        <button value="200000">200만원</button>
+                        <button class="amount-btn" value="50000">5만원</button>
+                        <button class="amount-btn" value="100000">10만원</button>
+                        <button class="amount-btn" value="300000">30만원</button>
+                        <button class="amount-btn" value="500000">50만원</button>
+                        <button class="amount-btn" value="1000000">100만원</button>
+                        <button class="amount-btn" value="2000000">200만원</button>
                         <div class="cash-charge-inputbox">
-                            <input type="number">
+                            <input class="result-amount" type="number">
                             <div>원</div>
                         </div>
                     </div>
                     
-                    <a href="">충전하기</a>
+                    <button class="charge-btn">충전하기</button>
                 </div>
 
             </div>
