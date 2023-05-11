@@ -61,3 +61,30 @@ table {
 .bold {
     font-weight: 700;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.yellow{
+	background-color: #F8C925;
+}
+
+.blue{
+	background-color: #3258A3;
+}
+
+body{
+	-ms-overflow-style: none;
+}
+	
+::-webkit-scrollbar {
+	display: none;
+}

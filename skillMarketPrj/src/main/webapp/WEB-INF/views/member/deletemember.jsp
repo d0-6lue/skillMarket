@@ -49,7 +49,7 @@
                         </div>
                         <div class="deletemember-submit-btn">
                             <div class="caution-btn">
-                                <span class="material-symbols-outlined">radio_button_unchecked</span>
+                                <input type="checkbox">
                                 <div class="caution-btn-text">주의 사항을 모두 확인했습니다.</div>
                             </div>
                             <input class="bold" type="submit" disabled value="회원 탈퇴">
