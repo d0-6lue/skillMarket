@@ -1,0 +1,188 @@
+.main{
+    width: 100%;
+    height: 100%;
+}
+
+/*  메인 박스입니다 ~*/
+.esti-list-box{
+    width: 960px;
+    height: 800px;
+    display: flex;
+    flex-direction: row;
+    align-items : center;
+    margin: 10px auto;
+}
+
+/* 왼쪽 사이드바 */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 200px;
+    height: 100%;
+    padding: 20px;
+}
+
+.main-list-box{
+    width: 800px;
+    height: 800px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.category-container{
+    height: 150px;
+    width: 100%;
+}
+
+.category-title{
+    border-bottom: 2px solid #f8c925;
+}
+
+.category-total-box{
+    display: flex;
+    flex-direction: column;
+}
+.middle-category-container{
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-bottom: 150px;
+}
+
+.category-menu-bar-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.category-menu-bar{
+    display: flex;
+}
+
+.form-select {
+    width: 120px !important;
+    font-size : 12px !important;
+}
+
+/* 서비스 감싸는 상자 */
+.seller-service-box{
+    width: 100%;
+    height: 700px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* 글 4개씩 한줄 */
+.four-service-list{
+    width: 660px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 100;
+    margin-bottom: 30;
+}
+
+/* 제일 바깥 회색테두리 */
+.service-border {
+    width: 160px;
+    height: 210px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 5px;
+}
+
+.profile-image-box {
+    width: 140px;
+    height: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.expert-info {
+    width: 140px;
+    display: flex;
+    height: 80px;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 5px;
+    padding: 0 5px;
+    margin-right: 10px;
+}
+
+.expert-box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.expert-name {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.expert-badge {
+    font-size: 10px;
+    background-color: yellow;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+
+.expert-account {
+    font-size: 10px;
+    background-color: #3258a3;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: auto;
+}
+
+
+
+.expert-balance{
+    margin-left: auto;
+}
+
+.expert-balance,
+.expert-ratings {
+    font-size: 12px;
+}
+
+.expert-ratings {
+    margin-left: 5px;
+}
+.heart-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.heart-icon {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
