@@ -5,7 +5,7 @@
 
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/aside.css">
-
+<script src="${root}/static/js/admin/common/adminSet.js"></script>
 
 
 <aside>

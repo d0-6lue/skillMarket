@@ -49,13 +49,13 @@
                                     <tbody>
                                         <tr class="table_type_2">
                                             <td>
-                                                <span>99</span>
+                                                <span>0</span>
                                             </td>
                                             <td>
-                                                <span>999</span>
+                                                <span>1</span>
                                             </td>
                                             <td>
-                                                <span>999</span>
+                                                <span>1</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -73,7 +73,7 @@
                             <div class="subtitle">
                                 <h3>회원 목록</h3>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list_2">
                                 <table>
                                     <thead>
                                         <tr>
@@ -81,25 +81,35 @@
                                                 <span>회원번호</span>
                                             </th>
                                             <th>
-                                                <span>제목</span>
+                                                <span>아이디</span>
                                             </th>
                                             <th>
-                                                <span>일자</span>
+                                                <span>가입일</span>
+                                            </th>
+                                            <th>
+                                                <span>상태</span>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <span>999</span>
-                                            </td>
-                                            <td>
-                                                <span>제목1</span>
-                                            </td>
-                                            <td>
-                                                <span>01/01</span>
-                                            </td>
-                                        </tr>
+                                        <c:forEach items="${ memberArrList }" var="list">
+                                            <tr>
+                                                <td>
+                                                    <span>${ list.memberNo }</span>
+                                                </td>
+                                                <td>
+                                                    <span>${ list.memberId }</span>
+                                                </td>
+                                                <td>
+                                                    <span>${ list.memberSignDate }</span>
+                                                </td>
+                                                <td>
+                                                    <span>${ list.memberNickStatus }</span>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -112,7 +122,7 @@
         </article>
 
     </div>
-	
+
 
 </body>
 </html>
