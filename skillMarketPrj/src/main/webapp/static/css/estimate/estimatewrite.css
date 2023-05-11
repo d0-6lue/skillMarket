@@ -1,3 +1,5 @@
+/* 템플릿 견적서 작성 css입니다 */
+
 /* 전체 화면 */
 html, body {
     width: 100%;
@@ -8,7 +10,7 @@ html, body {
 /* 견적서 메인칸 */
 .estimate-main-box {
     width: 950px;
-    height: 800px;
+    height: 650px;
     display: flex;
     justify-content: space-between;
     margin: auto;
