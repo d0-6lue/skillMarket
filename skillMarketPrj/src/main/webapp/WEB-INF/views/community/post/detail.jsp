@@ -42,7 +42,7 @@
                         <div class="card mb-3" style="max-width: 540px;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                <img src="..." class="img-fluid rounded-start" alt="...">
+                                    <img src="${root}/static/png/카톡 기본프로필.png" class="img-fluid rounded-start img-seller" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                 <div class="card-body">
@@ -52,6 +52,8 @@
                                 </div>
                                 </div>
                             </div>
+                            
+                            
                         </div>
                     </div>
 
@@ -74,11 +76,11 @@
                                 <div class="card mb-3" style="max-width: 960px;">
                                     <div class="row g-0">
                                         <div class="col-md-4">
-                                            <img src="..." class="img-fluid rounded-start" alt="...">
+                                            <img src="${root}/static/png/카톡 기본프로필.png" class="img-seller img-fluid rounded-start" alt="...">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5 class="card-title">이순신</h5>
+                                                <h5 class="card-title">홍길동</h5>
                                                 <p class="card-text">댓글 내용입니다.</p>
                                                 <p class="card-text"><small class="text-muted">5분전</small></p>
                                             </div>
