@@ -74,6 +74,8 @@ article .statistics > #statistics_1 {
 }
 
 
+
+
 article .statistics #statistics_1 td,th {
     vertical-align: middle;
     color: #525252;
@@ -110,8 +112,15 @@ article table {
 }
 
 article .statistics_100 {width: 100%;}
-article .statistics_list th,td {
+article .statistics_list2 th,td {
     width: 33%;
+    height: 65px;
+    border-left: 0px;
+    text-align: center;
+}
+
+article .statistics_list_2 th,td {
+    width: 25%;
     height: 65px;
     border-left: 0px;
     text-align: center;
@@ -261,6 +270,13 @@ article .statistics_rank {
 
 .statistics_rank > div > span:nth-child(1) {
     font-size: 20px;
+    font-weight: 600;
+}
+
+#member_color span {
+    color: #585858;
+    text-align: end;
+    font-size: 15px;
     font-weight: 600;
 }
 
