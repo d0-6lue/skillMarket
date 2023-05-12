@@ -56,9 +56,7 @@
                                             </td>
                                             <td>
                                                 <span>
-                                                    <c:choose>
-                                                        <!-- <c:when test="${${ checkStatus.statusNo }}"></c:when> -->
-                                                    </c:choose>
+                                                    3
                                                 </span>
                                             </td>
                                         </tr>
@@ -96,24 +94,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${ memberArrList }" var="list">
-                                            <tr>
-                                                <td>
-                                                    <span>${ list.memberNo }</span>
-                                                </td>
-                                                <td>
-                                                    <span>${ list.memberId }</span>
-                                                </td>
-                                                <td>
-                                                    <span>${ list.memberSignDate }</span>
-                                                </td>
-                                                <td>
-                                                    <span>${ list.memberNickStatus }</span>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                        
+                                        <div class="list_box">
 
+                                            <c:forEach items="${ memberArrList }" var="list">
+                                                <tr>
+                                                    <td>
+                                                        <span>${ list.memberNo }</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>${ list.memberId }</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>${ list.memberSignDate }</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>${ list.memberNickStatus }</span>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+
+                                        </div>
                                     </tbody>
                                 </table>
                             </div>

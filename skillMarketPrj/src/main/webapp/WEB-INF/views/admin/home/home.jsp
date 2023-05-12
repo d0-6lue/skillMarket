@@ -64,7 +64,7 @@
                             <div class="subtitle">
                                 <h3>전체 요약</h3>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list2">
                                 <table>
                                     <thead>
                                         <tr>
@@ -125,7 +125,7 @@
                             <div class="subtitle">
                                 <h3>신고 내역</h3>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list2">
                                 <table>
                                     <thead>
                                         <tr>
@@ -164,7 +164,7 @@
                             <div class="subtitle">
                                 <h3>문의 내역</h3>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list2">
                                 <table>
                                     <thead>
                                         <tr>
@@ -239,4 +239,5 @@
 </html>
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
+<link rel="stylesheet" href="${root}/static/css/admin/common/members.css">
 <link rel="stylesheet" href="${root}/static/css/admin/common/aside.css">

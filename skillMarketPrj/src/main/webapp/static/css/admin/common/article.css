@@ -40,6 +40,7 @@ article .container_admin {
     border-radius: 14px;
     justify-content: center;
     background-color: #FDFDFD;
+    overflow: scroll;
 }
 
 article #container_area_1 {
@@ -108,7 +109,19 @@ article .statistics {
 }
 
 article table {
+    position: relative;
     width: 100%;
+    height: 100%;
+    overflow: scroll;
+    
+}
+
+article thead {
+    width: 100%;
+    
+}
+article tbody {
+    margin-top: 20px;
 }
 
 article .statistics_100 {width: 100%;}
@@ -247,7 +260,7 @@ article .statistics th.table_type_1 {
 } */
 
 .table_type_2 span {
-    color: #273F6D;
+    color: #dddddd;
 }
 
 .table_type_2 td:last-child > span {
@@ -283,3 +296,4 @@ article .statistics_rank {
 .statistics_rank > div:nth-child(1) > span:first-child {color: #E4AA14;}
 .statistics_rank > div:nth-child(2) > span:first-child {color: #AAAAAA;}
 .statistics_rank > div:nth-child(3) > span:first-child {color: #7D6933;}
+.list_box {overflow: scroll;}
