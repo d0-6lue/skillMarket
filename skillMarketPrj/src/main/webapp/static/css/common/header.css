@@ -3,6 +3,7 @@
     width: 100%;
     position: sticky;
     top: 0;
+    z-index: 9999;
     background-color: white;
     /* border: 1px solid black; */
     border-bottom: 1px solid rgb(175, 175, 175);
@@ -81,19 +82,73 @@
 
 .header-menu > ul{
     list-style: none;
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
     
 }
 
-.header-menu >  ul > li{
+.header-menu > ul > li{
     float: left;
     margin-right: 20px;
 }
 
-.header-menu >  ul > li > a {
+.header-menu > ul > li > a {
     color: black;
     text-decoration: none;
 }
 
+.header-profile-area{
+    width: 60px;
+    height: 60px;
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.header-profile-area > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-nav-area{
+    width: 100px;
+    height: 150px;
+    position: absolute;
+    top: 80;
+    left: 1085;
+    border: 1px solid black;
+    border-radius: 8px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    background-color: white;
+    box-sizing: border-box;
+    visibility: hidden;
+}
+
+.login-nav-area > div{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.login-nav-area > div:not(:last-of-type){
+    border-bottom: 1px solid black;
+}
+
+.login-nav-area > div > a{
+    font-size: 12px;
+    color: black;
+    text-decoration: none;
+}
+
+.header-profile-area:hover > .login-nav-area{
+    visibility: visible;
+}
 .login-btn{
     cursor: pointer;
 }
@@ -244,7 +299,6 @@
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
     
     transform: translateX(-50%) translateY(-50%);
-    padding: 0;
     border-radius: 10px;
 }
 
