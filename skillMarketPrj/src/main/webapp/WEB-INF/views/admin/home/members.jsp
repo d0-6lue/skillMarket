@@ -34,7 +34,7 @@
                                 <h3>회원 상태 요약</h3>
                                 <div>
                                     <div>총 회원수</div>
-                                    <div>99</div>
+                                    <div>${ fn:length(memberArrList) }</div>
                                 </div>
                             </div>
                             <div class="statistics statistics_100">
@@ -55,7 +55,11 @@
                                                 <span>1</span>
                                             </td>
                                             <td>
-                                                <span>1</span>
+                                                <span>
+                                                    <c:choose>
+                                                        <!-- <c:when test="${${ checkStatus.statusNo }}"></c:when> -->
+                                                    </c:choose>
+                                                </span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -126,5 +130,7 @@
 
 </body>
 </html>
+
+
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">

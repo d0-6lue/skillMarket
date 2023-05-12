@@ -39,6 +39,7 @@ public class memberListService {
 			String memberProfilePhoto = rs.getString("MEMBER_PROFILE_PHOTO");
 			String memberNickStatus = rs.getString("MEMBER_NICK_STATUS");
 			
+			
 			memberListVo mvo = new memberListVo();
 			mvo.setMemberNo(memberNo);
 			mvo.setStatusNo(statusNo);
@@ -55,6 +56,7 @@ public class memberListService {
 			mvo.setMemberCash(memberCash);
 			mvo.setMemberProfilePhoto(memberProfilePhoto);
 			mvo.setMemberNickStatus(memberNickStatus);
+			
 			
 			memberArrList.add(mvo);
 			

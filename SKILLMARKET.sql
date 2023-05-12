@@ -367,7 +367,8 @@ CREATE TABLE "ESTIMATE_CAT" (
 	"ESTIMATE_CAT_NO"	                NUMBER		    NOT NULL,
 	"ABOVE_CAT_NO"	                    NUMBER		    NOT NULL,
 	"ESTIMATE_CAT_NAME"	                VARCHAR2(60)		    ,
-	"ESTIMATE_CAT_SCOPE"	            VARCHAR2(3)		
+	"ESTIMATE_CAT_SCOPE"	            VARCHAR2(3)             ,
+    "ESTIMATE_CAT_FILE"                 VARCHAR2(100)
 );
 
 
