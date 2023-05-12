@@ -30,6 +30,13 @@ public class AdminMemberController extends HttpServlet{
 			memberListService ms = new memberListService();
 			List<memberListVo> memberArrList =  ms.selectMemberList();
 			
+			for(memberListVo e: memberArrList) {
+				if (e.getStatusNo().equals("1")) {
+					System.out.println("ggg");
+				}
+			}
+			
+			
 			req.setAttribute("memberArrList", memberArrList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/members.jsp").forward(req, resp);
 			
