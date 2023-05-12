@@ -33,7 +33,7 @@
                     <li><a href="${root}/expert/request-list">제안서 관리</a></li>
                     <li><a href="${root}/expert/sale-list">판매 관리</a></li>
                     <li><a href="${root}/expert/estimate-mgmt">견적서 관리</a></li>
-                    <li><a class="bold" href="${root}/expert/QAN-mgmt">전문가 Q&A 관리</a></li>
+                    <li><a class="bold" href="${root}/expert/QNA-mgmt">전문가 Q&A 관리</a></li>
                     <li><a href="${root}/expert/grade">스킬 등급</a></li>
                 </ul>
             </div>
