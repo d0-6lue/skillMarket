@@ -37,21 +37,37 @@
                     <input type="text" class="join-form-input" name="memberName" placeholder="이름을 입력하세요.">
 
                     <div class="join-form-text">아이디</div>
-                    <input type="text" class="join-form-input" name="memberId" placeholder="아이디를 입력하세요.">
+                    <div>
+                        <input type="text" class="join-form-input3" name="memberId" placeholder="아이디를 입력하세요."> 
+                        <button class="duplication-btn yellow bold" type="button">중복확인</button>
+                    </div>
 
                     <div class="join-form-text">비밀번호</div>
                     <input type="password" class="join-form-input2" name="memberPwd" placeholder="비밀번호를 입력하세요.(8~20자리)">
                     <input type="password" class="join-form-input" name="memberPwd2" placeholder="비밀번호를 한번 더 입력하세요.">
 
                     <div class="join-form-text">닉네임</div>
-                    <input type="text" class="join-form-input" name="memberNick" placeholder="닉네임을 입력하세요.">
-
-                    <div class="join-form-text">전화번호</div>
-                    <input type="number" class="join-form-input" name="memberPhone" placeholder="전화번호를 입력하세요.">
+                    <div>
+                        <input type="text" class="join-form-input3" name="memberNick" placeholder="닉네임을 입력하세요.">
+                        <button class="duplication-btn yellow bold" type="button">중복확인</button>
+                    </div>
 
                     <div class="join-form-text">이메일</div>
-                    <input type="email" class="join-form-input" name="memberEmail" placeholder="이메일를 입력하세요.">
+                    <div>
+                        <input type="email" class="join-form-input3" name="memberEmail" placeholder="이메일를 입력하세요.">
+                        <button class="duplication-btn yellow bold" type="button">중복확인</button>
+                    </div>
+                    
+                    <div class="join-form-text">전화번호</div>
+                    <input type="tel" class="join-form-input" name="memberPhone" placeholder="전화번호를 입력하세요.">
+                    
 
+                    <div class="join-form-text">계좌은행</div>
+                    <input type="text" class="join-form-input" name="memberBank" placeholder="계좌은행을 입력하세요.">
+
+                    <div class="join-form-text">계좌번호</div>
+                    <input type="text" class="join-form-input" name="memberAccountNum" placeholder="계좌번호을 입력하세요.">
+                    
                     <div class="join-form-text">관심분야</div>
                     <select class="join-form-input" name="memberFavorite">
 
@@ -68,8 +84,7 @@
 
     </div>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
+    <br><br><br><br><br><br><br><br><br>
 </body>
 </html>
 

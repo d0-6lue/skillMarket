@@ -18,7 +18,7 @@
 
 .normal-join-area{
     width: 600px;
-    height: 1200px;
+    height: 1500px;
     border: 1px solid rgb(188, 188, 188);
     border-radius: 8px;
     margin: auto;
@@ -53,6 +53,25 @@
     border-radius: 8px;
     border: 1px solid #8D8D8D;
     margin-bottom: 30px;
+}
+
+.join-form-input3{
+    height: 60px;
+    width: 350px;
+    padding-left: 20px;
+    border-radius: 8px;
+    border: 1px solid #8D8D8D;
+    margin-bottom: 30px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.duplication-btn{
+    border-radius: 8px;
+    border: none;
+    display: inline-block;
+    width: 90px;
+    height: 60px;
 }
 
 .join-form-input2{

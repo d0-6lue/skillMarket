@@ -35,24 +35,33 @@
 					<div class="main-category-detail">
 
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Coding.svg" alt="로고이미지">
+							<div class="bold">IT/프로그래밍</div>
 						</a>
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Design.svg" alt="로고이미지">
+							<div class="bold">디자인</div>
 						</a>
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Markerting.svg" alt="로고이미지">
+							<div class="bold">마켓팅</div>
 						</a>
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Sound.svg" alt="로고이미지">
+							<div class="bold">영상/음향</div>
 						</a>
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Sound.svg" alt="로고이미지">
+							<div class="bold">영상/음향</div>
+						</a><a class="main-category-detail-can" href="">
+							<img src="${root}/static/svg/category/Cat_Sound.svg" alt="로고이미지">
+							<div class="bold">영상/음향</div>
+						</a><a class="main-category-detail-can" href="">
+							<img src="${root}/static/svg/category/Cat_Sound.svg" alt="로고이미지">
+							<div class="bold">영상/음향</div>
+						</a><a class="main-category-detail-can" href="">
+							<img src="${root}/static/svg/category/Cat_Sound.svg" alt="로고이미지">
+							<div class="bold">영상/음향</div>
 						</a>
 						
 
@@ -63,34 +72,39 @@
 
 			</div>
 
-			<div class="favorite-category">
+			<div class="main-category">
 
-				<div class="favorite-category-area">
+				<div class="main-category-area">
 
-					<div class="favorite-category-title bold">인기 카테고리</div>
-					<div class="favorite-category-detail">
+					<div class="main-category-title bold">인기 카테고리</div>
+
+					<div class="main-category-detail">
+
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Coding.svg" alt="로고이미지">
+							<div class="bold">IT/프로그래밍</div>
 						</a>
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Design.svg" alt="로고이미지">
+							<div class="bold">디자인</div>
 						</a>
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Markerting.svg" alt="로고이미지">
+							<div class="bold">마켓팅</div>
 						</a>
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Sound.svg" alt="로고이미지">
+							<div class="bold">영상/음향</div>
 						</a>
 						<a class="main-category-detail-can" href="">
-							<img src="" alt="로고이미지">
-							<div>IT/프로그래밍</div>
+							<img src="${root}/static/svg/category/Cat_Sound.svg" alt="로고이미지">
+							<div class="bold">영상/음향</div>
 						</a>
-					</div>
-					
+						
+
+
+					</div>					
+
 				</div>
 
 			</div>

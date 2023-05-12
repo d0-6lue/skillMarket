@@ -86,6 +86,8 @@
     height: 60px;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 1;
     
 }
 
@@ -116,8 +118,9 @@
     width: 100px;
     height: 150px;
     position: absolute;
-    top: 80;
-    left: 1085;
+    top: 60;
+    left: 160;
+    z-index: 5;
     border: 1px solid black;
     border-radius: 8px;
     display: grid;
@@ -146,7 +149,7 @@
     text-decoration: none;
 }
 
-.header-profile-area:hover > .login-nav-area{
+.header-profile-li:hover > .login-nav-area{
     visibility: visible;
 }
 .login-btn{
@@ -299,6 +302,7 @@
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
     
     transform: translateX(-50%) translateY(-50%);
+    padding: 0;
     border-radius: 10px;
 }
 

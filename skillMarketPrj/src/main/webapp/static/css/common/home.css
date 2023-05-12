@@ -38,22 +38,34 @@ main{
 }
 
 .main-category-detail{
-    display: flex;
-    justify-content: first baseline;
+    display: grid;
+    width: 1000px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
 }
 
 .main-category-detail-can{
-    margin-right: 20px;
-    border-radius: 10px;
-    background-color: rgb(240, 240, 240);
-    width: 120px;
-    height: 150px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(116, 116, 116, 0.25);
+    height: 170px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }
 
+.main-category-detail-can > img {
+    width: 90px;
+}
+
+.main-category-detail-can > div{
+    color: black;
+    margin-top: 20px;
+}
 .favorite-category{
     width: 1000px;
     margin: auto;
