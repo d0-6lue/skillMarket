@@ -36,12 +36,46 @@
                         </button>
                 </div>
                 <div class="header-menu">
-                    <ul>
+                    <!-- <ul>
                         <li><a href="/skillmarket/expert/register">전문가 등록</a></li>
                         <li><a class="login-btn" id="login-modal-add-btn">로그인</a></li>
                         <li><a href="${root}/join">회원가입</a></li>
     
+                    </ul> -->
+
+                    <!-- <ul>
+                        <li><a href="/skillmarket/expert/register">전문가 등록</a></li>
+                        <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
+                        <li><div class="header-profile-area">
+                            <img src="${root}/static/png/예시사진.png" alt="프로필">
+                            <div class="login-nav-area">
+                                <div><a href="">프로젝트 관리</a></div>
+                                <div><a href="">프로필 정보</a></div>
+                                <div><a href="">전문가 정보</a></div>
+                                <div><a href="">찜목록</a></div>
+                            </div>
+                        </div></li>
+    
+                    </ul> -->
+
+                    <ul>
+                        <li><a href="/skillmarket/expert/register">견적서 작성</a></li>
+                        <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
+                        <li><div class="header-profile-area">
+                            <img src="${root}/static/png/예시사진.png" alt="프로필">
+                            <div class="login-nav-area">
+                                <div><a href="${root}/customer/order-list">프로젝트 관리</a></div>
+                                <div><a href="${root}/my-info">프로필 정보</a></div>
+                                <div><a href="${root}/expert-info">전문가 정보</a></div>
+                                <div><a href="${root}/customer/favorite">찜목록</a></div>
+                            </div>
+                        </div></li>
+                        
+    
                     </ul>
+
+                    
+
                 </div>
     
             </div>
