@@ -59,7 +59,7 @@
                             <div class="subtitle">
                                 <h3>카테고리 리스트</h3>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list_2">
                                 <table>
                                     <thead>
                                         <tr>

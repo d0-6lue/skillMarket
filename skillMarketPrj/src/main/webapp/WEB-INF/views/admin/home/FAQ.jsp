@@ -33,7 +33,7 @@
                             <div class="subtitle">
                                 <h3>최고 조회수 FAQ</h3>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list_2">
                                 <table >
                                     <thead>
                                         <tr>
@@ -75,7 +75,7 @@
                             <div class="subtitle">
                                 <h3>FAQ  목록</h3>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list_2">
                                 <table>
                                     <thead>
                                         <tr>

@@ -37,17 +37,17 @@
                                 <table id="statistics_1">
                                     <thead>
                                         <tr>
-                                            <th><div>99</div></th>
-                                            <th><span>99</span></th>
+                                            <th><div>미처리 문의</div></th>
+                                            <th><span>처리한 문의</span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <span>99</span>
+                                                <span>${ statusNCnt }</span>
                                             </td>
                                             <td>
-                                                <span>999</span>
+                                                <span>${ statusYCnt }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -69,33 +69,36 @@
                                     <div>미처리</div>
                                 </div>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list_2">
                                 <table>
-                                    <thead>
+                                    <thead class="scroll_tbody">
                                         <tr>
                                             <th>
-                                                <span>1</span>
+                                                <span>문의 번호</span>
                                             </th>
                                             <th>
-                                                <span>22</span>
+                                                <span>문의 제목</span>
                                             </th>
                                             <th>
-                                                <span>333</span>
+                                                <span>처리 상태</span>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <span>999</span>
-                                            </td>
-                                            <td>
-                                                <span>제목1</span>
-                                            </td>
-                                            <td>
-                                                <span>01/01</span>
-                                            </td>
-                                        </tr>
+                                    <tbody class="scroll_tbody">
+                                        <c:forEach items="${ inquiryArrList }" var="list">
+                                            <tr>
+                                                <td>
+                                                    <span>${list.qnaNo}</span>
+                                                </td>
+                                                <td>
+                                                    <span>[${list.qnaCatNo}]${list.qnaTitle}</span>
+                                                </td>
+                                                <td>
+                                                    <span>${
+                                                        list.qnaStatus}</span>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

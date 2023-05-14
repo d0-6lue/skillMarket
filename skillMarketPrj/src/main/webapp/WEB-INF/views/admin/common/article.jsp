@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>article</title>
     <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">">
+    
 </head>
 <body>
     

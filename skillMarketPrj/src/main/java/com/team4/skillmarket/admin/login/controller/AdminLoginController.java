@@ -26,7 +26,7 @@ public class AdminLoginController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
-			System.out.println(req.getContextPath());
+			
 			String adminId = req.getParameter("adminId");
 			String adminPwd = req.getParameter("adminPwd");
 			
