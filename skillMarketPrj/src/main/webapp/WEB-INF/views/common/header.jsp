@@ -36,14 +36,18 @@
                         </button>
                 </div>
                 <div class="header-menu">
+                <c:if test="${empty loginMember}">
                     <ul>
                         <li><a href="/skillmarket/expert/register">전문가 등록</a></li>
                         <li><a class="login-btn" id="login-modal-add-btn">로그인</a></li>
                         <li><a href="${root}/join">회원가입</a></li>
     
                     </ul>
-
-                    <!-- <ul>
+                
+                </c:if>
+                
+                <c:if test="${not empty loginMember}">
+                    <ul>
                         <li><a href="/skillmarket/expert/register">전문가 등록</a></li>
                         <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
                         <li class="header-profile-li"><div class="header-profile-area">
@@ -57,7 +61,10 @@
                         </div>    
                         </li>
     
-                    </ul> -->
+                    </ul>
+                
+                </c:if>
+
 
                     <!-- <ul>
                         <li><a href="/skillmarket/expert/register">견적서 작성</a></li>
@@ -195,8 +202,8 @@
                     </div>
                     <div class="login-title bold">로그인</div>
                     
-                        <input type="text" name="loginId" placeholder="아이디를 입력해주세요">
-                        <input type="password" name="loginPwd" placeholder="비밀번호를 입력해주세요">
+                        <input type="text" name="memberId" placeholder="아이디를 입력해주세요">
+                        <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요">
                         <br>
                         <input type="submit" value="로그인" class="login-submit-btn">
                         <div class="idpwd-search bold">
