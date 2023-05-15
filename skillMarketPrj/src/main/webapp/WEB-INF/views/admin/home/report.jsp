@@ -37,8 +37,8 @@
                                 <table id="statistics_1">
                                     <thead>
                                         <tr>
-                                            <th><div>99</div></th>
-                                            <th><span>99</span></th>
+                                            <th><div>미처리 신고</div></th>
+                                            <th><span>처리한 신고</span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,33 +69,38 @@
                                     <div>미처리</div>
                                 </div>
                             </div>
-                            <div class="statistics statistics_list">
+                            <div class="statistics statistics_list_2">
                                 <table>
-                                    <thead>
+                                    <thead class="scroll_tbody">
                                         <tr>
                                             <th>
-                                                <span>1</span>
+                                                <span>신고 번호</span>
                                             </th>
                                             <th>
-                                                <span>22</span>
+                                                <span>제목</span>
                                             </th>
                                             <th>
-                                                <span>333</span>
+                                                <span>처리 상태</span>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <span>999</span>
-                                            </td>
-                                            <td>
-                                                <span>제목1</span>
-                                            </td>
-                                            <td>
-                                                <span>01/01</span>
-                                            </td>
-                                        </tr>
+                                    <tbody class="scroll_tbody">
+
+                                        <c:forEach items="${ reprotArrList }" var="list">
+                                            <tr>
+                                                <td>
+                                                    <span>${list.rptNo}</span>
+                                                </td>
+                                                <td>
+                                                    <span>[${list.rptcatNo}]${list.rptTitle}</span>
+                                                </td>
+                                                <td>
+                                                    <span>${
+                                                        list.rptStatus}</span>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        
                                     </tbody>
                                 </table>
                             </div>

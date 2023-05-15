@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 관리</title>
+
 </head>
 <body>
 
@@ -55,9 +56,7 @@
                                                 <span>1</span>
                                             </td>
                                             <td>
-                                                <span>
-                                                    3
-                                                </span>
+                                                <span>${ statusCnt }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -77,7 +76,7 @@
                             </div>
                             <div class="statistics statistics_list_2">
                                 <table>
-                                    <thead>
+                                    <thead class="scroll_tbody">
                                         <tr>
                                             <th>
                                                 <span>회원번호</span>
@@ -93,7 +92,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="scroll_tbody">
                                         <div class="list_box">
 
                                             <c:forEach items="${ memberArrList }" var="list">

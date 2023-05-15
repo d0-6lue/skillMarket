@@ -13,8 +13,7 @@ public class LoginDao {
 
 		String sql = "SELECT * FROM ADMIN WHERE ADMIN_ID = ? AND ADMIN_PWD = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		System.out.println(avo.getAdminId());
-		System.out.println(avo.getAdminPwd());
+		
 		
 		pstmt.setString(1, avo.getAdminId());
 		pstmt.setString(2, avo.getAdminPwd());

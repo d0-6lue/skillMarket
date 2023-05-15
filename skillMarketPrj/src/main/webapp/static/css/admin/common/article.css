@@ -40,7 +40,7 @@ article .container_admin {
     border-radius: 14px;
     justify-content: center;
     background-color: #FDFDFD;
-    overflow: scroll;
+    
 }
 
 article #container_area_1 {
@@ -64,6 +64,7 @@ article .subtitle {
     border-bottom: 1px solid #8d8d8d;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 article .statistics > #statistics_1 {
@@ -112,8 +113,7 @@ article table {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: scroll;
-    
+       
 }
 
 article thead {
@@ -123,6 +123,24 @@ article thead {
 article tbody {
     margin-top: 20px;
 }
+
+article tbody.scroll_tbody {
+    display: block;
+    width: 681.297px;
+    height: calc( 100% - 85px);
+    
+    margin-top: 20px;
+    overflow: scroll;
+    
+    }
+
+thead.scroll_tbody,tbody.scroll_tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
 
 article .statistics_100 {width: 100%;}
 article .statistics_list2 th,td {
@@ -259,9 +277,6 @@ article .statistics th.table_type_1 {
     font-size: 20px;
 } */
 
-.table_type_2 span {
-    color: #dddddd;
-}
 
 .table_type_2 td:last-child > span {
     color: #F36969;
