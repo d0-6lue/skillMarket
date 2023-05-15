@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="${root}/static/css/member/joinnormal.css">
+<script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 
@@ -57,6 +58,9 @@
                         <input type="email" class="join-form-input3" name="memberEmail" placeholder="이메일를 입력하세요.">
                         <button class="duplication-btn yellow bold" type="button">중복확인</button>
                     </div>
+
+                    <div class="join-form-text">주소</div>
+                    <input type="text" class="join-form-input"  id="address_kakao" name="memberAddress" placeholder="주소를 입력해주세요.">
                     
                     <div class="join-form-text">전화번호</div>
                     <input type="tel" class="join-form-input" name="memberPhone" placeholder="전화번호를 입력하세요.">
@@ -66,13 +70,13 @@
                     <input type="text" class="join-form-input" name="memberBank" placeholder="계좌은행을 입력하세요.">
 
                     <div class="join-form-text">계좌번호</div>
-                    <input type="text" class="join-form-input" name="memberAccountNum" placeholder="계좌번호을 입력하세요.">
+                    <input type="text" class="join-form-input" name="memberAccount" placeholder="계좌번호을 입력하세요.">
                     
                     <div class="join-form-text">관심분야</div>
                     <select class="join-form-input" name="memberFavorite">
 
                         <option value="">IT/프로그래밍</option>
-                    </select>                
+                    </select>  
                     
                     <input type="submit" value="가입 완료" class="bold">
 
@@ -86,5 +90,21 @@
 
     <br><br><br><br><br><br><br><br><br>
 </body>
+
+
 </html>
+
+<script>
+    window.onload = function(){
+        document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+            //카카오 지도 발생
+            new daum.Postcode({
+                oncomplete: function(data) { //선택시 입력값 세팅
+                    document.getElementById("address_kakao").value = data.address; // 주소 넣기
+                    document.querySelector("input[name=address_detail]").focus(); //상세입력 
+                }
+            }).open();
+        });
+    }
+    </script>
 
