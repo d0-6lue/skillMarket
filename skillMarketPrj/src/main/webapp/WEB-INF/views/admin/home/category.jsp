@@ -64,28 +64,31 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                <span>1</span>
+                                                <span></span>
                                             </th>
                                             <th>
-                                                <span>22</span>
+                                                <span></span>
                                             </th>
                                             <th>
-                                                <span>333</span>
+                                                <span></span>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <span>999</span>
-                                            </td>
-                                            <td>
-                                                <span>제목1</span>
-                                            </td>
-                                            <td>
-                                                <span>01/01</span>
-                                            </td>
-                                        </tr>
+                                        <c:forEach items="${ catArrList }" var="list">
+                                            <tr>
+                                                <td>
+                                                    <span>${list.qnaNo}</span>
+                                                </td>
+                                                <td>
+                                                    <span>[${list.qnaCatNo}]${list.qnaTitle}</span>
+                                                </td>
+                                                <td>
+                                                    <span>${
+                                                        list.qnaStatus}</span>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

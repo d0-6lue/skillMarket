@@ -144,3 +144,4 @@
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
 <link rel="stylesheet" href="${root}/static/css/admin/notice.css">
 <script src="${root}/static/js/admin/common/adminSet.js"></script>
+<script src="${root}/static/js/admin/notice.js"></script>

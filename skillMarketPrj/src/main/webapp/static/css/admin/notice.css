@@ -110,9 +110,12 @@ grid-template-areas:
 .modal #submitBtn{
     border-radius: 10px;
     width: 15%;
+    height: 85%;
     grid-column: span 3;
     grid-area: sb;
+    font-size: 20px;
     font-weight: 600;
+    border: none;
     background-color: #273F6D;
     color: #fefefe;
     justify-self: center;
@@ -143,4 +146,14 @@ text-decoration: none;
 cursor: pointer;
 background-color: rgb(240, 240, 240);
 border-radius: 10px;
+}
+
+button#openModalBtn {
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #353535;
+    background-color: #FFD15A;
 }
