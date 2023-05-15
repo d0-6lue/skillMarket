@@ -132,7 +132,6 @@
 /* 영수증 테이블 */
 .receipt {
     width: 900px;
-    height: 200px;
 }
 
 .receipt-table-head {
@@ -147,6 +146,9 @@
     margin: 10px 0;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
 }
 .table-body-elem{
     margin: 10px 0;

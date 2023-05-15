@@ -11,11 +11,15 @@ orderDetailBtn.addEventListener("click", locationOrderDetail );
 function locationOrderDetail() {
 
     const contextPath = getContextPath();
+    const urlSearchParam = new URLSearchParams(location.search)
 
-    location.href = contextPath + "/chat/room";
+    let serchParam = window.location.search;
+    const no = (serchParam.substring(serchParam.indexOf('=')+1));
+    
+    location.href = contextPath + "/chat/room?no=" + no;
 };
 
-
+// 진행률
 function computeProgress() {
     let startDay = document.querySelector(".start-day").innerText;
     let deadline = document.querySelector(".deadline").innerText;
@@ -31,5 +35,4 @@ function computeProgress() {
     const progress = document.querySelector(".progress-rate");
     progress.innerText = ( (progressDay / totalDay) * 10000 ).toFixed(2) + "%";
 }
-
 computeProgress();

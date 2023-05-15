@@ -16,7 +16,9 @@
     <div class="wrap">
 
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	
+        <script>
+            const loginMemberNo = '${loginMember.memberNo}';
+        </script>
         <div class="horizontal-border"></div>
 
 		<main>
