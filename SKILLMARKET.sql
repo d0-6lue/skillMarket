@@ -105,6 +105,7 @@ CREATE TABLE "MEMBER" (
 	"MEMBER_ID"	            VARCHAR2(16)		    NOT NULL,
 	"MEMBER_PWD"	        VARCHAR2(20)		    NOT NULL,
 	"MEMBER_NICK"	        VARCHAR2(30)		    NOT NULL,
+    "MEMBER_NAME"           VARCHAR2(20)            NOT NULL,
 	"MEMBER_PHONE"	        CHAR(11)		                ,
 	"MEMBER_EMAIL"	        VARCHAR2(100)		            ,
 	"MEMBER_INTERST"	    VARCHAR2(100)		            ,
@@ -114,7 +115,8 @@ CREATE TABLE "MEMBER" (
 	"MEMBER_ACCOUNT"	    VARCHAR2(100)		            ,
 	"MEMBER_CASH"	        NUMBER		                    ,
 	"MEMBER_PROFILE_PHOTO"	VARCHAR2(100)		            ,
-	"MEMBER_NICK_STATUS"	CHAR(1)		    DEFAULT 'N'
+	"MEMBER_NICK_STATUS"	CHAR(1)		    DEFAULT 'N'     ,
+    "MEMBER_ADDRESS"	    VARCHAR2(100)		            
 );
 
 
@@ -150,6 +152,7 @@ CREATE TABLE "FREE_BOARD_COMMENT" (
 
 
 CREATE TABLE "FREE_BOARD_LIKE" (
+    "LIKE_NO"                   NUMBER          NOT NULL,
 	"MEMBER_NO"	                NUMBER		    NOT NULL,
 	"BOARD_NO"	                NUMBER	 	    NOT NULL
 );
@@ -357,6 +360,7 @@ CREATE TABLE "ESTIMATE" (
 	"NUM"	                        NUMBER		    NOT NULL,
 	"ESTIMATE_CAT_NO"	            NUMBER		    NOT NULL,
 	"ESTIMATE_TITLE"	            VARCHAR2(300)		    ,
+    "ESTIMATE_DURATION"	            VARCHAR2(300)		    ,
 	"ESTIMATE_THUMBNAIL"	        VARCHAR2(100)		    ,
 	"ESTIMATE_LINE_INTRODUCTION"	VARCHAR2(1500)		    ,
 	"ESTIMATE_PRICE"	            NUMBER		            ,
@@ -742,6 +746,9 @@ ALTER TABLE "EDU_SCH_STATUS" ADD CONSTRAINT "PK_EDU_SCH_STATUS" PRIMARY KEY (
 	"EDU_STATUS_NO"
 );
 
+ALTER TABLE "FREE_BOARD_LIKE" ADD CONSTRAINT "PK_FREE_BOARD_LIKE" PRIMARY KEY (
+	"LIKE_NO"
+);
 
 
 
@@ -755,14 +762,15 @@ BEGIN
       MEMBER_ID,
       MEMBER_PWD,
       MEMBER_NICK,
+      MEMBER_NAME,
       MEMBER_PHONE,
       MEMBER_EMAIL,
       MEMBER_INTERST,
       MEMBER_BANK,
       MEMBER_ACCOUNT,
       MEMBER_CASH,
-      MEMBER_PROFILE_PHOTO
-      
+      MEMBER_PROFILE_PHOTO,
+      MEMBER_ADDRESS
     )
     VALUES (
       SEQ_MEMBER.NEXTVAL,
@@ -770,13 +778,15 @@ BEGIN
       'user' || LPAD(i, 3, '0'),
       '1234',
       'nick' || LPAD(i, 3, '0'),
+      '이름' || LPAD(i, 3, '0'),
       '010'|| RPAD(i, 8, '0'),
       'user' || LPAD(i, 3, '0') || '@email.com',
       LPAD(i, 3, '0'),
       '은행' || LPAD(i, 3, '0'),
       '계좌' || LPAD(i, 3, '0'),
       i || 00,
-      '프로필' || LPAD(i, 3, '0') || '.jpg'
+      '프로필' || LPAD(i, 3, '0') || '.jpg',
+      '주소' || LPAD(i, 3, '0')
     );
   END LOOP;
 END;
