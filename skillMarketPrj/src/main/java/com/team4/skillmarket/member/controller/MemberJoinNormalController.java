@@ -32,7 +32,8 @@ public class MemberJoinNormalController extends HttpServlet{
 			String memberPwd = req.getParameter("memberPwd");
 			String memberNick = req.getParameter("memberNick");
 			String memberEmail = req.getParameter("memberEmail");
-			String memberAddress = req.getParameter("memberAddress");
+			String memberAddress = req.getParameter("memberAddress") + "," + req.getParameter("memberAddress2");
+			
 			String memberPhone = req.getParameter("memberPhone");
 			String memberBank = req.getParameter("memberBank");
 			String memberAccount = req.getParameter("memberAccount");

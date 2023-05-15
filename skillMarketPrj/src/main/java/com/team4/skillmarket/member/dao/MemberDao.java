@@ -94,6 +94,49 @@ public class MemberDao {
 		return result;
 	}
 
+	public int checkId(Connection conn, String memberId) throws Exception {
+		
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, memberId);
+		ResultSet rs = pstmt.executeQuery();
+		
+		int result = 0;
+		if(rs.next()) {
+			result = 0;
+		}else {
+			result = 1;
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+
+	public int checkNick(Connection conn, String memberNick) throws Exception {
+
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_NICK = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, memberNick);
+		ResultSet rs = pstmt.executeQuery();
+		
+		int result = 0;
+		if(rs.next()) {
+			result = 0;
+		}else {
+			result = 1;
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
+	}
+
 	
 	
 	

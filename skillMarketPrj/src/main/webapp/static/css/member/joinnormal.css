@@ -18,10 +18,14 @@
 
 .normal-join-area{
     width: 600px;
-    height: 1600px;
     border: 1px solid rgb(188, 188, 188);
     border-radius: 8px;
     margin: auto;
+}
+
+.join-area{
+    margin-bottom: 50px;
+
 }
 
 .join-title{
@@ -41,6 +45,7 @@
 }
 
 .join-form-text{
+    margin-top: 40px;
     margin-left: 10px;
     font-size: 20px;
     color: 636363;
@@ -52,7 +57,6 @@
     padding-left: 20px;
     border-radius: 8px;
     border: 1px solid #8D8D8D;
-    margin-bottom: 30px;
 }
 
 .join-form-input3{
@@ -61,7 +65,6 @@
     padding-left: 20px;
     border-radius: 8px;
     border: 1px solid #8D8D8D;
-    margin-bottom: 30px;
     display: inline-block;
     margin-right: 5px;
 }
@@ -79,7 +82,6 @@
     padding-left: 20px;
     border-radius: 8px;
     border: 1px solid #8D8D8D;
-    margin-bottom: 10px;
 }
 
 input[type="submit"]{
@@ -89,4 +91,25 @@ input[type="submit"]{
     background-color: #FCD82D;
     border: none;
     font-size: 18px;
+}
+
+#check-id-availability{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#check-pwd1-availability{
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#check-pwd2-availability{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#check-nick-availability{
+    margin-left: 10px;
+    margin-top: 10px;
 }
