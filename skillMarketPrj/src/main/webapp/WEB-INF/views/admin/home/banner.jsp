@@ -30,33 +30,37 @@
                 <div class="banner_area_col">
                     <div>
                         <div>배너 1</div>
-                        <input type="button" value="수정 / 삭제">
+                        <input type="button" value="수정 / 삭제" class="edit_btn" disabled>
                     </div>
                     <div class="banner_add_area">
                         <span>배너 추가</span> 
                         <span class="material-symbols-outlined">
                         add_circle
                         </span>
+                        <input type="file" style="display: none;">
                     </div>
                 </div>
 
                 <div class="banner_area_col">
                     <div>
                         <div>배너 2</div>
-                        <input type="button" value="수정 / 삭제">
+                        <input type="button" value="수정 / 삭제" class="edit_btn" disabled>
                     </div>
                     <div class="banner_add_area">
-                        <span>배너 추가</span> 
-                        <span class="material-symbols-outlined">
-                        add_circle
-                        </span>
+                        <div>
+                            <span>배너 추가</span> 
+                            <span class="material-symbols-outlined">
+                            add_circle
+                            </span>
+                        </div>
+                        
                     </div>
                 </div>
 
                 <div class="banner_area_col">
                     <div>
                         <div>배너 3</div>
-                        <input type="button" value="수정 / 삭제">
+                        <input type="button" value="수정 / 삭제" class="edit_btn" disabled>
                     </div>
                     <div class="banner_add_area">
                         <span>배너 추가</span> 
@@ -69,7 +73,7 @@
                 <div class="banner_area_col">
                     <div>
                         <div>배너 4</div>
-                        <input type="button" value="수정 / 삭제">
+                        <input type="button" value="수정 / 삭제" class="edit_btn" disabled>
                     </div>
                     <div class="banner_add_area">
                         <span>배너 추가</span> 
@@ -166,13 +170,53 @@
 
     .banner_area_col > div:nth-child(2) span {
         margin-left: 10px;
+        pointer-events: none;
     }
 
     .banner_area_col > div:nth-child(2) input {
         display: none;
     }
 
+    .edit_btn {
+         border-radius: 10px;
+    }
+
+    .edit_btn:disabled {
+        background-color: #afa99b;
+    }
+
 
 </style>
 
-  
+  <script>
+    const bannerArea =  document.querySelectorAll(".banner_add_area");
+    const editBtn = document.querySelectorAll(".edit_btn");
+
+
+    bannerArea.forEach((e)=>{
+        e.addEventListener("click",(event)=>{
+            
+            const inputEl = event.currentTarget.querySelector("input[type='file']");
+            const inputFile = '<input type="file" style="display: none;">';
+            console.log(inputEl);
+            
+            const pel = event.target.parentElement.children[1];
+
+            inputEl.click();
+           
+
+        })
+
+        e.addEventListener("change",(event)=>{
+            console.log(event.target.parentElement.parentElement.children[0].children[1] );
+            event.target.parentElement.parentElement.children[0].children[1].disabled = false;
+        })
+
+        
+    })  
+    
+   
+    
+
+
+  </script>
