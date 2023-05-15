@@ -34,7 +34,8 @@
                         <div class="profile-img">
                             <img src="${root}/static/png/예시사진.png" alt="프로필사진">
                         </div>
-                        <button class="profile-btn" type="button">프로필 등록</button>
+                        <label for="profile-btn" class="profile-btn bold">프로필 등록</label>
+                        <input id="profile-btn" type="file" hidden></input>
                     </div>
                     <div class="register-content">
                         <div class="nick-text">닉네임</div>

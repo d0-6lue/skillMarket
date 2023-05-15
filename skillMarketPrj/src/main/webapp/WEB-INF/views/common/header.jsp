@@ -51,7 +51,14 @@
                         <li><a href="/skillmarket/expert/register">전문가 등록</a></li>
                         <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
                         <li class="header-profile-li"><div class="header-profile-area">
-                            <img src="${root}/static/png/예시사진.png" alt="프로필">
+                        	<c:if test="${not empty loginMember.memberProfilePhoto}">
+                            	<img src="${root}/static/png/예시사진.png" alt="프로필">
+                        	
+                        	</c:if>
+                        	
+                        	<c:if test="${empty loginMember.memberProfilePhoto}">
+                        		<img alt="프로필" src="${root}/static/profile/${loginMember.memberProfilePhoto}">
+                        	</c:if>
                         </div>
                         <div class="login-nav-area">
                             <div><a href="${root}/customer/order-list">프로젝트 관리</a></div>

@@ -58,6 +58,9 @@ main{
     color: #3258A3;
     background-color: white;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .register-content{

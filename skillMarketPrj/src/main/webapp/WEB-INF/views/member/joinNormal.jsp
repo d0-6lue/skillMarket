@@ -61,7 +61,8 @@
                     <div class="join-form-text">이메일</div>
                     <div>
                         <input type="email" class="join-form-input3" name="memberEmail" placeholder="이메일를 입력하세요.">
-                        <button class="duplication-btn yellow bold" type="button">중복확인</button>
+                        <button id="duplicate-check-email-btn" class="duplication-btn yellow bold" type="button">중복확인</button>
+                        <div id="check-email-availability"></div>
                     </div>
 
                     <div class="join-form-text">주소</div>
@@ -72,7 +73,7 @@
                     
                     <div class="join-form-text">전화번호</div>
                     <input type="tel" class="join-form-input" name="memberPhone" placeholder="전화번호를 입력하세요.">
-                    
+                    <div id="check-phone-availability"></div>
 
                     <div class="join-form-text">계좌은행</div>
                     <input type="text" class="join-form-input" name="memberBank" placeholder="계좌은행을 입력하세요.">

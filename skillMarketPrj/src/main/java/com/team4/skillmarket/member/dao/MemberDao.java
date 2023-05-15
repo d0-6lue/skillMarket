@@ -137,6 +137,26 @@ public class MemberDao {
 		
 	}
 
+	public int checkEmail(Connection conn, String memberEmail) throws Exception {
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_EMAIL = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, memberEmail);
+		ResultSet rs = pstmt.executeQuery();
+		
+		int result = 0;
+		if(rs.next()) {
+			result = 0;
+		}else {
+			result = 1;
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+
 	
 	
 	

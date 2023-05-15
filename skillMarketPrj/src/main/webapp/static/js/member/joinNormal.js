@@ -230,7 +230,7 @@ const emailRegExp = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
 const emailInputArea = document.querySelector("input[name=memberEmail]");
 
 emailInputArea.addEventListener("change", function(){
-    const emailCheckAlter = document.querySelector(".check-email-availability");
+    const emailCheckAlter = document.querySelector("#check-email-availability");
 
     const emailString = emailInputArea.value;
     if(emailRegExp.test(emailString) != true) {
@@ -242,6 +242,35 @@ emailInputArea.addEventListener("change", function(){
     emailCheckAlter.style.color = "red";
 });
 
+// 이메일 중복 검사
+const emailCheckBtn = document.querySelector("#duplicate-check-email-btn");
+emailCheckBtn.addEventListener("click", function(){
+
+    const memberEmail = document.querySelector("input[name=memberEmail]").value;
+    const EmailData = {
+        'memberEmail' : memberEmail
+    };
+
+    $.ajax({
+        url : '/skillmarket/join/check-email',
+        type : 'POST',
+        data : EmailData,
+        success : function(e){
+            if(e == 0){
+                alert("중복된 이메일입니다.")
+            }else{
+                alert("사용가능한 이메일입니다.");
+            }
+
+        },
+        error : function(e){
+            console.log(e);
+        }
+
+    })
+
+});
+
 
 // 연락처 유효성 검사
 const phoneRegExp = /(^01([0|1|6|7|8|9]))(\d{3,4})(\d{4}$)/;
@@ -249,7 +278,7 @@ const phoneRegExp = /(^01([0|1|6|7|8|9]))(\d{3,4})(\d{4}$)/;
 const phoneInputArea = document.querySelector("input[name=memberPhone]");
 
 phoneInputArea.addEventListener("change", function(){
-    const phoneCheckAlter = document.querySelector(".check-phone-availability");
+    const phoneCheckAlter = document.querySelector("#check-phone-availability");
 
     const phoneString = phoneInputArea.value;
     if(phoneRegExp.test(phoneString) == false) {
