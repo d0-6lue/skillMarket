@@ -22,6 +22,16 @@ public class QuotationVo {
 	private String quotationPrice;
 	private String quotationPeriod;
 	private String quotationEnrollDate;
-	private String quotationModificationDate;	
+	private String quotationModificationDate;
+	
+	
+	private String estimateTitle;
+	private String estimateThumbnail;
+	private String estimateLineIntroduction;
+	private String estimateDetail;
+	private String estimatePrice;
+	private String estimatePeriod;
+	
+	
 
 }
