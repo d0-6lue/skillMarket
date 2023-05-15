@@ -23,4 +23,22 @@ public class MemberService {
 		
 	}
 
+	public int join(MemberVo vo) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		MemberDao dao = new MemberDao();
+		int result = dao.join(conn, vo);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 }

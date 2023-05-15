@@ -4,6 +4,7 @@ public class MemberVo {
 
 	private String memberNo;
 	private String statusNo;
+	private String memberName;
 	private String memberId;
 	private String memberPwd;
 	private String memberNick;
@@ -17,19 +18,21 @@ public class MemberVo {
 	private String memberCash;
 	private String memberProfilePhoto;
 	private String memberNickStatus;
+	private String memberAddress;
 
 	public MemberVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberVo(String memberNo, String statusNo, String memberId, String memberPwd, String memberNick,
-			String memberPhone, String memberEmail, String memberInterst, String memberSignDate,
+	public MemberVo(String memberNo, String statusNo, String memberName, String memberId, String memberPwd,
+			String memberNick, String memberPhone, String memberEmail, String memberInterst, String memberSignDate,
 			String memberModifiDate, String memberBank, String memberAccount, String memberCash,
-			String memberProfilePhoto, String memberNickStatus) {
+			String memberProfilePhoto, String memberNickStatus, String memberAddress) {
 		super();
 		this.memberNo = memberNo;
 		this.statusNo = statusNo;
+		this.memberName = memberName;
 		this.memberId = memberId;
 		this.memberPwd = memberPwd;
 		this.memberNick = memberNick;
@@ -43,6 +46,7 @@ public class MemberVo {
 		this.memberCash = memberCash;
 		this.memberProfilePhoto = memberProfilePhoto;
 		this.memberNickStatus = memberNickStatus;
+		this.memberAddress = memberAddress;
 	}
 
 	public String getMemberNo() {
@@ -59,6 +63,14 @@ public class MemberVo {
 
 	public void setStatusNo(String statusNo) {
 		this.statusNo = statusNo;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	public String getMemberId() {
@@ -165,14 +177,23 @@ public class MemberVo {
 		this.memberNickStatus = memberNickStatus;
 	}
 
+	public String getMemberAddress() {
+		return memberAddress;
+	}
+
+	public void setMemberAddress(String memberAddress) {
+		this.memberAddress = memberAddress;
+	}
+
 	@Override
 	public String toString() {
-		return "memberVo [memberNo=" + memberNo + ", statusNo=" + statusNo + ", memberId=" + memberId + ", memberPwd="
-				+ memberPwd + ", memberNick=" + memberNick + ", memberPhone=" + memberPhone + ", memberEmail="
-				+ memberEmail + ", memberInterst=" + memberInterst + ", memberSignDate=" + memberSignDate
-				+ ", memberModifiDate=" + memberModifiDate + ", memberBank=" + memberBank + ", memberAccount="
-				+ memberAccount + ", memberCash=" + memberCash + ", memberProfilePhoto=" + memberProfilePhoto
-				+ ", memberNickStatus=" + memberNickStatus + "]";
+		return "MemberVo [memberNo=" + memberNo + ", statusNo=" + statusNo + ", memberName=" + memberName
+				+ ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberNick=" + memberNick
+				+ ", memberPhone=" + memberPhone + ", memberEmail=" + memberEmail + ", memberInterst=" + memberInterst
+				+ ", memberSignDate=" + memberSignDate + ", memberModifiDate=" + memberModifiDate + ", memberBank="
+				+ memberBank + ", memberAccount=" + memberAccount + ", memberCash=" + memberCash
+				+ ", memberProfilePhoto=" + memberProfilePhoto + ", memberNickStatus=" + memberNickStatus
+				+ ", memberAddress=" + memberAddress + "]";
 	}
 
 }

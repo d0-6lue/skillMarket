@@ -1,4 +1,4 @@
-package com.team4.skillmarket.join.controller;
+package com.team4.skillmarket.member.controller;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/join")
-public class JoinController extends HttpServlet{
+public class MemberJoinController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
