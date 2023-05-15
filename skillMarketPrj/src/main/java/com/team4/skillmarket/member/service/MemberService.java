@@ -7,12 +7,11 @@ import com.team4.skillmarket.member.dao.MemberDao;
 import com.team4.skillmarket.member.vo.MemberVo;
 
 public class MemberService {
+	private final MemberDao dao = new MemberDao();
 
 	public MemberVo login(MemberVo vo) throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
-		
-		MemberDao dao = new MemberDao();
 		
 		MemberVo loginMember = dao.login(conn, vo);
 		
@@ -27,7 +26,6 @@ public class MemberService {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		MemberDao dao = new MemberDao();
 		int result = dao.join(conn, vo);
 		
 		if(result == 1) {
@@ -39,6 +37,29 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+	public int checkId(String memberId) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.checkId(conn, memberId);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public int checkNick(String memberNick) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.checkNick(conn, memberNick);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+		
 	}
 
 }

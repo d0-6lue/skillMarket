@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="${root}/static/css/member/joinnormal.css">
 <script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script defer src="${root}/static/js/member/joinNormal.js"></script>
 </head>
 <body>
 
@@ -40,17 +41,21 @@
                     <div class="join-form-text">아이디</div>
                     <div>
                         <input type="text" class="join-form-input3" name="memberId" placeholder="아이디를 입력하세요."> 
-                        <button class="duplication-btn yellow bold" type="button">중복확인</button>
+                        <button id="duplicate-check-btn" class="duplication-btn yellow bold" type="button">중복확인</button>
+                        <div id="check-id-availability"></div>
                     </div>
 
                     <div class="join-form-text">비밀번호</div>
-                    <input type="password" class="join-form-input2" name="memberPwd" placeholder="비밀번호를 입력하세요.(8~20자리)">
-                    <input type="password" class="join-form-input" name="memberPwd2" placeholder="비밀번호를 한번 더 입력하세요.">
+                        <input type="password" class="join-form-input2" name="memberPwd" placeholder="비밀번호를 입력하세요.(8~20자리)">
+                        <div id="check-pwd1-availability"></div>
+                        <input type="password" class="join-form-input" name="memberPwd2" placeholder="비밀번호를 한번 더 입력하세요.">
+                        <div id="check-pwd2-availability"></div>
 
                     <div class="join-form-text">닉네임</div>
                     <div>
                         <input type="text" class="join-form-input3" name="memberNick" placeholder="닉네임을 입력하세요.">
-                        <button class="duplication-btn yellow bold" type="button">중복확인</button>
+                        <button id="duplicate-check-nick-btn" class="duplication-btn yellow bold" type="button">중복확인</button>
+                        <div id="check-nick-availability"></div>
                     </div>
 
                     <div class="join-form-text">이메일</div>
@@ -61,6 +66,9 @@
 
                     <div class="join-form-text">주소</div>
                     <input type="text" class="join-form-input"  id="address_kakao" name="memberAddress" placeholder="주소를 입력해주세요.">
+
+                    <div class="join-form-text">상세 주소</div>
+                    <input type="text" class="join-form-input" name="memberAddress2" placeholder="상세 주소를 입력해주세요.">
                     
                     <div class="join-form-text">전화번호</div>
                     <input type="tel" class="join-form-input" name="memberPhone" placeholder="전화번호를 입력하세요.">
@@ -101,7 +109,7 @@
             new daum.Postcode({
                 oncomplete: function(data) { //선택시 입력값 세팅
                     document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                    document.querySelector("input[name=address_detail]").focus(); //상세입력 
+                    document.querySelector("input[name=memberAddress2]").focus(); //상세입력 
                 }
             }).open();
         });

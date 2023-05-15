@@ -20,6 +20,7 @@ public class MemberLoginController extends HttpServlet{
 		try {
 			String memberId = req.getParameter("memberId");
 			String memberPwd = req.getParameter("memberPwd");
+			String currentUrl = req.getParameter("currentUrl");
 			
 			MemberVo vo = new MemberVo();
 			
@@ -32,7 +33,7 @@ public class MemberLoginController extends HttpServlet{
 			if(loginMember != null) {
 				req.getSession().setAttribute("loginMember", loginMember);
 				String root = req.getContextPath();
-				resp.sendRedirect(root + "/home");
+				resp.sendRedirect(currentUrl);
 				
 			}else {
 				throw new Exception();

@@ -205,11 +205,12 @@
                         <input type="text" name="memberId" placeholder="아이디를 입력해주세요">
                         <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요">
                         <br>
+                        <input type="hidden" name="currentUrl" value="">
                         <input type="submit" value="로그인" class="login-submit-btn">
                         <div class="idpwd-search bold">
                             <a href="${root}/forgot-id">아이디/비밀번호 찾기</a>
                         </div>
-                        <button class="join-move-btn" type="button">회원가입</button>
+                        <button class="join-move-btn" type="button" onclick="location.href='${root}/join'">회원가입</button>
                     </div>
                 </form>
                     
@@ -224,3 +225,9 @@
 
 </body>
 </html>
+
+<script>
+        const currentUrl = document.querySelector('input[name=currentUrl]');
+        url = window.location.pathname;
+        currentUrl.value = url;
+</script>
