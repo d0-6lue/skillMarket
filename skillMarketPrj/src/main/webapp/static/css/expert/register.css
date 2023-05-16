@@ -58,6 +58,9 @@ main{
     color: #3258A3;
     background-color: white;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .register-content{
@@ -143,6 +146,12 @@ select[name='expertCareerDuring']{
 
 .register-content-text{
     margin-top: 35px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.register-content-text2{
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: 600;

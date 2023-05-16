@@ -113,3 +113,13 @@ input[type="submit"]{
     margin-left: 10px;
     margin-top: 10px;
 }
+
+#check-email-availability{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#check-phone-availability{
+    margin-left: 10px;
+    margin-top: 10px;
+}

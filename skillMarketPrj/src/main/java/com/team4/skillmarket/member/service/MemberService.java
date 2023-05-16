@@ -62,4 +62,17 @@ public class MemberService {
 		
 	}
 
+	public int checkEmail(String memberEmail) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.checkEmail(conn, memberEmail);
+		
+		JDBCTemplate.close(conn);
+		
+		System.out.println(result);
+		
+		return result;
+	}
+
 }
