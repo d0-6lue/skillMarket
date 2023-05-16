@@ -8,13 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team4.skillmarket.member.vo.MemberVo;
+
 @WebServlet("/expert/register")
 public class RegisterExpertController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		req.getRequestDispatcher("/WEB-INF/views/expert/register.jsp").forward(req, resp);
+		MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
+		if(loginMember != null) {
+			req.getRequestDispatcher("/WEB-INF/views/expert/register.jsp").forward(req, resp);
+		}else {
+			req.getSession().setAttribute("alertMsg", "로그인을 먼저 해주세요.");
+			resp.sendRedirect(req.getContextPath() + "/home");
+		}
 		
 	}
 

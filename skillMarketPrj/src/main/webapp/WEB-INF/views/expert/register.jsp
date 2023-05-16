@@ -32,20 +32,14 @@
                 <div class="register-body">
                     <div class="profile-area">
                         <div class="profile-img">
-                            <img src="${root}/static/png/예시사진.png" alt="프로필사진">
+                            <img src="${root}/static/svg/기본프로필.svg" alt="프로필사진">
                         </div>
                         <label for="profile-btn" class="profile-btn bold">프로필 등록</label>
                         <input id="profile-btn" type="file" hidden></input>
                     </div>
                     <div class="register-content">
-                        <div class="nick-text">닉네임</div>
-                        <input type="text" name="memberNick" placeholder="닉네임을 입력해주세요">
-                        <div class="small">닉네임은 1회만 수정 가능합니다</div>
-                        <div class="small">닉네임 변경 이력이 있다면 수정하기 기능이 비활성화 됩니다</div>
-                        <div class="register-content-text">자기소개</div>
+                        <div class="register-content-text2">자기소개</div>
                         <textarea name="expertIntroduction" placeholder="자기소개"></textarea>
-                        <div class="register-content-text">주소</div>
-                        <input type="text" name="expertAddress" placeholder="주소를 입력해주세요">
                         <div class="register-content-text">연락가능시간</div>
                         <input type="text" name="expertTime" placeholder="연락가능시간를 입력해주세요">
                         <div class="register-content-text">전문분야</div>

@@ -151,6 +151,12 @@ select[name='expertCareerDuring']{
     font-weight: 600;
 }
 
+.register-content-text2{
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
 .career-content-text{
     font-size: 20px;
     font-weight: 600;
