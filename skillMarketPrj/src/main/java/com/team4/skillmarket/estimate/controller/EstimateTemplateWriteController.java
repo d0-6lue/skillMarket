@@ -28,7 +28,7 @@ import com.team4.skillmarket.utill.file.FileUploader;
 @WebServlet("/myestimate")
 public class EstimateTemplateWriteController extends HttpServlet {
 	
-	 private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
     private static final String UPLOAD_PATH = "/upload/estimate";
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 10;
@@ -87,7 +87,7 @@ public class EstimateTemplateWriteController extends HttpServlet {
             estimate.setEstimatePortfolio(jobPrepare);
 
             // 첨부파일 ~
-            List<AttachmentVo> attachmentList = extractAttachments(multi);
+            List<AttachmentVo> attachmentList = FileUploader.extractAttachments(multi);
             estimate.setAttachments(attachmentList);
 
             // 작성하기 ~
@@ -105,23 +105,4 @@ public class EstimateTemplateWriteController extends HttpServlet {
         }
     }
 
-    private List<AttachmentVo> extractAttachments(MultipartRequest multi) {
-        List<AttachmentVo> attachmentList = new ArrayList<>();
-        Enumeration<String> fileNames = multi.getFileNames();
-
-        while (fileNames.hasMoreElements()) {
-            String fileName = fileNames.nextElement();
-            File file = multi.getFile(fileName);
-
-            if (file != null) {
-                AttachmentVo attachment = new AttachmentVo();
-                attachment.setAttachmentOriginName(multi.getOriginalFileName(fileName));
-                attachment.setAttachmentServerName(file.getName());
-                attachment.setAttachmentType(FileUploader.getFileExtension(file.getName()));
-                attachmentList.add(attachment);
-            }
-        }
-
-        return attachmentList;
-    }
 }
