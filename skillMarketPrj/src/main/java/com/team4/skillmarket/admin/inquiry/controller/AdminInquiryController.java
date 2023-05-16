@@ -50,7 +50,7 @@ public class AdminInquiryController extends HttpServlet{
 			req.setAttribute("inquiryArrList", inquiryArrList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/inquiry.jsp").forward(req, resp);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	

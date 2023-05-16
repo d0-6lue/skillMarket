@@ -43,7 +43,7 @@ public class AdminMemberController extends HttpServlet{
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/members.jsp").forward(req, resp);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		

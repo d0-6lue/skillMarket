@@ -1,0 +1,11 @@
+tbody #catEditBtn {
+    width: 80%;
+    height: 30px;
+    border:none;
+    border-radius: 10px;
+    background-color: #F8C925;
+}
+
+article .statistics_list_2 th {
+    height: 10px;
+}

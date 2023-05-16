@@ -77,10 +77,13 @@
                             </div>
                             <div class="statistics statistics_list_2">
                                 <table>
-                                    <thead>
+                                    <thead class="scroll_tbody">
                                         <tr>
                                             <th>
                                                 <span>번호</span>
+                                            </th>
+                                            <th>
+                                                <span>카테고리</span>
                                             </th>
                                             <th>
                                                 <span>제목</span>
@@ -90,18 +93,23 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <span>999</span>
-                                            </td>
-                                            <td>
-                                                <span>99</span>
-                                            </td>
-                                            <td>
-                                                <span>9</span>
-                                            </td>
-                                        </tr>
+                                    <tbody class="scroll_tbody">
+                                        <c:forEach items="${ FAQArrList }" var="list">
+                                            <tr>
+                                                <td>
+                                                    <span>${ list.faqNo }</span>
+                                                </td>
+                                                <td>
+                                                    <span>${ list.faqCatNo }</span>
+                                                </td>
+                                                <td>
+                                                    <span>${ list.faqTitle }</span>
+                                                </td>
+                                                <td>
+                                                    <span>${ list.faqHit }</span>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

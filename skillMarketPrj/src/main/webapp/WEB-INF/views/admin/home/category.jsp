@@ -74,18 +74,20 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="scroll_tbody">
                                         <c:forEach items="${ catArrList }" var="list">
                                             <tr>
                                                 <td>
-                                                    <span>${list.qnaNo}</span>
+                                                    <span>${ list.estimateCatName }</span>
                                                 </td>
                                                 <td>
-                                                    <span>[${list.qnaCatNo}]${list.qnaTitle}</span>
+                                                    <input type="button" value="수정" id="catEditBtn">
                                                 </td>
                                                 <td>
-                                                    <span>${
-                                                        list.qnaStatus}</span>
+                                                    <span>중분류</span>
+                                                </td>
+                                                <td>
+                                                    <span>소분류</span>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -107,3 +109,4 @@
 </html>
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
+<link rel="stylesheet" href="${root}/static/css/admin/category.css">
