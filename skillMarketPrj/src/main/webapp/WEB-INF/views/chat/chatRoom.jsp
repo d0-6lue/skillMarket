@@ -50,6 +50,7 @@
 
                 <div class="chat-box-wrap">
                     <div class="chat-box">
+
                         <div class="chat">
                             <div class="chat-info">
                                 <span class="regular chat-sender">보낸사람 ㅇㅇㅇ</span>
@@ -65,6 +66,7 @@
                                 asdfasdfasdf
                             </div>
                         </div>
+
                         <div class="chat my-chat">
                             <div class="chat-info my-chat-info">
                                 <span class="regular chat-enroll-time">보낸시간 23/05/01 21:24</span>
@@ -74,6 +76,7 @@
                             </div>
                         </div>
                         <span class="regular readcheck my-chat">읽음</span>
+                        
                         <div class="chat">
                             <div class="chat-info">
                                 <span class="regular chat-sender">보낸사람 ㅇㅇㅇ</span>
@@ -93,6 +96,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="chat-input-btn">
                         <input type="text" class="regular chat-msg">
