@@ -15,16 +15,26 @@ const webSocket = new WebSocket("ws://" + host + root + "/websocket");
 webSocket.onopen = function(message) {
 
     // register 전송
-    register();
+    regist();
 
     // 채팅내역 가져오기
-    // loadChat();
+    loadChat();
 
 }
 
 
 // WebSocket 서버로 부터 메시지가 오면 호출 되는 함수
 webSocket.onmessage = function(message) {
+
+    jsonMessage = JSON.parse(message.data);
+
+    const type = jsonMessage.type;
+
+    if(type == 'load') {
+
+        printChatAll(jsonMessage.chatList);
+
+    }
 
     // var loginNick = sessionStorage.getItem('loginNick');
 
@@ -52,17 +62,154 @@ webSocket.onerror = function(message) {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 // 견적서번호
 const paramNo = (window.location.search).substring( (window.location.search).indexOf('=')+1);
+// 유저 번호는 loginMemberNo
+// 마지막 채팅 번호
+let lastChatNo = 0;
 
-function register() {
+// regist
+function regist() {
 
     let msg = {
-        'type' : 'register',
-        'sender' : loginMemberNo,
-        'roomNo' : paramNo
+        'type' : 'regist',
+        'senderNo' : loginMemberNo,
+        'roomNo' : paramNo,
     }
 
     webSocket.send(JSON.stringify(msg));
 
+}
+// 첫실행때 로드하기
+function loadChat() {
+
+    let msg = {
+        'type' : 'loadChat',
+        'senderNo' : loginMemberNo,
+        'roomNo' : paramNo,
+    }
+
+    webSocket.send(JSON.stringify(msg));
+
+}
+
+// 채팅 보냈을때
+function sendChat() {
+
+    const chatContent = document.querySelector(".chat-msg");
+
+    if(chatContent.value != ""){
+        let msg = {
+            'type' : 'sendChat',
+            'senderNo' : loginMemberNo,
+            'roomNo' : paramNo,
+            'content' : chatContent.value,
+            'lastChatNo' : lastChatNo,
+        }
+        
+        webSocket.send(JSON.stringify(msg));
+        
+        chatContent.value = "";
+
+    }
+
+}
+// 버튼 클릭 할 때 or enter 눌렀을 때 sendChat()
+const sendBtn = document.querySelector(".chat-send-btn");
+sendBtn.addEventListener("click", function(){
+    sendChat();
+} )
+const input = document.querySelector(".chat-msg");
+input.addEventListener("keyup" , function(event) {
+    if (event.keyCode === 13) {
+        document.querySelector(".chat-send-btn").click();
+      }
+})
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// 모든 채팅 그리기
+function printChatAll(chatList) {
+
+    const chatBox = document.querySelector(".chat-box");
+    // chatBox.replaceChildren("");
+
+    chatList.forEach(chatVo => {
+        
+        console.log(chatVo);
+        const chatNo = chatVo.chatNo;
+        const sender = chatVo.chatSender;
+        const content = chatVo.chatContent;
+        const enrollDate = chatVo.chatEnrollDate;
+        const chatRead = chatVo.chatRead;
+        const chatStatus = chatVo.chatStatus;
+        const chatAttchment = chatVo.chatAttchment;
+
+        // chat ----------------------------------------------------
+        const chat = document.createElement("div");
+        chat.classList.add("chat");
+
+        // chat-info ------------------------------------------------
+        const chatInfo = document.createElement("div");
+        chatInfo.classList.add("chat-info");
+
+        if( sender != loginMemberNo ) {
+            const chatSender = document.createElement("span");
+            chatSender.classList.add("chat-sender");
+            chatSender.classList.add("regular");
+            chatSender.innerText = sender;
+
+            chatInfo.append(chatSender);
+        }
+
+        const chatEnrollDate = document.createElement("span");
+        chatEnrollDate.classList.add("chat-enroll-date");
+        chatEnrollDate.classList.add("regular");
+        chatEnrollDate.innerText = enrollDate;
+
+        chatInfo.append(chatEnrollDate)
+        // chat-info ------------------------------------------------
+
+        // chat-contents---------------------------------------------
+        const chatContent = document.createElement("div");
+        chatContent.classList.add("chat-contents");
+        chatContent.classList.add("regular");
+        chatContent.innerText = content;
+        // chat-contents---------------------------------------------
+
+
+        chat.append(chatInfo);
+        chat.append(chatContent);
+        // chat -----------------------------------------------------
+        // 보낸이가 본인일경우
+        if( sender == loginMemberNo ) {
+            chat.classList.add("my-chat");
+            chatInfo.classList.add("my-chat-info");
+        }
+
+        chatBox.append(chat);
+        // 읽음여부
+        if( sender == loginMemberNo ) {
+            const readCheck = document.createElement("div");
+            readCheck.classList.add("regular");
+            readCheck.classList.add("readcheck");
+            readCheck.classList.add("my-chat");
+
+            if(chatRead == 'O'){
+                readCheck.innerText = "읽음";
+            }
+            else if(chatRead == 'X') {
+                readCheck.innerText = "안읽음";
+            }
+
+            chatBox.append(readCheck);
+        }
+        
+        lastChatNo = chatNo;
+
+    }); // forEach
+    
+    // 스크롤 제일 아래로
+    chatBox.scrollTop = chatBox.scrollHeight;
+    
 }
 
 

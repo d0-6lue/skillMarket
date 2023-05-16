@@ -27,9 +27,12 @@ function computeProgress() {
     startDay = new Date(startDay);
     deadline = new Date(deadline);
 
-    const today = new Date();
+    let today_ = new Date();
 
-    const totalDay = deadline.getTime(); - startDay.getTime();
+    today_ = today_.getFullYear() + "-" + 0+(today_.getMonth()+1) + "-" + today_.getDate();
+    const today = new Date(today_);
+
+    const totalDay = deadline.getTime() - startDay.getTime();
     const progressDay = today.getTime() - startDay.getTime();
 
     const progress = document.querySelector(".progress-rate");

@@ -143,6 +143,8 @@
     display: flex;
     flex-direction: column;
 
+    overflow-y: auto;
+
     background-color: rgba(50,88,163, 0.88);
 }
 
@@ -155,7 +157,7 @@
 
     background-color: white;
 
-    overflow: auto;
+    overflow-y: visible;
 
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
@@ -166,7 +168,6 @@
 
 /* 채팅 정보 */
 .chat-info {
-    height: 33px;
 
     margin: 1px 5px;
 
