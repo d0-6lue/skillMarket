@@ -32,7 +32,12 @@
                 <div class="register-body">
                     <div class="profile-area">
                         <div class="profile-img">
-                            <img src="${root}/static/svg/기본프로필.svg" alt="프로필사진">
+                        	<c:if test="${empty loginMember.memberProfilePhoto}">
+	                            <img src="${root}/static/svg/기본프로필.svg" alt="프로필사진">
+                        	</c:if>
+                        	<c:if test="${not empty loginMember.memberProfilePhoto}">
+                        		<img alt="프로필사진" src="${root}/static/img/profile/기본프로필.svg">
+                        	</c:if>
                         </div>
                         <label for="profile-btn" class="profile-btn bold">프로필 등록</label>
                         <input id="profile-btn" type="file" hidden></input>

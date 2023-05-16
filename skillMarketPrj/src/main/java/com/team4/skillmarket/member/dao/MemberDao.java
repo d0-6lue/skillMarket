@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.team4.skillmarket.common.db.JDBCTemplate;
+import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.vo.MemberVo;
 
 public class MemberDao {
@@ -155,6 +156,44 @@ public class MemberDao {
 		JDBCTemplate.close(pstmt);
 		
 		return result;
+	}
+
+	public ExpertVo searchExpertInfo(Connection conn, MemberVo loginMember) throws Exception {
+		
+		String sql = "SELECT * FROM FREELANCER WHERE MEMBER_NO = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getMemberNo());
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		ExpertVo loginExpert = null;
+		if(rs.next()) {
+			String freelancerNo = rs.getString("FREELANCER_NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String freelancerClassNo = rs.getString("FREELANCER_CLASS_NO");
+			String freelancerInroduction = rs.getString("FREELANCER_INRODUCTION");
+			String fieldOfExpertise = rs.getString("FIELD_OF_EXPERTISE");
+			String freelancerContactTime = rs.getString("FREELANCER_CONTACT_TIME");
+			String freelancerStatus = rs.getString("FREELANCER_STATUS");
+			
+			loginExpert = new ExpertVo();
+			
+			loginExpert.setFreelancerNo(freelancerNo);
+			loginExpert.setMemberNo(memberNo);
+			loginExpert.setFreelancerClassNo(freelancerClassNo);
+			loginExpert.setFreelancerInroduction(freelancerInroduction);
+			loginExpert.setFieldOfExpertise(fieldOfExpertise);
+			loginExpert.setFreelancerContactTime(freelancerContactTime);
+			loginExpert.setFreelancerStatus(freelancerStatus);
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return loginExpert;
+		
 	}
 
 	
