@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
@@ -16,9 +17,14 @@ public class ChatDao {
 		
 		int receiverNo = 0;
 		
-		String getReceiverSql = "SELECT CHAT_SENDER\r\n"
-				+ "FROM CHAT_LOG\r\n"
-				+ "WHERE QUOTATION_NO = ?";
+		String getReceiverSql = "SELECT a.member_no AS PARTICIPANT1, b.member_no AS PARTICIPANT2\r\n"
+				+ "FROM quotation a\r\n"
+				+ "    JOIN (\r\n"
+				+ "        SELECT member_no, estimate_no\r\n"
+				+ "        FROM estimate a\r\n"
+				+ "            JOIN freelancer b ON a.freelancer_no = b.freelancer_no \r\n"
+				+ "    ) b on a.estimate_no = b.estimate_no\r\n"
+				+ "WHERE quotation_no = ?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -28,12 +34,16 @@ public class ChatDao {
 			pstmt.setString(1, keyMap.get("quotationNo"));
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				
-				String chatSender = rs.getString("CHAT_SENDER");
+				String participant1 = rs.getString("PARTICIPANT1");
+				String participant2 = rs.getString("PARTICIPANT2");
 				
-				if( !( keyMap.get("senderNo").equals(chatSender) ) ) {
-					receiverNo = Integer.parseInt(chatSender);
+				if( ( keyMap.get("participantNo").equals(participant1) ) ) {
+					receiverNo = Integer.parseInt(participant2);
+				}
+				else if( ( keyMap.get("participantNo").equals(participant2) ) ) {
+					receiverNo = Integer.parseInt(participant1);
 				}
 				
 			}
@@ -59,7 +69,7 @@ public class ChatDao {
 		try {
 			
 			pstmt = conn.prepareStatement(checkReadSql);
-			pstmt.setString(1, receiverKeyMap.get("receiverNo"));
+			pstmt.setString(1, receiverKeyMap.get("participantNo"));
 			pstmt.setString(2, receiverKeyMap.get("quotationNo"));
 			result = pstmt.executeUpdate();
 			
@@ -118,5 +128,79 @@ public class ChatDao {
 		
 		return chatList;
 	} // loadChat
+
+
+	public int updateChat(Connection conn, Map<String, String> keyMap, String chatContent) {
+		
+		int result = 0;
+		
+		String updateChatSql = "INSERT INTO CHAT_LOG\r\n"
+				+ "VALUES (SEQ_CHAT_LOG_NO.NEXTVAL, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)";
+		
+		PreparedStatement pstmt = null;
+		try {
+			
+			pstmt = conn.prepareStatement(updateChatSql);
+			pstmt.setString(1, keyMap.get("quotationNo"));
+			pstmt.setString(2, keyMap.get("participantNo"));
+			pstmt.setString(3, chatContent);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	} // sendChat
+
+
+	public ChatRoomSideInfoVo getSideInfo(Connection conn, String quotationNo) {
+		
+		ChatRoomSideInfoVo sideInfo = null;
+		
+		String sql = "SELECT B.MEMBER_NICK AS BUYER, SELLER, ESTIMATE_TITLE, ESTIMATE_THUMBNAIL, ESTIMATE_LINE_INTRODUCTION\r\n"
+				+ "FROM QUOTATION A\r\n"
+				+ "    JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO\r\n"
+				+ "    JOIN (\r\n"
+				+ "        SELECT ESTIMATE_NO, SUB.MEMBER_NICK AS SELLER, ESTIMATE_TITLE, ESTIMATE_THUMBNAIL, ESTIMATE_LINE_INTRODUCTION\r\n"
+				+ "        FROM ESTIMATE ES\r\n"
+				+ "            JOIN (\r\n"
+				+ "                SELECT MEMBER_NICK, FREELANCER_NO\r\n"
+				+ "                FROM FREELANCER FRE\r\n"
+				+ "                    JOIN MEMBER MEM ON FRE.MEMBER_NO = MEM.MEMBER_NO\r\n"
+				+ "            ) SUB ON ES.FREELANCER_NO = SUB.FREELANCER_NO \r\n"
+				+ "    ) C ON A.ESTIMATE_NO = C.ESTIMATE_NO\r\n"
+				+ "WHERE QUOTATION_NO = ?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, quotationNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next() ) {
+				sideInfo = new ChatRoomSideInfoVo();
+				
+				sideInfo.setSeller(rs.getString("SELLER"));
+				sideInfo.setTitle(rs.getString("ESTIMATE_TITLE"));
+				sideInfo.setThumbnail(rs.getString("ESTIMATE_THUMBNAIL"));
+				sideInfo.setLineIntroduce(rs.getString("ESTIMATE_LINE_INTRODUCTION"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rs);
+		}
+		
+		return sideInfo;
+	} // getSideInfo
 
 }
