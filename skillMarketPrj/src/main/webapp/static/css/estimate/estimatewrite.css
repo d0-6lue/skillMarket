@@ -10,7 +10,7 @@ html, body {
 /* 견적서 메인칸 */
 .estimate-main-box {
     width: 950px;
-    height: 650px;
+    height: 800px;
     display: flex;
     justify-content: space-between;
     margin: auto;
@@ -76,5 +76,117 @@ margin-right: 180px;
     resize: none;
 }
 
+.custom-options-box {
+border: 1px solid #ccc;
+padding: 10px;
+border-radius: 4px;
+}
 
+.custom-options-content {
+background-color: #f7f7f7;
+padding: 10px;
+border-radius: 4px;
+display: flex;
+flex-wrap: wrap;
+}
 
+.custom-options-input {
+flex: 1 0 100%;
+margin-bottom: 10px;
+}
+
+.custom-options-title,
+.custom-price-amount {
+width: 100%;
+padding: 5px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+  .custom-options-work {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    appearance: none;
+  }
+
+  .custom-options-work option {
+    padding: 5px;
+  }
+
+.custom-qa-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .custom-qa-content {
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .custom-qa-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  
+  
+  .custom-qa-question,
+  .custom-qa-answer {
+    width: 100%;
+  }
+  
+  .custom-qa-question label,
+  .custom-qa-answer label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .custom-qa-question input,
+  .custom-qa-answer input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .custom-qa-group:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  #addQuestionButton {
+    display: block;
+    margin-top: 10px;
+  }
+
+/* 이미지 css입니다 */
+.image-preview {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  position: relative;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.remove-image {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
