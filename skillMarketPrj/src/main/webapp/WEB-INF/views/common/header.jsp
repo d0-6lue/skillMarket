@@ -52,7 +52,7 @@
                 
                 </c:if>
                 
-                <c:if test="${not empty loginMember}">
+                <c:if test="${not empty loginMember && empty loginExpert}">
                     <ul>
                         <li><a href="/skillmarket/expert/register">전문가 등록</a></li>
                         <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
@@ -78,8 +78,9 @@
                 
                 </c:if>
 
-
-                    <!-- <ul>
+				<c:if test="${not empty loginMember && not empty loginExpert}">
+				
+                    <ul>
                         <li><a href="/skillmarket/expert/register">견적서 작성</a></li>
                         <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
                         <li><div class="header-profile-area">
@@ -94,7 +95,9 @@
                     </li>
                         
     
-                    </ul> -->
+                    </ul>
+				</c:if>
+
 
                     
 

@@ -33,7 +33,7 @@
 
                 <div class="join-title bold">회원가입</div>
 
-                <form action="${root}/join/normal" method="post" class="join-form-area">
+                <form action="${root}/join/normal" method="post" class="join-form-area" onsubmit="return submitCheck()">
                     
                     <div class="join-form-text">이름</div>
                     <input type="text" class="join-form-input" name="memberName" placeholder="이름을 입력하세요.">
@@ -83,8 +83,10 @@
                     
                     <div class="join-form-text">관심분야</div>
                     <select class="join-form-input" name="memberFavorite">
-
-                        <option value="">IT/프로그래밍</option>
+						<c:forEach items="${categoryList}" var="category">
+                            <option value="${category.estimateCatNo}">${category.estimateCatName}</option>
+						
+						</c:forEach>
                     </select>  
                     
                     <input type="submit" value="가입 완료" class="bold">

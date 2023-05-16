@@ -1,6 +1,7 @@
 package com.team4.skillmarket.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.member.service.MemberService;
 import com.team4.skillmarket.member.vo.MemberVo;
 
@@ -18,9 +20,22 @@ public class MemberJoinNormalController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-	
-		
-		req.getRequestDispatcher("/WEB-INF/views/member/joinNormal.jsp").forward(req, resp);
+		try {
+			MemberService ms = new MemberService();
+			List<EstimateCategoryVo> categoryList = ms.searchCategoryJoin();
+			
+			if(categoryList != null) {
+				
+				req.setAttribute("categoryList", categoryList);
+				req.getRequestDispatcher("/WEB-INF/views/member/joinNormal.jsp").forward(req, resp);
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+			
+			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
+		}
 		
 	}
 	
