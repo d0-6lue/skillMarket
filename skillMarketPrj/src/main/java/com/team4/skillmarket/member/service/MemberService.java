@@ -3,6 +3,7 @@ package com.team4.skillmarket.member.service;
 import java.sql.Connection;
 
 import com.team4.skillmarket.common.db.JDBCTemplate;
+import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.dao.MemberDao;
 import com.team4.skillmarket.member.vo.MemberVo;
 
@@ -70,9 +71,19 @@ public class MemberService {
 		
 		JDBCTemplate.close(conn);
 		
-		System.out.println(result);
-		
 		return result;
+	}
+
+	public ExpertVo searchExpertInfo(MemberVo loginMember) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ExpertVo loginExpert = dao.searchExpertInfo(conn, loginMember);
+		
+		JDBCTemplate.close(conn);
+		
+		return loginExpert;
+		
 	}
 
 }

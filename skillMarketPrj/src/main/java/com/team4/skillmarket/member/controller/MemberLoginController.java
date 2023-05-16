@@ -8,12 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.service.MemberService;
 import com.team4.skillmarket.member.vo.MemberVo;
 
 @WebServlet("/login")
 public class MemberLoginController extends HttpServlet{
 
+	/**
+	 *
+	 */
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -30,9 +34,11 @@ public class MemberLoginController extends HttpServlet{
 			MemberService ms = new MemberService();
 			MemberVo loginMember = ms.login(vo);
 			
+			ExpertVo loginExpert = ms.searchExpertInfo(loginMember);
+			
 			if(loginMember != null) {
 				req.getSession().setAttribute("loginMember", loginMember);
-				String root = req.getContextPath();
+				req.getSession().setAttribute("loginExpert", loginExpert);
 				resp.sendRedirect(currentUrl);
 				
 			}else {
