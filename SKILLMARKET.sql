@@ -197,7 +197,6 @@ CREATE TABLE "FREELANCER" (
 	"FREELANCER_CLASS_NO"	    NUMBER		    NOT NULL,
 	"FREELANCER_INRODUCTION"	VARCHAR2(500)		    ,
 	"FIELD_OF_EXPERTISE"	    VARCHAR2(200)		    ,
-	"FREELANCER_ADDRESS"	    VARCHAR2(200)		    ,
 	"FREELANCER_CONTACT_TIME"	VARCHAR2(50)		    ,
 	"FREELANCER_STATUS"	        CHAR(1)		
 );
@@ -961,17 +960,17 @@ BEGIN
       FREELANCER_CLASS_NO,
       FREELANCER_INRODUCTION,
       FIELD_OF_EXPERTISE,
-      FREELANCER_ADDRESS,
+     
       FREELANCER_CONTACT_TIME,
       FREELANCER_STATUS
     )
     VALUES (
       SEQ_FREELANCER.NEXTVAL,
-      i,
+      SEQ_FREELANCER.NEXTVAL,
       i,
       '소개' || LPAD(i , 3 , '0'),
       '전문분야' || LPAD(i , 3 , '0'),
-      '주소' || LPAD(i , 3 , '0'),
+      
       LPAD(i , 2 , '0') || ':00',
       'Y'
     );
