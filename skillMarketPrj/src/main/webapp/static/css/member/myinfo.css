@@ -95,15 +95,23 @@ input[name='memberNick']{
     padding-left: 10px;
     margin-top: 20px;
     margin-bottom: 5px;
-    width: 500px;
+    width: 400px;
     height: 60px;
     border: 1px solid #7C7C7C;
+}
+
+.duplication-btn{
+    border-radius: 8px;
+    border: none;
+    display: inline-block;
+    width: 90px;
+    height: 60px;
 }
 
 input[name='memberEmail']{
     border-radius: 6px;
     padding-left: 10px;
-    width: 500px;
+    width: 400px;
     height: 60px;
     border: 1px solid #7C7C7C;
 }

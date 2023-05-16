@@ -46,11 +46,17 @@
                     </div>
                     <div class="myinfo-content">
                         <div class="nick-text">닉네임</div>
-                        <input type="text" name="memberNick" placeholder="닉네임을 입력해주세요">
+                        <div>
+                            <input type="text" name="memberNick" placeholder="닉네임을 입력해주세요">
+                        <button id="duplicate-check-nick-btn" class="duplication-btn yellow bold" type="button">중복확인</button>
+                        </div>
                         <div class="small">닉네임은 1회만 수정 가능합니다</div>
                         <div class="small">닉네임 변경 이력이 있다면 수정하기 기능이 비활성화 됩니다</div>
                         <div class="myinfo-content-text">이메일</div>
-                        <input type="text" name="memberEmail" placeholder="이메일을 입력해주세요">
+                        <div>
+                            <input type="text" name="memberEmail" placeholder="이메일을 입력해주세요">
+                            <button id="duplicate-check-email-btn" class="duplication-btn yellow bold" type="button">중복확인</button>
+                        </div>
                         <div class="myinfo-content-text">전화번호</div>
                         <input type="text" name="memberPhone" placeholder="전화번호를 입력해주세요">
                         <div class="myinfo-content-text">관심분야</div>
@@ -73,3 +79,37 @@
 
 </body>
 </html>
+
+<script>
+    // 닉네임 중복 검사
+
+    const nickCheckBtn = document.querySelector("#duplicate-check-nick-btn");
+    nickCheckBtn.addEventListener("click", function(){
+
+    const memberNick = document.querySelector("input[name=memberNick]").value;
+    console.log(memberNick);
+    const NickData = {
+        'memberNick' : memberNick
+    };
+
+    $.ajax({
+        url : '/skillmarket/join/check-nick',
+        type : 'POST',
+        data : NickData,
+        success : function(e){
+            if(e == 0){
+                alert("사용 불가능한 닉네임입니다.")
+            }else{
+                alert("사용가능한 닉네임입니다.");
+            }
+
+        },
+        error : function(e){
+            console.log(e);
+        }
+
+    })
+
+    })
+
+</script>

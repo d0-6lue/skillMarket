@@ -50,6 +50,9 @@
                         <div class="register-content-text">전문분야</div>
                         <select name="expertField">
                             <option value="" selected disabled>전문 분야 선택를 선택해주세요</option>
+                            <c:forEach items="${categoryList}" var="list">
+                            	<option value="${list.estimateCatNo }">${list.estimateCatName }</option>
+                            </c:forEach>
                         </select>
                         <div class="register-content-text">경력사항</div>
                         <div class="register-career-area">
