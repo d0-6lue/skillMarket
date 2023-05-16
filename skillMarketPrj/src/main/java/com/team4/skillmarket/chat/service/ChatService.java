@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.team4.skillmarket.chat.dao.ChatDao;
+import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
@@ -64,11 +65,38 @@ public class ChatService {
 	} // loadChat
 
 
-	public List<ChatVo> sendChat(Map<String, String> keyMap, String chatContent, String lastNo) {
+	public int sendChat(Map<String, String> keyMap, String chatContent, String lastNo) {
 		
+		int result = 0;
 		
+		Connection conn = JDBCTemplate.getConnection();
 		
-		return null;
+		result = chatDao.updateChat(conn, keyMap, chatContent);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
 	} // sendChat
+
+
+	public ChatRoomSideInfoVo getSideInfo(String quotationNo) {
+		
+		ChatRoomSideInfoVo sideInfo = null;
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		sideInfo = chatDao.getSideInfo(conn, quotationNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return sideInfo;
+	} // getSideInfo
 
 }
