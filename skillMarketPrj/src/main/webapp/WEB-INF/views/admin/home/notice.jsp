@@ -94,17 +94,19 @@
                                         </tr>
                                     </thead>
                                     <tbody class="scroll_tbody">
-                                        <tr>
-                                            <td>
-                                                <span>999</span>
-                                            </td>
-                                            <td>
-                                                <span>99</span>
-                                            </td>
-                                            <td>
-                                                <span>9</span>
-                                            </td>
-                                        </tr>
+                                        <c:forEach items="${ noticeArrList }" var="list">
+                                            <tr>
+                                                <td>
+                                                    ${ list.notiNo }
+                                                </td>
+                                                <td>
+                                                    [${ list.notiCatNo }]${ list.notiTitle }
+                                                </td>
+                                                <td>
+                                                    ${ list.notiHit }
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -117,6 +119,31 @@
         </article>
 
     </div>
+
+    <c:forEach items="${ noticeArrList }" var="modal">
+
+        <!-- 모달 -->
+        <div id="noticeDetail_${ modal.notiNo }" class="noticeDetail">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1>공지 상세</h1>
+                <div id="modal_div">
+                    <select name="" id="cat_select">
+                        <option value="default" selected>카테고리</option>
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                    </select>
+                    <input type="text" placeholder="제목">
+                </div>
+                <div id="summernote"></div>
+                <button id="submitBtn">등록하기</button>
+            </div>
+        </div>
+
+    </c:forEach>
+
+    
 
     <!-- 모달 -->
 	<div id="myModal" class="modal">
