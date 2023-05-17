@@ -36,7 +36,7 @@
 	                            <img src="${root}/static/svg/기본프로필.svg" alt="프로필사진">
                         	</c:if>
                         	<c:if test="${not empty loginMember.memberProfilePhoto}">
-                        		<img alt="프로필사진" src="${root}/static/img/profile/기본프로필.svg">
+                        		<img alt="프로필사진" src="${root}/static/img/profile/${loginMember.memberProfilePhoto}">
                         	</c:if>
                         </div>
                         <label for="profile-btn" class="profile-btn bold">프로필 등록</label>
@@ -61,7 +61,7 @@
                                 <option value="" selected disabled>선택해주세요</option>
                             </select>
                             <div class="career-content-text">경력사항</div>
-                            <button class="career-btn" type="button"></button>
+                            <button id="career-modal-add-btn" class="career-btn" type="button">경력 추가하기</button>
                         </div>
                         <div class="register-content-text">학력</div>
                         <div class="education-area">
@@ -82,5 +82,98 @@
 
     </main>
 
+    <div class="c-modal" id="c-modal">
+        <div class="c-modal-body">
+            <div class="c-m-head">
+                <div class="c-close-btn" id="c-close-btn">
+                    <span class="material-symbols-outlined">close</span>
+                </div>
+                <div class="c-m-main">
+                    <div class="c-m-head-title bold">경력사항</div>
+                    <div>
+                        <div>회사명</div>
+                        <input type="text" >
+                    </div>
+                    <div>
+                        <div>근무부서</div>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <div>직위</div>
+                        <select name="" id="">
+                            <option value="사원">사원</option>
+                            <option value="대리">대리</option>
+                            <option value="과장">과장</option>
+                            <option value="차장">차장</option>
+                            <option value="부장">부장</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div>근무지역</div>
+                        <select name="" id="">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+                    
+            </div>
+            
+            
+        </div>
+    </div>
+
 </body>
 </html>
+
+<script>
+
+//미리보기
+const fileTag = document.querySelector("input[type=file]");
+const previewArea = document.querySelector(".profile-img");
+
+
+fileTag.onchange = function(e){
+    
+    if(fileTag.files.length == 0){		//취소누른상태
+        return;
+    }
+
+    for(let i = 0 ; i < fileTag.files.length; i++){
+        const fr = new FileReader();
+        fr.readAsDataURL(fileTag.files[i]);
+
+        fr.onload = function(e){
+            previewArea.innerHTML = '';
+            const imgTag = document.createElement('img');
+            imgTag.src = e.target.result;
+            imgTag.alt = "미리보기이미지사진";
+            previewArea.appendChild(imgTag);
+        };
+    }
+
+
+};
+
+// 경력사항 모달
+
+const openBtn = document.querySelector("#career-modal-add-btn");
+const modal = document.querySelector("#c-modal");
+const closeBtn = document.querySelector("#c-close-btn");
+if(openBtn != null){
+    openBtn.addEventListener("click", function(){
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    });
+}
+
+closeBtn.addEventListener("click", function(){
+    modal.classList.remove('show');
+    document.body.style.removeProperty('overflow');
+})
+
+
+</script>
