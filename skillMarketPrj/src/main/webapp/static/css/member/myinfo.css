@@ -75,6 +75,9 @@ main{
     color: #3258A3;
     background-color: white;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .myinfo-content{
@@ -130,7 +133,6 @@ select[name='memberFavorite']{
     width: 500px;
     height: 60px;
     border: 1px solid #7C7C7C;
-    color: #7C7C7C;
 }
 
 .small{
@@ -159,4 +161,19 @@ select[name='memberFavorite']{
     height: 60px;
     background-color: #F8C925;
     font-size: 20px;
+}
+
+#check-nick-availability{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#check-email-availability{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#check-phone-availability{
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

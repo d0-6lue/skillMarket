@@ -16,7 +16,7 @@
 	    alert('${alertMsg}');
 	</script>
 	<c:remove var="alertMsg" scope="session"/>
-</c:if>
+    </c:if>
 </head>
 <body>
 
@@ -57,13 +57,13 @@
                         <li><a href="/skillmarket/expert/register">전문가 등록</a></li>
                         <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
                         <li class="header-profile-li"><div class="header-profile-area">
-                        	<c:if test="${not empty loginMember.memberProfilePhoto}">
+                        	<c:if test="${empty loginMember.memberProfilePhoto}">
                             	<img src="${root}/static/svg/기본프로필.svg" alt="프로필">
                         	
                         	</c:if>
                         	
-                        	<c:if test="${empty loginMember.memberProfilePhoto}">
-                        		<img alt="프로필" src="${root}/static/profile/${loginMember.memberProfilePhoto}">
+                        	<c:if test="${not empty loginMember.memberProfilePhoto}">
+                        		<img alt="프로필" src="${root}/static/img/profile/${loginMember.memberProfilePhoto}">
                         	</c:if>
                         </div>
                         <div class="login-nav-area">
@@ -83,7 +83,7 @@
                     <ul>
                         <li><a href="/skillmarket/expert/register">견적서 작성</a></li>
                         <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
-                        <li><div class="header-profile-area">
+                        <li class="header-profile-li"><div class="header-profile-area">
                             <img src="${root}/static/png/예시사진.png" alt="프로필">
                         </div>
                         <div class="login-nav-area">

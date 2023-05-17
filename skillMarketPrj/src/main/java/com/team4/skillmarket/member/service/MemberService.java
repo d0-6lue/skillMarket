@@ -98,4 +98,63 @@ public class MemberService {
 		return categoryList;
 	}
 
+	public int changeInfo(MemberVo vo) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.changeInfo(conn,vo);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public MemberVo getMyInfo(MemberVo vo) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		MemberVo loginMember= dao.getMyInfo(conn, vo);
+		
+		JDBCTemplate.close(conn);
+		
+		return loginMember;
+	}
+
+	public int changePwd(MemberVo vo) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.changePwd(conn,vo);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public int deleteMember(String no) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.deleteMember(conn, no);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 }
