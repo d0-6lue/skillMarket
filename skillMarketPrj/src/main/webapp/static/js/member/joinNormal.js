@@ -296,15 +296,17 @@ phoneInputArea.addEventListener("change", function(){
     phoneCheckAlter.style.color = "red";
 });
 
+// 전체 value 값 없을 때 회원가입 막기
+
 const nameInputArea = document.querySelector("input[name=memberName]");
 const address1InputArea = document.querySelector("input[name=memberAddress]");
 const address2InputArea = document.querySelector("input[name=memberAddress2]");
 
 const inputList = document.querySelectorAll("input");
 function submitCheck(){
-    console.log(inputList[0].value);
-    for(let i = 0; inputList.length; i++){
+    for(let i = 0; i < inputList.length; i++){
         if(inputList[i].value == ""){
+            inputList[i].focus();
             return false;
         }
     }

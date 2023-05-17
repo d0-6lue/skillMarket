@@ -33,12 +33,12 @@
     
         </nav>
 
-        <form action="${root}/my-info/delete-member" method="post">
+        <form action="${root}/my-info/delete-member" method="post" onsubmit="return deleteSubmitCheck();">
             <div class="deletemember-area">
                 <div class="deletemember-title bold">회원 탈퇴</div>
                 <div class="deletemember-body">
                         <div class="password-text">비밀번호</div>
-                            <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요">
+                            <input type="password" name="memberCurrentPwd" placeholder="비밀번호를 입력해주세요">
                         <div class="caution-area">
                             <div class="caution-title bold">주의 사항</div>
                             <ul>
@@ -49,10 +49,10 @@
                         </div>
                         <div class="deletemember-submit-btn">
                             <div class="caution-btn">
-                                <input type="checkbox">
+                                <input id="caution-check-btn" type="checkbox" onclick="checkCaution()">
                                 <div class="caution-btn-text">주의 사항을 모두 확인했습니다.</div>
                             </div>
-                            <input class="bold" type="submit" disabled value="회원 탈퇴">
+                            <input id="delete-submit-btn" class="bold" type="submit" disabled value="회원 탈퇴">
                         </div>
                 </div>
 
@@ -64,3 +64,29 @@
 
 </body>
 </html>
+
+
+<script>
+
+    const checkBtn = document.querySelector("#caution-check-btn");
+    const deleteBtn = document.querySelector("#delete-submit-btn");
+    const deletePwd = document.querySelector("input[name=memberCurrentPwd]");
+    function checkCaution(){
+        if(checkBtn.checked === true){
+            deleteBtn.disabled = false;
+        }else if(checkBtn.checked === false){
+            deleteBtn.disabled = true;
+        }
+    }
+
+    function deleteSubmitCheck() {
+        const deletePwdValue = deletePwd.value;
+        if(deletePwdValue != '${loginMember.memberPwd}'){
+            alert("비밀번호가 일치하지 않습니다.");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+</script>

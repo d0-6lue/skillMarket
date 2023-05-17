@@ -40,7 +40,7 @@
                         	</c:if>
                         </div>
                         <label for="profile-btn" class="profile-btn bold">프로필 등록</label>
-                        <input id="profile-btn" type="file" hidden></input>
+                        <input id="profile-btn" type="file" name="f" hidden></input>
                     </div>
                     <div class="register-content">
                         <div class="register-content-text2">자기소개</div>

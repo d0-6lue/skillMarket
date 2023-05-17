@@ -54,7 +54,7 @@ public class MemberJoinNormalController extends HttpServlet{
 			String memberPhone = req.getParameter("memberPhone");
 			String memberBank = req.getParameter("memberBank");
 			String memberAccount = req.getParameter("memberAccount");
-			String memberInterst = req.getParameter("memberInterst");
+			String memberInterst = req.getParameter("memberFavorite");
 			
 			MemberVo vo = new MemberVo();
 			vo.setMemberName(memberName);
