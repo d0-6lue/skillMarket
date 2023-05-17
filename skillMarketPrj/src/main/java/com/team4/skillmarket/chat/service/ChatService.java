@@ -8,6 +8,7 @@ import java.util.Map;
 import com.team4.skillmarket.chat.dao.ChatDao;
 import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
+import com.team4.skillmarket.chat.vo.OptionVo;
 import com.team4.skillmarket.chat.vo.RequestCategoryVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
@@ -113,5 +114,19 @@ public class ChatService {
 		
 		return requestCatVoList;
 	} // getRequestCat
+
+
+	public List<OptionVo> getOption(String value, String no) {
+		
+		List<OptionVo> optionList = null;
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		optionList = chatDao.getOption(conn, value, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return optionList;
+	} // getOption
 
 }

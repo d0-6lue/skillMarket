@@ -127,10 +127,56 @@ input.addEventListener("keyup" , function(event) {
 // 요청사항 보내기
 function sendRequest() {
 
+    const categoryNo = requestCategory.options[requestCategory.selectedIndex].value
+
+    const content = document.querySelector('#request-content-textarea');
+
+
     let msg = {
         'type' : 'request',
+        'categoryNo' : categoryNo,
+        'content' : content.value,
+        'senderNo' : loginMemberNo,
+        'roomNo' : paramNo,
     }
     
+    //옵션 추가
+    if(categoryNo == 300) {
+        const addOptionSelect = document.querySelector('.add-option-select');
+        const addOptionNo = addOptionSelect.options[addOptionSelect.selectedIndex].value;
+
+        const quantity = document.querySelector('.quantity-input').value;
+
+        msg.addOptionNo = addOptionNo;
+        msg.quantity = quantity;
+
+    }
+    //옵션 삭제
+    else if(categoryNo == 400) {
+        const select = document.querySelector('.delete-option-select');
+        const deleteOptionNo =  select.options[select.selectedIndex].value;
+
+        msg.deleteOptionNo = deleteOptionNo;
+    }
+    // 기한 단축
+    else if(categoryNo == 500) {
+        const numInput = document.querySelector(".request-input");
+
+        msg.period = numInput.value;
+    }
+    // 기한 연장
+    else if(categoryNo == 600) {
+        const numInput = document.querySelector(".request-input");
+
+        msg.period = numInput.value;
+    }
+    // 선금 요청
+    else if(categoryNo == 800) {
+        const numInput = document.querySelector(".request-input");
+
+        msg.handsel = numInput.value * 10000;
+    }
+
     webSocket.send(JSON.stringify(msg));
     
     requestModalToggle();
@@ -173,7 +219,7 @@ function printChatAll(chatList) {
             const chatSender = document.createElement("span");
             chatSender.classList.add("chat-sender");
             chatSender.classList.add("regular");
-            chatSender.innerText = sender;
+            chatSender.innerText = sellerNick;
 
             chatInfo.append(chatSender);
         }
@@ -184,19 +230,19 @@ function printChatAll(chatList) {
         chatEnrollDate.innerText = enrollDate;
 
         chatInfo.append(chatEnrollDate)
-        // chat-info ------------------------------------------------
+        // ------------------------------------------------
 
         // chat-contents---------------------------------------------
         const chatContent = document.createElement("div");
         chatContent.classList.add("chat-contents");
         chatContent.classList.add("regular");
         chatContent.innerText = content;
-        // chat-contents---------------------------------------------
+        // ---------------------------------------------
 
 
         chat.append(chatInfo);
         chat.append(chatContent);
-        // chat -----------------------------------------------------
+        // -----------------------------------------------------
         // 보낸이가 본인일경우
         if( sender == loginMemberNo ) {
             chat.classList.add("my-chat");
@@ -330,4 +376,211 @@ function requestModalToggle() {
     const requestModal = document.querySelector(".request-modal");
 
     requestModal.classList.toggle("modal-active")
+}
+// contextPath
+function getContextPath(){
+    const hostIndex = location.href.indexOf( location.host ) + location.host.length;
+
+    const contextPath = location.href.substring( hostIndex, location.href.indexOf( '/', hostIndex + 1 ));
+
+    return contextPath;
+}
+// 요청 카테고리 번호 가져오기
+const requestCategory = document.querySelector("#request-select");
+requestCategory.addEventListener('change', getOption)
+function getOption() {
+
+    const contextPath = getContextPath();
+
+    const catValue = requestCategory.options[requestCategory.selectedIndex].value
+
+    const changeArea = document.querySelector(".change-area");
+
+    let requestObject = {
+        catNo : catValue,
+        requestMsg : "",
+        requestChangeValue : ""
+    }
+
+    if(catValue == 100){
+        changeArea.innerText = '거래완료';
+    }
+    else if(catValue == 200){
+        changeArea.innerText = '거래취소';
+    }
+    else if(catValue == 300){
+        // 옵션 추가
+
+        changeArea.replaceChildren("");
+        
+        fetch(contextPath + "/option/get?cat=" + catValue + "&no=" + paramNo)
+        .then( (response) => response.json() )
+        .then( (data) => {
+
+            appendAddOption(data);
+            
+            addOptionEvent();
+
+        })
+        .catch( err => {
+        })
+
+    }
+    else if(catValue == 400){
+
+        changeArea.replaceChildren("");
+
+        fetch(contextPath + "/option/get?cat=" + catValue + "&no=" + paramNo)
+        .then( (response) => response.json() )
+        .then( (data) => {
+
+            appendDeleteOption(data);
+            
+        })
+        .catch( err => {
+        })
+
+    }
+    else if(catValue == 500){
+        appendInputNum(changeArea);
+
+    }
+    else if(catValue == 600){
+        appendInputNum(changeArea);
+
+    }
+    else if(catValue == 700){
+        changeArea.innerText = '수정요청';
+    }
+    else if(catValue == 800){
+        appendInputNum(changeArea);
+        changeArea.append('만원');
+
+    }
+
+    return requestObject;
+
+}
+function appendInputNum(area) {
+        const numInput = document.createElement("input");
+        numInput.classList.add("request-input");
+        numInput.type = 'number';
+        numInput.min = '1';
+        numInput.value = '1';
+        numInput.style.width = '100px';
+        numInput.style.textAlign = 'right';
+
+        area.innerText = "";
+        area.replaceChildren("");
+        area.append(numInput);
+}
+
+function appendAddOption( data ) {
+
+    const changeArea = document.querySelector(".change-area");
+
+    const select = document.createElement('select');
+    select.classList.add('add-option-select');
+
+    const selectOption = document.createElement('option');
+    selectOption.value = "";
+    selectOption.innerText = "--옵션을 선택해주세요--";
+    selectOption.hidden = true;
+    select.append(selectOption);
+
+    data.forEach(option => {
+    
+        const selectOption = document.createElement('option');
+
+        selectOption.value = option.estimateOptionNo;
+        selectOption.innerText = option.estimateOptionName;
+        selectOption.name = option.estimateOptionPrice;
+        selectOption.id = option.estimateOptionPeriod;
+
+        select.append(selectOption);
+
+    });
+
+    changeArea.append(select);
+
+    const inputQuantity = document.createElement("input");
+    inputQuantity.classList.add('quantity-input');
+    inputQuantity.type = 'number';
+    inputQuantity.min = '1';
+    inputQuantity.value = '0';
+    inputQuantity.disabled = true;
+    inputQuantity.style.width = '100px';
+    inputQuantity.style.textAlign = 'right';
+
+    changeArea.append(inputQuantity);
+
+    changeArea.append("옵션 추가요금");
+    const surcharge = document.createElement('span');
+    surcharge.classList.add('surcharge');
+    surcharge.classList.add('bold');
+    surcharge.innerText = "0";
+
+    changeArea.append(surcharge);
+
+    changeArea.append("옵션 추가기간");
+    const extraPreiod = document.createElement('span');
+    extraPreiod.classList.add('extraPreiod');
+    extraPreiod.classList.add('bold');
+    extraPreiod.innerText = "0";
+
+    changeArea.append(extraPreiod);
+}
+
+function addOptionEvent(){
+
+    const addOptionSelect = document.querySelector('.add-option-select');
+
+    
+    addOptionSelect.addEventListener('change', function() {
+        
+        const quantity = document.querySelector('.quantity-input');
+
+        quantity.value = 0;
+        quantity.disabled = false;
+
+        quantity.addEventListener('change', function() {
+
+            const surcharge = document.querySelector('.surcharge');
+            const extraPreiod = document.querySelector('.extraPreiod');
+
+            surcharge.innerText = quantity.value * addOptionSelect.options[addOptionSelect.selectedIndex].name ;
+            extraPreiod.innerText = quantity.value * addOptionSelect.options[addOptionSelect.selectedIndex].id ;
+
+        })
+
+    })
+
+}
+
+
+function appendDeleteOption(data) {
+
+    const changeArea = document.querySelector(".change-area");
+
+    const select = document.createElement("select");
+    select.classList.add("delete-option-select");
+
+    const selectOption = document.createElement('option');
+    selectOption.value = "";
+    selectOption.innerText = "--취소하실 옵션을 선택해주세요--";
+    selectOption.hidden = true;
+    select.append(selectOption);
+
+    data.forEach(option => {
+
+        const selectOption = document.createElement("option");
+        selectOption.value = option.quotationOptionNo;
+        selectOption.innerText = option.estimateOptionName 
+        + "  /  수량 : " + option.quotationOptionQuantity 
+        + "  /  금액 : " + option.quotationOptionQuantity * option.estimateOptionPrice;
+        select.append(selectOption);
+
+    })
+
+    changeArea.append(select);
 }

@@ -150,7 +150,7 @@
 
 /* 챗 클래스 */
 .chat {
-    width: 400px;
+    width: 350px;
     margin: 5px 10px;
 
     border-radius: 12px;
@@ -336,7 +336,7 @@
 }
 
 .subhead {
-    width: 70px;
+    width: 80px;
     font-size: 20px;
     margin: 10px 70px;
 }
@@ -349,6 +349,13 @@
     resize: none;
 
     margin: 10px 5px;
+}
+
+.request-modal-changes {
+    display: flex;
+}
+.change-area {
+    align-self: center;
 }
 
 .modal-btns {
@@ -376,4 +383,26 @@
     font-size: 24px;
 
     background-color: rgb(255, 255, 255);
+}
+
+.add-option-select {
+    width: 200px;
+}
+
+.quantity-input {
+    width: 100px;
+    margin: 0px 20px;
+}
+
+.surcharge, .extraPreiod {
+    width: 100px;
+    margin: 0px 10px;
+}
+
+.delete-option-select {
+    width: 400px;
+}
+
+.request-input {
+    width: 100px;
 }
