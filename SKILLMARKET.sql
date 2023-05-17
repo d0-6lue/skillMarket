@@ -1255,3 +1255,33 @@ BEGIN
 END;
 /
 
+
+-- NOTICE 
+BEGIN 
+  FOR i IN 1..10 LOOP
+    INSERT INTO NOTICE (
+        NOTI_NO, 
+        NOTI_CAT_NO, 
+        ADMIN_NO, 
+        NOTI_TITLE, 
+        NOTI_CONTENT, 
+        NOTI_ENROLLDATE, 
+        NOTI_MODIFYDATE, 
+        NOTI_STATUS, 
+        NOTI_HIT
+    )
+    VALUES (
+        SEQ_NOTICE.NEXTVAL,
+        SEQ_NOTICE.NEXTVAL,
+        SEQ_NOTICE.NEXTVAL,
+        '공지 제목' || LPAD(i , 3 , '0'),
+        '공지 내용'|| LPAD(i , 3 , '0') || '.jpg',
+        SYSDATE,
+        SYSDATE,
+        'N',
+        i        
+    );
+  END LOOP;
+END;
+/
+

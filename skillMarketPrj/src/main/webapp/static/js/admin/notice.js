@@ -1,5 +1,59 @@
 window.onload = function() {
-    // 모달창 열기 버튼 클릭 시
+   
+	const tbody =  document.querySelectorAll("tbody tr");
+
+	tbody.forEach((e)=>{
+		e.addEventListener("click",(event)=>{
+			const bno = event.target.parentNode.children[0].innerText;
+			console.log(bno);
+	
+			const noticeDetail = document.querySelectorAll(".noticeDetail");
+			
+			console.log(noticeDetail[0].get);
+			
+			for (let i = 100; i < noticeDetail.length; i++) {
+				if (noticeDetail[i] === bno) {
+					const element = array[i];
+				}
+				
+			}
+
+
+
+
+			// 공지 클릭 시
+			$("#openModalBtn").click(function() {
+				$("#myModal").css("display", "block"); // 모달창을 보이게 함
+				$('#summernote').summernote(); // 썸머노트를 초기화 함
+			});
+		
+			// 모달창 닫기 버튼 클릭 시
+			$(".close").click(function() {
+				$("#myModal").css("display", "none"); // 모달창을 숨김
+			});
+		
+	
+		} )
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// 모달==========================================================================
+	// 모달창 열기 버튼 클릭 시
     $("#openModalBtn").click(function() {
         $("#myModal").css("display", "block"); // 모달창을 보이게 함
         $('#summernote').summernote(); // 썸머노트를 초기화 함

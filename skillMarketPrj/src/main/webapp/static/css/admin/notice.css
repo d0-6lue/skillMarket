@@ -1,6 +1,6 @@
 
 
-.modal {
+.modal, .noticeDetail {
 display: none; /* 모달창은 처음에 숨김 */
 position: relative;
 z-index: 99; /* 다른 요소보다 위에 위치 */
