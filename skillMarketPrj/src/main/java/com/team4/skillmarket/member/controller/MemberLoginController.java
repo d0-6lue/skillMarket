@@ -34,7 +34,10 @@ public class MemberLoginController extends HttpServlet{
 			MemberService ms = new MemberService();
 			MemberVo loginMember = ms.login(vo);
 			
-			ExpertVo loginExpert = ms.searchExpertInfo(loginMember);
+			ExpertVo loginExpert = null;
+			if(loginMember != null) {
+				loginExpert = ms.searchExpertInfo(loginMember);
+			}
 			
 			if(loginMember != null) {
 				req.getSession().setAttribute("loginMember", loginMember);
@@ -42,7 +45,7 @@ public class MemberLoginController extends HttpServlet{
 				resp.sendRedirect(currentUrl);
 				
 			}else {
-				throw new Exception();
+				return;
 			}
 			
 			
