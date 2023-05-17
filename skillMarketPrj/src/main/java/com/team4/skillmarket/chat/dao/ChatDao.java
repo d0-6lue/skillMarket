@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
+import com.team4.skillmarket.chat.vo.RequestCategoryVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class ChatDao {
@@ -202,5 +203,41 @@ public class ChatDao {
 		
 		return sideInfo;
 	} // getSideInfo
+
+
+	public List<RequestCategoryVo> getRequestCat(Connection conn) {
+		
+		List<RequestCategoryVo> requestCatVoList = new ArrayList<>();
+		
+		String sql = "SELECT CHAT_REQUEST_CAT_NO, CHAT_REQUEST_CAT_NAME\r\n"
+				+ "FROM CHAT_REQUEST_CAT";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				
+				RequestCategoryVo requestCatVo = new RequestCategoryVo();
+				
+				requestCatVo.setCategoryNo(rs.getString("CHAT_REQUEST_CAT_NO"));
+				requestCatVo.setCategoryName(rs.getString("CHAT_REQUEST_CAT_NAME"));
+				
+				requestCatVoList.add(requestCatVo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rs);
+		}
+		
+		return requestCatVoList;
+	} // getRequestCat
 
 }

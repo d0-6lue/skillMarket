@@ -124,6 +124,25 @@ input.addEventListener("keyup" , function(event) {
       }
 })
 
+// 요청사항 보내기
+function sendRequest() {
+
+    let msg = {
+        'type' : 'request',
+    }
+    
+    webSocket.send(JSON.stringify(msg));
+    
+    requestModalToggle();
+    
+}
+const request = document.querySelector(".request-modal-btn");
+request.addEventListener("click" , function() {
+
+    sendRequest();
+
+})
+
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 // 모든 채팅 그리기

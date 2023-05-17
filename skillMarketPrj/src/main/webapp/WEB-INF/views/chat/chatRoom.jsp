@@ -121,27 +121,27 @@
                     요청서 작성하기
                 </div>
                 <div class="modal-content">
+
                     <div class="request-modal-category">
                         <span class="regular subhead">카테고리</span>
                         <select name="request-category" id="request-select">
                             <option value="" hidden>--요청하실 카테고리를 골라주세요--</option>
-                            <option value="deadline-extension">마감기간 연장</option>
-                            <option value="deadline-reduce">마감기간 단축</option>
-                            <option value="option-add">옵션 추가</option>
-                            <option value="option-remove">옵션 취소</option>
-                            <option value="retouch-request">수정 요청</option>
-                            <option value="handsel-request">선금 요청</option>
-                            <option value="cancle-request">거래 취소</option>
+                            <c:forEach var="categoryVo" items="${categoryList }">
+                            	<option value="${categoryVo.categoryNo } }">${categoryVo.categoryName }</option>
+                            </c:forEach>
                         </select>
                     </div>
+
                     <div class="request-modal-content">
                         <span class="regular subhead">내용</span>
-                        <textarea name="request-content-textarea" id="request-content-textarea" cols="100" rows="15"></textarea>
+                        <textarea name="request-content-textarea" id="request-content-textarea" cols="100" rows="13"></textarea>
                     </div>
+
                     <div class="request-modal-changes">
                         <span class="regular subhead">변경사항</span>
-        
+
                     </div>
+
                 </div>
                 <div class="modal-btns">
                     <button class="request-modal-btn">요청하기</button>

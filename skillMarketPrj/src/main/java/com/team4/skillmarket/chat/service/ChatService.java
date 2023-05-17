@@ -8,6 +8,7 @@ import java.util.Map;
 import com.team4.skillmarket.chat.dao.ChatDao;
 import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
+import com.team4.skillmarket.chat.vo.RequestCategoryVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class ChatService {
@@ -98,5 +99,19 @@ public class ChatService {
 		
 		return sideInfo;
 	} // getSideInfo
+
+
+	public List<RequestCategoryVo> getRequestCat() {
+		
+		List<RequestCategoryVo> requestCatVoList = null;
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		requestCatVoList = chatDao.getRequestCat(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return requestCatVoList;
+	} // getRequestCat
 
 }
