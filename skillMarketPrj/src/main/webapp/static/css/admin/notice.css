@@ -157,3 +157,7 @@ button#openModalBtn {
     color: #353535;
     background-color: #FFD15A;
 }
+
+.error-input {
+    border: 2px solid red;
+  }
