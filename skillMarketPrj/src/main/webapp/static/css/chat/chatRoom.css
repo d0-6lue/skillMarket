@@ -326,30 +326,29 @@
 
 .modal-content {
     width: 50%;
-    height: 75%;
+    height: 50%;
 
     align-self: center;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 80px 100%;
+    grid-template-rows: 70px 300px 70px;
 }
 
 .subhead {
+    width: 70px;
     font-size: 20px;
-    margin: 0px 70px;
+    margin: 10px 70px;
 }
 
 .request-modal-content {
     display: flex;
-
-    margin-left: 20px;
 }
 
 #request-content-textarea {
     resize: none;
 
-    margin-left: 20px;
+    margin: 10px 5px;
 }
 
 .modal-btns {
