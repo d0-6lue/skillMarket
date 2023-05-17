@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
+import com.team4.skillmarket.chat.vo.OptionVo;
 import com.team4.skillmarket.chat.vo.RequestCategoryVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
@@ -240,4 +241,69 @@ public class ChatDao {
 		return requestCatVoList;
 	} // getRequestCat
 
+
+	public List<OptionVo> getOption(Connection conn, String value, String no) {
+		
+		List<OptionVo> optionList = new ArrayList<>();
+		
+		
+		String sql = "";
+		// 300 == 옵션추가 -> 견적서 옵션
+		if("300".equals(value)) {
+			
+			sql = "SELECT ESTIMATE_OPTION_NO, ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD\r\n"
+					+ "FROM ESTIMATE_OPTION\r\n"
+					+ "WHERE ESTIMATE_NO = \r\n"
+					+ "(SELECT ESTIMATE_NO FROM QUOTATION WHERE QUOTATION_NO = ?)";
+		}
+		// 400 == 옵션취소 -> 주문소 옵션
+		else if("400".equals(value)) {
+			
+			sql = "SELECT QUOTATION_OPTION_NO, QUOTATION_NO, QUOTATION_OPTION_QUANTITY, B.ESTIMATE_OPTION_NO,\r\n"
+					+ "ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD\r\n"
+					+ "FROM QUOTATION_OPTION A\r\n"
+					+ "    JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
+					+ "WHERE QUOTATION_NO = ?";
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				OptionVo vo = new OptionVo();
+				
+				vo.setEstimateOptionNo(rs.getString("ESTIMATE_OPTION_NO"));
+				vo.setEstimateOptionName(rs.getString("ESTIMATE_OPTION_NAME"));
+				vo.setEstimateOptionPrice(rs.getString("ESTIMATE_OPTION_PRICE"));
+				vo.setEstimateOptionPeriod(rs.getString("ESTIMATE_OPTION_PERIOD"));
+				
+				if("400".equals(value)) {
+					
+					vo.setQuotationOptionNo(rs.getString("QUOTATION_OPTION_NO"));
+					vo.setQuotationOptionQuantity(rs.getString("QUOTATION_OPTION_QUANTITY"));
+					vo.setQuotationNo(rs.getString("QUOTATION_NO"));
+				}
+				
+				optionList.add(vo);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rs);
+		}
+		
+		
+		return optionList;
+	} // getOption
+	
 }

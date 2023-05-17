@@ -31,6 +31,9 @@
                         <div class="chat-opponent">
                             <div class="bold opponent-category">판매자</div>
                             <div class="regular opponent-nick">${sideInfo.seller}</div>
+                            <script>
+                                const sellerNick = '${sideInfo.seller}';
+                            </script>
                         </div>
                         <div class="chat-util-horizontal-border"></div>
                         <div class="project-info">
@@ -127,7 +130,7 @@
                         <select name="request-category" id="request-select">
                             <option value="" hidden>--요청하실 카테고리를 골라주세요--</option>
                             <c:forEach var="categoryVo" items="${categoryList }">
-                            	<option value="${categoryVo.categoryNo } }">${categoryVo.categoryName }</option>
+                            	<option value="${categoryVo.categoryNo }">${categoryVo.categoryName }</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -138,8 +141,10 @@
                     </div>
 
                     <div class="request-modal-changes">
-                        <span class="regular subhead">변경사항</span>
+                        <span class="regular subhead change-title">변경사항</span>
+                        <div class="change-area regular">
 
+                        </div>
                     </div>
 
                 </div>

@@ -200,6 +200,24 @@ public class WebSocket {
 			}
 			
 		}
+		// type 이 'request' 일 경우 ---------------------------------------------------------------------------------------------------
+		if( type != null && "sendChat".equals(type)) {
+			// Session 얻기
+			Session s = (Session) usersMap.get(keyMap.toString());
+			Session r = (Session) usersMap.get(receiverKeyMap.toString());
+			
+			String chatContent = String.valueOf(messageMap.get("content"));
+			String lastNo = String.valueOf(messageMap.get("lastChatNo"));
+			
+			List<ChatVo> chatList = new ArrayList<>();
+			chatService.sendChat(keyMap, chatContent, lastNo);
+			if( r!= null && r.isOpen() ) {
+				int result = chatService.checkRead(keyMap);
+			}
+			chatList = chatService.loadChat(quotationNo, lastNo);
+			
+			
+		}
 		// type 이 '' 일 경우 ---------------------------------------------------------------------------------------------------
 		
 		
