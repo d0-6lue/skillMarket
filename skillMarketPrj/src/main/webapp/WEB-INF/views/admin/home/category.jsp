@@ -58,6 +58,9 @@
                         <div>
                             <div class="subtitle">
                                 <h3>카테고리 리스트</h3>
+                                <div >
+                                    <button id="openModalBtn">카테고리 추가</button>
+                                </div>
                             </div>
                             <div class="statistics statistics_list_2">
                                 <table>
@@ -105,8 +108,10 @@
     </div>
 	
 
+
 </body>
 </html>
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
 <link rel="stylesheet" href="${root}/static/css/admin/category.css">
+

@@ -9,44 +9,27 @@ window.onload = function() {
 	
 			const noticeDetail = document.querySelectorAll(".noticeDetail");
 			
-			console.log(noticeDetail[0].get);
+			const selectModal =  document.getElementById("noticeDetail_"+ bno);
+
 			
-			for (let i = 100; i < noticeDetail.length; i++) {
-				if (noticeDetail[i] === bno) {
-					const element = array[i];
-				}
-				
-			}
-
-
-
 
 			// 공지 클릭 시
-			$("#openModalBtn").click(function() {
-				$("#myModal").css("display", "block"); // 모달창을 보이게 함
-				$('#summernote').summernote(); // 썸머노트를 초기화 함
+			$(e).click(function() {
+				$(selectModal).css("display", "block"); // 모달창을 보이게 함
+				$("#noticeDetailContent_" + bno).innerHTML = "${ modal.notiContent }";
 			});
 		
+
+
 			// 모달창 닫기 버튼 클릭 시
 			$(".close").click(function() {
-				$("#myModal").css("display", "none"); // 모달창을 숨김
+				$("#noticeDetail_"+ bno).css("display", "none"); // 모달창을 숨김
 			});
 		
 	
 		} )
 		
 	})
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -80,7 +63,7 @@ window.onload = function() {
 	const contentContainer = document.querySelector("#summernote");
 	
 	
-	
+	console.log(titleInput);
 
 	submitBtn.addEventListener("click", () => {
 	    // 제목을 가져온다
@@ -93,6 +76,7 @@ window.onload = function() {
 	    // 카테고리를 가져온다
 	    const categorySelect = document.querySelector("#cat_select");
 	    const category = categorySelect.value;
+		
 	
 	    // 이미지들을 가져온다
 	    const images = [];
