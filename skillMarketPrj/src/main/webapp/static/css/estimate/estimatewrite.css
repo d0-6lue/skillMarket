@@ -10,7 +10,7 @@ html, body {
 /* 견적서 메인칸 */
 .estimate-main-box {
     width: 950px;
-    height: 800px;
+    height: 1200px;
     display: flex;
     justify-content: space-between;
     margin: auto;
@@ -189,4 +189,30 @@ border-radius: 4px;
   color: #fff;
   border: none;
   cursor: pointer;
+}
+
+.portfolio-container{
+  border: 1px solid #ced4da;
+  height: 600px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.job-portfolio-container{
+  height: 80px;
+}
+
+.image-container{
+  border: 1px solid #ced4da;
+  height: 600px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.job-subimage-container{
+  height: 80px;
 }
