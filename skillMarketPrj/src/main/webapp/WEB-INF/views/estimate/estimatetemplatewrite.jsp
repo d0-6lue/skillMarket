@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${root}/static/css/estimate/estimatewrite.css">
 
 <!-- 견적서 작성 페이지 js -->
+<script defer src="${root}/static/js/estimate/estimatewrite1.js"></script>
 <script defer src="${root}/static/js/estimate/estimatewrite.js"></script>
 
 <!-- 부트스트랩 css js -->
@@ -46,29 +47,36 @@
                                 <label for="job-title">제목</label>
                                 <input type="text" class="form-control" id="job-title" name="job-title" placeholder="서비스를 잘 드러낼 수 있는 제목을 입력하세요 최대 30자까지 가능합니다." maxlength="30">
                             </div>
-                            <div class="form-group">
+                           <!-- 카테고리 -->
+                           <div class="form-group">
                                 <label for="job-category">카테고리</label>
                                 <div class="form-group">
                                     <select class="form-control" id="job-category1">
-                                        <option value="" disabled selected>대분류</option>
-                                        <option value="1">카테고리1</option> <!-- 하드코딩에 맞게 대분류 카테고리 추가 -->
-                                        <option value="2">카테고리2</option> <!-- 하드코딩에 맞게 대분류 카테고리 추가 -->
+                                        <option value="" selected>대분류</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <select class="form-control" id="job-category2" disabled>
-                                        <option value="" disabled selected>중분류</option>
+                                        <option value="" selected>중분류</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <select class="form-control" id="job-category3" disabled>
-                                        <option value="" disabled selected>소분류</option>
+                                        <option value="" selected>소분류</option>
                                     </select>
                                 </div>
+                                <input type="hidden" id="estiCatevoList" value='${estiCatevoList}'/>
                             </div>
-                            <div class="form-group form-control-lg">
-                                <label for="job-portfolio">포트폴리오</label>
-                                <input type="file" name="portfoli-submit">
+                            <!-- 포트폴리오 최대(5장) -->
+                            <div class="form-group form-control-lg portfolio-container">
+                                <div id="job-portfolio-container">
+                                    <label for="job-portfolio">포트폴리오</label>
+                                    <input type="file" id="portfolio-submit" name="portfolio-submit" accept="image/*" multiple>
+                                    <div id="preview-container"></div>
+                                </div>                     
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" type="button" id="cancel-button">파일선택 초기화</button>
                             </div>
                         </div>
     
@@ -78,16 +86,40 @@
                                 <label for="job-duration">작업기간</label>
                                 <select class="form-control" id="job-duration" name="job-duration">
                                     <option value="" disabled selected>작업기간</option>
-                                    <option value="job-duration1">1</option>
-                                    <option value="job-duration2">2</option>
-                                    <option value="job-duration3">3</option>
-                                    <option value="job-duration4">4</option>
-                                    <option value="job-duration5">5</option>
-                                    <option value="job-duration6">6</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                            <label for="job-price">금액</label>
+                            <label for="job-price">${estiCatevolist}</label>
                                 <input type="text" class="form-control" id="job-price" name="job-price" placeholder="5000">
                             </div>
                             <div id="customOptionsContainer"></div>
@@ -106,15 +138,12 @@
                             <div class="form-group">
                             <textarea class="form-control form-control-lg" id="job-description" name="job-description" rows="10" placeholder="서비스설명을 입력하세요"></textarea>
                             </div>
-                            <hr>
-                            <h4>의뢰인 준비사항</h4>
-                            <div class="form-group">
-                            <textarea class="form-control form-control-lg" id="job-prepare" name="job-prepare" rows="5" placeholder="의뢰인 준비사항을 입력하세요"></textarea>
-                            </div>
                         </div>
     
                         <!-- 이미지 -->
                         <div class="tab-pane fade" id="list-image" role="tabpanel" aria-labelledby="list-image-list">
+
+                            <!-- 메인 이미지(필수) 1장 -->
                             <div class="form-group">
                                 <label for="job-mainfile-upload">메인이미지등록(필수)</label>
                                 <input class="form-control form-control-lg" type="file" name="main-file-upload" id="main-file-upload" onchange="previewImage(this, 'main-image-preview')">
@@ -124,14 +153,17 @@
                                 <button type="button" class="remove-image" onclick="removeImage('main-image-preview-container')">X</button>
                             </div>
                             <hr>
-                            <div class="form-group">
-                                <label for="job-subfile-upload">상세이미지등록(선택)</label>
-                                <input class="form-control form-control-lg" type="file" name="sub-file-upload" id="sub-file-upload" onchange="previewImage(this, 'sub-image-preview')">
+                            <!-- 상세 이미지 (6장) -->
+                            <div class="form-group form-control-lg image-container">
+                                <div id="job-subimage-container">
+                                    <label for="job-subimage">상세이미지</label>
+                                    <input type="file" id="sub-file-upload" name="sub-file-upload" accept="image/*" multiple>
+                                    <div id="subimage-preview-container"></div>
+                                </div>
                             </div>
-                            <div class="image-preview" id="sub-image-preview-container">
-                                <img id="sub-image-preview" src="" alt="상세이미지 미리보기">
-                                <button type="button" class="remove-image" onclick="removeImage('sub-image-preview-container')">X</button>
-                            </div>
+                            <button class="btn btn-primary" type="button" id="cancel-subimage-button">상세이미지 초기화</button>
+
+                            
                         </div>
     
     
@@ -146,6 +178,7 @@
                                     <button id="addQuestionButton" type="button">질문 추가</button>
                                 </div>
                             </div>
+                            <button id="submitButton" type="button">전송</button>
                         </div>
                     </main>
                     <!-- footer -->

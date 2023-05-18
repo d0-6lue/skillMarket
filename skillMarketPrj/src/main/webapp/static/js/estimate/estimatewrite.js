@@ -1,120 +1,3 @@
-// 왼쪽 사이드바 요소들 배열에 담음
-const tabIds = ['list-home', 'list-price', 'list-service', 'list-image', 'list-faq'];
-
-// 현재 탭 요소
-let currentTabIndex = 0;
-
-// 버튼 요소 가져옴
-const button = document.getElementById('nextButton');
-
-// 각 사이드바 요소에 이벤트 리스너 추가함
-tabIds.forEach((tabId, index) => {
-    const tabElement = document.getElementById(tabId + '-list');
-    tabElement.addEventListener('click', function() {
-        currentTabIndex = index;
-        updateButton();
-    });
-});
-
-button.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    // 탭 요소가 끝이 아니면 다음 탭을 보여줍니다.
-    if (currentTabIndex < tabIds.length - 1) {
-        currentTabIndex++;
-        const tabToShow = new bootstrap.Tab(document.getElementById(tabIds[currentTabIndex] + '-list'));
-        tabToShow.show();
-    } else {
-        // 폼을 제출합니다.
-        document.getElementById('estimate-post-btn').submit();
-    }
-    updateButton();
-});
-
-function updateButton() {
-    // 마지막 탭이면 
-    if (currentTabIndex === tabIds.length - 1) {
-        button.setAttribute('type', 'submit');
-        button.value = '제출';
-    } else {
-        button.setAttribute('type', 'button');
-        button.value = '다음';
-    }
-}
-
-const addQuestionButton = document.getElementById('addQuestionButton');
-const customQAContent = document.querySelector('.custom-qa-content');
-
-addQuestionButton.addEventListener('click', function() {
-    const customQAGroup = document.createElement('div');
-    customQAGroup.classList.add('custom-qa-group');
-
-    const customQAQuestion = document.createElement('div');
-    customQAQuestion.classList.add('custom-qa-question');
-    customQAQuestion.innerHTML = `
-        <label for="custom-question">Q.</label>
-        <input type="text" class="custom-question" placeholder="질문을 입력하세요">
-    `;
-
-    const customQAAnswer = document.createElement('div');
-    customQAAnswer.classList.add('custom-qa-answer');
-    customQAAnswer.innerHTML = `
-        <label for="custom-answer">A.</label>
-        <input type="text" class="custom-answer" placeholder="답변을 입력하세요">
-    `;
-
-    customQAGroup.appendChild(customQAQuestion);
-    customQAGroup.appendChild(customQAAnswer);
-    customQAContent.appendChild(customQAGroup);
-});
-
-//추가옵션 박스
-const customOptionsContainer = document.getElementById('customOptionsContainer');
-const addCustomOptionsButton = document.getElementById('addCustomOptionsButton');
-let customOptionsCount = 0;
-
-addCustomOptionsButton.addEventListener('click', function() {
-
-customOptionsCount++;
-const customOptionsBox = createCustomOptionsBox(customOptionsCount);
-customOptionsContainer.appendChild(customOptionsBox);
-});
-
-function createCustomOptionsBox(count) {
-const customOptionsBox = document.createElement('div');
-customOptionsBox.classList.add('custom-options-box');
-
-const customOptionsContent = document.createElement('div');
-customOptionsContent.classList.add('custom-options-content');
-
-const titleInput = document.createElement('input');
-titleInput.classList.add('custom-options-title');
-titleInput.setAttribute('type', 'text');
-titleInput.setAttribute('placeholder', '제목을 입력하세요');
-
-const priceInput = document.createElement('input');
-priceInput.classList.add('custom-price-amount');
-priceInput.setAttribute('type', 'text');
-priceInput.setAttribute('placeholder', '1000원 추가시');
-
-const workSelect = document.createElement('select');
-workSelect.classList.add('custom-options-work');
-
-for (let i = 0; i <= 6; i++) {
-const option = document.createElement('option');
-option.setAttribute('value', i);
-option.textContent = i;
-workSelect.appendChild(option);
-}
-
-customOptionsContent.appendChild(titleInput);
-customOptionsContent.appendChild(priceInput);
-customOptionsContent.appendChild(workSelect);
-
-customOptionsBox.appendChild(customOptionsContent);
-
-return customOptionsBox;
-}
 
 //이미지 관련 JS
 
@@ -149,4 +32,100 @@ function removeImage(containerId) {
     }
 }
 
-//카테고리 관련 js
+// 포폴 이미지 업로드 관련 js
+document.querySelector('#portfolio-submit').addEventListener('change', function() {
+    const previewContainer = document.querySelector('#preview-container');
+    const existingImages = previewContainer.querySelectorAll('img');
+
+    const files = this.files;
+    const totalImageCount = existingImages.length + files.length;
+
+    if (totalImageCount > 5) {
+        alert('최대 5장까지 선택할 수 있습니다.');
+        this.value = ''; // 파일 선택 취소
+        return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        if (file.size > 10 * 1024 * 1024) {
+            alert('10MB 이하의 이미지만 업로드할 수 있습니다.');
+            continue; // 다음 파일로 넘어감
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.width = '200px';
+            img.style.height = '200px';
+            img.style.marginRight = '10px';
+            img.style.border = '1px solid #ccc';
+            previewContainer.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
+
+// 포트폴리오 취소 버튼 이벤트 처리
+document.querySelector('#cancel-button').addEventListener('click', function() {
+    const portfolioInput = document.querySelector('#portfolio-submit');
+    portfolioInput.value = ''; // 파일 선택 취소
+    const previewContainer = document.querySelector('#preview-container');
+    previewContainer.innerHTML = ''; // 미리보기 영역 초기화
+});
+
+//상세 이미지 이벤트 처리
+document.querySelector('#sub-file-upload').addEventListener('change', function() {
+    const previewContainer = document.querySelector('#subimage-preview-container');
+    const existingImages = previewContainer.querySelectorAll('img');
+
+    const files = this.files;
+    const totalImageCount = existingImages.length + files.length;
+
+    if (totalImageCount > 6) {
+        alert('최대 6장까지 선택할 수 있습니다.');
+        this.value = ''; // 파일 선택 취소
+        return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        if (file.size > 10 * 1024 * 1024) {
+            alert('10MB 이하의 이미지만 업로드할 수 있습니다.');
+            continue; // 다음 파일로 넘어감
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.width = '200px';
+            img.style.height = '200px';
+            img.style.marginRight = '10px';
+            img.style.border = '1px solid #ccc'; // 보더 추가
+            previewContainer.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
+
+// 상세이미지 초기화 버튼 이벤트 처리
+document.querySelector('#cancel-subimage-button').addEventListener('click', function() {
+    const subimageInput = document.querySelector('#sub-file-upload');
+    subimageInput.value = ''; // 파일 선택 취소
+    const previewContainer = document.querySelector('#subimage-preview-container');
+    previewContainer.innerHTML = ''; // 미리보기 영역 초기화
+});
+
+
+
+
+
+
