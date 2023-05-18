@@ -138,6 +138,7 @@ function sendRequest() {
         'content' : content.value,
         'senderNo' : loginMemberNo,
         'roomNo' : paramNo,
+        'lastChatNo' : lastChatNo,
     }
     
     //옵션 추가

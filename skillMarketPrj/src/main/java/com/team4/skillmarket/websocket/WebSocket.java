@@ -17,6 +17,7 @@ import javax.websocket.Session;
 import com.google.gson.*;
 import com.team4.skillmarket.chat.service.ChatService;
 import com.team4.skillmarket.chat.vo.ChatVo;
+import com.team4.skillmarket.chat.vo.RequestVo;
 
 @ServerEndpoint("/websocket")
 public class WebSocket {
@@ -146,7 +147,7 @@ public class WebSocket {
 			
 		}
 		// type 이 'sendChat' 일 경우 ---------------------------------------------------------------------------------------------------
-		if( type != null && "sendChat".equals(type)) {
+		else if( type != null && "sendChat".equals(type)) {
 			// Session 얻기
 			Session s = (Session) usersMap.get(keyMap.toString());
 			Session r = (Session) usersMap.get(receiverKeyMap.toString());
@@ -154,8 +155,9 @@ public class WebSocket {
 			String chatContent = String.valueOf(messageMap.get("content"));
 			String lastNo = String.valueOf(messageMap.get("lastChatNo"));
 			
+			int sendResult = chatService.sendChat(keyMap, chatContent, lastNo);
+			
 			List<ChatVo> chatList = new ArrayList<>();
-			chatService.sendChat(keyMap, chatContent, lastNo);
 			if( r!= null && r.isOpen() ) {
 				int result = chatService.checkRead(keyMap);
 			}
@@ -201,19 +203,50 @@ public class WebSocket {
 			
 		}
 		// type 이 'request' 일 경우 ---------------------------------------------------------------------------------------------------
-		if( type != null && "sendChat".equals(type)) {
+		else if( type != null && "request".equals(type)) {
 			// Session 얻기
 			Session s = (Session) usersMap.get(keyMap.toString());
 			Session r = (Session) usersMap.get(receiverKeyMap.toString());
 			
-			String chatContent = String.valueOf(messageMap.get("content"));
+			String requestContent = String.valueOf(messageMap.get("content"));
 			String lastNo = String.valueOf(messageMap.get("lastChatNo"));
 			
-			List<ChatVo> chatList = new ArrayList<>();
-			chatService.sendChat(keyMap, chatContent, lastNo);
-			if( r!= null && r.isOpen() ) {
-				int result = chatService.checkRead(keyMap);
+			RequestVo requestVo = new RequestVo();
+			String requestCatNo = messageMap.get("categoryNo");
+			requestVo.setReuqestCatNo(requestCatNo);
+			requestVo.setRequestContent(requestContent);
+			
+			if("300".equals(requestCatNo)) {
+				requestVo.setOptionNo(messageMap.get("addOptionNo"));
+				requestVo.setInputNo(messageMap.get("quantity"));
 			}
+			else if("400".equals(requestCatNo)) {
+				requestVo.setOptionNo("0");
+				requestVo.setOptionNo(messageMap.get("addOptionNo"));
+			}
+			else if("500".equals(requestCatNo)) {
+				requestVo.setOptionNo("0");
+				requestVo.setInputNo(messageMap.get("period"));
+			}
+			else if("600".equals(requestCatNo)) {
+				requestVo.setOptionNo("0");
+				requestVo.setInputNo(messageMap.get("period"));
+			}
+			else if("800".equals(requestCatNo)) {
+				requestVo.setOptionNo("0");
+				requestVo.setInputNo(messageMap.get("handsel"));
+			}
+			else {
+				requestVo.setOptionNo("0");
+				requestVo.setInputNo("0");
+			}
+			
+			chatService.sendRequest(keyMap, requestVo, lastNo);
+			
+			List<ChatVo> chatList = new ArrayList<>();
+//			if( r!= null && r.isOpen() ) {
+//				int result = chatService.checkRead(keyMap);
+//			}
 			chatList = chatService.loadChat(quotationNo, lastNo);
 			
 			
