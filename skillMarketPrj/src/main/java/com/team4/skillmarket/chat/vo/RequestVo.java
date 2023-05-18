@@ -11,25 +11,14 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatVo {
-	
-	private String chatNo;
-	private String quotationNo;
-	private String chatSender;
-	private String chatContent;
-	private String chatRequest;
-	private String chatAttachment;
-	private String chatRead;
-	private String chatStatus;
-	private String chatEnrollDate;
+public class RequestVo {
 
-	
 	private String requestNo;
 	private String reuqestCatNo;
+	private String quotationNo;
 	private String requestContent;
 	private String requestEnrollDate;
 	private String requestStatusNo;
 	private String optionNo;
 	private String inputNo;
-	
 }

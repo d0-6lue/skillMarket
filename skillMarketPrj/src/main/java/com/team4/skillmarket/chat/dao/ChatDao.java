@@ -11,6 +11,7 @@ import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
 import com.team4.skillmarket.chat.vo.OptionVo;
 import com.team4.skillmarket.chat.vo.RequestCategoryVo;
+import com.team4.skillmarket.chat.vo.RequestVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class ChatDao {
@@ -132,17 +133,17 @@ public class ChatDao {
 	} // loadChat
 
 
-	public int updateChat(Connection conn, Map<String, String> keyMap, String chatContent) {
+	public int sendChat(Connection conn, Map<String, String> keyMap, String chatContent) {
 		
 		int result = 0;
 		
-		String updateChatSql = "INSERT INTO CHAT_LOG\r\n"
+		String sendChatSql = "INSERT INTO CHAT_LOG\r\n"
 				+ "VALUES (SEQ_CHAT_LOG_NO.NEXTVAL, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)";
 		
 		PreparedStatement pstmt = null;
 		try {
 			
-			pstmt = conn.prepareStatement(updateChatSql);
+			pstmt = conn.prepareStatement(sendChatSql);
 			pstmt.setString(1, keyMap.get("quotationNo"));
 			pstmt.setString(2, keyMap.get("participantNo"));
 			pstmt.setString(3, chatContent);
@@ -305,5 +306,104 @@ public class ChatDao {
 		
 		return optionList;
 	} // getOption
+
+
+	public int sendChatR_(Connection conn, Map<String, String> keyMap, RequestVo requestVo) {
+		
+		int chatSendResult = 0;
+
+		String sendChatSql = "INSERT INTO CHAT_LOG\r\n"
+				+ "VALUES (SEQ_CHAT_LOG_NO.NEXTVAL, ?, ?, ?, 'O', DEFAULT, DEFAULT, DEFAULT, DEFAULT)";
+		
+		PreparedStatement pstmt = null;
+		try {
+			
+			pstmt = conn.prepareStatement(sendChatSql);
+			pstmt.setString(1, keyMap.get("quotationNo"));
+			pstmt.setString(2, keyMap.get("participantNo"));
+			pstmt.setString(3, " ");
+			chatSendResult = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return chatSendResult;
+	} // sendChatR_
+
+
+	public int sendRequest(Connection conn, Map<String, String> keyMap, RequestVo requestVo, String lastChatNo) {
+		
+		int sendResult = 0;
+		
+		String sendRequestSql = "INSERT INTO CHAT_REQUEST\r\n"
+				+ "( REQUEST_NO, CHAT_LOG_NO, REQUEST_CAT_NO, REQUEST_CONTENT,\r\n"
+				+ "REQUEST_ENROLL_DATE, REQUEST_STATUS_NO, OPTION_NO, INPUT_NO )\r\n"
+				+ "VALUES ( SEQ_CHAT_REQUEST_NO.NEXTVAL, ?, ?, ?,\r\n"
+				+ "DEFAULT, DEFAULT, ?, ?)";
+		
+		PreparedStatement pstmt = null;
+		try {
+			
+			pstmt =conn.prepareStatement(sendRequestSql);
+			
+			pstmt.setString(1, getLastNo(conn, keyMap.get("quotationNo")) );
+			pstmt.setString(2, requestVo.getReuqestCatNo());
+			pstmt.setString(3, requestVo.getRequestContent());
+			
+			pstmt.setString(4, requestVo.getOptionNo());
+			pstmt.setString(5, requestVo.getInputNo());
+			
+			sendResult = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return sendResult;
+	} // sendRequest
+	
+	public String getLastNo(Connection conn, String quotationNo) {
+		
+		String result = "";
+		
+		String getLastNoSql = "SELECT CHAT_NO\r\n"
+				+ "FROM (\r\n"
+				+ "        SELECT ROWNUM AS NO, CHAT_NO, CHAT_ENROLL_DATE\r\n"
+				+ "        FROM CHAT_LOG\r\n"
+				+ "        WHERE QUOTATION_NO = ?\r\n"
+				+ "        ORDER BY CHAT_LOG.CHAT_ENROLL_DATE\r\n"
+				+ "    )\r\n"
+				+ "WHERE NO = 1";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			pstmt = conn.prepareStatement(getLastNoSql);
+			pstmt.setString(1, quotationNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("CHAT_NO");
+			}
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rs);
+		}
+		
+		return result;
+	}
 	
 }

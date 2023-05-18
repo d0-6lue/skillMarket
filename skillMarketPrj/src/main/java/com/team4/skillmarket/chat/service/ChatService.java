@@ -10,6 +10,7 @@ import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
 import com.team4.skillmarket.chat.vo.OptionVo;
 import com.team4.skillmarket.chat.vo.RequestCategoryVo;
+import com.team4.skillmarket.chat.vo.RequestVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class ChatService {
@@ -73,7 +74,7 @@ public class ChatService {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		result = chatDao.updateChat(conn, keyMap, chatContent);
+		result = chatDao.sendChat(conn, keyMap, chatContent);
 		
 		if(result == 1) {
 			JDBCTemplate.commit(conn);
@@ -128,5 +129,36 @@ public class ChatService {
 		
 		return optionList;
 	} // getOption
+
+
+	public int sendRequest(Map<String, String> keyMap, RequestVo requestVo, String lastChatNo) {
+		
+		int result = 0;
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		result = chatDao.sendChatR_(conn, keyMap, requestVo);
+		
+		if(result == 1) {
+			
+			result = chatDao.sendRequest(conn, keyMap, requestVo, lastChatNo);
+			
+			
+			if(result == 1) {
+				JDBCTemplate.commit(conn);
+			}
+			else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 
 }
