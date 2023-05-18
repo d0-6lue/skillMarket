@@ -3,9 +3,23 @@ tbody #catEditBtn {
     height: 30px;
     border:none;
     border-radius: 10px;
-    background-color: #F8C925;
+    background-color: #fdd570;
 }
 
 article .statistics_list_2 th {
     height: 10px;
+}
+
+button#openModalBtn {
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #353535;
+    background-color: #FFD15A;
+}
+
+article tbody.scroll_tbody{
+    height: calc( 100% - 25px);
 }

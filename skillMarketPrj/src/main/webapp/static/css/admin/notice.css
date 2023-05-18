@@ -13,7 +13,9 @@ background-color: rgba(0,0,0,0.4); /* 배경을 어둡게 함 */
 
 }
 
-.modal-content {
+
+
+.modal-content, .modal-content {
 position: fixed; /* 모달창을 고정 위치에 띄움 */
 background-color: #fefefe; /* 모달창 배경색 */
 /* margin: 15% auto;  */
@@ -34,9 +36,6 @@ grid-template-areas:
     "sn sn sn"
     "sb sb sb"
 ;
-
-
-
 }
 
 
@@ -64,11 +63,11 @@ grid-template-areas:
     align-self: center;
 }
 
-#modal_div select,input {
+#modal_div select,input ,.nDC {
     border: none;
 }
 
-#modal_div select {
+#modal_div select ,.nDC{
     text-align: center;
 }
 
@@ -81,6 +80,17 @@ grid-template-areas:
 
 #modal_div select:focus,input:focus {
     outline: #aaa;
+}
+
+.nDC {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: inherit;
+    font-size: 25px;
+    color: #242424;
+    font-weight: 700;
+    padding: 5PX;
 }
 
 
@@ -107,7 +117,7 @@ grid-template-areas:
 
 
 
-.modal #submitBtn{
+.modal #submitBtn , #submitBtn1{
     border-radius: 10px;
     width: 15%;
     height: 85%;
@@ -161,3 +171,5 @@ button#openModalBtn {
 .error-input {
     border: 2px solid red;
   }
+
+  
