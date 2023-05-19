@@ -23,11 +23,10 @@ public class ChatVo {
 	private String chatStatus;
 	private String chatEnrollDate;
 
-	
 	private String requestNo;
-	private String reuqestCatNo;
+	private String requestCatNo;
+	private String requestCatName;
 	private String requestContent;
-	private String requestEnrollDate;
 	private String requestStatusNo;
 	private String optionNo;
 	private String inputNo;
