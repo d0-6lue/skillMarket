@@ -118,6 +118,30 @@ public class ChatDao {
 				chatVo.setChatStatus(rs.getString("CHAT_STATUS"));
 				chatVo.setChatEnrollDate(rs.getString("CHAT_ENROLL_DATE"));
 				
+				JDBCTemplate.close(rs);
+				rs = null;
+				if("O".equals(chatVo.getChatRequest())) {
+					
+					String getReuqtstSql = "SELECT REQUEST_NO, REQUEST_CAT_NO, CHAT_REQUEST_CAT_NAME, REQUEST_CONTENT, REQUEST_ENROLL_DATE, REQUEST_STATUS_NO, OPTION_NO, INPUT_NO\r\n"
+							+ "FROM CHAT_REQUEST A\r\n"
+							+ "    JOIN CHAT_REQUEST_CAT B ON A.REQUEST_CAT_NO = B.CHAT_REQUEST_CAT_NO\r\n"
+							+ "WHERE CHAT_LOG_NO = ?";
+					
+					pstmt = conn.prepareStatement(getReuqtstSql);
+					pstmt.setString(1, chatVo.getChatNo());
+					rs = pstmt.executeQuery();
+					
+					if( rs.next() ) {
+						chatVo.setRequestNo(rs.getString("REQUEST_NO"));
+						chatVo.setRequestStatusNo(rs.getString("REQUEST_STATUS_NO"));
+						chatVo.setRequestCatNo(rs.getString("REQUEST_CAT_NO"));
+						chatVo.setRequestCatName(rs.getString("CHAT_REQUEST_CAT_NAME"));
+						chatVo.setOptionNo(rs.getString("OPTION_NO"));
+						chatVo.setInputNo(rs.getString("INPUT_NO"));
+					}
+					
+				}
+				
 				chatList.add(chatVo);
 				
 			}
@@ -369,18 +393,19 @@ public class ChatDao {
 		return sendResult;
 	} // sendRequest
 	
+	
 	public String getLastNo(Connection conn, String quotationNo) {
 		
 		String result = "";
 		
-		String getLastNoSql = "SELECT CHAT_NO\r\n"
+		String getLastNoSql = "SELECT ROWNUM, CHAT_NO, CHAT_ENROLL_DATE\r\n"
 				+ "FROM (\r\n"
-				+ "        SELECT ROWNUM AS NO, CHAT_NO, CHAT_ENROLL_DATE\r\n"
-				+ "        FROM CHAT_LOG\r\n"
-				+ "        WHERE QUOTATION_NO = ?\r\n"
-				+ "        ORDER BY CHAT_LOG.CHAT_ENROLL_DATE\r\n"
-				+ "    )\r\n"
-				+ "WHERE NO = 1";
+				+ "    SELECT ROWNUM AS NO, CHAT_NO, CHAT_ENROLL_DATE\r\n"
+				+ "    FROM CHAT_LOG\r\n"
+				+ "    WHERE QUOTATION_NO = ?\r\n"
+				+ "    ORDER BY CHAT_LOG.CHAT_ENROLL_DATE DESC\r\n"
+				+ ")\r\n"
+				+ "WHERE ROWNUM = 1";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

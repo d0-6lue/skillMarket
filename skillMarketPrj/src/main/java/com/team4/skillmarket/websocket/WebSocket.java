@@ -222,7 +222,7 @@ public class WebSocket {
 			}
 			else if("400".equals(requestCatNo)) {
 				requestVo.setOptionNo("0");
-				requestVo.setOptionNo(messageMap.get("addOptionNo"));
+				requestVo.setOptionNo(messageMap.get("deleteOptionNo"));
 			}
 			else if("500".equals(requestCatNo)) {
 				requestVo.setOptionNo("0");
