@@ -244,10 +244,49 @@ public class WebSocket {
 			chatService.sendRequest(keyMap, requestVo, lastNo);
 			
 			List<ChatVo> chatList = new ArrayList<>();
-//			if( r!= null && r.isOpen() ) {
-//				int result = chatService.checkRead(keyMap);
-//			}
+			if( r!= null && r.isOpen() ) {
+				int result = chatService.checkRead(keyMap);
+			}
 			chatList = chatService.loadChat(quotationNo, lastNo);
+			
+			
+			// Map 으로 담기
+			Map<String, Object> replyMessageMap = new HashMap<>();
+			replyMessageMap.put("type", "add");
+			replyMessageMap.put("chatList", chatList);
+			
+			// JSON 으로 변환
+			String reply_msg = gson.toJson(replyMessageMap);
+			
+			
+			try {
+				// 채팅리스트 클라이언트로 보내기
+				s.getBasicRemote().sendText(reply_msg);
+				
+				// 상대가 접속중이라면 상대의 채팅리스트 다시 보내기
+				
+				System.out.println(r);
+				if( r!= null && r.isOpen() ) {
+					
+					// 채팅 리스트 가져오기
+					chatList = new ArrayList<>();
+					chatList = chatService.loadChat(quotationNo, lastNo);
+					
+					// Map 으로 담기
+					replyMessageMap = new HashMap<>();
+					replyMessageMap.put("type", "add");
+					replyMessageMap.put("chatList", chatList);
+					
+					// JSON 으로 변환
+					reply_msg = gson.toJson(replyMessageMap);
+					
+					r.getBasicRemote().sendText(reply_msg);
+					
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 			
 		}

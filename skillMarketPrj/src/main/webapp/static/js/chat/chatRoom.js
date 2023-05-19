@@ -180,7 +180,17 @@ function sendRequest() {
 
     webSocket.send(JSON.stringify(msg));
     
+
+    // 요청 모달창 닫기
     requestModalToggle();
+    // 요청 내용 초기화
+    const requestSelect = document.querySelector("#request-select");
+
+    console.log(requestSelect.options[0]);
+    requestSelect.options[0].selected = true;
+
+    const requestContent = document.querySelector("#request-content-textarea")
+    requestContent.value = "";
     
 }
 const request = document.querySelector(".request-modal-btn");
@@ -201,6 +211,7 @@ function printChatAll(chatList) {
     chatList.forEach(chatVo => {
         
         const chatNo = chatVo.chatNo;
+        const senderNo = chatVo.chatSenderNo;
         const sender = chatVo.chatSender;
         const content = chatVo.chatContent;
         const enrollDate = chatVo.chatEnrollDate;
@@ -216,10 +227,10 @@ function printChatAll(chatList) {
         const chatInfo = document.createElement("div");
         chatInfo.classList.add("chat-info");
 
-        if( sender != loginMemberNo ) {
+        if( senderNo != loginMemberNo ) {
             const chatSender = document.createElement("span");
             chatSender.classList.add("chat-sender");
-            chatSender.classList.add("regular");
+            chatSender.classList.add("bold");
             chatSender.innerText = sellerNick;
 
             chatInfo.append(chatSender);
@@ -227,17 +238,45 @@ function printChatAll(chatList) {
 
         const chatEnrollDate = document.createElement("span");
         chatEnrollDate.classList.add("chat-enroll-date");
-        chatEnrollDate.classList.add("regular");
+        chatEnrollDate.classList.add("bold");
         chatEnrollDate.innerText = enrollDate;
 
         chatInfo.append(chatEnrollDate)
         // ------------------------------------------------
 
         // chat-contents---------------------------------------------
-        const chatContent = document.createElement("div");
+        const chatContent= document.createElement("div");
         chatContent.classList.add("chat-contents");
         chatContent.classList.add("regular");
-        chatContent.innerText = content;
+        if(chatVo.chatRequest == 'O') {
+        
+            const requestArea = document.createElement("div");
+            requestArea.classList.add("request_")
+
+            const requestTitle = document.createElement("div");
+            requestTitle.classList.add("request-title");
+            requestTitle.classList.add("bold");
+            requestTitle.innerText = '요청서';
+            requestArea.append(requestTitle);
+
+            const requestContent = document.createElement("div");
+            requestContent.classList.add("request-content");
+            requestContent.classList.add("bold");
+            requestContent.innerText = content;
+            requestArea.append(requestContent);
+
+            requestCheckBtn = document.createElement("button");
+            requestCheckBtn.classList.add("request-check-btn");
+            requestCheckBtn.classList.add("regular");
+            requestCheckBtn.innerText = '확인하기';
+            requestArea.append(requestCheckBtn);
+
+
+            chatContent.append(requestArea);
+        }
+        else {
+            chatContent.innerText = content;
+        }
         // ---------------------------------------------
 
 
@@ -245,14 +284,16 @@ function printChatAll(chatList) {
         chat.append(chatContent);
         // -----------------------------------------------------
         // 보낸이가 본인일경우
-        if( sender == loginMemberNo ) {
+        if( senderNo == loginMemberNo ) {
             chat.classList.add("my-chat");
             chatInfo.classList.add("my-chat-info");
         }
 
         chatBox.append(chat);
+
+
         // 읽음여부
-        if( sender == loginMemberNo ) {
+        if( senderNo == loginMemberNo ) {
             const readCheck = document.createElement("div");
             readCheck.classList.add("regular");
             readCheck.classList.add("readcheck");
@@ -285,6 +326,7 @@ function addChat(chatList) {
     chatList.forEach(chatVo => {
         
         const chatNo = chatVo.chatNo;
+        const senderNo = chatVo.chatSenderNo;
         const sender = chatVo.chatSender;
         const content = chatVo.chatContent;
         const enrollDate = chatVo.chatEnrollDate;
@@ -300,7 +342,7 @@ function addChat(chatList) {
         const chatInfo = document.createElement("div");
         chatInfo.classList.add("chat-info");
 
-        if( sender != loginMemberNo ) {
+        if( senderNo != loginMemberNo ) {
             const chatSender = document.createElement("span");
             chatSender.classList.add("chat-sender");
             chatSender.classList.add("regular");
@@ -315,28 +357,60 @@ function addChat(chatList) {
         chatEnrollDate.innerText = enrollDate;
 
         chatInfo.append(chatEnrollDate)
-        // chat-info ------------------------------------------------
+        //------------------------------------------------
 
         // chat-contents---------------------------------------------
         const chatContent = document.createElement("div");
         chatContent.classList.add("chat-contents");
         chatContent.classList.add("regular");
-        chatContent.innerText = content;
-        // chat-contents---------------------------------------------
+        if(chatVo.chatRequest == 'O') {
+        
+            const requestArea = document.createElement("div");
+            requestArea.classList.add("request_")
+
+            const requestTitle = document.createElement("div");
+            requestTitle.classList.add("request-title");
+            requestTitle.classList.add("bold");
+            requestTitle.innerText = '요청서';
+            requestArea.append(requestTitle);
+
+            const requestContent = document.createElement("div");
+            requestContent.classList.add("request-content");
+            requestContent.classList.add("bold");
+            requestContent.innerText = content;
+            requestArea.append(requestContent);
+
+            requestCheckBtn = document.createElement("button");
+            requestCheckBtn.classList.add("request-check-btn");
+            requestCheckBtn.classList.add("regular");
+            requestCheckBtn.innerText = '확인하기';
+            requestArea.append(requestCheckBtn);
+
+
+            chatContent.append(requestArea);
+        }
+        else {
+            chatContent.innerText = content;
+        }
+        // ---------------------------------------------
 
 
         chat.append(chatInfo);
         chat.append(chatContent);
-        // chat -----------------------------------------------------
+        // -----------------------------------------------------
+        
+        
         // 보낸이가 본인일경우
-        if( sender == loginMemberNo ) {
+        if( senderNo == loginMemberNo ) {
             chat.classList.add("my-chat");
             chatInfo.classList.add("my-chat-info");
         }
 
         chatBox.append(chat);
+
+
         // 읽음여부
-        if( sender == loginMemberNo ) {
+        if( senderNo == loginMemberNo ) {
             const readCheck = document.createElement("div");
             readCheck.classList.add("regular");
             readCheck.classList.add("readcheck");
@@ -363,6 +437,7 @@ function addChat(chatList) {
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
+
 
 // 요청하기 눌렀을때 모달 활성화
 const requestModalBtn = document.querySelector(".request-btn");
