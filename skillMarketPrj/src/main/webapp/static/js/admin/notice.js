@@ -13,12 +13,9 @@ window.onload = function() {
 
 			
 
-			// 공지 클릭 시
-			$(e).click(function() {
-				$(selectModal).css("display", "block"); // 모달창을 보이게 함
-				$("#noticeDetailContent_" + bno).innerHTML = "${ modal.notiContent }";
-			});
-		
+			$(selectModal).css("display", "block"); // 모달창을 보이게 함
+			$("#noticeDetailContent_" + bno).innerHTML = "${ modal.notiContent }";
+					
 
 
 			// 모달창 닫기 버튼 클릭 시
@@ -39,8 +36,43 @@ window.onload = function() {
 	// 모달창 열기 버튼 클릭 시
     $("#openModalBtn").click(function() {
         $("#myModal").css("display", "block"); // 모달창을 보이게 함
-        $('#summernote').summernote(); // 썸머노트를 초기화 함
+        $('#summernote').summernote({		   // 썸머노트를 초기화 함
+			callbacks : {
+				onImageUpload : imageUpload
+			  }
+		}); 
+
     });
+
+	function imageUpload(fileList) {
+		
+		const fd = new FormData();
+		for(let f of fileList) {
+			fd.append("f",f)
+		}
+
+		console.log(fd);
+
+		$.ajax({
+			url : '/skillmarket/admin/notice/upload',
+			type : 'post',
+			data : fd,
+			dataType : 'json',
+			processData : false,
+			contentType : false,
+			success : function(changeNameList) {
+				console.log(changeNameList);
+				for(let name of changeNameList) {
+					console.log(name);
+					$('#summernote').summernote('insertImage' , '/skillmarket/static/img/notice/' + name)
+				}
+			},
+			error : function(error){
+				console.log(error);
+			},
+		})
+
+	} 
 
     // 모달창 닫기 버튼 클릭 시
     $(".close").click(function() {
