@@ -39,6 +39,7 @@
                         <div class="project-info">
                             <div class="bold project-title">${sideInfo.title}</div>
                             <img src="" alt="프로젝트 홍보 이미지" class="project-thumbnail">
+                            <div class="chat-util-horizontal-border_"></div>
                             <div class="regular project-info">
                                 ${sideInfo.lineIntroduce}
                             </div>
@@ -54,51 +55,7 @@
                 <div class="chat-box-wrap">
                     <div class="chat-box">
 
-                        <div class="chat">
-                            <div class="chat-info">
-                                <span class="regular chat-sender">보낸사람 ㅇㅇㅇ</span>
-                                <span class="regular chat-enroll-time">보낸시간 23/05/01 21:24</span>
-                            </div>
-                            <div class="regular chat-contents">
-                                상대방이 보낸 채팅 내용 ~~~
-                                <br>
-                                asdfasdfasdfasdfsdsassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                <br>
-                                sabsdafasdfsda
-                                <br>
-                                asdfasdfasdf
-                            </div>
-                        </div>
 
-                        <div class="chat my-chat">
-                            <div class="chat-info my-chat-info">
-                                <span class="regular chat-enroll-time">보낸시간 23/05/01 21:24</span>
-                            </div>
-                            <div class="regular chat-contents">
-                                내가 보낸 채팅 내용 ~~~
-                            </div>
-                        </div>
-                        <span class="regular readcheck my-chat">읽음</span>
-                        
-                        <div class="chat">
-                            <div class="chat-info">
-                                <span class="regular chat-sender">보낸사람 ㅇㅇㅇ</span>
-                                <span class="regular chat-enroll-time">보낸시간 23/05/01 21:24</span>
-                            </div>
-                            <div class="regular chat-contents">
-                                <div class="request_">
-                                    <div class="request-title bold">
-                                        요청서
-                                    </div>
-                                    <div class="request-content regular">
-                                        ㅇㅇㅇ로 ㅁㅁㅁㅁ해야합니다.
-                                    </div>
-                                    <div class="request-check-btn regular">
-                                        확인하기
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                     <div class="chat-input-btn">

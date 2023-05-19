@@ -90,10 +90,13 @@ public class ChatDao {
 		
 		List<ChatVo> chatList = new ArrayList<>();
 		
-		String loadChatSql = "SELECT CHAT_NO, QUOTATION_NO, CHAT_SENDER, CHAT_CONTENT, CHAT_REQUEST, CHAT_ATTACHMENT, CHAT_READ, CHAT_STATUS, TO_CHAR(CHAT_ENROLL_DATE, 'YYYY/MM/DD HH24:MI') AS CHAT_ENROLL_DATE\r\n"
-				+ "FROM CHAT_LOG\r\n"
-				+ "WHERE QUOTATION_NO = ? AND CHAT_NO > ?\r\n"
-				+ "ORDER BY CHAT_LOG.CHAT_ENROLL_DATE";
+		String loadChatSql = "SELECT CHAT_NO, QUOTATION_NO, CHAT_SENDER, MEMBER_NICK, CHAT_CONTENT, CHAT_REQUEST, CHAT_ATTACHMENT, CHAT_READ, CHAT_STATUS, TO_CHAR(CHAT_ENROLL_DATE, 'YYYY/MM/DD HH24:MI') AS CHAT_ENROLL_DATE\r\n"
+				+ "FROM ( SELECT CHAT_NO, QUOTATION_NO, CHAT_SENDER, MEMBER_NICK, CHAT_CONTENT, CHAT_REQUEST, CHAT_ATTACHMENT, CHAT_READ, CHAT_STATUS, CHAT_ENROLL_DATE\r\n"
+				+ "        FROM CHAT_LOG A\r\n"
+				+ "            JOIN MEMBER B ON A.CHAT_SENDER = B.MEMBER_NO\r\n"
+				+ "            WHERE QUOTATION_NO = ? AND CHAT_NO > ?\r\n"
+				+ "        ORDER BY CHAT_ENROLL_DATE\r\n"
+				+ ")";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -110,7 +113,8 @@ public class ChatDao {
 				
 				chatVo.setChatNo(rs.getString("CHAT_NO"));
 				chatVo.setQuotationNo(rs.getString("QUOTATION_NO"));
-				chatVo.setChatSender(rs.getString("CHAT_SENDER"));
+				chatVo.setChatSenderNo(rs.getString("CHAT_SENDER"));
+				chatVo.setChatSender(rs.getString("MEMBER_NICK"));
 				chatVo.setChatContent(rs.getString("CHAT_CONTENT"));
 				chatVo.setChatRequest(rs.getString("CHAT_REQUEST"));
 				chatVo.setChatAttachment(rs.getString("CHAT_ATTACHMENT"));
@@ -118,8 +122,8 @@ public class ChatDao {
 				chatVo.setChatStatus(rs.getString("CHAT_STATUS"));
 				chatVo.setChatEnrollDate(rs.getString("CHAT_ENROLL_DATE"));
 				
-				JDBCTemplate.close(rs);
-				rs = null;
+				
+				ResultSet rs_ = null;
 				if("O".equals(chatVo.getChatRequest())) {
 					
 					String getReuqtstSql = "SELECT REQUEST_NO, REQUEST_CAT_NO, CHAT_REQUEST_CAT_NAME, REQUEST_CONTENT, REQUEST_ENROLL_DATE, REQUEST_STATUS_NO, OPTION_NO, INPUT_NO\r\n"
@@ -129,15 +133,15 @@ public class ChatDao {
 					
 					pstmt = conn.prepareStatement(getReuqtstSql);
 					pstmt.setString(1, chatVo.getChatNo());
-					rs = pstmt.executeQuery();
+					rs_ = pstmt.executeQuery();
 					
-					if( rs.next() ) {
-						chatVo.setRequestNo(rs.getString("REQUEST_NO"));
-						chatVo.setRequestStatusNo(rs.getString("REQUEST_STATUS_NO"));
-						chatVo.setRequestCatNo(rs.getString("REQUEST_CAT_NO"));
-						chatVo.setRequestCatName(rs.getString("CHAT_REQUEST_CAT_NAME"));
-						chatVo.setOptionNo(rs.getString("OPTION_NO"));
-						chatVo.setInputNo(rs.getString("INPUT_NO"));
+					if( rs_.next() ) {
+						chatVo.setRequestNo(rs_.getString("REQUEST_NO"));
+						chatVo.setRequestStatusNo(rs_.getString("REQUEST_STATUS_NO"));
+						chatVo.setRequestCatNo(rs_.getString("REQUEST_CAT_NO"));
+						chatVo.setRequestCatName(rs_.getString("CHAT_REQUEST_CAT_NAME"));
+						chatVo.setOptionNo(rs_.getString("OPTION_NO"));
+						chatVo.setInputNo(rs_.getString("INPUT_NO"));
 					}
 					
 				}
@@ -345,7 +349,7 @@ public class ChatDao {
 			pstmt = conn.prepareStatement(sendChatSql);
 			pstmt.setString(1, keyMap.get("quotationNo"));
 			pstmt.setString(2, keyMap.get("participantNo"));
-			pstmt.setString(3, " ");
+			pstmt.setString(3, requestVo.getRequestContent());
 			chatSendResult = pstmt.executeUpdate();
 			
 		} catch (Exception e) {

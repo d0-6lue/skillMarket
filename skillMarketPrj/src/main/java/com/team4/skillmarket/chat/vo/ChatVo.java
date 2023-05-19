@@ -15,6 +15,7 @@ public class ChatVo {
 	
 	private String chatNo;
 	private String quotationNo;
+	private String chatSenderNo;
 	private String chatSender;
 	private String chatContent;
 	private String chatRequest;
