@@ -26,7 +26,7 @@
             </div>
     
         </nav>
-        <form action="${root}/expert/register" method="post">
+        <form action="${root}/expert/register" method="post" enctype="multipart/form-data">
             <div class="register-area">
                 <div class="register-title bold">전문가 등록</div>
                 <div class="register-body">
@@ -51,7 +51,7 @@
                         <select name="expertField">
                             <option value="" selected disabled>전문 분야 선택를 선택해주세요</option>
                             <c:forEach items="${categoryList}" var="list">
-                            	<option value="${list.estimateCatNo }">${list.estimateCatName }</option>
+                            	<option value="${list.estimateCatName}">${list.estimateCatName}</option>
                             </c:forEach>
                         </select>
                         <div class="register-content-text">경력사항</div>
@@ -59,16 +59,16 @@
                             <div class="career-content-text">총기간</div>
                             <select name="expertCareerDuring">
                                 <option value="" selected disabled>선택해주세요</option>
-                                <option value="1">1년</option>
-                                <option value="2">2년</option>
-                                <option value="3">3년</option>
-                                <option value="4">4년</option>
-                                <option value="5">5년</option>
-                                <option value="6">6년</option>
-                                <option value="7">7년</option>
-                                <option value="8">8년</option>
-                                <option value="9">9년</option>
-                                <option value="10">10년이상</option>
+                                <option value="1년">1년</option>
+                                <option value="2년">2년</option>
+                                <option value="3년">3년</option>
+                                <option value="4년">4년</option>
+                                <option value="5년">5년</option>
+                                <option value="6년">6년</option>
+                                <option value="7년">7년</option>
+                                <option value="8년">8년</option>
+                                <option value="9년">9년</option>
+                                <option value="10년이상">10년이상</option>
                             </select>
                             <div class="career-content-text">경력사항</div>
                             <button id="career-modal-add-btn" class="career-btn" type="button">경력 추가하기</button>
@@ -164,7 +164,7 @@
 
     <!-- 학력 모달 -->
 
-    <!-- <div class="e-modal" id="e-modal">
+    <div class="e-modal" id="e-modal">
         <div class="e-modal-body">
             <div class="e-m-head">
                 <div class="e-close-btn" id="e-close-btn">
@@ -184,8 +184,8 @@
                         <div class="e-m-content-title bold">재학상태</div>
                         <select class="e-m-content-box-select" name="educationStatus">
                             <option value="재학">재학</option>
-                            <option value="대리">졸업</option>
-                            <option value="과장">졸업예정</option>
+                            <option value="졸업">졸업</option>
+                            <option value="졸업예정">졸업예정</option>
                         </select>
                     </div>
                     <button class="e-m-content-btn bold" type="button" onclick="addEducationBtn()">확인</button>
@@ -195,7 +195,7 @@
             
             
         </div>
-    </div> -->
+    </div>
 
 </body>
 </html>
@@ -260,13 +260,20 @@ function addCareerBtn(){
     const pvalue = postion.value;
     const rvalue = region.value;
     const datevalue = date.value;
+
+    
+    if(company.value == "" && department.value == ""){
+        alert("값을 입력해주세요");
+        return false;
+    }
     modal.classList.remove('show');
     document.body.style.removeProperty('overflow');
     const inputTag = document.createElement('input');
     inputTag.className = "expertCareer";
+    inputTag.name = "expertCareer";
     inputTag.value = cvalue + ' ' + dvalue + ' ' + pvalue + ' ' + rvalue + ' ' + datevalue;
     inputTag.readOnly = true;
-    careerArea.appendChild(imgTag);
+    careerArea.appendChild(inputTag);
     const buttonTag = document.createElement('button');
     buttonTag.type = 'button';
     buttonTag.innerHTML = "X";
@@ -288,51 +295,56 @@ function removeInput(e){
 
 // // 학력 모달
 
-// const eduOpenBtn = document.querySelector("#education-modal-add-btn");
-// const eduModal = document.querySelector("#e-modal");
-// const eduCloseBtn = document.querySelector("#e-close-btn");
-// const educationArea = document.querySelector("#education-input-area");
-// const school = document.querySelector("input[name=educationSchool]");
-// const major = document.querySelector("input[name=educationMajor]");
-// const schoolStatus = document.querySelector("select[name=educationStatus]")
+const eduOpenBtn = document.querySelector("#education-modal-add-btn");
+const eduModal = document.querySelector("#e-modal");
+const eduCloseBtn = document.querySelector("#e-close-btn");
+const educationArea = document.querySelector("#education-input-area");
+const school = document.querySelector("input[name=educationSchool]");
+const major = document.querySelector("input[name=educationMajor]");
+const schoolStatus = document.querySelector("select[name=educationStatus]")
 
-// if(eduOpenBtn != null){
-//     eduOpenBtn.addEventListener("click", function(){
-//         eduModal.classList.add('show');
-//         document.body.style.overflow = 'hidden';
-//     });
-// }
+if(eduOpenBtn != null){
+    eduOpenBtn.addEventListener("click", function(){
+        eduModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    });
+}
 
-// eduCloseBtn.addEventListener("click", function(){
-//     eduModal.classList.remove('show');
-//     document.body.style.removeProperty('overflow');
-// })
-
-
+eduCloseBtn.addEventListener("click", function(){
+    eduModal.classList.remove('show');
+    document.body.style.removeProperty('overflow');
+})
 
 
-// function addEducationBtn(){
-//     const svalue = school.value;
-//     const mvalue = major.value;
-//     const statusvalue = schoolStatus.value;
-//     modal.classList.remove('show');
-//     document.body.style.removeProperty('overflow');
-//     const inputTag = document.createElement('input');
-//     inputTag.className = "expertEducation";
-//     inputTag.value = svalue + ' ' + mvalue + ' ' + statusvalue;
-//     inputTag.readOnly = true;
-//     educationArea.appendChild(imgTag);
-//     const buttonTag = document.createElement('button');
-//     buttonTag.type = 'button';
-//     buttonTag.innerHTML = "X";
-//     buttonTag.onclick = removeInput;
+function addEducationBtn(){
+    const svalue = school.value;
+    const mvalue = major.value;
+    const statusvalue = schoolStatus.value;
 
-//     educationArea.appendChild(buttonTag);
+    if(school.value == "" && major.value == ""){
+        alert("값을 입력해주세요");
+        return false;
+    }
 
-//     school.value = "";
-//     major.value = "";
-//     schoolStatus.value = "재학";
-// }
+    eduModal.classList.remove('show');
+    document.body.style.removeProperty('overflow');
+    const inputTag = document.createElement('input');
+    inputTag.className = "expertEducation";
+    inputTag.name = "expertEducation";
+    inputTag.value = svalue + ' ' + mvalue + ' ' + statusvalue;
+    inputTag.readOnly = true;
+    educationArea.appendChild(inputTag);
+    const buttonTag = document.createElement('button');
+    buttonTag.type = 'button';
+    buttonTag.innerHTML = "X";
+    buttonTag.onclick = removeInput;
+
+    educationArea.appendChild(buttonTag);
+
+    school.value = "";
+    major.value = "";
+    schoolStatus.value = "재학";
+}
 
 
 </script>
