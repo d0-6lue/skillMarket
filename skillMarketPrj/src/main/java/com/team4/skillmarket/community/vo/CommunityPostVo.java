@@ -20,4 +20,6 @@ public class CommunityPostVo {
     private int recommendCount;
     private int commentCount;
     private int viewCount;
+    private int freeBoardStatus;
+    private int FreeBoardHit;
 }

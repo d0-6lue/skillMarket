@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.team4.skillmarket.community.vo.FreeBoardVo;
 import com.team4.skillmarket.estimate.service.EstimateService;
 import com.team4.skillmarket.estimate.vo.EstimateVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
@@ -73,9 +74,38 @@ public class EstimateEditController extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    }
+        HttpSession session = req.getSession();
+        MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
+        ExpertVo expertMember = (ExpertVo) session.getAttribute("loginExpert");
+        if (loginMember == null || expertMember == null) {
+            req.setAttribute("errorMsg", "접근 권한 없음");
+            req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+            return;
+        }
 
+        try {
+            // 데꺼
+            int boardNo = Integer.parseInt(req.getParameter("boardNo"));
+            String title = req.getParameter("title");
+            String content = req.getParameter("content");
+
+            // 데뭉
+            FreeBoardVo vo = new FreeBoardVo();
+            vo.setFreeBoardTitle(title);
+            vo.setFreeBoardContent(content);
+
+
+            // Redirect to the post page
+            resp.sendRedirect(req.getContextPath() + "/board/post?no=" + boardNo);
+
+        } catch (NumberFormatException e) {
+            req.setAttribute("errorMsg", "게시글 번호가 올바르지 않습니다.");
+            req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+        } catch (Exception e) {
+            req.setAttribute("errorMsg", "게시글 수정 실패...");
+            req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+        }
+    }
     
 }
 

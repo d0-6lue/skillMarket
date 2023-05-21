@@ -21,9 +21,11 @@
 
 
         <!-- header -->
-			<%@ include file="/WEB-INF/views/common/header.jsp" %>
+        <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 		<main>
+            ${estimate}
+            ${attachmentList}
 			
 			<div class="esti-list-box">
             
@@ -53,8 +55,8 @@
                         <div>소분류</div>
                         <div>소분류</div>
                     </div>
-                   
-          
+                
+        
                 </div>
 				
                 <div class="main-list-box">
@@ -86,6 +88,7 @@
                         </div>       
                     </div>
 
+
                     <div class="seller-service-box">
                         
                         <div class="four-service-list">
@@ -96,14 +99,14 @@
                                 </div>
                                 <div class="expert-info">
                                     <div class="expert-box">
-                                        <div class="expert-name">전문가 닉네임</div>
+                                        <div class="expert-name">${estimateList.name}</div>
                                         <div class="expert-badge">Master</div>
                                     </div>
                                     <div class="expert-account">인증계정</div>                         
                                     <div class="expert-balance">100,000원</div>                               
                                     <div class="heart-area">
                                         <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">1234평가</div>
+                                        <div class="expert-ratings">${estimateList}평가</div>
                                     </div>
                                 </div>
                             </div>

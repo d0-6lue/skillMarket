@@ -1,10 +1,17 @@
 package com.team4.skillmarket.community.vo;
 
-import java.sql.Date;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class FreeBoardVo {
 	
 	private String boardNo;

@@ -24,7 +24,6 @@
 			<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 		<main>
-			
 			<div class="esti-info-box">
             
                 <!-- 메인 서비스 등록한거 및 프로필보기~ -->
