@@ -46,11 +46,12 @@ public class CommunityService {
 		return result;
 	}
 
-	public int FreeBoardedit(FreeBoardVo bvo) throws Exception {
+	//게시판 수정
+	public int FreeBoardedit(FreeBoardVo vo) throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = dao.FreeBoardedit(conn,bvo);
+		int result = dao.FreeBoardedit(conn,vo);
 		
 		if(result ==1) {
 			JDBCTemplate.commit(conn);
@@ -99,6 +100,7 @@ public class CommunityService {
 	
 	}
 
+	//게시판 조회하기
 	public List<CommunityPostVo> getFreeBoardList(PageVo pv) {
 	    Connection conn = JDBCTemplate.getConnection();
 
@@ -107,6 +109,22 @@ public class CommunityService {
 	    JDBCTemplate.close(conn);
 
 	    return volist;
+	}
+
+	//게시판삭제
+	public int delte(FreeBoardVo vo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.delete(conn, vo);
+		
+		if(result ==1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return result;
 	}
 
 	

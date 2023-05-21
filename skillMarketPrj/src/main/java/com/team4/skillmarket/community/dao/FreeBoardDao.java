@@ -22,33 +22,39 @@ public class FreeBoardDao {
 	    String sql = "WITH base_query AS (" +
 	            "SELECT " +
 	            "FB.BOARD_NO," +
-	            "FB.FREE_BOARD_TITLE," +
-	            "FB.FREE_BOARD_CONTENT," +
+	            "SUBSTR(FB.FREE_BOARD_TITLE, 1, 20) AS SHORT_TITLE," +
+	            "SUBSTR(REGEXP_REPLACE(FB.FREE_BOARD_CONTENT, '<[^>]+>', ''), 1, 15) AS SHORT_CONTENT," +
 	            "FB.FREE_BOARD_ENROLL_DATE," +
 	            "COUNT(DISTINCT FBL.LIKE_NO) OVER (PARTITION BY FB.BOARD_NO) AS LIKE_COUNT," +
-	            "COUNT(DISTINCT FBC.COMMENT_NO) OVER (PARTITION BY FB.BOARD_NO) AS COMMENT_COUNT " +
+	            "COUNT(DISTINCT FBC.COMMENT_NO) OVER (PARTITION BY FB.BOARD_NO) AS COMMENT_COUNT," +
+	            "FB.FREE_BOARD_STATUS," +
+	            "FB.FREE_BOARD_HIT " +
 	            "FROM " +
 	            "FREE_BOARD FB " +
 	            "LEFT JOIN " +
 	            "FREE_BOARD_LIKE FBL ON FB.BOARD_NO = FBL.BOARD_NO " +
 	            "LEFT JOIN " +
 	            "FREE_BOARD_COMMENT FBC ON FB.BOARD_NO = FBC.BOARD_NO " +
+	            "WHERE " +
+	            "FB.FREE_BOARD_STATUS = 1 " +
 	            "ORDER BY " +
 	            "FB.FREE_BOARD_ENROLL_DATE DESC) " +
 	            "SELECT " +
 	            "BOARD_NO," +
-	            "SUBSTR(FREE_BOARD_TITLE, 1, 20) AS SHORT_TITLE," +
-	            "SUBSTR(REGEXP_REPLACE(FREE_BOARD_CONTENT, '<[^>]+>', ''), 1, 15) AS SHORT_CONTENT," +
+	            "SHORT_TITLE," +
+	            "SHORT_CONTENT," +
 	            "LIKE_COUNT," +
 	            "COMMENT_COUNT," +
 	            "CASE " +
 	            "WHEN EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 1 " +
 	            "THEN ROUND(EXTRACT(MINUTE FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '분전' " +
 	            "WHEN EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 1 " +
-	            "THEN ROUND(EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '분전' " +
-	            "ELSE ROUND(EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '분전' " +
+	            "THEN ROUND(EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '시간전' " +
+	            "ELSE ROUND(EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '일전' " +
 	            "END AS TIME_AGO " +
 	            "FROM base_query " +
+	            "ORDER BY " +
+	            "FREE_BOARD_ENROLL_DATE DESC " +
 	            "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
 	    List<CommunityPostVo> postList = new ArrayList<>();
@@ -58,13 +64,20 @@ public class FreeBoardDao {
 
 	        ResultSet rs = pstmt.executeQuery();
 	        while (rs.next()) {
+	            String boardNo = rs.getString("BOARD_NO");
+	            String shortTitle = rs.getString("SHORT_TITLE");
+	            String shortContent = rs.getString("SHORT_CONTENT");
+	            int likeCount = rs.getInt("LIKE_COUNT");
+	            int commentCount = rs.getInt("COMMENT_COUNT");
+	            String timeAgo = rs.getString("TIME_AGO");
+
 	            CommunityPostVo post = new CommunityPostVo();
-	            post.setBoardNo(rs.getString("BOARD_NO"));
-	            post.setFreeBoardTitle(rs.getString("SHORT_TITLE"));
-	            post.setFreeBoardContentShort(rs.getString("SHORT_CONTENT"));
-	            post.setFreeBoardEnrollDate(rs.getString("TIME_AGO"));
-	            post.setRecommendCount(rs.getInt("LIKE_COUNT"));
-	            post.setCommentCount(rs.getInt("COMMENT_COUNT"));
+	            post.setBoardNo(boardNo);
+	            post.setFreeBoardTitle(shortTitle);
+	            post.setFreeBoardContentShort(shortContent);
+	            post.setRecommendCount(likeCount);
+	            post.setCommentCount(commentCount);
+	            post.setFreeBoardEnrollDate(timeAgo);
 
 	            postList.add(post);
 	        }
@@ -74,6 +87,11 @@ public class FreeBoardDao {
 
 	    return postList;
 	}
+
+
+
+
+
 
 	
 	
@@ -124,22 +142,24 @@ public class FreeBoardDao {
 
 
 
-	public int FreeBoardedit(Connection conn, FreeBoardVo bvo) throws Exception {
-		
-		String sql = "UPDATE FREE_BOARD SET FREE_BOARD_TITLE = ?, FREE_BOARD_CONTENT =? , FREE_BOARD_EDIT_DATE= SYSDATE, FREE_BOARD_ATTACHMENT=?, FREE_BOARD_CATEGORY_NO=? WHERE BOARD_NO = ? AND MEMBER_NO=?";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-	  	pstmt.setString(1, bvo.getBoardNo());
-	    pstmt.setString(2, bvo.getFreeBoardTitle());
-	    pstmt.setString(3, bvo.getFreeBoardContent());
-	    pstmt.setString(4, bvo.getFreeBoardCategoryNo());	
-	    pstmt.setString(5, bvo.getFreeBoardAttachment());
-		int result = pstmt.executeUpdate();
-		
-		JDBCTemplate.close(pstmt);
-		
-		
-		return result;
+	public int FreeBoardedit(Connection conn, FreeBoardVo vo) throws Exception {
+	    String sql = "UPDATE FREE_BOARD SET FREE_BOARD_TITLE = ?, FREE_BOARD_CONTENT =? , FREE_BOARD_EDIT_DATE= SYSDATE, FREE_BOARD_CATEGORY_NO=? WHERE BOARD_NO = ?";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, vo.getFreeBoardTitle());
+	        pstmt.setString(2, vo.getFreeBoardContent());
+	        pstmt.setString(3, vo.getFreeBoardCategoryNo());
+	        pstmt.setString(4, vo.getBoardNo());
+	        int result = pstmt.executeUpdate();
+	        System.out.println(result);
+	        return result;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
 	}
+
+		
+	
 
 	//조회수증가
 	public int increaseFreeBoardHit(Connection conn, String bno) throws Exception {
@@ -183,45 +203,6 @@ public class FreeBoardDao {
 	}
 
 
-	// 커뮤니티 게시판 리스트 조회하기
-	public List<FreeBoardVo> getFreeBoardList(Connection conn) {
-	    String sql = "SELECT BOARD_NO, MEMBER_NO, FREE_BOARD_TITLE, SUBSTR(REGEXP_REPLACE(REGEXP_REPLACE(FREE_BOARD_CONTENT, '<.*?>', ''), '\\s+', ' '), 1, 15) AS FREE_BOARD_CONTENT, FREE_BOARD_ENROLL_DATE, FREE_BOARD_EDIT_DATE, FREE_BOARD_STATUS, FREE_BOARD_HIT, FREE_BOARD_LIKE, FREE_BOARD_CATEGORY_NO FROM FREE_BOARD";
-	    List<FreeBoardVo> volist = new ArrayList<>();
-	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	        ResultSet rs = pstmt.executeQuery();
-
-	        while (rs.next()) {
-	            FreeBoardVo vo = new FreeBoardVo();
-	            String bNo = rs.getString("BOARD_NO");
-	            String memberNo = rs.getString("MEMBER_NO");
-	            String freeBoardTitle = rs.getString("FREE_BOARD_TITLE");
-	            String freeBoardContent = rs.getString("FREE_BOARD_CONTENT");
-	            String freeBoardEnrollDate = rs.getString("FREE_BOARD_ENROLL_DATE");
-	            String freeBoardEditDate = rs.getString("FREE_BOARD_EDIT_DATE");
-	            String freeBoardStatus = rs.getString("FREE_BOARD_STATUS");
-	            int freeBoardHit = rs.getInt("FREE_BOARD_HIT");
-	            int freeBoardLike = rs.getInt("FREE_BOARD_LIKE");
-	            String freeBoardCategoryNo = rs.getString("FREE_BOARD_CATEGORY_NO");
-
-	            vo.setBoardNo(bNo);
-	            vo.setMemberNo(memberNo);
-	            vo.setFreeBoardTitle(freeBoardTitle);
-	            vo.setFreeBoardContent(freeBoardContent);
-	            vo.setFreeBoardEnrollDate(freeBoardEnrollDate);
-	            vo.setFreeBoardEditDate(freeBoardEditDate);
-	            vo.setFreeBoardStatus(freeBoardStatus);
-	            vo.setFreeBoardHit(freeBoardHit);
-	            vo.setFreeBoardLike(freeBoardLike);
-	            vo.setFreeBoardCategoryNo(freeBoardCategoryNo);
-
-	            volist.add(vo);
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-
-	    return volist;
-	}
 
 
 
@@ -241,6 +222,21 @@ public class FreeBoardDao {
 		JDBCTemplate.close(pstmt);
 		
 		return cnt;
+	}
+
+
+
+	public int delete(Connection conn, FreeBoardVo vo) throws Exception {
+		
+		String sql = "UPDATE FREE_BOARD SET FREE_BOARD_STATUS= 0 WHERE BOARD_NO =? AND MEMBER_NO=?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getBoardNo());
+		pstmt.setString(2, vo.getMemberNo());
+		int result = pstmt.executeUpdate();
+		
+		return result;
+		
 	}
 
 
