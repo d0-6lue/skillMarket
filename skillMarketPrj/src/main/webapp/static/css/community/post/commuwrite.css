@@ -37,5 +37,58 @@
     border: none;
 }
 
+/* ckeditor css */
+
+/* 툴바의 너비 조절 */
+.ck.ck-editor {
+    width: 950px;
+    margin: 0 auto;
+}
+
+/* 에디터의 높이 제한 */
+.ck-editor__editable {
+    height: 60vh;
+}
+
+/* 이미지를 왼쪽에 정렬 */
+.ck-content figure.image {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 30px;
+    width: calc(25% - 30px); /* 네 개의 이미지가 한 줄에 맞도록 너비 조절 */
+}
+
+/* 우선순위로 이미지의 최대 너비와 높이 설정 */
+.ck-content figure.image img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+/* 이미지를 감싸는 <p> 태그 제외 */
+.ck-content p {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+/* 각 줄 뒤에 플로트를 해제 */
+.ck-content::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+
+
+
+
+
+
+
+
+
 
 
