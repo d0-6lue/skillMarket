@@ -1,6 +1,6 @@
 .main {
     width: 100%;
-    height: 800px;
+    height: 1100px;
 }
 
 /*  회색 박스입니다 ~*/
@@ -94,4 +94,49 @@
 
 .img-seller{
     width: 90px;    
+}
+
+/* ckeditor */
+/* 툴바의 너비 조절 */
+
+.ck.ck-editor {
+    width: 950px;
+    margin: 0 auto;
+    }
+    
+.ck-editor__editable {
+height: 60vh;
+}
+
+.ck-content figure.image {
+display: inline-block;
+vertical-align: top;
+margin-right: 30px;
+width: calc(25% - 30px);
+}
+
+.ck-content figure.image img {
+width: 100%;
+height: auto;
+max-width: 200px;
+max-height: 200px;
+}
+
+.ck-content p {
+display: inline;
+margin: 0;
+padding: 0;
+white-space: nowrap;
+}
+
+.ck-content::after {
+content: "";
+display: table;
+clear: both;
+}
+
+/* 이미지 크기 제한 */
+img {
+    max-width: 200px !important;
+    max-height: 200px !important;
 }
