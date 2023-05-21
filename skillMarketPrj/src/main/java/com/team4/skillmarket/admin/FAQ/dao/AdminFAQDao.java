@@ -16,7 +16,7 @@ public class AdminFAQDao {
 	public List<AdminFAQVo> selectFAQList(Connection conn) throws Exception {
 		
 
-		String slq = "SELECT * FROM FAQ";
+		String slq = "SELECT * FROM FAQ ORDER BY FAQ_NO DESC";
 		PreparedStatement pstmt = conn.prepareStatement(slq);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -34,7 +34,6 @@ public class AdminFAQDao {
 			String faqEnrolldate = rs.getString("FAQ_ENROLLDATE");
 			String faqModifydate = rs.getString("FAQ_MODIFYDATE");
 			
-			System.out.println(1234);
 			
 			AdminFAQVo vo = new AdminFAQVo();
 			vo.setFaqNo(faqNo);

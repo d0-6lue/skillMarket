@@ -1,12 +1,16 @@
 package com.team4.skillmarket.admin.home.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.team4.skillmarket.admin.home.service.HomeService;
+import com.team4.skillmarket.admin.home.vo.HomeVo;
 
 @WebServlet("/admin/home")
 public class AdminHomeController extends HttpServlet{
@@ -20,7 +24,21 @@ public class AdminHomeController extends HttpServlet{
 			return;
 		}
 		
-		req.getRequestDispatcher("/WEB-INF/views/admin/home/home.jsp").forward(req, resp);
+		try {
+			
+			HomeService hs = new  HomeService();
+			HomeVo homeVo =  hs.getListByHome();
+						
+			if (homeVo != null) {
+				req.setAttribute("homeVo", homeVo);
+				req.getRequestDispatcher("/WEB-INF/views/admin/home/home.jsp").forward(req, resp);
+			}
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

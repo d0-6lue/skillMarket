@@ -67,5 +67,5 @@ $(".openModalBtn").click(function() {
 
 // 모달창 닫기 버튼 클릭 시
 $(".close").click(function() {
-    $("#myModal").css("display", "none"); // 모달창을 숨김
+    $("#bannerEdit").css("display", "none"); // 모달창을 숨김
 });    

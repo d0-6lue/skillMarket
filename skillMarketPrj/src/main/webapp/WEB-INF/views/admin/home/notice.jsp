@@ -35,7 +35,7 @@
                             </div>
                             <div class="statistics statistics_list_2">
                                 <table >
-                                    <thead>
+                                    <thead class="thead_50">
                                         <tr>
                                             <th>
                                                 <span>번호</span>
@@ -152,7 +152,7 @@
                     <option value="1">2</option>
                     <option value="1">3</option>
                 </select>
-                <input type="text" placeholder="제목">
+                <input id="titleInput" type="text" name="title" placeholder="제목">
             </div>
             <div id="summernote"></div>
             <button id="submitBtn">등록하기</button>

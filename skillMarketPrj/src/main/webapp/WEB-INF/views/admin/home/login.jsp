@@ -23,6 +23,7 @@
                     <input class="admin_login admin_login_input" type="password" name="adminPwd" placeholder="비밀번호를 입력하세요">
                 </div>
                 <input class="admin_login submit" type="submit" value="로그인" >
+                <div id="errorText" class="error-text"></div>
             </form>
             
 

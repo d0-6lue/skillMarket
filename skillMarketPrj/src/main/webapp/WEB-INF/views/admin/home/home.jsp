@@ -34,19 +34,19 @@
                             </div>
                             <div class="statistics statistics_100">
                                 <table id="statistics_1">
-                                    <thead>
+                                    <thead >
                                         <tr>
                                             <th><div>신고</div></th>
                                             <th><span>문의</span></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody >
                                         <tr>
                                             <td>
-                                                <span>99</span>
+                                                <span>${ homeVo.reportCount }</span>
                                             </td>
                                             <td>
-                                                <span>999</span>
+                                                <span>${ homeVo.faqCount }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -66,7 +66,7 @@
                             </div>
                             <div class="statistics statistics_list2">
                                 <table>
-                                    <thead>
+                                    <thead class="home_div">
                                         <tr>
                                             <th>
                                                 <span>일자</span>
@@ -80,7 +80,7 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="home_div">
                                         <tr>
                                             <td>
                                                 <span>999</span>
@@ -115,7 +115,10 @@
                                 
                             </div>
                             <div class="statistics statistics_chart">
-                                <div class="chart doughnut1"><span class="center"></span></div>
+                                <div id="chart_div">
+                                    <svg viewBox='-1.5 -1.5 3 3' style='transform: rotate(-90deg)'></svg>
+                                    <div class="center-circle"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,34 +126,34 @@
                     <div class="container_admin" id="container_area_3">
                         <div class="admin_box">
                             <div class="subtitle">
-                                <h3>신고 내역</h3>
+                                <h3>최근 공지</h3>
                             </div>
                             <div class="statistics statistics_list2">
                                 <table>
-                                    <thead>
+                                    <thead class="home_div">
                                         <tr>
                                             <th>
-                                                <span>일자</span>
+                                                <span>번호</span>
                                             </th>
                                             <th>
-                                                <span>매출액</span>
+                                                <span>제목</span>
                                             </th>
                                             <th>
-                                                <span>가입수</span>
+                                                <span>작성일</span>
                                             </th>
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="home_div">
                                         <tr>
                                             <td>
-                                                <span>999</span>
+                                                <span>${ homeVo.notiNo }</span>
                                             </td>
                                             <td>
-                                                <span>제목1</span>
+                                                <span>${ homeVo.notiTitle }</span>
                                             </td>
                                             <td>
-                                                <span>01/01</span>
+                                                <span>${ homeVo.notiEnrolldate }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -162,34 +165,34 @@
                     <div class="container_admin" id="container_area_3">
                         <div class="admin_box">
                             <div class="subtitle">
-                                <h3>문의 내역</h3>
+                                <h3>인기 FAQ</h3>
                             </div>
                             <div class="statistics statistics_list2">
                                 <table>
-                                    <thead>
+                                    <thead class="home_div">
                                         <tr>
                                             <th>
-                                                <span>일자</span>
+                                                <span>카테고리</span>
                                             </th>
                                             <th>
-                                                <span>매출액</span>
+                                                <span>제목</span>
                                             </th>
                                             <th>
-                                                <span>가입수</span>
+                                                <span>조회수</span>
                                             </th>
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="home_div">
                                         <tr>
                                             <td>
-                                                <span>999</span>
+                                                <span>${ homeVo.faqCatNo }</span>
                                             </td>
                                             <td>
-                                                <span>제목1</span>
+                                                <span>${ homeVo.faqTitle }</span>
                                             </td>
                                             <td>
-                                                <span>01/01</span>
+                                                <span>${ homeVo.faqHit }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -207,32 +210,8 @@
     </div>
 	
     <script>
-        const chart1 = document.querySelector('.doughnut1');
-        
-
-        const makeChart = (percent, classname, color) => {
-        let i = 1;
-        let chartFn = setInterval(function() {
-            if (i <= percent) { 
-            colorFn(i, classname, color);
-            i++;
-            } else {
-            clearInterval(chartFn);
-            }
-        }, 10);
-        }
-
-        const colorFn = (i, classname, color) => { 
-        classname.style.background = "conic-gradient(" + color + " 0% " + i + "%, #1f77b4 " + i + "% 100%)";
-        }
-
-        const replay = () => {
-        makeChart(80, chart1, '#FF9435');
-        
-        }
-
-        makeChart(80, chart1, '#FF9435');
-        
+        const memberCnt = parseInt('${ homeVo.memberCount }');
+        const freeCnt = parseInt('${ homeVo.freelancerCount }');
     </script>
 
 </body>
@@ -241,3 +220,5 @@
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
 <link rel="stylesheet" href="${root}/static/css/admin/members.css">
 <link rel="stylesheet" href="${root}/static/css/admin/common/aside.css">
+<link rel="stylesheet" href="${root}/static/css/admin/home.css">
+<script src="${root}/static/js/admin/home.js"></script>

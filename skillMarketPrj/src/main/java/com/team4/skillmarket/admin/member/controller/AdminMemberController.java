@@ -1,6 +1,10 @@
 package com.team4.skillmarket.admin.member.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.team4.skillmarket.admin.member.service.memberListService;
+import com.team4.skillmarket.admin.member.vo.AdminMemberVo;
 import com.team4.skillmarket.admin.member.vo.memberListVo;
 
 @WebServlet("/admin/members")
@@ -32,13 +37,33 @@ public class AdminMemberController extends HttpServlet{
 			
 			// 정지, 탈퇴 유무 체크
 			int statusCnt = 0;
-			for(memberListVo e: memberArrList) {
-				if (e.getStatusNo().equals("3") || e.getStatusNo().equals("4")) {
-					statusCnt ++;
+			int newBeCnt = 0;
+			int freeLancerCnt = 0;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss.SSSSSSSSS");
+			LocalDate today = LocalDate.now();
+
+			for (memberListVo e : memberArrList) {
+			    if (e.getStatusNo().equals("3") || e.getStatusNo().equals("4")) {
+			        statusCnt++;
+			    }
+			    Timestamp memberSignTimestamp = e.getMemberSignDate();
+			    LocalDateTime memberSignDateTime = memberSignTimestamp.toLocalDateTime();
+			    LocalDate memberSignDate = memberSignDateTime.toLocalDate();
+
+			    if (today.minusDays(3).isBefore(memberSignDate)) {
+			        newBeCnt++;
+			    }
+			    if (e.getFreelancerY().equals("Y")) {
+			    	freeLancerCnt++;
 				}
 			}
+
+			AdminMemberVo adminMemberVo = new AdminMemberVo();
+			adminMemberVo.setStatusCnt(statusCnt);
+			adminMemberVo.setNewBeCnt(newBeCnt);
+			adminMemberVo.setFreeLancerCnt(freeLancerCnt);
 			
-			req.setAttribute("statusCnt", statusCnt);
+			req.setAttribute("adminMemberVo", adminMemberVo);
 			req.setAttribute("memberArrList", memberArrList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/members.jsp").forward(req, resp);
 			

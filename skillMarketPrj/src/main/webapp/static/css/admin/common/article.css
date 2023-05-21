@@ -120,16 +120,17 @@ article thead {
     width: 100%;
     
 }
-article tbody {
-    margin-top: 20px;
-}
+
+
+
+
 
 article tbody.scroll_tbody {
     display: block;
     width: 681.297px;
     height: calc( 100% - 85px);
     
-    margin-top: 20px;
+    /* margin-top: 20px; */
     overflow: scroll;
     
     }
@@ -138,9 +139,14 @@ thead.scroll_tbody,tbody.scroll_tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
+    
 }
 
-
+.scroll_tbody:first-child > tr {
+    box-shadow: 0px 3px 0px 0px #E4E4E4;
+    position: relative;
+    z-index: 99;
+}
 
 article .statistics_100 {width: 100%;}
 article .statistics_list2 th,td {
@@ -148,6 +154,7 @@ article .statistics_list2 th,td {
     height: 65px;
     border-left: 0px;
     text-align: center;
+    vertical-align: middle;
 }
 
 article .statistics_list_2 th,td {
@@ -155,6 +162,7 @@ article .statistics_list_2 th,td {
     height: 65px;
     border-left: 0px;
     text-align: center;
+    vertical-align: middle;
 }
 
 article .statistics_list th{
@@ -167,6 +175,7 @@ article .statistics_list td{
     color: #626262;
     font-size: 15px;
     font-weight: 500;
+    vertical-align: middle;
 }
 
 article #article_area_3 {
@@ -227,9 +236,11 @@ article #container_area_3:last-child {justify-self: end;}
     width: 220px;
     height: 220px;
     border-radius: 50%;
-    transition: 0.3s;
+    transition: 0.1s;
     
 }
+
+
 
 span.center { 
     background: #fff;
@@ -312,3 +323,47 @@ article .statistics_rank {
 .statistics_rank > div:nth-child(2) > span:first-child {color: #AAAAAA;}
 .statistics_rank > div:nth-child(3) > span:first-child {color: #7D6933;}
 .list_box {overflow: scroll;}
+
+article tbody.scroll_tbody tr:hover {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+
+button#openModalBtn {
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #353535;
+    background-color: #FFD15A;
+    background-image: linear-gradient(to right, #ffdf8d 50%, #FFD15A 50%);
+    background-size: 200% 100%;
+    transition: background-position 0.3s ease;
+}
+
+button#openModalBtn:hover {
+    background-position: -100% 0;
+}
+
+article .tatistics_list_2  thead th {
+    height: 50px;
+}
+
+.statistics_list_2 .thead_50 th {
+    height: 50px;
+}
+
+/*----------------------------------*/
+.vibration {
+    animation: vibration 0.1s infinite;
+}
+
+@keyframes vibration {
+  from {
+    transform: rotate(1deg);
+  }
+  to {
+    transform: rotate(-1deg);
+  }
+}
