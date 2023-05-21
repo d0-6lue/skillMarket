@@ -35,7 +35,7 @@
                             </div>
                             <div class="statistics statistics_list_2">
                                 <table >
-                                    <thead>
+                                    <thead class="thead_50">
                                         <tr>
                                             <th>
                                                 <span>번호</span>

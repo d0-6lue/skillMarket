@@ -5,21 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.team4.skillmarket.admin.login.vo.AdminLoginVo;
+import com.team4.skillmarket.admin.login.vo.AdminVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class LoginDao {
 
-	public ResultSet login(Connection conn, AdminLoginVo avo) throws Exception {
+	public AdminVo login(Connection conn, AdminLoginVo avo) throws Exception {
 
 		String sql = "SELECT * FROM ADMIN WHERE ADMIN_ID = ? AND ADMIN_PWD = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		
-		
 		pstmt.setString(1, avo.getAdminId());
 		pstmt.setString(2, avo.getAdminPwd());
 		ResultSet rs = pstmt.executeQuery();
 		
-		
+		AdminVo adminVo = null;
 		if(rs.next() == true) {
 			String adminNo = rs.getString("ADMIN_NO");
 			String adminGrNo = rs.getString("ADMIN_GR_NO");
@@ -27,21 +26,18 @@ public class LoginDao {
 			String adminPwd = rs.getString("ADMIN_PWD");
 			String adminNick = rs.getString("ADMIN_NICK");
 			
-			avo.setAdminNo(adminNo);
-			avo.setAdminGrNo(adminGrNo);
-			avo.setAdminId(adminId);
-			avo.setAdminPwd(adminPwd);
-			avo.setAdminNick(adminNick);
-		}
-		
-		else {
-			throw new Exception("로그인중 정보 조회 실패");
+			adminVo = new AdminVo();
+			adminVo.setAdminNo(adminNo);
+			adminVo.setAdminGrNo(adminGrNo);
+			adminVo.setAdminId(adminId);
+			adminVo.setAdminPwd(adminPwd);
+			adminVo.setAdminNick(adminNick);
 		}
 		
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
 		
-		return rs;
+		return adminVo;
 	}
 
 }

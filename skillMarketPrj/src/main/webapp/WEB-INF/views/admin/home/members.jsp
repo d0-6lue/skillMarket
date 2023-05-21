@@ -50,13 +50,13 @@
                                     <tbody>
                                         <tr class="table_type_2">
                                             <td>
-                                                <span>0</span>
+                                                <span>${ adminMemberVo.freeLancerCnt }</span>
                                             </td>
                                             <td>
-                                                <span>1</span>
+                                                <span>${ adminMemberVo.newBeCnt }</span>
                                             </td>
                                             <td>
-                                                <span>${ statusCnt }</span>
+                                                <span>${ adminMemberVo.statusCnt }</span>
                                             </td>
                                         </tr>
                                     </tbody>

@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.team4.skillmarket.admin.notice.vo.noticeListVo;
+import com.team4.skillmarket.admin.notice.vo.noticeVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class AdminNoticeDao {
 
 	public List<noticeListVo> selectNoticeList(Connection conn) throws Exception {
 		
-		String sql = "SELECT * FROM NOTICE";
+		String sql = "SELECT * FROM NOTICE ORDER BY NOTI_NO DESC";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
@@ -44,11 +45,27 @@ public class AdminNoticeDao {
 
 			noticeArrList.add(vo);
 		}
+		
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
 		
 		
 		return noticeArrList;
+	}
+
+	public int noticeWriteService(noticeVo vo, Connection conn) throws Exception {
+		
+		String sql = "INSERT INTO NOTICE ( NOTI_NO, NOTI_CAT_NO, ADMIN_NO, NOTI_TITLE, NOTI_CONTENT ) VALUES ( SEQ_NOTICE.NEXTVAL, ?, ?, ?, ? )";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNotiCatNo());
+		pstmt.setString(2, vo.getAdminNo());
+		pstmt.setString(3, vo.getNotiTitle());
+		pstmt.setString(4, vo.getNotiContent());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
 	}
 
 }

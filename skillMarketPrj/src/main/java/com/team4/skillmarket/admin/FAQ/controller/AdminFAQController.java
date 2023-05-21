@@ -34,6 +34,8 @@ public class AdminFAQController extends HttpServlet{
 				throw new Exception();
 			}
 			
+			
+			
 			req.setAttribute("FAQArrList", FAQArrList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/FAQ.jsp").forward(req, resp);
 			

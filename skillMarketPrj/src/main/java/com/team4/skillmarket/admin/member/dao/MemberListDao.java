@@ -3,7 +3,7 @@ package com.team4.skillmarket.admin.member.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class MemberListDao {
 
 	public List<memberListVo> selectMemberList(Connection conn) throws Exception {
 		
-		String slq = "SELECT * FROM MEMBER";
+		String slq = "SELECT M.*, CASE WHEN F.MEMBER_NO IS NOT NULL THEN 'Y' ELSE 'N' END AS FREELANCER_Y FROM MEMBER M LEFT JOIN FREELANCER F ON M.MEMBER_NO = F.MEMBER_NO ORDER BY M.MEMBER_NO DESC";
 		PreparedStatement pstmt = conn.prepareStatement(slq);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -29,14 +29,14 @@ public class MemberListDao {
 			String memberPhone = rs.getString("MEMBER_PHONE");
 			String memberEmail = rs.getString("MEMBER_EMAIL");
 			String memberInterst = rs.getString("MEMBER_INTERST");
-			String memberSignDate = rs.getString("MEMBER_SIGN_DATE");
-			String memberModifiDate = rs.getString("MEMBER_MODIFI_DATE");
+			Timestamp memberSignDate = rs.getTimestamp("MEMBER_SIGN_DATE");
+			Timestamp memberModifiDate = rs.getTimestamp("MEMBER_MODIFI_DATE");
 			String memberBank = rs.getString("MEMBER_BANK");
 			String memberAccount = rs.getString("MEMBER_ACCOUNT");
 			String memberCash = rs.getString("MEMBER_CASH");
 			String memberProfilePhoto = rs.getString("MEMBER_PROFILE_PHOTO");
 			String memberNickStatus = rs.getString("MEMBER_NICK_STATUS");
-			
+			String freelancerY = rs.getString("FREELANCER_Y");
 			
 			memberListVo mvo = new memberListVo();
 			mvo.setMemberNo(memberNo);
@@ -54,7 +54,7 @@ public class MemberListDao {
 			mvo.setMemberCash(memberCash);
 			mvo.setMemberProfilePhoto(memberProfilePhoto);
 			mvo.setMemberNickStatus(memberNickStatus);
-			
+			mvo.setFreelancerY(freelancerY);
 			
 			memberArrList.add(mvo);
 			

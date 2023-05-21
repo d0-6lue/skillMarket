@@ -10,7 +10,7 @@ import com.team4.skillmarket.common.db.JDBCTemplate;
 public class noticeListService {
 
 	public List<noticeListVo> selectNoticeList() throws Exception {
-
+		
 		Connection conn = JDBCTemplate.getConnection();
 		
 		AdminNoticeDao dao = new AdminNoticeDao();
@@ -20,6 +20,7 @@ public class noticeListService {
 		
 		
 		return noticeArrList;
+
 	}
 
 }

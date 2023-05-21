@@ -158,18 +158,12 @@ background-color: rgb(240, 240, 240);
 border-radius: 10px;
 }
 
-button#openModalBtn {
-    width: 140px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    color: #353535;
-    background-color: #FFD15A;
-}
+
 
 .error-input {
     border: 2px solid red;
   }
 
-  
+.statistics_list_2 .thead_50 th {
+    height: 50px;
+}

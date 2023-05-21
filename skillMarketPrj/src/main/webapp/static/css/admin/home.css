@@ -1,0 +1,42 @@
+
+path {
+    transition: 0.3s ease-in 0.05s;
+    opacity: 0;
+  }
+
+path:hover {
+transform: scale(1.1);
+}
+
+.center-circle {
+position: absolute;
+width: 49%;
+height: 49%;
+background-color: #fdfdfd;
+border-radius: 50%;
+z-index: 99;
+}
+
+#chart_div {
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 250;
+width: 250;
+}
+
+.home_div:first-child > tr {
+    box-shadow: 0px 3px 0px 0px #E4E4E4;
+    z-index: 99;
+}
+
+.home_div:nth-child(2) span {
+    font-size: 16;
+    
+}
+
+article tbody.home_div tr:hover {
+    background-color: #f1f1f1;
+    border-radius: 100px;
+  }

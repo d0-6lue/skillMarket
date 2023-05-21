@@ -115,3 +115,22 @@ input.submit:disabled {
 }
 
 
+#errorText {
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+
+/*----------------------------------*/
+.vibration {
+    animation: vibration 0.1s infinite;
+}
+
+@keyframes vibration {
+  from {
+    transform: rotate(1deg);
+  }
+  to {
+    transform: rotate(-1deg);
+  }
+}
