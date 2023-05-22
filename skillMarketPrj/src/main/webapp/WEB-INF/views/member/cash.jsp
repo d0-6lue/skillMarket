@@ -51,7 +51,7 @@
                         <div class="cash-textbox lightyellow">
                             <div class="cash-showboard-text bold">보유 중인 총 캐시</div>
                             <div class="cash-showboard-box">
-                                <div class="cash-showboard-num">0</div>
+                                <div id="cash-total" class="cash-showboard-num">0</div>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <div class="cash-textbox">
                             <div class="cash-showboard-text bold">적립 캐시</div>
                             <div class="cash-showboard-box">
-                                <div class="cash-showboard-num">0</div>
+                                <div id="cash-bonus" class="cash-showboard-num">0</div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <div class="cash-showboard-text bold">충전 캐시</div>
                             <div class="cash-showboard-refund">
                                 <div class="cash-showboard-refund-box">
-                                    <div class="cash-showboard-num">0</div>
+                                    <div id="cash-real" class="cash-showboard-num">0</div>
                                 </div>
                                 <a href="" class="cash-showboard-refund-btn yellow bold">환불</a>
 
@@ -105,3 +105,23 @@
 
 </body>
 </html>
+
+<script>
+
+    const totalCash = document.querySelector("#cash-total");
+    const bonusCash = document.querySelector("#cash-bonus");
+    const realCash = document.querySelector("#cash-real");
+
+    function searchRealCash(){
+        
+    }
+
+    function searchBonusCash(){
+
+    }
+
+    function searchTotalCash(){
+
+    }
+
+</script>

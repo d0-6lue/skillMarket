@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.skillmarket.cash.vo.CashVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
@@ -342,6 +343,39 @@ String sql = "SELECT * FROM MEMBER WHERE MEMBER_NO = ? AND STATUS_NO = 1";
 		JDBCTemplate.close(pstmt);
 		
 		return result;
+	}
+
+	public List<CashVo> getCash(Connection conn, MemberVo loginMember) throws Exception {
+		
+		String sql = "SELECT * FROM USER_CASH WHERE MEMBER_NO = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getMemberNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<CashVo> cashList = new ArrayList<>();
+		while(rs.next()) {
+			String cashNo = rs.getString("CASH_NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String cashPoint = rs.getString("CASH_POINT");
+			String cashMoney = rs.getString("CASH_MONEY");
+			String cashEnorlldate = rs.getString("CASH_ENORLLDATE");
+			
+			CashVo vo = new CashVo();
+			
+			vo.setCashNo(cashNo);
+			vo.setMemberNo(memberNo);
+			vo.setCashPoint(cashPoint);
+			vo.setCashMoney(cashMoney);
+			vo.setCashEnorlldate(cashEnorlldate);
+			
+			cashList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cashList;
 	}
 
 	
