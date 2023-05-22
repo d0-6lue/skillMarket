@@ -172,11 +172,7 @@ function sendRequest() {
     
 }
 const request = document.querySelector(".request-modal-btn");
-request.addEventListener("click" , function() {
-
-    sendRequest();
-
-})
+request.addEventListener("click" , sendRequest);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -263,6 +259,20 @@ function printChat(chatList, chatBox) {
             requestContent.classList.add("request-content");
             requestContent.classList.add("bold");
             requestContent.innerText = content;
+            
+            const reply = document.createElement('div');
+            reply.classList.add('reply');
+            
+            if(chatVo.requestStatusNo == 2) {
+                reply.innerText = '수락됨';
+                reply.style.color = 'blue';
+            }
+            else if(chatVo.requestStatusNo == 3) {
+                reply.innerText = '거절됨';
+                reply.style.color = 'red';
+            }
+            requestContent.append(reply);
+
             requestArea.append(requestContent);
 
             requestCheckBtn = document.createElement("button");
@@ -324,7 +334,9 @@ const requestModalBtn = document.querySelector(".request-btn");
 requestModalBtn.addEventListener("click", requestModalAdd);
 // 모달창 닫기 버튼
 const closeModalBtn = document.querySelector(".close-modal");
+const closeModalBtn_ = document.querySelector(".close-modal_");
 closeModalBtn.addEventListener("click", requestModalRemove);
+closeModalBtn_.addEventListener("click", requestModalRemove_);
 //요청 취소 버튼
 const modalCancleBtn = document.querySelector(".request-modal-cancle-btn");
 modalCancleBtn.addEventListener("click" , requestModalRemove);
@@ -337,30 +349,36 @@ function requestModalAdd() {
     requestModal.classList.add("modal-active")
 }
 function requestModalAdd_() {
-    const requestModal = document.querySelector(".request-modal");
+    const requestModal = document.querySelector(".request-modal_");
 
     requestModal.classList.add("modal-active")
 }
 function requestModalRemove() {
     const requestModal = document.querySelector(".request-modal");
 
-     // 요청 모달창 내용 초기화
-     const requestSelect = document.querySelector("#request-select");
+    // 요청 모달창 내용 초기화
+    const requestSelect = document.querySelector("#request-select");
 
-     requestSelect.options[0].selected = true;
+    requestSelect.options[0].selected = true;
  
-     const requestContent = document.querySelector("#request-content-textarea")
-     requestContent.readOnly = false;
-     requestContent.value = "";
+    const requestContent = document.querySelector("#request-content-textarea")
+    requestContent.readOnly = false;
+    requestContent.value = "";
 
-     const changeArea = document.querySelector(".change-area");
-     changeArea.replaceChildren("");
+    const changeArea = document.querySelector(".change-area");
+    changeArea.replaceChildren("");
 
-     const approveRequestBtn = document.querySelector(".request-modal-btn");
-    approveRequestBtn.innerText = '요청하기';
+    const requestBtn = document.querySelector(".request-modal-btn");
+    requestBtn.innerText = '요청하기';
 
-    const refuseRequestBtn = document.querySelector(".request-modal-cancle-btn");
-    refuseRequestBtn.innerText = '취소';
+    const cancleBtn = document.querySelector(".request-modal-cancle-btn");
+    cancleBtn.innerText = '취소';
+
+    requestModal.classList.remove("modal-active")
+}
+
+function requestModalRemove_() {
+    const requestModal = document.querySelector(".request-modal_");
 
     requestModal.classList.remove("modal-active")
 }
@@ -529,7 +547,7 @@ function appendAddOption(data) {
 
 function appendAddOption_(data, optionNo, inputNo) {
 
-    const changeArea = document.querySelector(".change-area");
+    const changeArea = document.querySelector(".change-area_");
 
     const select = document.createElement('select');
     select.classList.add('add-option-select');
@@ -638,7 +656,7 @@ function appendDeleteOption(data) {
 
 function appendDeleteOption_(data, optionNo) {
 
-    const changeArea = document.querySelector(".change-area");
+    const changeArea = document.querySelector(".change-area_");
 
     const select = document.createElement("select");
     select.classList.add("delete-option-select");
@@ -670,15 +688,17 @@ function appendDeleteOption_(data, optionNo) {
 //요청서 확인
 function checkRequest(event, chatVo) {
 
-    const requestTitle = document.querySelector(".request-modal-title");
-    requestTitle.innerText = '요청 확인하기';
+    console.log(chatVo);
+
+    const requestCheckModal = document.querySelector(".request-modal_");
+    requestCheckModal.classList.add('modal-active');
     
-    const requestSelect = document.querySelector("#request-select");
+    const requestSelect = document.querySelector("#request-select_");
     const no = chatVo.requestCatNo;
     requestSelect.options[no/100].selected = true;
     requestSelect.disabled = true;
 
-    const requestContent = document.querySelector("#request-content-textarea")
+    const requestContent = document.querySelector("#request-content-textarea_")
     requestContent.value = chatVo.chatContent;
     requestContent.readOnly = true;
 
@@ -687,7 +707,7 @@ function checkRequest(event, chatVo) {
 
     const catValue = requestCategory.options[requestCategory.selectedIndex].value
 
-    const changeArea = document.querySelector(".change-area");
+    const changeArea = document.querySelector(".change-area_");
 
     if(catValue == 100){
         changeArea.innerText = '거래완료';
@@ -738,35 +758,44 @@ function checkRequest(event, chatVo) {
         changeArea.append('만원');
     }
 
-    const approveRequestBtn = document.querySelector(".request-modal-btn");
-    approveRequestBtn.innerText = '요청 수락';
-    approveRequestBtn.addEventListener('click', () => ApproveRequest(chatVo.requestNo) )
+    const approveRequestBtn = document.querySelector(".request-approve-btn");
+    approveRequestBtn.addEventListener('click', () => ApproveRequest(chatVo));
 
-    const refuseRequestBtn = document.querySelector(".request-modal-cancle-btn");
-    refuseRequestBtn.innerText = '요청 거절';
-    refuseRequestBtn.addEventListener('click', () => RefuseRequest(chatVo.requestNo))
+    const refuseRequestBtn = document.querySelector(".request-refuse-btn");
+    refuseRequestBtn.addEventListener('click', () => RefuseRequest(chatVo));
+
+    if(chatVo.requestStatusNo != 1){
+        approveRequestBtn.disabled = true;
+        refuseRequestBtn.disabled = true;
+    }
 
     requestModalAdd_();
 }
 
-function ApproveRequest(requestNo) {
-
+function ApproveRequest(chatVo){
     let msg = {
         'type' : 'requestReply',
-        'requestNo' : requestNo,
-        'reply' : 'approve'
+        'requestNo' : chatVo.requestNo,
+        'reply' : 'approve',
+        'senderNo' : loginMemberNo,
+        'roomNo' : paramNo,
     }
     
+    requestModalRemove_();
+
     webSocket.send(JSON.stringify(msg));
 }
 
-function RefuseRequest(requestNo) {
-
+function RefuseRequest(chatVo) {
     let msg = {
         'type' : 'requestReply',
-        'requestNo' : requestNo,
-        'reply' : 'refuse'
+        'requestNo' : chatVo.requestNo,
+        'reply' : 'refuse',
+        'senderNo' : loginMemberNo,
+        'roomNo' : paramNo,
     }
     
+    requestModalRemove_();
+
     webSocket.send(JSON.stringify(msg));
 }

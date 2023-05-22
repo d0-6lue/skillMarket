@@ -19,11 +19,18 @@ public class OrderDao {
 		// 
 		String getQuotationSql = "SELECT QUOTATION_NO, QUOTATION_PREV_VER, QUOTATION_STATUS_NAME, QUOTATION_PRICE, QUOTATION_PERIOD,\r\n"
 				+ "TO_CHAR(QUOTATION_ENROLL_DATE, 'YYYY-MM-DD') AS QUOTATION_ENROLL_DATE_, TO_CHAR(QUOTATION_MODIFICATION_DATE, 'YYYY-MM-DD') AS QUOTATION_MODIFICATION_DATE_,\r\n"
-				+ "A.MEMBER_NO, B.MEMBER_NICK,\r\n"
+				+ "A.MEMBER_NO, B.MEMBER_NICK AS BUYER, C.MEMBER_NICK AS SELLER,\r\n"
 				+ "A.ESTIMATE_NO, ESTIMATE_TITLE, ESTIMATE_THUMBNAIL, ESTIMATE_LINE_INTRODUCTION, ESTIMATE_DETAIL, ESTIMATE_PRICE, ESTIMATE_PERIOD\r\n"
 				+ "FROM QUOTATION A\r\n"
 				+ "    JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO\r\n"
-				+ "    JOIN ESTIMATE C ON A.ESTIMATE_NO = C.ESTIMATE_NO\r\n"
+				+ "    JOIN (\r\n"
+				+ "        SELECT *\r\n"
+				+ "        FROM ESTIMATE A\r\n"
+				+ "            JOIN (SELECT MEMBER_NICK, FREELANCER_NO\r\n"
+				+ "                FROM FREELANCER A\r\n"
+				+ "                    JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO\r\n"
+				+ "                ) B ON A.FREELANCER_NO = B.FREELANCER_NO\r\n"
+				+ "        ) C ON A.ESTIMATE_NO = C.ESTIMATE_NO\r\n"
 				+ "    JOIN QUOTATION_STATUS D ON A.QUOTATION_STATUS_NO = D.QUOTATION_STATUS_NO\r\n"
 				+ "WHERE A.QUOTATION_NO = ?";
 		
@@ -46,7 +53,7 @@ public class OrderDao {
 				quotationVo.setQuotationPeriod(rs.getString("QUOTATION_PERIOD"));
 				quotationVo.setQuotationEnrollDate(rs.getString("QUOTATION_ENROLL_DATE_"));
 				quotationVo.setQuotationModificationDate(rs.getString("QUOTATION_MODIFICATION_DATE_"));
-				quotationVo.setMemberNo(rs.getString("MEMBER_NICK"));
+				quotationVo.setMemberNo(rs.getString("SELLER"));
 				
 				quotationVo.setEstimateNo(rs.getString("ESTIMATE_NO"));
 				quotationVo.setEstimateTitle(rs.getString("ESTIMATE_TITLE"));
@@ -76,7 +83,7 @@ public List<QuotationOptionVo> getOrderOptionbyNo(Connection conn, String quatat
 		
 		String getQuoattionOptionSql = "SELECT QUOTATION_OPTION_NO, QUOTATION_OPTION_QUANTITY,\r\n"
 				+ "ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD\r\n"
-				+ "FROM QUOATATION_OPTION A\r\n"
+				+ "FROM QUOTATION_OPTION A\r\n"
 				+ "    JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
 				+ "WHERE QUOTATION_NO = ?";
 		

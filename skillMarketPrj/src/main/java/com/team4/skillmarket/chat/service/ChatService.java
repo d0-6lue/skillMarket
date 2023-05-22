@@ -159,6 +159,24 @@ public class ChatService {
 		JDBCTemplate.close(conn);
 		
 		return result;
-	}
+	} // sendRequest
+
+
+	public void requestReply(String requestNo, String reply) {
+
+		int result = 0;
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		result = chatDao.requestReply(conn, requestNo, reply);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+	} // requestReply
 
 }

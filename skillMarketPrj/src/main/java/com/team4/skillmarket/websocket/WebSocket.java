@@ -290,10 +290,59 @@ public class WebSocket {
 			
 			
 		}
-		// type 이 '' 일 경우 ---------------------------------------------------------------------------------------------------
-		else if( type != null && "request".equals(type)) {
+		// type 이 'requestReply' 일 경우 ---------------------------------------------------------------------------------------------------
+		else if( type != null && "requestReply".equals(type)) {
+			
+			// Session 얻기
+			Session s = (Session) usersMap.get(keyMap.toString());
+			Session r = (Session) usersMap.get(receiverKeyMap.toString());
+			
+			String requestNo = String.valueOf(messageMap.get("requestNo"));
+			String requestCatNo = String.valueOf(messageMap.get("requestCatNo"));
+			String reply = String.valueOf(messageMap.get("reply"));
+			
+			chatService.requestReply(requestNo, reply);
 			
 			
+			// 채팅 리스트 가져오기
+			List<ChatVo> chatList = new ArrayList<>();
+			chatList = chatService.loadChat(quotationNo, "0");
+			
+			
+			// Map 으로 담기
+			Map<String, Object> replyMessageMap = new HashMap<>();
+			replyMessageMap.put("type", "load");
+			replyMessageMap.put("chatList", chatList);
+			
+			// JSON 으로 변환
+			String reply_msg = gson.toJson(replyMessageMap);
+			
+			try {
+				// 채팅리스트 클라이언트로 보내기
+				s.getBasicRemote().sendText(reply_msg);
+				
+				System.out.println(r);
+				if( r!= null && r.isOpen() ) {
+					
+					// 채팅 리스트 가져오기
+					chatList = new ArrayList<>();
+					chatList = chatService.loadChat(quotationNo, "0");
+					
+					// Map 으로 담기
+					replyMessageMap = new HashMap<>();
+					replyMessageMap.put("type", "load");
+					replyMessageMap.put("chatList", chatList);
+					
+					// JSON 으로 변환
+					reply_msg = gson.toJson(replyMessageMap);
+					
+					r.getBasicRemote().sendText(reply_msg);
+					
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 		}
 		
