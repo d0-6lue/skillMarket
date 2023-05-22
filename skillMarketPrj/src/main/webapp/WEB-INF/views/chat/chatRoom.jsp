@@ -118,5 +118,51 @@
         </div>
     </div>
 
+    <div class="request-modal_">
+        <div class="request-modal-wrap">
+            
+            <div class="modal-box">
+                
+                <div class="modal-top">
+                    <div class="request-modal-title bold">
+                        요청서 확인하기
+                    </div>
+                    <button class="close-modal_">×</button>
+                </div>
+                
+                <div class="modal-content">
+
+                    <div class="request-modal-category">
+                        <span class="regular subhead">카테고리</span>
+                        <select name="request-category" id="request-select_">
+                            <option value="" hidden>--요청하실 카테고리를 골라주세요--</option>
+                            <c:forEach var="categoryVo" items="${categoryList }">
+                            	<option value="${categoryVo.categoryNo }">${categoryVo.categoryName }</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div class="request-modal-content">
+                        <span class="regular subhead">내용</span>
+                        <textarea name="request-content-textarea" id="request-content-textarea_" cols="100" rows="13"></textarea>
+                    </div>
+
+                    <div class="request-modal-changes">
+                        <span class="regular subhead change-title">변경사항</span>
+                        <div class="change-area_ regular">
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-btns">
+                    <button class="request-approve-btn">수락</button>
+                    <button class="request-refuse-btn">거절</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

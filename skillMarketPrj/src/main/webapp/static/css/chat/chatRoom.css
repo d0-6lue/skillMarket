@@ -278,6 +278,9 @@
     width: 340px;
     height: 100px;
 
+    position: relative;
+    top: 0;
+
     background-color: rgb(255, 255, 255);
 
 }
@@ -297,7 +300,7 @@
 
 
 /* 요청 모달 */
-.request-modal {
+.request-modal, .request-modal_  {
     width: 100%;
     height: calc(100% + 250px);
 
@@ -313,12 +316,11 @@
     display: flex;
 }
 
-
 /* 요청 */
 .request-modal-wrap {
     width: 100%;
     height: 50%;
-    background-color: rgba(225, 225, 225, 0.88);
+    background-color: rgba(235, 200, 50, 0.88);
 }
 
 .modal-box {
@@ -341,7 +343,7 @@
     margin: 0px 35px;
 }
 
-.close-modal {
+.close-modal, .close-modal_ {
     font-size: 32px;
     border: 0px solid transparent;
     background-color: transparent;
@@ -390,16 +392,7 @@
     justify-content: space-evenly;
 }
 
-.request-modal-btn {
-    width: 150px;
-    height: 50px;
-
-    font-size: 24px;
-
-    background-color: rgb(255, 255, 255);
-}
-
-.request-modal-cancle-btn {
+.request-modal-btn, .request-modal-cancle-btn, .request-approve-btn, .request-refuse-btn  {
     width: 150px;
     height: 50px;
 
@@ -428,4 +421,22 @@
 
 .request-input {
     width: 100px;
+}
+
+
+.reply {
+    width: 340px;
+    height: 100%;
+    margin: 0px;
+
+    background-color: rgba(128, 128, 128, 0.3);
+    position: absolute;
+    top: 0;
+
+    font-size: 36px;
+    font-style: italic;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
