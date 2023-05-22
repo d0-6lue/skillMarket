@@ -24,4 +24,16 @@ public class AdminFAQService {
 		
 	}
 
+	public AdminFAQVo gerHitFAQ() throws Exception {
+
+		Connection conn = JDBCTemplate.getConnection();
+		
+		AdminFAQDao dao = new AdminFAQDao();
+		AdminFAQVo FAQHit =  dao.gerHitFAQ(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return FAQHit;
+	}
+
 }

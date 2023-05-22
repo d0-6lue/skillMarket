@@ -42,8 +42,9 @@ public class AdminNoticeController extends HttpServlet{
 					
 			noticeListService ns = new noticeListService();
 			List<noticeListVo> noticeArrList = ns.selectNoticeList();
+			noticeListVo newNotice =  ns.getNewNotice();
 			
-			
+			req.setAttribute("newNotice", newNotice);
 			req.setAttribute("noticeArrList", noticeArrList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/notice.jsp").forward(req, resp);
 		} catch (Exception e) {

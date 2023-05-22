@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.skillmarket.admin.member.vo.memberListVo;
 import com.team4.skillmarket.admin.notice.vo.noticeListVo;
 import com.team4.skillmarket.admin.notice.vo.noticeVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
@@ -66,6 +67,44 @@ public class AdminNoticeDao {
 		JDBCTemplate.close(pstmt);
 		
 		return result;
+	}
+
+	public noticeListVo getNewNotice(Connection conn) throws Exception {
+
+		String slq = "SELECT * FROM ( SELECT * FROM NOTICE WHERE NOTI_STATUS = 'N' ORDER BY NOTI_NO DESC ) WHERE ROWNUM = 1";
+		PreparedStatement pstmt = conn.prepareStatement(slq);
+		ResultSet rs = pstmt.executeQuery();
+		
+		noticeListVo newNotice = null;
+		
+		if (rs.next()) {
+			
+			String notiNo = rs.getString("NOTI_NO");
+			String notiCatNo = rs.getString("NOTI_CAT_NO");
+			String adminNo = rs.getString("ADMIN_NO");
+			String notiTitle = rs.getString("NOTI_TITLE");
+			String notiContent = rs.getString("NOTI_CONTENT");
+			String notiEnrolldate = rs.getString("NOTI_ENROLLDATE");
+			String notiModifydate = rs.getString("NOTI_MODIFYDATE");
+			String notiStatus = rs.getString("NOTI_STATUS");
+			String notiHit = rs.getString("NOTI_HIT");
+			
+			newNotice = new noticeListVo();
+			
+			newNotice.setNotiNo(notiNo);
+			newNotice.setNotiCatNo(notiCatNo);
+			newNotice.setAdminNo(adminNo);
+			newNotice.setNotiTitle(notiTitle);
+			newNotice.setNotiContent(notiContent);
+			newNotice.setNotiEnrolldate(notiEnrolldate);
+			newNotice.setNotiModifydate(notiModifydate);
+			newNotice.setNotiStatus(notiStatus);
+			newNotice.setNotiHit(notiHit);
+			
+		}
+		
+		
+		return newNotice;
 	}
 
 }

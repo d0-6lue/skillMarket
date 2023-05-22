@@ -16,17 +16,18 @@ window.onload = function() {
 			$(selectModal).css("display", "block"); // 모달창을 보이게 함
 			$("#noticeDetailContent_" + bno).innerHTML = "${ modal.notiContent }";
 					
-
+			
 
 			// 모달창 닫기 버튼 클릭 시
 			$(".close").click(function() {
 				$("#noticeDetail_"+ bno).css("display", "none"); // 모달창을 숨김
 			});
-		
-	
+			
+			
 		} )
 		
 	})
+	
 	
 	
 	
