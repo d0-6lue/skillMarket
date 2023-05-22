@@ -6,6 +6,7 @@ import java.util.List;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.common.page.PageVo;
 import com.team4.skillmarket.community.dao.FreeBoardDao;
+import com.team4.skillmarket.community.vo.CommunityCommentVo;
 import com.team4.skillmarket.community.vo.CommunityPostVo;
 import com.team4.skillmarket.community.vo.FreeBoardCategoryVo;
 import com.team4.skillmarket.community.vo.FreeBoardVo;
@@ -125,6 +126,35 @@ public class CommunityService {
 		
 		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	public int commentWrite(CommunityCommentVo vo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.commentWrite(conn, vo);
+		
+		if(result ==1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		JDBCTemplate.close(conn);
+		return result ;
+	}
+
+	public List<CommunityCommentVo> getCommentList(String no) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<CommunityCommentVo> list = dao.getCommentList(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+		
+		
 	}
 
 	

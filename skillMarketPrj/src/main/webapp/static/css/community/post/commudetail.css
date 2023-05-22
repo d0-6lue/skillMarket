@@ -77,24 +77,55 @@
 }
 
 /* 게시글 댓글 감싸는 상자 */
-.community-detail-reply-content-box{
+.community-detail-reply-content-box {
     width: 950px;
     height: 250px;
     border: 1px solid;
     display: flex;
     flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
 /* 댓글 감싸는 상자 */
-.community-comment-reply-box{
+.community-comment-reply-box {
     width: 950px;
-    height: 125px;
+    height: auto;
+    max-height: 250px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
+.comment-list {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
 
 .img-seller{
     width: 90px;    
 }
+
+.community-comment-box {
+    overflow-y: auto; /* 세로 스크롤을 표시하고 필요한 경우에만 스크롤바를 보여줍니다 */
+    scrollbar-width: thin; /* 스크롤바 너비를 조정합니다 */
+    scrollbar-color: #888888 #f0f0f0; /* 스크롤바의 색상을 조정합니다 */
+  }
+  
+  .community-comment-box::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비를 조정합니다 */
+  }
+  
+  .community-comment-box::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* 스크롤바 트랙의 배경색을 조정합니다 */
+  }
+  
+  .community-comment-box::-webkit-scrollbar-thumb {
+    background-color: #888888; /* 스크롤바의 색상을 조정합니다 */
+  }
 
 /* ckeditor */
 /* 툴바의 너비 조절 */
@@ -139,4 +170,9 @@ clear: both;
 img {
     max-width: 200px !important;
     max-height: 200px !important;
+}
+
+.textcontent{
+    width: 100%;
+    resize: none;
 }
