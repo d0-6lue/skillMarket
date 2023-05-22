@@ -287,6 +287,8 @@ function addCareerBtn(){
 }
 
 function removeInput(e){
+    console.log(e);
+    console.log(e.t);
     e.target.previousSibling.remove();
     e.target.remove();
 }

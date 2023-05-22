@@ -3,6 +3,7 @@ package com.team4.skillmarket.member.service;
 import java.sql.Connection;
 import java.util.List;
 
+import com.team4.skillmarket.cash.vo.CashVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
@@ -155,6 +156,18 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+	public List<CashVo> getCash(MemberVo loginMember) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<CashVo> cashList = dao.getCash(conn, loginMember);
+		
+		JDBCTemplate.close(conn);
+		
+		return cashList;
+		
 	}
 
 	

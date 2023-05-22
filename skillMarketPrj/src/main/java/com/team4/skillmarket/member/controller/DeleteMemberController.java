@@ -12,7 +12,7 @@ import com.team4.skillmarket.member.service.MemberService;
 import com.team4.skillmarket.member.vo.MemberVo;
 
 @WebServlet("/my-info/delete-member")
-public class DeleteMember extends HttpServlet{
+public class DeleteMemberController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
