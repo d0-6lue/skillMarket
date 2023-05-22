@@ -22,9 +22,14 @@
             <div class="nav-customer-area">
                 <div class="profile-area">
                     <div class="profile-img">
-                        <img src="${root}/static/png/예시사진.png" alt="프로필사진">
+                        <c:if test="{empty loginMember.memberProfilePhoto}">
+                            <img src="${root}/static/svg/기본프로필.svg" alt="프로필사진">
+                        </c:if>
+                        <c:if test="${not empty loginMember.memberProfilePhoto}">
+                        		<img alt="프로필사진" src="${root}/static/img/profile/${loginMember.memberProfilePhoto}">
+                        </c:if>
                     </div>
-                    <div class="profile-nick bold">스킬쟁이123</div>
+                    <div class="profile-nick bold">${loginMember.memberNick}</div>
                     
                     <a class="profile-btn bold" href="${root}/expert/request-list">전문가로 변환</a>
                 </div>
