@@ -106,7 +106,7 @@
 						})
 							.then(response => response.json())
 							.then(data => {
-								const imageUrl = "${root}/upload/community/" + data.filePath; // Update the image URL based on your server path
+								const imageUrl =   data.filePath; // Update the image URL based on your server path
 								resolve(imageUrl);
 							})
 							.catch(error => {

@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import org.eclipse.jdt.internal.compiler.lookup.ProblemPackageBinding;
 
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.common.page.PageVo;
+import com.team4.skillmarket.community.vo.CommunityCommentVo;
 import com.team4.skillmarket.community.vo.CommunityPostVo;
 import com.team4.skillmarket.community.vo.FreeBoardCategoryVo;
 import com.team4.skillmarket.community.vo.FreeBoardVo;
@@ -18,44 +19,50 @@ import com.team4.skillmarket.community.vo.FreeBoardVo;
 
 public class FreeBoardDao {
 	
+	//게시글 한방조회용쿼리 ~ sql(WITH base_query AS 
+	//( SELECT FB.BOARD_NO, SUBSTR(FB.FREE_BOARD_TITLE, 1, 20) AS SHORT_TITLE, SUBSTR(REGEXP_REPLACE(FB.FREE_BOARD_CONTENT, '<[^>]+>', ''), 1, 15) AS SHORT_CONTENT, FB.FREE_BOARD_ENROLL_DATE, COUNT(DISTINCT FBL.LIKE_NO) OVER (PARTITION BY FB.BOARD_NO) AS LIKE_COUNT, COUNT(DISTINCT FBC.COMMENT_NO) OVER (PARTITION BY FB.BOARD_NO) AS COMMENT_COUNT, FB.FREE_BOARD_STATUS, FB.FREE_BOARD_HIT FROM FREE_BOARD FB LEFT JOIN FREE_BOARD_LIKE FBL ON FB.BOARD_NO = FBL.BOARD_NO LEFT JOIN FREE_BOARD_COMMENT FBC ON FB.BOARD_NO = FBC.BOARD_NO WHERE FB.FREE_BOARD_STATUS = 1 ORDER BY FB.FREE_BOARD_ENROLL_DATE DESC ) SELECT BOARD_NO, SHORT_TITLE, SHORT_CONTENT, LIKE_COUNT, COMMENT_COUNT, CASE WHEN EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 1 THEN ROUND(EXTRACT(MINUTE FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || ' 분전' WHEN EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 1 THEN ROUND(EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || ' 시간전' ELSE ROUND(EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || ' 일전' END AS TIME_AGO FROM base_query ORDER BY FREE_BOARD_STATUS ASC, FREE_BOARD_HIT DESC OFFSET 1 ROWS FETCH NEXT 20 ROWS ONLY;)
 	public List<CommunityPostVo> getCommunityPostList(Connection conn, PageVo pv) {
-	    String sql = "WITH base_query AS (" +
-	            "SELECT " +
-	            "FB.BOARD_NO," +
-	            "SUBSTR(FB.FREE_BOARD_TITLE, 1, 20) AS SHORT_TITLE," +
-	            "SUBSTR(REGEXP_REPLACE(FB.FREE_BOARD_CONTENT, '<[^>]+>', ''), 1, 15) AS SHORT_CONTENT," +
-	            "FB.FREE_BOARD_ENROLL_DATE," +
-	            "COUNT(DISTINCT FBL.LIKE_NO) OVER (PARTITION BY FB.BOARD_NO) AS LIKE_COUNT," +
-	            "COUNT(DISTINCT FBC.COMMENT_NO) OVER (PARTITION BY FB.BOARD_NO) AS COMMENT_COUNT," +
-	            "FB.FREE_BOARD_STATUS," +
-	            "FB.FREE_BOARD_HIT " +
-	            "FROM " +
-	            "FREE_BOARD FB " +
-	            "LEFT JOIN " +
-	            "FREE_BOARD_LIKE FBL ON FB.BOARD_NO = FBL.BOARD_NO " +
-	            "LEFT JOIN " +
-	            "FREE_BOARD_COMMENT FBC ON FB.BOARD_NO = FBC.BOARD_NO " +
-	            "WHERE " +
-	            "FB.FREE_BOARD_STATUS = 1 " +
-	            "ORDER BY " +
-	            "FB.FREE_BOARD_ENROLL_DATE DESC) " +
-	            "SELECT " +
-	            "BOARD_NO," +
-	            "SHORT_TITLE," +
-	            "SHORT_CONTENT," +
-	            "LIKE_COUNT," +
-	            "COMMENT_COUNT," +
-	            "CASE " +
-	            "WHEN EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 1 " +
-	            "THEN ROUND(EXTRACT(MINUTE FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '분전' " +
-	            "WHEN EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 1 " +
-	            "THEN ROUND(EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '시간전' " +
-	            "ELSE ROUND(EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '일전' " +
-	            "END AS TIME_AGO " +
-	            "FROM base_query " +
-	            "ORDER BY " +
-	            "FREE_BOARD_ENROLL_DATE DESC " +
-	            "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+	    String sql = "WITH base_query AS (\r\n"
+	    		+ "SELECT\r\n"
+	    		+ "FB.BOARD_NO,\r\n"
+	    		+ "SUBSTR(FB.FREE_BOARD_TITLE, 1, 20) AS SHORT_TITLE,\r\n"
+	    		+ "SUBSTR(REGEXP_REPLACE(FB.FREE_BOARD_CONTENT, '<[^>]+>', ''), 1, 15) AS SHORT_CONTENT,\r\n"
+	    		+ "FB.FREE_BOARD_ENROLL_DATE,\r\n"
+	    		+ "COUNT(DISTINCT FBL.LIKE_NO) OVER (PARTITION BY FB.BOARD_NO) AS LIKE_COUNT,\r\n"
+	    		+ "COUNT(DISTINCT FBC.COMMENT_NO) OVER (PARTITION BY FB.BOARD_NO) AS COMMENT_COUNT,\r\n"
+	    		+ "FB.FREE_BOARD_STATUS,\r\n"
+	    		+ "FB.FREE_BOARD_HIT\r\n"
+	    		+ "FROM\r\n"
+	    		+ "FREE_BOARD FB\r\n"
+	    		+ "LEFT JOIN\r\n"
+	    		+ "FREE_BOARD_LIKE FBL ON FB.BOARD_NO = FBL.BOARD_NO\r\n"
+	    		+ "LEFT JOIN\r\n"
+	    		+ "FREE_BOARD_COMMENT FBC ON FB.BOARD_NO = FBC.BOARD_NO\r\n"
+	    		+ "WHERE\r\n"
+	    		+ "FB.FREE_BOARD_STATUS = 1\r\n"
+	    		+ "ORDER BY\r\n"
+	    		+ "FB.FREE_BOARD_ENROLL_DATE DESC\r\n"
+	    		+ ")\r\n"
+	    		+ "SELECT\r\n"
+	    		+ "BOARD_NO,\r\n"
+	    		+ "SHORT_TITLE,\r\n"
+	    		+ "SHORT_CONTENT,\r\n"
+	    		+ "LIKE_COUNT,\r\n"
+	    		+ "COMMENT_COUNT,\r\n"
+	    		+ "FREE_BOARD_HIT,\r\n"
+	    		+ "CASE\r\n"
+	    		+ "WHEN EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 1\r\n"
+	    		+ "THEN ROUND(EXTRACT(MINUTE FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '분전'\r\n"
+	    		+ "WHEN EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 1\r\n"
+	    		+ "THEN ROUND(EXTRACT(HOUR FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '시간전'\r\n"
+	    		+ "WHEN EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) < 7\r\n"
+	    		+ "THEN ROUND(EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND)) || '일전'\r\n"
+	    		+ "ELSE EXTRACT(DAY FROM (SYSTIMESTAMP - FREE_BOARD_ENROLL_DATE) DAY TO SECOND) || '일전'\r\n"
+	    		+ "END AS TIME_AGO\r\n"
+	    		+ "FROM base_query\r\n"
+	    		+ "ORDER BY\r\n"
+	    		+ "FREE_BOARD_ENROLL_DATE DESC\r\n"
+	    		+ "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
 	    List<CommunityPostVo> postList = new ArrayList<>();
 	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -70,6 +77,8 @@ public class FreeBoardDao {
 	            int likeCount = rs.getInt("LIKE_COUNT");
 	            int commentCount = rs.getInt("COMMENT_COUNT");
 	            String timeAgo = rs.getString("TIME_AGO");
+	            int freeBoardHit = rs.getInt("FREE_BOARD_HIT");
+
 
 	            CommunityPostVo post = new CommunityPostVo();
 	            post.setBoardNo(boardNo);
@@ -78,6 +87,7 @@ public class FreeBoardDao {
 	            post.setRecommendCount(likeCount);
 	            post.setCommentCount(commentCount);
 	            post.setFreeBoardEnrollDate(timeAgo);
+	            post.setFreeBoardHit(freeBoardHit);
 
 	            postList.add(post);
 	        }
@@ -238,6 +248,64 @@ public class FreeBoardDao {
 		return result;
 		
 	}
+
+
+
+
+
+
+
+
+	public int commentWrite(Connection conn, CommunityCommentVo vo) throws Exception {
+		
+		String sql = "INSERT INTO FREE_BOARD_COMMENT (COMMENT_NO, MEMBER_NO, BOARD_NO, REPLY_NO, COMMENT_CONTENT, COMMENT_ENROLL_DATE, COMMENT_EDIT_DATE) VALUES (seq_free_board_comment.nextval, ?, ?, 1, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getMemberNo());
+		pstmt.setString(2, vo.getBoardNo());
+		pstmt.setString(3, vo.getCommentContent());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+
+	//댓글 가져오기 ~
+	public List<CommunityCommentVo> getCommentList(Connection conn, String no) throws Exception {
+	    String sql = "SELECT * FROM free_board_comment WHERE board_no = ?";
+	    PreparedStatement pstmt = conn.prepareStatement(sql);
+	    pstmt.setString(1, no);
+	    ResultSet rs = pstmt.executeQuery();
+
+	    List<CommunityCommentVo> list = new ArrayList<>();
+	    while (rs.next()) {
+	        String commentNo = rs.getString("COMMENT_NO");
+	        String memberNo = rs.getString("MEMBER_NO");
+	        String boardNo = rs.getString("BOARD_NO");
+	        String replyNo = rs.getString("REPLY_NO");
+	        String commentContent = rs.getString("COMMENT_CONTENT");
+	        String commentEnrollDate = rs.getString("COMMENT_ENROLL_DATE");
+	        String commentEditDate = rs.getString("COMMENT_EDIT_DATE");
+	        String commentStatus = rs.getString("COMMENT_STATUS");
+
+	        // 데뭉해주기
+	        CommunityCommentVo commentVo = new CommunityCommentVo();
+	        commentVo.setCommentNo(commentNo);
+	        commentVo.setMemberNo(memberNo);
+	        commentVo.setBoardNo(boardNo);
+	        commentVo.setReplyNo(replyNo);
+	        commentVo.setCommentContent(commentContent);
+	        commentVo.setCommentEnrollDate(commentEnrollDate);
+	        commentVo.setCommentEditDate(commentEditDate);
+	        commentVo.setCommentStatus(commentStatus);
+
+	        list.add(commentVo);
+	    }
+
+	    return list;
+	}
+
 
 
 

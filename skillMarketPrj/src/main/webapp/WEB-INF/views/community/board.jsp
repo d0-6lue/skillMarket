@@ -125,10 +125,12 @@
 											❤️<i class="fas fa-heart"></i> ${vo.recommendCount}
 											
 											<!-- 댓글 -->
-											<i class="fas fa-comment"></i> ${vo.commentCount}
+                                            댓글<i class="fas fa-comment"></i> ${vo.commentCount}
 						
 											<!-- 시간~ -->
 											${vo.freeBoardEnrollDate}
+                                            <!-- 조회수 -->
+                                            ${vo.freeBoardHit}
 										</small>
 									</div>
 								</div>

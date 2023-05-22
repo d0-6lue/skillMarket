@@ -76,15 +76,12 @@ public class CommunityWriteController extends HttpServlet{
 	            throw new IllegalArgumentException("Invalid data.");
 	        }
 
-	        // Get image paths from input form
-	        String imagePaths = req.getParameter("imagePaths");
 
 	        FreeBoardVo bvo = new FreeBoardVo();
 	        bvo.setFreeBoardTitle(title);
 	        bvo.setFreeBoardContent(editordata);
 	        bvo.setFreeBoardCategoryNo(categoryNo);
 	        bvo.setMemberNo(writerNo);
-	        bvo.setFreeBoardAttachment(imagePaths);
 
 	        int result = cs.write(bvo);
 
