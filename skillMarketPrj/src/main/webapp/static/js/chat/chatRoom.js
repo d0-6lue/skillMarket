@@ -1,15 +1,12 @@
-// WebSocket
+// WebSocket------------------------------------------------------------------
 const path = window.location.pathname;
-
 const root = path.substring(
     0, (path.substring(1, path.length)).indexOf('/') + 1
 )
-
 const host = window.location.host;
 
 // WebSocket 오브젝트 생성 (자동으로 접속 시작함. OnOpen 함수 호출)
 const webSocket = new WebSocket("ws://" + host + root + "/websocket");
-
 
 // WebSocket 서버와 접속이 되면 호출되는 함수
 webSocket.onopen = function(message) {
@@ -17,42 +14,35 @@ webSocket.onopen = function(message) {
     // register 전송
     regist();
 
-    // 채팅내역 가져오기
+    // 모든 채팅 내역 가져오기
     loadChat();
 
 }
 
-
 // WebSocket 서버로 부터 메시지가 오면 호출 되는 함수
 webSocket.onmessage = function(message) {
 
+    // 서버로 부터 받은 message의 data를 JSON으로 (jsonMessage)
     jsonMessage = JSON.parse(message.data);
 
+    // type 꺼내기
     const type = jsonMessage.type;
 
+    // type == 'load'  =>  첫번째이니깐 모든 채팅을 가져와서 그림.
     if(type == 'load') {
-
-        printChatAll(jsonMessage.chatList);
-
+        addChatAll(jsonMessage.chatList);
     }
+    // type == 'add'  =>  중간부터 받는 처음 받은거 이후의 내용이니 더하는 식으로
     else if(type == 'add') {
-
         addChat(jsonMessage.chatList);
-
     }
-
-
-
-    // chatBox.scrollTop = chatBox.scrollHeight;
 
 }
-
 
 // WebSocket 서버와 접속이 끊기면 호출되는 함수
 webSocket.onclose = function(message) {
 
 }
-
 
 // WebSocket 서버와 통신 중에 에러가 발생하면 호출되는 함수
 webSocket.onerror = function(message) {
@@ -88,15 +78,14 @@ function loadChat() {
     }
 
     webSocket.send(JSON.stringify(msg));
-
 }
 
 // 채팅 보냈을때
 function sendChat() {
-
     const chatContent = document.querySelector(".chat-msg");
 
     if(chatContent.value != ""){
+
         let msg = {
             'type' : 'sendChat',
             'senderNo' : loginMemberNo,
@@ -108,9 +97,7 @@ function sendChat() {
         webSocket.send(JSON.stringify(msg));
         
         chatContent.value = "";
-
     }
-
 }
 // 버튼 클릭 할 때 or enter 눌렀을 때 sendChat()
 const sendBtn = document.querySelector(".chat-send-btn");
@@ -130,7 +117,6 @@ function sendRequest() {
     const categoryNo = requestCategory.options[requestCategory.selectedIndex].value
 
     const content = document.querySelector('#request-content-textarea');
-
 
     let msg = {
         'type' : 'request',
@@ -175,22 +161,14 @@ function sendRequest() {
     else if(categoryNo == 800) {
         const numInput = document.querySelector(".request-input");
 
-        msg.handsel = numInput.value * 10000;
+        msg.handsel = String(numInput.value * 10000);
     }
 
     webSocket.send(JSON.stringify(msg));
     
 
     // 요청 모달창 닫기
-    requestModalToggle();
-    // 요청 내용 초기화
-    const requestSelect = document.querySelector("#request-select");
-
-    console.log(requestSelect.options[0]);
-    requestSelect.options[0].selected = true;
-
-    const requestContent = document.querySelector("#request-content-textarea")
-    requestContent.value = "";
+    requestModalRemove();
     
 }
 const request = document.querySelector(".request-modal-btn");
@@ -202,11 +180,33 @@ request.addEventListener("click" , function() {
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
-// 모든 채팅 그리기
-function printChatAll(chatList) {
+// 모든 채팅 더하기
+function addChatAll(chatList) {
 
     const chatBox = document.querySelector(".chat-box");
     chatBox.replaceChildren("");
+
+    addChat(chatList, chatBox);
+    
+    // 스크롤 제일 아래로
+    chatBox.scrollTop = chatBox.scrollHeight;
+    
+}
+
+// 새로운 채팅 더하기
+function addChat(chatList) {
+
+    const chatBox = document.querySelector(".chat-box");
+
+    printChat(chatList, chatBox)
+    
+    // 스크롤 제일 아래로
+    chatBox.scrollTop = chatBox.scrollHeight;
+    
+}
+
+// 채팅리스트 => 채팅 
+function printChat(chatList, chatBox) {
 
     chatList.forEach(chatVo => {
         
@@ -269,8 +269,10 @@ function printChatAll(chatList) {
             requestCheckBtn.classList.add("request-check-btn");
             requestCheckBtn.classList.add("regular");
             requestCheckBtn.innerText = '확인하기';
+            requestCheckBtn.addEventListener('click', (event) => 
+                checkRequest(event, chatVo) 
+            );
             requestArea.append(requestCheckBtn);
-
 
             chatContent.append(requestArea);
         }
@@ -278,7 +280,6 @@ function printChatAll(chatList) {
             chatContent.innerText = content;
         }
         // ---------------------------------------------
-
 
         chat.append(chatInfo);
         chat.append(chatContent);
@@ -312,147 +313,58 @@ function printChatAll(chatList) {
         lastChatNo = chatNo;
 
     }); // forEach
-    
-    // 스크롤 제일 아래로
-    chatBox.scrollTop = chatBox.scrollHeight;
-    
-}
 
-// 새로운 채팅 더하기
-function addChat(chatList) {
-
-    const chatBox = document.querySelector(".chat-box");
-
-    chatList.forEach(chatVo => {
-        
-        const chatNo = chatVo.chatNo;
-        const senderNo = chatVo.chatSenderNo;
-        const sender = chatVo.chatSender;
-        const content = chatVo.chatContent;
-        const enrollDate = chatVo.chatEnrollDate;
-        const chatRead = chatVo.chatRead;
-        const chatStatus = chatVo.chatStatus;
-        const chatAttchment = chatVo.chatAttchment;
-
-        // chat ----------------------------------------------------
-        const chat = document.createElement("div");
-        chat.classList.add("chat");
-
-        // chat-info ------------------------------------------------
-        const chatInfo = document.createElement("div");
-        chatInfo.classList.add("chat-info");
-
-        if( senderNo != loginMemberNo ) {
-            const chatSender = document.createElement("span");
-            chatSender.classList.add("chat-sender");
-            chatSender.classList.add("regular");
-            chatSender.innerText = sender;
-
-            chatInfo.append(chatSender);
-        }
-
-        const chatEnrollDate = document.createElement("span");
-        chatEnrollDate.classList.add("chat-enroll-date");
-        chatEnrollDate.classList.add("regular");
-        chatEnrollDate.innerText = enrollDate;
-
-        chatInfo.append(chatEnrollDate)
-        //------------------------------------------------
-
-        // chat-contents---------------------------------------------
-        const chatContent = document.createElement("div");
-        chatContent.classList.add("chat-contents");
-        chatContent.classList.add("regular");
-        if(chatVo.chatRequest == 'O') {
-        
-            const requestArea = document.createElement("div");
-            requestArea.classList.add("request_")
-
-            const requestTitle = document.createElement("div");
-            requestTitle.classList.add("request-title");
-            requestTitle.classList.add("bold");
-            requestTitle.innerText = '요청서';
-            requestArea.append(requestTitle);
-
-            const requestContent = document.createElement("div");
-            requestContent.classList.add("request-content");
-            requestContent.classList.add("bold");
-            requestContent.innerText = content;
-            requestArea.append(requestContent);
-
-            requestCheckBtn = document.createElement("button");
-            requestCheckBtn.classList.add("request-check-btn");
-            requestCheckBtn.classList.add("regular");
-            requestCheckBtn.innerText = '확인하기';
-            requestArea.append(requestCheckBtn);
-
-
-            chatContent.append(requestArea);
-        }
-        else {
-            chatContent.innerText = content;
-        }
-        // ---------------------------------------------
-
-
-        chat.append(chatInfo);
-        chat.append(chatContent);
-        // -----------------------------------------------------
-        
-        
-        // 보낸이가 본인일경우
-        if( senderNo == loginMemberNo ) {
-            chat.classList.add("my-chat");
-            chatInfo.classList.add("my-chat-info");
-        }
-
-        chatBox.append(chat);
-
-
-        // 읽음여부
-        if( senderNo == loginMemberNo ) {
-            const readCheck = document.createElement("div");
-            readCheck.classList.add("regular");
-            readCheck.classList.add("readcheck");
-            readCheck.classList.add("my-chat");
-
-            if(chatRead == 'O'){
-                readCheck.innerText = "읽음";
-            }
-            else if(chatRead == 'X') {
-                readCheck.innerText = "안읽음";
-            }
-
-            chatBox.append(readCheck);
-        }
-        
-        lastChatNo = chatNo;
-
-    }); // forEach
-    
-    // 스크롤 제일 아래로
-    chatBox.scrollTop = chatBox.scrollHeight;
-    
 }
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
-
-// 요청하기 눌렀을때 모달 활성화
+// 요청하기 눌렀을때 활성화
 const requestModalBtn = document.querySelector(".request-btn");
-requestModalBtn.addEventListener("click", requestModalToggle);
-
-//요청 취소 버튼(모달 비활성화)
+requestModalBtn.addEventListener("click", requestModalAdd);
+// 모달창 닫기 버튼
+const closeModalBtn = document.querySelector(".close-modal");
+closeModalBtn.addEventListener("click", requestModalRemove);
+//요청 취소 버튼
 const modalCancleBtn = document.querySelector(".request-modal-cancle-btn");
-modalCancleBtn.addEventListener("click" , requestModalToggle);
-
-// 모달 토글 함수
-function requestModalToggle() {
+modalCancleBtn.addEventListener("click" , requestModalRemove);
+function requestModalAdd() {
     const requestModal = document.querySelector(".request-modal");
 
-    requestModal.classList.toggle("modal-active")
+    const requestSelect = document.querySelector("#request-select");
+    requestSelect.disabled = false;
+
+    requestModal.classList.add("modal-active")
 }
+function requestModalAdd_() {
+    const requestModal = document.querySelector(".request-modal");
+
+    requestModal.classList.add("modal-active")
+}
+function requestModalRemove() {
+    const requestModal = document.querySelector(".request-modal");
+
+     // 요청 모달창 내용 초기화
+     const requestSelect = document.querySelector("#request-select");
+
+     requestSelect.options[0].selected = true;
+ 
+     const requestContent = document.querySelector("#request-content-textarea")
+     requestContent.readOnly = false;
+     requestContent.value = "";
+
+     const changeArea = document.querySelector(".change-area");
+     changeArea.replaceChildren("");
+
+     const approveRequestBtn = document.querySelector(".request-modal-btn");
+    approveRequestBtn.innerText = '요청하기';
+
+    const refuseRequestBtn = document.querySelector(".request-modal-cancle-btn");
+    refuseRequestBtn.innerText = '취소';
+
+    requestModal.classList.remove("modal-active")
+}
+
 // contextPath
 function getContextPath(){
     const hostIndex = location.href.indexOf( location.host ) + location.host.length;
@@ -486,7 +398,6 @@ function getOption() {
     }
     else if(catValue == 300){
         // 옵션 추가
-
         changeArea.replaceChildren("");
         
         fetch(contextPath + "/option/get?cat=" + catValue + "&no=" + paramNo)
@@ -500,10 +411,8 @@ function getOption() {
         })
         .catch( err => {
         })
-
     }
     else if(catValue == 400){
-
         changeArea.replaceChildren("");
 
         fetch(contextPath + "/option/get?cat=" + catValue + "&no=" + paramNo)
@@ -515,15 +424,12 @@ function getOption() {
         })
         .catch( err => {
         })
-
     }
     else if(catValue == 500){
         appendInputNum(changeArea);
-
     }
     else if(catValue == 600){
         appendInputNum(changeArea);
-
     }
     else if(catValue == 700){
         changeArea.innerText = '수정요청';
@@ -531,12 +437,12 @@ function getOption() {
     else if(catValue == 800){
         appendInputNum(changeArea);
         changeArea.append('만원');
-
     }
 
     return requestObject;
 
 }
+
 function appendInputNum(area) {
         const numInput = document.createElement("input");
         numInput.classList.add("request-input");
@@ -551,7 +457,22 @@ function appendInputNum(area) {
         area.append(numInput);
 }
 
-function appendAddOption( data ) {
+function appendInputNum_(area, inputNo) {
+    const numInput = document.createElement("input");
+    numInput.classList.add("request-input");
+    numInput.type = 'number';
+    numInput.min = '1';
+    numInput.value = inputNo;
+    numInput.readOnly = true;
+    numInput.style.width = '100px';
+    numInput.style.textAlign = 'right';
+
+    area.innerText = "";
+    area.replaceChildren("");
+    area.append(numInput);
+}
+
+function appendAddOption(data) {
 
     const changeArea = document.querySelector(".change-area");
 
@@ -574,7 +495,6 @@ function appendAddOption( data ) {
         selectOption.id = option.estimateOptionPeriod;
 
         select.append(selectOption);
-
     });
 
     changeArea.append(select);
@@ -607,6 +527,65 @@ function appendAddOption( data ) {
     changeArea.append(extraPreiod);
 }
 
+function appendAddOption_(data, optionNo, inputNo) {
+
+    const changeArea = document.querySelector(".change-area");
+
+    const select = document.createElement('select');
+    select.classList.add('add-option-select');
+
+    const selectOption = document.createElement('option');
+    selectOption.value = "";
+    selectOption.innerText = "--옵션을 선택해주세요--";
+    selectOption.hidden = true;
+    select.append(selectOption);
+
+    data.forEach(option => {
+    
+        const selectOption = document.createElement('option');
+
+        selectOption.value = option.estimateOptionNo;
+        selectOption.innerText = option.estimateOptionName;
+        selectOption.name = option.estimateOptionPrice;
+        selectOption.id = option.estimateOptionPeriod;
+
+        select.append(selectOption);
+
+    });
+
+    select.options[optionNo].selected = true;
+    select.disabled = true;
+    changeArea.append(select);
+
+    const inputQuantity = document.createElement("input");
+    inputQuantity.classList.add('quantity-input');
+    inputQuantity.type = 'number';
+    inputQuantity.min = '1';
+    inputQuantity.value = inputNo;
+    inputQuantity.disabled = true;
+    inputQuantity.style.width = '100px';
+    inputQuantity.style.textAlign = 'right';
+
+    changeArea.append(inputQuantity);
+
+    changeArea.append("옵션 추가요금");
+    const surcharge = document.createElement('span');
+    surcharge.classList.add('surcharge');
+    surcharge.classList.add('bold');
+    surcharge.disabled = true;
+    surcharge.innerText = inputNo * select.options[optionNo].name;
+
+    changeArea.append(surcharge);
+
+    changeArea.append("옵션 추가기간");
+    const extraPreiod = document.createElement('span');
+    extraPreiod.classList.add('extraPreiod');
+    extraPreiod.classList.add('bold');
+    extraPreiod.innerText = inputNo * select.options[optionNo].id;
+
+    changeArea.append(extraPreiod);
+}
+
 function addOptionEvent(){
 
     const addOptionSelect = document.querySelector('.add-option-select');
@@ -626,13 +605,9 @@ function addOptionEvent(){
 
             surcharge.innerText = quantity.value * addOptionSelect.options[addOptionSelect.selectedIndex].name ;
             extraPreiod.innerText = quantity.value * addOptionSelect.options[addOptionSelect.selectedIndex].id ;
-
         })
-
     })
-
 }
-
 
 function appendDeleteOption(data) {
 
@@ -656,7 +631,142 @@ function appendDeleteOption(data) {
         + "  /  금액 : " + option.quotationOptionQuantity * option.estimateOptionPrice;
         select.append(selectOption);
 
-    })
+    });
 
     changeArea.append(select);
+}
+
+function appendDeleteOption_(data, optionNo) {
+
+    const changeArea = document.querySelector(".change-area");
+
+    const select = document.createElement("select");
+    select.classList.add("delete-option-select");
+
+    const selectOption = document.createElement('option');
+    selectOption.value = "";
+    selectOption.innerText = "--취소하실 옵션을 선택해주세요--";
+    selectOption.hidden = true;
+    select.append(selectOption);
+
+    data.forEach(option => {
+
+        const selectOption = document.createElement("option");
+        selectOption.value = option.quotationOptionNo;
+        selectOption.innerText = option.estimateOptionName 
+        + "  /  수량 : " + option.quotationOptionQuantity 
+        + "  /  금액 : " + option.quotationOptionQuantity * option.estimateOptionPrice;
+        select.append(selectOption);
+
+    });
+
+    select.options[optionNo].selected = true;
+    select.disabled = true;
+
+    changeArea.append(select);
+}
+
+//-----------------------------------------------------------------------------
+//요청서 확인
+function checkRequest(event, chatVo) {
+
+    const requestTitle = document.querySelector(".request-modal-title");
+    requestTitle.innerText = '요청 확인하기';
+    
+    const requestSelect = document.querySelector("#request-select");
+    const no = chatVo.requestCatNo;
+    requestSelect.options[no/100].selected = true;
+    requestSelect.disabled = true;
+
+    const requestContent = document.querySelector("#request-content-textarea")
+    requestContent.value = chatVo.chatContent;
+    requestContent.readOnly = true;
+
+    //
+    const contextPath = getContextPath();
+
+    const catValue = requestCategory.options[requestCategory.selectedIndex].value
+
+    const changeArea = document.querySelector(".change-area");
+
+    if(catValue == 100){
+        changeArea.innerText = '거래완료';
+    }
+    else if(catValue == 200){
+        changeArea.innerText = '거래취소';
+    }
+    else if(catValue == 300){
+        // 옵션 추가
+        changeArea.replaceChildren("");
+        
+        fetch(contextPath + "/option/get?cat=" + catValue + "&no=" + paramNo)
+        .then( (response) => response.json() )
+        .then( (data) => {
+
+            appendAddOption_(data, chatVo.optionNo, chatVo.inputNo);
+
+        })
+        .catch( err => {
+        })
+    }
+    else if(catValue == 400){
+        changeArea.replaceChildren("");
+
+        fetch(contextPath + "/option/get?cat=" + catValue + "&no=" + paramNo)
+        .then( (response) => response.json() )
+        .then( (data) => {
+
+            appendDeleteOption_(data, chatVo.optionNo);
+            
+        })
+        .catch( err => {
+        })
+    }
+    else if(catValue == 500){
+        appendInputNum_(changeArea, chatVo.inputNo);
+        changeArea.append('일');
+    }
+    else if(catValue == 600){
+        appendInputNum_(changeArea, chatVo.inputNo);
+        changeArea.append('일');
+    }
+    else if(catValue == 700){
+        changeArea.innerText = '수정요청';
+    }
+    else if(catValue == 800){
+        appendInputNum_(changeArea, chatVo.inputNo);
+        changeArea.append('만원');
+    }
+
+    const approveRequestBtn = document.querySelector(".request-modal-btn");
+    approveRequestBtn.innerText = '요청 수락';
+    approveRequestBtn.addEventListener('click', () => ApproveRequest(chatVo.requestNo) )
+
+    const refuseRequestBtn = document.querySelector(".request-modal-cancle-btn");
+    refuseRequestBtn.innerText = '요청 거절';
+    refuseRequestBtn.addEventListener('click', () => RefuseRequest(chatVo.requestNo))
+
+    requestModalAdd_();
+}
+
+function ApproveRequest(requestNo) {
+
+    let msg = {
+        'type' : 'requestReply',
+        'requestNo' : requestNo,
+        'reply' : 'approve'
+    }
+    
+    webSocket.send(JSON.stringify(msg));
+}
+
+function RefuseRequest(requestNo) {
+
+    let msg = {
+        'type' : 'requestReply',
+        'requestNo' : requestNo,
+        'reply' : 'refuse'
+    }
+    
+    webSocket.send(JSON.stringify(msg));
 }

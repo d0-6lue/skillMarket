@@ -76,10 +76,14 @@
         <div class="request-modal-wrap">
             
             <div class="modal-box">
-
-                <div class="request-modal-title bold">
-                    요청서 작성하기
+                
+                <div class="modal-top">
+                    <div class="request-modal-title bold">
+                        요청서 작성하기
+                    </div>
+                    <button class="close-modal">×</button>
                 </div>
+                
                 <div class="modal-content">
 
                     <div class="request-modal-category">
