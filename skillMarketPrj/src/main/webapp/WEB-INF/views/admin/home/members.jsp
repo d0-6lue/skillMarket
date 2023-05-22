@@ -107,7 +107,7 @@
                                                         <span>${ list.memberSignDate }</span>
                                                     </td>
                                                     <td>
-                                                        <span>${ list.memberNickStatus }</span>
+                                                        <span>${ list.statusName }</span>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

@@ -56,6 +56,7 @@ public class AdminMemberController extends HttpServlet{
 			    if (e.getFreelancerY().equals("Y")) {
 			    	freeLancerCnt++;
 				}
+			   
 			}
 
 			AdminMemberVo adminMemberVo = new AdminMemberVo();

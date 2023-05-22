@@ -14,7 +14,7 @@ public class MemberListDao {
 
 	public List<memberListVo> selectMemberList(Connection conn) throws Exception {
 		
-		String slq = "SELECT M.*, CASE WHEN F.MEMBER_NO IS NOT NULL THEN 'Y' ELSE 'N' END AS FREELANCER_Y FROM MEMBER M LEFT JOIN FREELANCER F ON M.MEMBER_NO = F.MEMBER_NO ORDER BY M.MEMBER_NO DESC";
+		String slq = "SELECT Z.* , S.STATUS_NAME FROM ( SELECT M.*, CASE WHEN F.MEMBER_NO IS NOT NULL THEN 'Y' ELSE 'N' END AS FREELANCER_Y FROM MEMBER M LEFT JOIN FREELANCER F ON M.MEMBER_NO = F.MEMBER_NO ORDER BY M.MEMBER_NO DESC ) Z JOIN MEMBER_STATUS S ON Z.STATUS_NO = S.STATUS_NO";
 		PreparedStatement pstmt = conn.prepareStatement(slq);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -37,6 +37,7 @@ public class MemberListDao {
 			String memberProfilePhoto = rs.getString("MEMBER_PROFILE_PHOTO");
 			String memberNickStatus = rs.getString("MEMBER_NICK_STATUS");
 			String freelancerY = rs.getString("FREELANCER_Y");
+			String statusName = rs.getString("STATUS_NAME");
 			
 			memberListVo mvo = new memberListVo();
 			mvo.setMemberNo(memberNo);
@@ -55,6 +56,7 @@ public class MemberListDao {
 			mvo.setMemberProfilePhoto(memberProfilePhoto);
 			mvo.setMemberNickStatus(memberNickStatus);
 			mvo.setFreelancerY(freelancerY);
+			mvo.setStatusName(statusName);
 			
 			memberArrList.add(mvo);
 			

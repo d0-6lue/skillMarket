@@ -24,7 +24,6 @@ public class memberListVo {
 	private String memberProfilePhoto;
 	private String memberNickStatus;
 	private String freelancerY;
-	
-	
+	private String statusName;
 	
 }
