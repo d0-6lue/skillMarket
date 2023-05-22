@@ -41,11 +41,12 @@ public class ExpertService {
 			result3 = dao.insertEducation(conn, educationList);
 		}
 		
+		int result4 = 1;
 		if(mv.getMemberProfilePhoto() != null ) {
-			int result4 = dao.changeProfile(conn, mv);
+			result4 = dao.changeProfile(conn, mv);
 		}
 		
-		if(result == 1 && result2 > 0 && result3 > 0) {
+		if(result == 1 && result2 > 0 && result3 > 0 && result4 > 0) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);
@@ -89,6 +90,34 @@ public class ExpertService {
 		JDBCTemplate.close(conn);
 		
 		return educationList;
+	}
+
+	public int updateExpertInfo(ExpertVo ev, String during, ExpertVo loginExpert, String[] careerList, String[] educationList) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.updateExpertInfo(conn, ev);
+		int result2 = 1;
+		if(careerList.length > 0) {
+			dao.deleteCareer(conn, loginExpert);
+			result2 = dao.updateCareer(conn, loginExpert, during, careerList);
+		}
+		
+		int result3 = 1;
+		if(educationList.length > 0) {
+			dao.deleteEducation(conn, loginExpert);
+			result3 = dao.updateEducation(conn, loginExpert, educationList);
+		}
+		
+		if(result == 1 && result2 > 0 && result3 > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return  result;
+		
 	}
 	
 	

@@ -29,7 +29,7 @@
                         </c:if>
                     </div>
                     <div class="profile-nick bold">${loginMember.memberNick}</div>
-                    <a class="profile-btn bold" href="${root}/customer/request-list">의로인으로 변환</a>
+                    <a class="profile-btn bold" href="${root}/customer/request-list">의뢰인으로 변환</a>
                 </div>
                 <div class="nav-customer-title-area bold">
                     <div>마이페이지</div>

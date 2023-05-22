@@ -34,7 +34,7 @@
             </div>
     
         </nav>
-        <form action="${root}/expert-info" method="post" enctype="multipart/form-data">
+        <form action="${root}/expert-info" method="post">
             <div class="register-area">
                 <div class="register-title bold">전문가 정보</div>
                 <div class="register-body">
@@ -68,7 +68,7 @@
                             <button id="career-modal-add-btn" class="career-btn" type="button">경력 추가하기</button>
                             <div id="career-input-area">
 								<c:forEach items="${careerList}" var="cList">
-									<input readonly class="expertCareer" value="${cList.careerCompany} ${cList.careerDept} ${cList.careerResp} ${cList.careerLocation} ${cList.careerEmpDate}"><button type="button" class="expert-career-btn">X</button>
+									<input readonly class="expertCareer" name="expertCareer" value="${cList.careerCompany} ${cList.careerDept} ${cList.careerResp} ${cList.careerLocation} ${cList.careerEmpDate}"><button type="button" class="expert-career-btn">X</button>
 								</c:forEach>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                             <button id="education-modal-add-btn" class="education-btn" type="button">학력 추가하기</button>
                             <div id="education-input-area">
 								<c:forEach items="${educationList}" var="eList">
-									<input readonly class="expertEducation" value="${eList.eduSch} ${eList.eduDep} ${eList.eduStatus}"><button type="button" class="expert-education-btn">X</button>
+									<input readonly class="expertEducation" name="expertEducation" value="${eList.eduSch} ${eList.eduDep} ${eList.eduStatus}"><button type="button" class="expert-education-btn">X</button>
 								</c:forEach>
                             </div>
                         </div>
