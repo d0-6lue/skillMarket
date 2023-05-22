@@ -28,7 +28,12 @@
                 <div class="header-menu">
                     <ul>
                         <li><a href="${root}/inquiry">문의하기</a></li>
-                        <li><a href="">로그인</a></li>
+                        <c:if test="${empty loginMember}">
+                        	<li><a id="login-modal-add-btn">로그인</a></li>                        
+                        </c:if>
+                        <c:if test="${not empty loginMember}">
+                        	<li><a href="${root}/logout">로그아웃</a></li>
+                        </c:if>
                     </ul>
                 </div>
     
@@ -57,7 +62,9 @@
                 <form action="${root}/inquiry" method="post">
                     <div class="inquiry-form-text">문의 유형</div>
                     <select name="inuqiryCategroy" class="inquiry-categroy">
-                        <option value="">카테고리1</option>
+                        <c:forEach items="${inquriyCategoryList}" var="iList">
+                        	<option value="${iList.qnaCatNo}">${iList.qnaCatName}</option>
+                        </c:forEach>
                     </select>
                     <div class="inquiry-form-text">제목</div>
                     <input type="text" class="inquiry-title-box" name="inquiryTitle" placeholder="제목을 입력해주세요">
@@ -73,7 +80,61 @@
 
     </main>
 
+    <div class="modal" id="modal">
+        <div class="modal-body">
+            <div class="m-head">
+                <div class="m-img">
+                    <img src="${root}/static/svg/로그인사진.svg" alt="로그인사진">
+                </div>
+                <form action="${root}/login" method="post">
+                <div class="m-main">
+                    <div class="close-btn" id="close-btn">
+                        <span class="material-symbols-outlined">close</span>
+                    </div>
+                    <div class="login-title bold">로그인</div>
+                    
+                        <input type="text" name="memberId" placeholder="아이디를 입력해주세요">
+                        <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요">
+                        <br>
+                        <input type="hidden" name="currentUrl" value="">
+                        <input type="submit" value="로그인" class="login-submit-btn">
+                        <div class="idpwd-search bold">
+                            <a href="${root}/forgot-id">아이디/비밀번호 찾기</a>
+                        </div>
+                        <button class="join-move-btn" type="button" onclick="location.href='${root}/join'">회원가입</button>
+                    </div>
+                </form>
+                    
+            </div>
+            
+            
+        </div>
+    </div>
+
     <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>
 </html>
+
+<script>
+    // 로그인 모달
+
+    const openBtn = document.querySelector("#login-modal-add-btn");
+    const modal = document.querySelector("#modal");
+    const closeBtn = document.querySelector("#close-btn");
+    if(openBtn != null){
+        openBtn.addEventListener("click", function(){
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    closeBtn.addEventListener("click", function(){
+        modal.classList.remove('show');
+        document.body.style.removeProperty('overflow');
+    })
+
+    const currentUrl = document.querySelector('input[name=currentUrl]');
+    url = window.location.pathname;
+    currentUrl.value = url;
+</script>
