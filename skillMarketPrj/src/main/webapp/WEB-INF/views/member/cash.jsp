@@ -21,7 +21,7 @@
             <div class="nav-customer-area">
                 <div class="profile-area">
                     <div class="profile-img">
-                        <c:if test="{empty loginMember.memberProfilePhoto}">
+                        <c:if test="${empty loginMember.memberProfilePhoto}">
                             <img src="${root}/static/svg/기본프로필.svg" alt="프로필사진">
                         </c:if>
                         <c:if test="${not empty loginMember.memberProfilePhoto}">
@@ -51,7 +51,7 @@
                         <div class="cash-textbox lightyellow">
                             <div class="cash-showboard-text bold">보유 중인 총 캐시</div>
                             <div class="cash-showboard-box">
-                                <div id="cash-total" class="cash-showboard-num">0</div>
+                                <div id="cash-total" class="cash-showboard-num">${cashVo.cashTotal}</div>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <div class="cash-textbox">
                             <div class="cash-showboard-text bold">적립 캐시</div>
                             <div class="cash-showboard-box">
-                                <div id="cash-bonus" class="cash-showboard-num">0</div>
+                                <div id="cash-bonus" class="cash-showboard-num">${cashVo.cashPoint}</div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <div class="cash-showboard-text bold">충전 캐시</div>
                             <div class="cash-showboard-refund">
                                 <div class="cash-showboard-refund-box">
-                                    <div id="cash-real" class="cash-showboard-num">0</div>
+                                    <div id="cash-real" class="cash-showboard-num">${cashVo.cashMoney}</div>
                                 </div>
                                 <a href="" class="cash-showboard-refund-btn yellow bold">환불</a>
 

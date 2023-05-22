@@ -21,7 +21,7 @@
             <div class="nav-customer-area">
                 <div class="profile-area">
                     <div class="profile-img">
-                        <c:if test="{empty loginMember.memberProfilePhoto}">
+                        <c:if test="${empty loginMember.memberProfilePhoto}">
                             <img src="${root}/static/svg/기본프로필.svg" alt="프로필사진">
                         </c:if>
                         <c:if test="${not empty loginMember.memberProfilePhoto}">
