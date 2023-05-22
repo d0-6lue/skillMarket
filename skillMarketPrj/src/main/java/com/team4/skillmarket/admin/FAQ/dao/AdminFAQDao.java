@@ -3,7 +3,7 @@ package com.team4.skillmarket.admin.FAQ.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +55,48 @@ public class AdminFAQDao {
 		JDBCTemplate.close(rs);
 		
 		return FAQArrList;
+	}
+
+	public AdminFAQVo gerHitFAQ(Connection conn) throws Exception {
+
+		
+		String slq = "SELECT * FROM FAQ WHERE FAQ_STATUS = 'N' ORDER BY FAQ_HIT DESC FETCH FIRST ROW ONLY";
+		PreparedStatement pstmt = conn.prepareStatement(slq);
+		ResultSet rs = pstmt.executeQuery();
+		
+		AdminFAQVo FAQHit = null;
+		if (rs.next()) {
+			
+			String faqNo = rs.getString("FAQ_NO");
+			String adminNo = rs.getString("ADMIN_NO");
+			String faqCatNo = rs.getString("FAQ_CAT_NO");
+			String faqTitle = rs.getString("FAQ_TITLE");
+			String faqQContent = rs.getString("FAQ_Q_CONTENT");
+			String faqAContent = rs.getString("FAQ_A_CONTENT");
+			String faqStatus = rs.getString("FAQ_STATUS");
+			String faqHit = rs.getString("FAQ_HIT");
+			String faqEnrolldate = rs.getString("FAQ_ENROLLDATE");
+			String faqModifydate = rs.getString("FAQ_MODIFYDATE");
+			
+			
+			FAQHit = new AdminFAQVo();
+			FAQHit.setFaqNo(faqNo);
+			FAQHit.setAdminNo(adminNo);
+			FAQHit.setFaqCatNo(faqCatNo);
+			FAQHit.setFaqTitle(faqTitle);
+			FAQHit.setFaqQContent(faqQContent);
+			FAQHit.setFaqAContent(faqAContent);
+			FAQHit.setFaqStatus(faqStatus);
+			FAQHit.setFaqHit(faqHit);
+			FAQHit.setFaqEnrolldate(faqEnrolldate);
+			FAQHit.setFaqModifydate(faqModifydate);
+			
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return FAQHit;
 	}
 
 }

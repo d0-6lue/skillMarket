@@ -28,14 +28,16 @@ public class AdminFAQController extends HttpServlet{
 		try {
 			
 			AdminFAQService ads = new AdminFAQService();
+			AdminFAQVo FAQHit = new AdminFAQVo();
 			List<AdminFAQVo> FAQArrList =  ads.selectFAQList();
+			FAQHit =  ads.gerHitFAQ();
 			
 			if (FAQArrList == null) {
 				throw new Exception();
 			}
 			
 			
-			
+			req.setAttribute("FAQHit", FAQHit);
 			req.setAttribute("FAQArrList", FAQArrList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/FAQ.jsp").forward(req, resp);
 			

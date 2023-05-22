@@ -35,7 +35,7 @@
                             </div>
                             <div class="statistics statistics_list_2">
                                 <table >
-                                    <thead class="thead_50">
+                                    <thead class="scroll_tbody thead_50 ">
                                         <tr>
                                             <th>
                                                 <span>번호</span>
@@ -48,16 +48,16 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="scroll_tbody" id="tdody_Hn">
                                         <tr>
                                             <td>
-                                                <span>999</span>
+                                                ${ newNotice.notiNo }
                                             </td>
                                             <td>
-                                                <span>99</span>
+                                                ${ newNotice.notiTitle }
                                             </td>
                                             <td>
-                                                <span>9</span>
+                                                ${ newNotice.notiHit }
                                             </td>
                                         </tr>
                                     </tbody>
@@ -132,7 +132,7 @@
                     <input type="text" placeholder="제목" value="${ modal.notiTitle }" readonly>
                 </div>
                 <div id="noticeDetailContent_${ modal.notiNo }"><div>${ modal.notiContent }</div></div>
-                <button id="submitBtn1">등록하기</button>
+                <button id="submitBtn1" onclick="editForm();">수정하기</button>
             </div>
         </div>
 

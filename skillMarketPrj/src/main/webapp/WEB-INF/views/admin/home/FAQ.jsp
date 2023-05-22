@@ -51,13 +51,13 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <span>999</span>
+                                                ${ FAQHit.faqNo }
                                             </td>
                                             <td>
-                                                <span>99</span>
+                                                ${ FAQHit.faqQContent }
                                             </td>
                                             <td>
-                                                <span>9</span>
+                                                ${ FAQHit.faqHit }
                                             </td>
                                         </tr>
                                     </tbody>
@@ -74,6 +74,9 @@
                         <div>
                             <div class="subtitle">
                                 <h3>FAQ  목록</h3>
+                                <div >
+                                    <button id="openModalBtn">FAQ 추가</button>
+                                </div>
                             </div>
                             <div class="statistics statistics_list_2">
                                 <table>
@@ -97,16 +100,16 @@
                                         <c:forEach items="${ FAQArrList }" var="list">
                                             <tr>
                                                 <td>
-                                                    <span>${ list.faqNo }</span>
+                                                    ${ list.faqNo }
                                                 </td>
                                                 <td>
-                                                    <span>${ list.faqCatNo }</span>
+                                                    ${ list.faqCatNo }
                                                 </td>
                                                 <td>
-                                                    <span>${ list.faqTitle }</span>
+                                                    ${ list.faqTitle }
                                                 </td>
                                                 <td>
-                                                    <span>${ list.faqHit }</span>
+                                                    ${ list.faqHit }
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -122,9 +125,29 @@
         </article>
 
     </div>
-	
+
+	 <!-- 모달 -->
+     <c:forEach items="${ FAQArrList }" var="modal">
+
+     <div id="noticeDetail_${ modal.faqNo }" class="noticeDetail modal">
+         <div class="modal-content">
+             <span class="close">&times;</span>
+             <h1>FAQ 상세</h1>
+             <div id="modal_div">
+                 <div class="nDC">[${ modal.faqCatNo }]</div>
+                 <input type="text" placeholder="제목" value="${ modal.faqQContent }" readonly>
+             </div>
+             <div id="noticeDetailContent_${ modal.faqNo }"><div>${ modal.faqAContent }</div></div>
+             <button id="submitBtn1" onclick="editForm();">수정하기</button>
+         </div>
+     </div>
+
+ </c:forEach>
 
 </body>
 </html>
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
+<script src="${root}/static/js/admin/common/adminSet.js"></script>
+<link rel="stylesheet" href="${root}/static/css/admin/FAQ.css">
+<script src="${root}/static/js/admin/notice.js"></script>

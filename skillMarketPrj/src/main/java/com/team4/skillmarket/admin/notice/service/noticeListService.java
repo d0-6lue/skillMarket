@@ -23,4 +23,16 @@ public class noticeListService {
 
 	}
 
+	public noticeListVo getNewNotice() throws Exception {
+
+		Connection conn = JDBCTemplate.getConnection();
+		
+		AdminNoticeDao dao = new AdminNoticeDao();
+		noticeListVo newNotice =  dao.getNewNotice(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return newNotice;
+	}
+
 }
