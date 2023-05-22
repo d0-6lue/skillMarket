@@ -81,7 +81,7 @@
 				<c:if test="${not empty loginMember && not empty loginExpert}">
 				
                     <ul>
-                        <li><a href="/skillmarket/expert/register">견적서 작성</a></li>
+                        <li><a href="${root}/myestimate">견적서 작성</a></li>
                         <li><a class="login-btn" href="${root}/logout">로그아웃</a></li>
                         <li class="header-profile-li"><div class="header-profile-area">
                             <c:if test="${empty loginMember.memberProfilePhoto}">
