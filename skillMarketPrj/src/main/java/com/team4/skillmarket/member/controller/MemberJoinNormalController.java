@@ -74,7 +74,7 @@ public class MemberJoinNormalController extends HttpServlet{
 			int result = ms.join(vo);
 			
 			if(result == 1) {
-				req.getSession().setAttribute("loginMember", vo);
+//				req.getSession().setAttribute("loginMember", vo);
 				String path = req.getContextPath();
 				resp.sendRedirect(path + "/home");
 			}else {

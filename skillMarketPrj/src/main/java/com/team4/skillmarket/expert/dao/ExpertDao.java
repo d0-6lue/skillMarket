@@ -68,7 +68,24 @@ public class ExpertDao {
 		}
 		sql += "SELECT 1 FROM DUAL";
 		
-		System.out.println(sql);
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		int result2 = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result2;
+	}
+	
+	public int updateCareer(Connection conn, ExpertVo loginExpert, String during, String[] careerList) throws Exception {
+		
+		String sql = "INSERT ALL";
+		for(String career : careerList) {
+			String[] cList = career.split(" ");
+			sql += " INTO CAREER( CAREER_NO , FREELANCER_NO , CAREER_DATE , CAREER_COMPANY , CAREER_DEPT , CAREER_RESP , CAREER_LOCATION , CAREER_EMP_DATE ) VALUES( (SELECT GET_CAREER_SEQ FROM DUAL) , '" + loginExpert.getFreelancerNo() + "' , '" + during + "' , '" + cList[0] + "' , '" + cList[1] + "' , '" + cList[2] + "' , '" + cList[3] + "' , '" + cList[4] + "' )";
+		}
+		sql += "SELECT 1 FROM DUAL";
+		
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		int result2 = pstmt.executeUpdate();
@@ -86,7 +103,23 @@ public class ExpertDao {
 		}
 		sql += "SELECT 1 FROM DUAL";
 		
-		System.out.println(sql);
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		int result3 = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result3;
+	}
+	
+	public int updateEducation(Connection conn, ExpertVo loginExpert, String[] educationList) throws Exception {
+		String sql = "INSERT ALL";
+		for(String education : educationList) {
+			String[] eList = education.split(" ");
+			sql += " INTO EDUCATION( EDU_NO , FREELANCER_NO , EDU_SCH , EDU_DEP , EDU_STATUS ) VALUES( (SELECT GET_EDUCATION_SEQ FROM DUAL) , '" + loginExpert.getFreelancerNo() + "' , '" + eList[0] + "' , '" + eList[1] + "' , '" + eList[2] + "' )";
+		}
+		sql += "SELECT 1 FROM DUAL";
+		
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		int result3 = pstmt.executeUpdate();
@@ -176,6 +209,52 @@ public class ExpertDao {
 		}
 	
 		return educationList;
+	}
+
+	public int updateExpertInfo(Connection conn, ExpertVo ev) throws Exception {
+		
+		String sql = "UPDATE FREELANCER SET FREELANCER_INRODUCTION = ?, FIELD_OF_EXPERTISE = ?, FREELANCER_CONTACT_TIME = ? WHERE MEMBER_NO = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, ev.getFreelancerInroduction());
+		pstmt.setString(2, ev.getFieldOfExpertise());
+		pstmt.setString(3, ev.getFreelancerContactTime());
+		pstmt.setString(4, ev.getMemberNo());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
+	}
+
+
+	public int deleteCareer(Connection conn, ExpertVo loginExpert) throws Exception {
+		
+		String sql = "DELETE FROM CAREER WHERE FREELANCER_NO = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginExpert.getFreelancerNo());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
+		
+	}
+
+	public int deleteEducation(Connection conn, ExpertVo loginExpert) throws Exception {
+		
+		String sql = "DELETE FROM EDUCATION WHERE FREELANCER_NO = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginExpert.getFreelancerNo());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;		
 	}
 	
 	
