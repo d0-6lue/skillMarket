@@ -44,10 +44,10 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <span>99</span>
+                                                <span>${ msVo.statusNCnt }</span>
                                             </td>
                                             <td>
-                                                <span>999</span>
+                                                <span>${ msVo.statusYCnt }</span>
                                             </td>
                                         </tr>
                                     </tbody>

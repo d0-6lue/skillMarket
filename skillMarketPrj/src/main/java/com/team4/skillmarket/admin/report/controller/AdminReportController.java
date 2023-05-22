@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
 import com.team4.skillmarket.admin.report.service.roportListService;
+import com.team4.skillmarket.admin.report.vo.AdminReportStatusVo;
 import com.team4.skillmarket.admin.report.vo.reportListVo;
 
 @WebServlet("/admin/report")
@@ -43,6 +44,11 @@ public class AdminReportController extends HttpServlet{
 				}
 			}
 			
+			AdminReportStatusVo msVo = new AdminReportStatusVo();
+			msVo.setStatusYCnt(statusYCnt);
+			msVo.setStatusNCnt(statusNCnt);
+			
+			req.setAttribute("msVo", msVo);
 			req.setAttribute("reprotArrList", reprotArrList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/report.jsp").forward(req, resp);
 		} catch (Exception e) {
