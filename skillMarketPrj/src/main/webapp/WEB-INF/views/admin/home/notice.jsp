@@ -132,7 +132,7 @@
                     <input type="text" placeholder="제목" value="${ modal.notiTitle }" readonly>
                 </div>
                 <div id="noticeDetailContent_${ modal.notiNo }"><div>${ modal.notiContent }</div></div>
-                <button id="submitBtn1" onclick="editForm();">수정하기</button>
+                <button id="submitBtn1">수정하기</button>
             </div>
         </div>
 
@@ -148,9 +148,9 @@
             <div id="modal_div">
                 <select name="" id="cat_select">
                     <option value="default" selected>카테고리</option>
-                    <option value="1">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
+                    <option value="1">공지</option>
+                    <option value="2">이벤트</option>
+                    <option value="3">안내</option>
                 </select>
                 <input id="titleInput" type="text" name="title" placeholder="제목">
             </div>
@@ -159,6 +159,13 @@
         </div>
       </div>
 
+<script>
+   
+
+
+
+</script>
+    
 
 </body>
 </html>

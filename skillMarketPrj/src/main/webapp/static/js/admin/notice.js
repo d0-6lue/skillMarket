@@ -6,6 +6,8 @@ window.onload = function() {
 		e.addEventListener("click",(event)=>{
 			const bno = event.target.parentNode.children[0].innerText;
 			console.log(bno);
+
+			
 	
 			const noticeDetail = document.querySelectorAll(".noticeDetail");
 			
@@ -15,17 +17,49 @@ window.onload = function() {
 
 			$(selectModal).css("display", "block"); // 모달창을 보이게 함
 			$("#noticeDetailContent_" + bno).innerHTML = "${ modal.notiContent }";
-					
 			
 
 			// 모달창 닫기 버튼 클릭 시
 			$(".close").click(function() {
 				$("#noticeDetail_"+ bno).css("display", "none"); // 모달창을 숨김
+				$("#noticeDetail_"+ bno).find('.note-toolbar').css('display','none')
 			});
 			
+			// 썸머노트 에디터 초기화
+			$('#noticeDetailContent_'+ bno).summernote({
+				lang: 'ko-KR', // 한글 언어 설정
+				height: 300, // 에디터 높이 설정
+				toolbar: [
+					// 에디터 툴바 옵션 설정
+						['style', ['bold', 'italic', 'underline', 'clear']],
+						['font', ['strikethrough', 'superscript', 'subscript']],
+						['fontsize', ['fontsize']],
+						['color', ['color']],
+						['para', ['ul', 'ol', 'paragraph']],
+						['height', ['height']],
+						['insert', ['picture', 'link', 'video']],
+						['view', ['fullscreen', 'codeview']],
+				],
+			});
 			
+			$('#noticeDetailContent_'+ bno).summernote('disable');
+			
+			console.log($('#noticeDetailContent_'+ bno).find('disable'));
+
+			// 수정 버튼 클릭 시 썸머노트 에디터 활성화
+			const editButton = document.getElementById('submitBtn1');
+			editButton.addEventListener('click', function() {
+				$("#noticeDetail_"+ bno).find('.note-toolbar').css('display','block')
+				
+				
+				const noticeDetailContent = document.getElementById('noticeDetailContent_'+ bno);
+				$('#noticeDetailContent_'+ bno).summernote('enable');
+				
+			});
+	
 		} )
-		
+	
+
 	})
 	
 	
@@ -37,11 +71,27 @@ window.onload = function() {
 	//  공지 모달창 열기 버튼 클릭 시
     $("#openModalBtn").click(function() {
         $("#myModal").css("display", "block"); // 모달창을 보이게 함
+		
         $('#summernote').summernote({		   // 썸머노트를 초기화 함
+			lang: 'ko-KR', // 한글 언어 설정
+			height: 300, // 에디터 높이 설정
+			toolbar: [
+				// 에디터 툴바 옵션 설정
+					['style', ['bold', 'italic', 'underline', 'clear']],
+					['font', ['strikethrough', 'superscript', 'subscript']],
+					['fontsize', ['fontsize']],
+					['color', ['color']],
+					['para', ['ul', 'ol', 'paragraph']],
+					['height', ['height']],
+					['insert', ['picture', 'link', 'video']],
+					['view', ['fullscreen', 'codeview']],
+			],
 			callbacks : {
 				onImageUpload : imageUpload
 			  }
 		}); 
+		$("#myModal").find('.note-toolbar').css('display','block')
+		
 
     });
 

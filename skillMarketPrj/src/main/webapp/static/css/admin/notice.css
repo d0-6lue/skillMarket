@@ -171,3 +171,11 @@ border-radius: 10px;
 #tdody_Hn {
     height: auto;
 }
+
+.note-toolbar {
+    display: none;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable[contenteditable=false], .note-editor.note-airframe .note-editing-area .note-editable[contenteditable=false] {
+    background-color: #80808000;
+}
