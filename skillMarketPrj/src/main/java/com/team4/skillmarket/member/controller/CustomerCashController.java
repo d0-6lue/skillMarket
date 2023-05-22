@@ -39,6 +39,7 @@ public class CustomerCashController extends HttpServlet{
 			cvo.setCashPoint(Integer.toString(bonus));
 			cvo.setCashTotal(Integer.toString(total));
 			
+			req.setAttribute("cashList", cashList);
 			req.setAttribute("cashVo", cvo);
 			req.getRequestDispatcher("/WEB-INF/views/member/cash.jsp").forward(req, resp);
 		} catch (Exception e) {
