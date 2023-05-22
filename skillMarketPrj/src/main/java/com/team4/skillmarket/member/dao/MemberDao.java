@@ -345,6 +345,8 @@ String sql = "SELECT * FROM MEMBER WHERE MEMBER_NO = ? AND STATUS_NO = 1";
 	}
 
 	
+
+	
 	
 	
 } // class

@@ -31,15 +31,15 @@ main{
     font-size: 20px;
 }
 
-.expertinfo-area{
+.register-area{
     margin-left: 60px;
 }
 
-.expertinfo-title{
+.register-title{
     font-size: 30px;
 }
 
-.expertinfo-body{
+.register-body{
     margin-top: 30px;
     display: flex;
     justify-content: center;
@@ -75,13 +75,17 @@ main{
     color: #3258A3;
     background-color: white;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.expertinfo-content{
+.register-content{
     margin-left: 70px;
 }
 
 select option[value=""][disabled] {
+    color: #7C7C7C;
 	display: none;
 }
 
@@ -122,7 +126,10 @@ select[name='expertField']{
     width: 500px;
     height: 60px;
     border: 1px solid #7C7C7C;
-    color: #7C7C7C;
+}
+
+select[name='expertField'] > option{
+    color: black;
 }
 
 select[name='expertCareerDuring']{
@@ -131,26 +138,27 @@ select[name='expertCareerDuring']{
     width: 398px;
     height: 60px;
     border: 1px solid #7C7C7C;
-    color: #7C7C7C;
 }
 
 .career-btn{
     border-radius: 6px;
-    padding-left: 10px;
     width: 398px;
     height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid #7C7C7C;
-    color: #7C7C7C;
+    background-color: white;
 }
 
 .education-btn{
     border-radius: 6px;
     padding-left: 10px;
     margin-left: 20px;
-    width: 398px;
+    width: 380px;
     height: 60px;
     border: 1px solid #7C7C7C;
-    color: #7C7C7C;
+    background-color: white;
 }
 
 .small{
@@ -158,8 +166,14 @@ select[name='expertCareerDuring']{
     font-size: 10px;
 }
 
-.expertinfo-content-text{
+.register-content-text{
     margin-top: 35px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.register-content-text2{
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: 600;
@@ -180,31 +194,283 @@ textarea[name='expertIntroduction']{
     padding-left: 10px;
 }
 
-.expertinfo-career-area{
+.register-career-area{
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-row-gap: 20px;
     place-items: center;
 }
 
-.education-area{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#career-input-area{
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-row-gap: 20px;
 }
 
-.expertinfo-submit-btn{
+#career-input-area > input{
+    display: block;
+    width: 300px;
+    height: 50px;
+    border: none;
+    cursor: default;
+    outline: none;
+    color: rgba(55, 163, 55, 0.747);
+    font-weight: 700;
+}
+
+#career-input-area > button{
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border: none;
+    color: rgba(255, 41, 41, 0.699);
+    font-weight: 900;
+}
+
+.education-area{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-row-gap: 20px;
+    place-items: center;
+}
+
+.register-submit-btn{
     margin-top: 40px;
     width: 500px;
     display: flex;
     justify-content: end;
 }
 
-.expertinfo-submit-btn > input{
+.register-submit-btn > input{
     border: none;
     border-radius: 6px;
     width: 200px;
     height: 60px;
     background-color: #F8C925;
     font-size: 20px;
+}
+
+/* 경력사항 모달 */
+
+
+.c-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+.show {
+    display: block;
+}
+
+.c-modal-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 500px;
+    height: 800px;
+
+    background-color: white;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    
+    transform: translateX(-50%) translateY(-50%);
+    padding: 0;
+    border-radius: 10px;
+}
+
+.c-m-head-title{
+    color: black;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.c-m-main{
+    margin-top: 20px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.c-close-btn{
+    display: flex;
+    justify-content: end;
+    width: 500px;
+    font-size: 40px;
+    color: rgb(139, 139, 139);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.c-close-btn > span{
+    margin-top: 10px;
+    margin-right: 10px;    
+}
+
+.c-m-content-title{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.c-m-content-box-input{
+    width: 300px;
+    height: 50px;
+    border-radius: 6px;
+    padding-left: 10px;
+    border: 1px solid #7C7C7C;
+}
+
+.c-m-content-box-select{
+    width: 300px;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #7C7C7C;
+    text-align: center;
+}
+
+.c-m-content-btn{
+    margin-top: 40px;
+    width: 350px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: #F8C925;
+    border: none;
+    font-size: 25px;
+}
+
+/* 학력 모달 */
+
+.e-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+.show {
+    display: block;
+}
+
+.e-modal-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 500px;
+    height: 600px;
+
+    background-color: white;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    
+    transform: translateX(-50%) translateY(-50%);
+    padding: 0;
+    border-radius: 10px;
+}
+
+.e-m-head-title{
+    color: black;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.e-m-main{
+    margin-top: 20px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.e-close-btn{
+    display: flex;
+    justify-content: end;
+    width: 500px;
+    font-size: 40px;
+    color: rgb(139, 139, 139);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.e-close-btn > span{
+    margin-top: 10px;
+    margin-right: 10px;    
+}
+
+.e-m-content-title{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.e-m-content-box-input{
+    width: 300px;
+    height: 50px;
+    border-radius: 6px;
+    padding-left: 10px;
+    border: 1px solid #7C7C7C;
+}
+
+.e-m-content-box-select{
+    width: 300px;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #7C7C7C;
+    text-align: center;
+}
+
+.e-m-content-btn{
+    margin-top: 40px;
+    width: 350px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: #F8C925;
+    border: none;
+    font-size: 25px;
+}
+
+#education-input-area{
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-row-gap: 20px;
+}
+
+#education-input-area > input{
+    display: block;
+    width: 300px;
+    height: 50px;
+    border: none;
+    cursor: default;
+    outline: none;
+    color: rgba(55, 163, 55, 0.747);
+    font-weight: 700;
+}
+
+#education-input-area > button{
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border: none;
+    color: rgba(255, 41, 41, 0.699);
+    font-weight: 900;
 }
