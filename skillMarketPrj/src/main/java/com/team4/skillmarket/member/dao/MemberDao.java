@@ -345,7 +345,7 @@ String sql = "SELECT * FROM MEMBER WHERE MEMBER_NO = ? AND STATUS_NO = 1";
 		return result;
 	}
 
-	public List<CashVo> getCash(Connection conn, MemberVo loginMember) throws Exception {
+	public CashVo getCash(Connection conn, MemberVo loginMember) throws Exception {
 		
 		String sql = "SELECT * FROM USER_CASH WHERE MEMBER_NO = ?";
 		
@@ -353,29 +353,40 @@ String sql = "SELECT * FROM MEMBER WHERE MEMBER_NO = ? AND STATUS_NO = 1";
 		pstmt.setString(1, loginMember.getMemberNo());
 		ResultSet rs = pstmt.executeQuery();
 		
-		List<CashVo> cashList = new ArrayList<>();
-		while(rs.next()) {
-			String cashNo = rs.getString("CASH_NO");
+		CashVo cashVo = null;
+		if(rs.next()) {
 			String memberNo = rs.getString("MEMBER_NO");
 			String cashPoint = rs.getString("CASH_POINT");
 			String cashMoney = rs.getString("CASH_MONEY");
-			String cashEnorlldate = rs.getString("CASH_ENORLLDATE");
 			
-			CashVo vo = new CashVo();
+			int temp = Integer.parseInt(cashPoint) + Integer.parseInt(cashMoney);
+			String total = Integer.toString(temp);
 			
-			vo.setCashNo(cashNo);
-			vo.setMemberNo(memberNo);
-			vo.setCashPoint(cashPoint);
-			vo.setCashMoney(cashMoney);
-			vo.setCashEnorlldate(cashEnorlldate);
+			cashVo = new CashVo();
 			
-			cashList.add(vo);
+			cashVo.setMemberNo(memberNo);
+			cashVo.setCashPoint(cashPoint);
+			cashVo.setCashMoney(cashMoney);
+			cashVo.setCashTotal(total);
+			
 		}
 		
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
 		
-		return cashList;
+		return cashVo;
+	}
+
+	public int cashJoin(Connection conn) throws Exception {
+		
+		String sql = "INSERT INTO USER_CASH(MEMBER_NO) VALUES (SEQ_MEMBER.CURRVAL)";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
 	}
 
 	

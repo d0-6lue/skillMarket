@@ -69,7 +69,8 @@
                 <table class="csc-table">
                 	<c:forEach items="${noticeList}" var="nList">
                 		<tr>
-                            <td>[공지사항]${nList.notiTitle}</td>
+                            <td><a href="${root}/notice/detail?no=${nList.notiNo}">[${nList.notiCatName}]${nList.notiTitle}</a></td>
+
                         </tr>
                 	</c:forEach>    
                 

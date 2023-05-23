@@ -23,24 +23,9 @@ public class CustomerCashController extends HttpServlet{
 			MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
 			
 			MemberService ms = new MemberService();
-			List<CashVo> cashList = ms.getCash(loginMember);
+			CashVo cashVo = ms.getCash(loginMember);
 			
-			int total = 0;
-			int bonus = 0;
-			int real = 0;
-			for(CashVo cash : cashList) {
-				real += Integer.parseInt(cash.getCashMoney());
-				bonus += Integer.parseInt(cash.getCashPoint());
-			}
-			total = bonus + real;
-			
-			CashVo cvo = new CashVo();
-			cvo.setCashMoney(Integer.toString(real));
-			cvo.setCashPoint(Integer.toString(bonus));
-			cvo.setCashTotal(Integer.toString(total));
-			
-			req.setAttribute("cashList", cashList);
-			req.setAttribute("cashVo", cvo);
+			req.setAttribute("cashVo", cashVo);
 			req.getRequestDispatcher("/WEB-INF/views/member/cash.jsp").forward(req, resp);
 		} catch (Exception e) {
 			System.out.println("캐시 조회 에러 발생...");

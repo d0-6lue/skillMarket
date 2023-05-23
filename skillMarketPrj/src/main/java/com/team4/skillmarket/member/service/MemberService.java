@@ -31,8 +31,9 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = dao.join(conn, vo);
+		int result2 = dao.cashJoin(conn);
 		
-		if(result == 1) {
+		if(result == 1 && result2 == 1) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);
@@ -158,15 +159,15 @@ public class MemberService {
 		return result;
 	}
 
-	public List<CashVo> getCash(MemberVo loginMember) throws Exception {
+	public CashVo getCash(MemberVo loginMember) throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<CashVo> cashList = dao.getCash(conn, loginMember);
+		CashVo cashVo = dao.getCash(conn, loginMember);
 		
 		JDBCTemplate.close(conn);
 		
-		return cashList;
+		return cashVo;
 		
 	}
 

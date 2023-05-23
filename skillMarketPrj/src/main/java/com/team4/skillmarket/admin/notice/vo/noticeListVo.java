@@ -14,5 +14,6 @@ public class noticeListVo {
 	private String notiModifydate;
 	private String notiStatus;
 	private String notiHit;
+	private String notiCatName;
 	
 }

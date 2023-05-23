@@ -24,6 +24,18 @@ public class CSCService {
 		
 		
 	}
+	
+	public List<noticeListVo> getRecentNotice() throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<noticeListVo> noticeList = dao.getRecentNotice(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return noticeList;
+		
+		
+	}
 
 	public List<InquiryCategoryVo> getInquiryCategory() throws Exception {
 		
@@ -49,6 +61,33 @@ public class CSCService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+	public noticeListVo getNoticeByNo(String no) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		noticeListVo noticeVo = dao.getNoticeByNo(conn,no);
+		
+		JDBCTemplate.close(conn);
+		
+		return noticeVo;
+	}
+
+	public int addHit(String no) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.addHit(conn,no);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+		
 	}
 
 }
