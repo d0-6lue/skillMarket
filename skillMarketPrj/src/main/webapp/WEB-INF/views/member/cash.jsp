@@ -70,7 +70,7 @@
                                 <div class="cash-showboard-refund-box">
                                     <div id="cash-real" class="cash-showboard-num">${cashVo.cashMoney}</div>
                                 </div>
-                                <a href="" class="cash-showboard-refund-btn yellow bold">환불</a>
+                                <a id="refund-btn" class="cash-showboard-refund-btn yellow bold">환불</a>
 
                             </div>
                         </div>
@@ -123,5 +123,19 @@
     function searchTotalCash(){
 
     }
+
+    const chargeBtn = document.querySelector("#refund-btn");
+    chargeBtn.addEventListener("click", function(){
+
+    let result = document.querySelector("#cash-real");
+
+    // if(result.value == ''){
+    //     return null;
+    // }
+
+    result = result.innerHTML;
+
+    location.href = "${root}/cash/refund?amount=" + result;
+})
 
 </script>

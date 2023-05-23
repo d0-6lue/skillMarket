@@ -8,13 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="${root}/static/css/csc/csc.css">
-<c:if test="${ not empty alertMsg }">
-	<script>
-	    alert('${alertMsg}');
-	</script>
-	<c:remove var="alertMsg" scope="session"/>
-</c:if>
+<link rel="stylesheet" href="${root}/static/css/csc/faqdetail.css">
 </head>
 <body>
 
@@ -26,7 +20,7 @@
                 
                 <div class="header-logo">
                     <a href="/skillmarket/home" class="header-logoimg">
-                        <img src="static/svg/고객센터로고.svg" alt="로고이미지">
+                        <img src="${root}/static/svg/고객센터로고.svg" alt="로고이미지">
                     </a>
                     <a href="${root}/csc" class="header-csc bold">고객센터</a>
                 </div>
@@ -44,54 +38,33 @@
                 </div>
     
             </div>
-
-            <div class="header-search">
-                <div class="header-search-area">
-                    <input type="text" placeholder="검색">
-                    <button>
-                        <span class="material-symbols-outlined">
-                            search
-                            </span>
-                    </button>
-                </div>
-            </div>
-            
-            
         </div>
 
     </div>
+    
+    <div class="header-search">
+        <div class="bold"><a href="${root}/csc">고객센터</a> > <a href="${root}/faq">FAQ</a></div>
+        <div class="header-search-area">
+            <input type="text" placeholder="검색">
+            <button>
+                <span class="material-symbols-outlined">
+                    search
+                    </span>
+            </button>
+        </div>
+    </div>
+            
+            
+
 
     <main>
-        <div class="main-area">
-            <div class="notice-area">
-                <div class="bold notice-title">공지사항</div>
-                <div class="notice-go"><a href="${root}/notice">더보기</a></div>
-                <table class="csc-table">
-                	<c:forEach items="${noticeList}" var="nList">
-                		<tr>
-                            <td><a href="${root}/notice/detail?no=${nList.notiNo}">[${nList.notiCatName}] ${nList.notiTitle}</a></td>
 
-                        </tr>
-                	</c:forEach>    
-                
-                    
-                </table>
-            </div>
+        <div class="notice-area">
+            <div class="notice-title bold">${fvo.faqCatName} > ${fvo.faqTitle}</div>
 
-            <div class="faq-area">
-                <div class="faq-title bold">FAQ</div>
-                <div class="faq-go"><a href="${root}/faq">더보기</a></div>
-                <table class="csc-table">
-					<c:forEach items="${faqList}" var="fvo">
-						<tr>
-                        	<td><a href="${root}/faq/detail?no=${fvo.faqNo}">[${fvo.faqCatName}] ${fvo.faqTitle}</a></td>
-                    	</tr>
-					</c:forEach>                    
-                </table>
-            </div>
-
+            <div class="notice-qcotent">${fvo.faqQContent}</div>
+            <div class="notice-acotent">${fvo.faqAContent}</div>
         </div>
-        
 
     </main>
 
@@ -152,4 +125,16 @@
     const currentUrl = document.querySelector('input[name=currentUrl]');
     url = window.location.pathname;
     currentUrl.value = url;
+
+$(function(){
+    $("li").slice(0, 6).show(); // 초기갯수
+    $("#load").click(function(e){ // 클릭시 more
+        e.preventDefault();
+        $("li:hidden").slice(0, 4).show(); // 클릭시 more 갯수 지저정
+        if($("li:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+            // $("#load").attr("disabled",true);
+            $("#load").remove();
+        }
+    });
+});
 </script>

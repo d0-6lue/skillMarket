@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.skillmarket.admin.FAQ.vo.AdminFAQVo;
+import com.team4.skillmarket.admin.FAQ.vo.FAQCategoryVo;
 import com.team4.skillmarket.admin.inquiry.vo.InquiryCategoryVo;
 import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
 import com.team4.skillmarket.admin.notice.vo.noticeListVo;
@@ -58,7 +60,7 @@ public class CSCDao {
 	
 	public List<noticeListVo> getRecentNotice(Connection conn) throws Exception {
 		
-		String sql = "SELECT * FROM( SELECT * FROM NOTICE N JOIN NOTICE_CATEGORY C ON ( N.NOTI_CAT_NO = C.NOTI_CAT_NO) WHERE NOTI_STATUS = 'Y' ORDER BY NOTI_MODIFYDATE DESC) WHERE ROWNUM <= 4";
+		String sql = "SELECT * FROM( SELECT * FROM NOTICE N JOIN NOTICE_CATEGORY C ON ( N.NOTI_CAT_NO = C.NOTI_CAT_NO) WHERE NOTI_STATUS = 'Y' ORDER BY NOTI_ENROLLDATE DESC) WHERE ROWNUM <= 4";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
@@ -185,6 +187,176 @@ public class CSCDao {
 
 	public int addHit(Connection conn, String no) throws Exception {
 		String sql = "UPDATE NOTICE SET NOTI_HIT = NOTI_HIT + 1 WHERE NOTI_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
+	}
+
+	public List<AdminFAQVo> getRecentFAQ(Connection conn) throws Exception {
+		
+		String sql = "SELECT * FROM( SELECT * FROM FAQ F JOIN FAQ_CATEGORY C ON ( F.FAQ_CAT_NO = C.FAQ_CAT_NO) WHERE FAQ_STATUS = 'Y' ORDER BY FAQ_ENROLLDATE DESC) WHERE ROWNUM <= 4";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<AdminFAQVo> faqList = new ArrayList<>(); 
+		while(rs.next()) {
+			String faqNo = rs.getString("FAQ_NO");
+			String adminNo = rs.getString("ADMIN_NO");
+			String faqCatNo = rs.getString("FAQ_CAT_NO");
+			String faqTitle = rs.getString("FAQ_TITLE");
+			String faqQContent = rs.getString("FAQ_Q_CONTENT");
+			String faqAContent = rs.getString("FAQ_A_CONTENT");
+			String faqStatus = rs.getString("FAQ_STATUS");
+			String faqHit = rs.getString("FAQ_HIT");
+			String faqEnrolldate = rs.getString("FAQ_ENROLLDATE");
+			String faqModifydate = rs.getString("FAQ_MODIFYDATE");
+			String faqCatName = rs.getString("FAQ_CAT_NAME");
+			
+			AdminFAQVo vo = new AdminFAQVo();
+			
+			vo.setFaqNo(faqNo);
+			vo.setAdminNo(adminNo);
+			vo.setFaqCatNo(faqCatNo);
+			vo.setFaqTitle(faqTitle);
+			vo.setFaqQContent(faqQContent);
+			vo.setFaqAContent(faqAContent);
+			vo.setFaqStatus(faqStatus);
+			vo.setFaqHit(faqHit);
+			vo.setFaqEnrolldate(faqEnrolldate);
+			vo.setFaqModifydate(faqModifydate);
+			vo.setFaqCatName(faqCatName);
+			
+			faqList.add(vo);
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return faqList;
+	}
+
+	public List<AdminFAQVo> getFAQList(Connection conn) throws Exception {
+		
+		String sql = "SELECT * FROM FAQ F JOIN FAQ_CATEGORY C ON ( F.FAQ_CAT_NO = C.FAQ_CAT_NO) WHERE FAQ_STATUS = 'Y' ORDER BY FAQ_ENROLLDATE DESC";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<AdminFAQVo> faqList = new ArrayList<>(); 
+		while(rs.next()) {
+			String faqNo = rs.getString("FAQ_NO");
+			String adminNo = rs.getString("ADMIN_NO");
+			String faqCatNo = rs.getString("FAQ_CAT_NO");
+			String faqTitle = rs.getString("FAQ_TITLE");
+			String faqQContent = rs.getString("FAQ_Q_CONTENT");
+			String faqAContent = rs.getString("FAQ_A_CONTENT");
+			String faqStatus = rs.getString("FAQ_STATUS");
+			String faqHit = rs.getString("FAQ_HIT");
+			String faqEnrolldate = rs.getString("FAQ_ENROLLDATE");
+			String faqModifydate = rs.getString("FAQ_MODIFYDATE");
+			String faqCatName = rs.getString("FAQ_CAT_NAME");
+			
+			AdminFAQVo vo = new AdminFAQVo();
+			
+			vo.setFaqNo(faqNo);
+			vo.setAdminNo(adminNo);
+			vo.setFaqCatNo(faqCatNo);
+			vo.setFaqTitle(faqTitle);
+			vo.setFaqQContent(faqQContent);
+			vo.setFaqAContent(faqAContent);
+			vo.setFaqStatus(faqStatus);
+			vo.setFaqHit(faqHit);
+			vo.setFaqEnrolldate(faqEnrolldate);
+			vo.setFaqModifydate(faqModifydate);
+			vo.setFaqCatName(faqCatName);
+			
+			faqList.add(vo);
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return faqList;
+		
+	}
+
+	public List<FAQCategoryVo> getFAQCategoryList(Connection conn) throws Exception {
+		
+		String sql = "SELECT * FROM FAQ_CATEGORY";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<FAQCategoryVo> categoryList = new ArrayList<>();
+		while(rs.next()) {
+			String faqCatNo = rs.getString("FAQ_CAT_NO");
+			String faqCatName =rs.getString("FAQ_CAT_NAME");
+			
+			FAQCategoryVo vo = new FAQCategoryVo();
+			
+			vo.setFaqCatNo(faqCatNo);
+			vo.setFaqCatName(faqCatName);
+			
+			categoryList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return categoryList;
+	}
+
+	public AdminFAQVo getFAQByNo(Connection conn, String no) throws Exception {
+		
+		String sql = "SELECT * FROM FAQ F JOIN FAQ_CATEGORY C ON (F.FAQ_CAT_NO = C.FAQ_CAT_NO) WHERE FAQ_NO = ? AND FAQ_STATUS = 'Y'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		AdminFAQVo fvo = null;
+		if(rs.next()) {
+			String faqNo = rs.getString("FAQ_NO");
+			String adminNo = rs.getString("ADMIN_NO");
+			String faqCatNo = rs.getString("FAQ_CAT_NO");
+			String faqTitle = rs.getString("FAQ_TITLE");
+			String faqQContent = rs.getString("FAQ_Q_CONTENT");
+			String faqAContent = rs.getString("FAQ_A_CONTENT");
+			String faqStatus = rs.getString("FAQ_STATUS");
+			String faqHit = rs.getString("FAQ_HIT");
+			String faqEnrolldate = rs.getString("FAQ_ENROLLDATE");
+			String faqModifydate = rs.getString("FAQ_MODIFYDATE");
+			String faqCatName = rs.getString("FAQ_CAT_NAME");
+			
+			fvo = new AdminFAQVo();
+			
+			fvo.setFaqNo(faqNo);
+			fvo.setAdminNo(adminNo);
+			fvo.setFaqCatNo(faqCatNo);
+			fvo.setFaqTitle(faqTitle);
+			fvo.setFaqQContent(faqQContent);
+			fvo.setFaqAContent(faqAContent);
+			fvo.setFaqStatus(faqStatus);
+			fvo.setFaqHit(faqHit);
+			fvo.setFaqEnrolldate(faqEnrolldate);
+			fvo.setFaqModifydate(faqModifydate);
+			fvo.setFaqCatName(faqCatName);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return fvo;
+		
+	}
+
+	public int addFAQHit(Connection conn, String no) throws Exception {
+		
+		String sql = "UPDATE FAQ SET FAQ_HIT = FAQ_HIT + 1 WHERE FAQ_NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		int result = pstmt.executeUpdate();
