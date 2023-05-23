@@ -3,9 +3,12 @@ package com.team4.skillmarket.estimate.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.System.Logger;
+import java.util.logging.Logger;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -21,6 +24,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.team4.skillmarket.estimate.file.EstimateFileUploader;
 import com.team4.skillmarket.estimate.service.EstimateService;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
+import com.team4.skillmarket.estimate.vo.EstimateFaqVo;
+import com.team4.skillmarket.estimate.vo.EstimateOptionVo;
 import com.team4.skillmarket.estimate.vo.EstimateVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.vo.MemberVo;
@@ -36,6 +41,9 @@ public class EstimateTemplateWriteController extends HttpServlet {
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 50;
 
     private EstimateService estimateService;
+    
+    private static final Logger logger = Logger.getLogger(EstimateTemplateWriteController.class.getName());
+
 
     @Override
     public void init() throws ServletException {
@@ -106,46 +114,106 @@ public class EstimateTemplateWriteController extends HttpServlet {
                     }
             );
 
-            // Create FileUploader
-            EstimateFileUploader estimFileUploader = new EstimateFileUploader(UPLOAD_PATH, MAX_FILE_SIZE);
+            // 파일업로더 객체생성
 
-            // Handle attachments
-            List<AttachmentVo> attachmentList = estimFileUploader.uploadAttachments(multi);
+            // 첨부파일들 다루기
 
-            // Extract estimate information and create object
+            // 데꺼
+            String freelancerNo = expertMember.getFreelancerNo();
             String jobTitle = multi.getParameter("job-title");
+            String EstimateCatNo = multi.getParameter("cateCode");
             String jobPrice = multi.getParameter("job-price");
             String jobDuration = multi.getParameter("job-duration");
             String jobSummary = multi.getParameter("job-summary");
             String jobDescription = multi.getParameter("job-description");
-            String freelancerNo = expertMember.getFreelancerNo();
-            String EstimateCatNo = multi.getParameter("cateCode");
-            System.out.println(EstimateCatNo);
+            
+            logger.info("freelancerNo: " + freelancerNo);
+            logger.info("jobTitle: " + jobTitle);
+            logger.info("EstimateCatNo: " + EstimateCatNo);
+            logger.info("jobPrice: " + jobPrice);
+            logger.info("jobDuration: " + jobDuration);
+            logger.info("jobSummary: " + jobSummary);
+            logger.info("jobDescription: " + jobDescription);
 
             // 데뭉
-            EstimateVo estimate = new EstimateVo();
-            estimate.setFreelancerNo(Integer.parseInt(freelancerNo));
-            estimate.setEstimateCatNo(EstimateCatNo);
-            estimate.setEstimateTitle(jobTitle);
-            estimate.setEstimateDuration(jobDuration);
-            estimate.setEstimateLineIntroduction(jobSummary);
-            estimate.setEstimatePrice(jobPrice);
-            estimate.setEstimateDetail(jobDescription);
+            EstimateVo estimateVo = new EstimateVo();
+            estimateVo.setFreelancerNo(Integer.parseInt(freelancerNo));
+            estimateVo.setEstimateCatNo(EstimateCatNo);
+            estimateVo.setEstimateTitle(jobTitle);
+            estimateVo.setEstimateDuration(jobDuration);
+            estimateVo.setEstimateLineIntroduction(jobSummary);
+            estimateVo.setEstimatePrice(jobPrice);
+            estimateVo.setEstimateDetail(jobDescription);
             
 
-            // Set the list of processed attachments
-            estimate.setAttachments(attachmentList);
+            // 메인이미지 상세이미지 초기화
+            AttachmentVo mainImage = null;
+            List<AttachmentVo> detailImages = new ArrayList<>();
 
-            // Update file paths in estimate object
-            List<String> attachmentPaths = new ArrayList<>();
-            for (AttachmentVo attachment : attachmentList) {
-                String attachmentPath = UPLOAD_PATH + "/" + attachment.getAttachmentServerName();
-                attachmentPaths.add(attachmentPath);
+            // 첨부파일들 다루기
+            Enumeration<String> fileNames = multi.getFileNames();
+            while (fileNames.hasMoreElements()) {
+                String fileName = fileNames.nextElement();
+                String originalFileName = multi.getOriginalFileName(fileName);
+                String serverFileName = multi.getFilesystemName(fileName);
+
+                if (originalFileName == null || serverFileName == null) {
+                    continue;
+                }
+
+                AttachmentVo attachment = new AttachmentVo();
+                attachment.setAttachmentOriginName(originalFileName);
+                attachment.setAttachmentServerName(serverFileName);
+
+                // 파일 업로드 시 메인 이미지 여부 체크
+                String isMainImage = multi.getParameter("is-main-image");
+                if (fileName.equals("main-file-upload") && isMainImage != null && isMainImage.equals("true")) {
+                    attachment.setMainImage(true);
+                    mainImage = attachment;
+                    logger.info("Main Image: " + originalFileName + " (" + serverFileName + ")");
+                } else {
+                    attachment.setMainImage(false);
+                    detailImages.add(attachment);
+                    logger.info("Detail Image: " + originalFileName + " (" + serverFileName + ")");
+                }
             }
-            estimate.setAttachmentPaths(attachmentPaths);
+
+            estimateVo.setMainImage(mainImage);
+            estimateVo.setDetailImages(detailImages);
+
+            // 추가 옵션 정보 저장
+            List<EstimateOptionVo> estimateOptions = Optional.ofNullable(multi.getParameterValues("optionName"))
+                    .map(names -> {
+                        List<EstimateOptionVo> options = new ArrayList<>();
+                        for (String name : names) {
+                            EstimateOptionVo option = new EstimateOptionVo();
+                            option.setEstimateOptionName(name);
+                            // 추가 처리 로직
+                            options.add(option);
+                        }
+                        return options;
+                    })
+                    .orElse(Collections.emptyList());
+            estimateVo.setAdditionalOptions(estimateOptions);
+
+            // FAQ 정보 저장
+            List<EstimateFaqVo> estimateFaqs = Optional.ofNullable(multi.getParameterValues("faqQuestion"))
+                    .map(questions -> {
+                        List<EstimateFaqVo> faqs = new ArrayList<>();
+                        for (String question : questions) {
+                            EstimateFaqVo faq = new EstimateFaqVo();
+                            faq.setEstimateFaqQContent(question);
+                            // 추가 처리 로직
+                            faqs.add(faq);
+                        }
+                        return faqs;
+                    })
+                    .orElse(Collections.emptyList());
+            estimateVo.setFaqs(estimateFaqs);
+
 
             // 견적서작성하기
-            int result = estimateService.writeEstimate(estimate);
+            int result = estimateService.writeEstimate(estimateVo, estimateOptions, estimateFaqs);
 
             if (result > 0) {
                 resp.sendRedirect(req.getContextPath() + "/esti");

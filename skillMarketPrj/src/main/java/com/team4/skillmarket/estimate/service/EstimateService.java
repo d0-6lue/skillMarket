@@ -1,52 +1,83 @@
 package com.team4.skillmarket.estimate.service;
 
 import java.sql.Connection;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.team4.skillmarket.common.db.JDBCTemplate;
-import com.team4.skillmarket.common.page.PageVo;
+import com.team4.skillmarket.estimate.attachment.dao.AttachmentDao;
 import com.team4.skillmarket.estimate.dao.EstimateDao;
+import com.team4.skillmarket.estimate.faq.dao.EstimateFaqDao;
+import com.team4.skillmarket.estimate.option.dao.EstimateOptionDao;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
+import com.team4.skillmarket.estimate.vo.EstimateFaqVo;
+import com.team4.skillmarket.estimate.vo.EstimateOptionVo;
 import com.team4.skillmarket.estimate.vo.EstimateVo;
 import com.team4.skillmarket.utill.file.AttachmentVo;
 
 public class EstimateService {
 	private EstimateDao estimateDao;
+    private EstimateOptionDao estimateOptionDao;
+    private EstimateFaqDao estimateFaqDao;
+    private AttachmentDao attachmentDao;
 
     public EstimateService() {
         estimateDao = new EstimateDao();
+        estimateOptionDao = new EstimateOptionDao();
+        estimateFaqDao = new EstimateFaqDao();
+        attachmentDao = new AttachmentDao();
     };
 
-    //견적서작성하기
-    public int writeEstimate(EstimateVo estimate) throws Exception{
+    public int writeEstimate(EstimateVo estimateVo, List<EstimateOptionVo> estimateOptions, List<EstimateFaqVo> estimateFaqs) {
         try (Connection conn = JDBCTemplate.getConnection()) {
+            conn.setAutoCommit(false);
+            AttachmentDao attachmentDao = new AttachmentDao();
 
-            int estimateResult = estimateDao.writeEstimate(conn, estimate);
+            try {
+                int estimateNo = estimateDao.insertEstimate(conn, estimateVo);
 
-            if (estimateResult > 0) {
-                List<AttachmentVo> attachments = estimate.getAttachments();
-
-                if (attachments != null && !attachments.isEmpty()) {
-                    int attachmentResult = estimateDao.insertAttachments(conn, attachments);
-
-                    if (attachmentResult < 1) {
-                        JDBCTemplate.rollback(conn);
-                        return attachmentResult;
+                if (estimateNo > 0) {
+                    AttachmentVo mainImage = estimateVo.getMainImage();
+                    if (mainImage != null) {
+                        mainImage.setEstimateNo(estimateNo);
+                        attachmentDao.insertAttachment(conn, mainImage);
                     }
-                }
 
-                JDBCTemplate.commit(conn);
-                return estimateResult;
-            } else {
-                JDBCTemplate.rollback(conn);
-                return estimateResult;
+                    List<AttachmentVo> detailImages = estimateVo.getDetailImages();
+                    for (AttachmentVo attachment : detailImages) {
+                        attachment.setEstimateNo(estimateNo);
+                        attachmentDao.insertAttachment(conn, attachment);
+                    }
+
+                    for (EstimateOptionVo option : estimateOptions) {
+                        option.setEstimateNo(estimateNo);
+                        estimateOptionDao.insertEstimateOption(conn, option);
+                    }
+
+                    for (EstimateFaqVo faq : estimateFaqs) {
+                        faq.setEstimateNo(estimateNo);
+                        estimateFaqDao.insertEstimateFaq(conn, faq);
+                    }
+
+                    conn.commit();
+                    return estimateNo;
+                } else {
+                    throw new IllegalStateException("Failed to write the estimate...");
+                }
+            } catch (Exception e) {
+                conn.rollback();
+                throw new IllegalStateException("Failed to write the estimate...", e);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to write the estimate...", e);
         }
     }
+
+
+
+
+
+
 
 
     //견적서 번호 얻어오기
@@ -74,11 +105,14 @@ public class EstimateService {
         }
     }
 
+    //견적서 갯수가져오기
 	public int getEstimateListCnt(String searchType, String searchValue) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	
+	//견적서 카테고리얻기
 	public List<EstimateCategoryVo> getCategoryList() throws Exception {
 		//conn 얻기
 		Connection conn = JDBCTemplate.getConnection();

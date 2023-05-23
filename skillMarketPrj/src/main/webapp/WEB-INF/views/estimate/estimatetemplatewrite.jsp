@@ -50,7 +50,7 @@
                         <!-- 기본정보 -->
                         <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                             <div class="form-group">
-                                <label for="job-title">${estiCatevoList}</label>
+                                <label for="job-title">제목</label>
                                 <input type="text" class="form-control" id="job-title" name="job-title" placeholder="서비스를 잘 드러낼 수 있는 제목을 입력하세요 최대 30자까지 가능합니다." maxlength="30">
                             </div>
                            <!-- 카테고리 -->
@@ -73,17 +73,6 @@
                                 </select>
                             </div> 
                         
-                            <!-- 포트폴리오 최대(5장) -->
-                            <div class="form-group form-control-lg portfolio-container">
-                                <div id="job-portfolio-container">
-                                    <label for="job-portfolio">포트폴리오</label>
-                                    <input type="file" id="portfolio-submit" name="portfolio-submit" accept="image/*" multiple>
-                                    <div id="preview-container"></div>
-                                </div>                     
-                            </div>
-                            <div>
-                                <button class="btn btn-primary" type="button" id="cancel-button">파일선택 초기화</button>
-                            </div>
                         </div>
     
                         <!-- 가격설정 -->
@@ -152,7 +141,9 @@
                             <!-- 메인 이미지(필수) 1장 -->
                             <div class="form-group">
                                 <label for="job-mainfile-upload">메인이미지등록(필수)</label>
-                                <input class="form-control form-control-lg" type="file" name="main-file-upload" id="main-file-upload" onchange="previewImage(this, 'main-image-preview')">
+                                <input class="form-control form-control-lg" type="file" name="main-file-upload" id="main-file-upload" onchange="previewImage(this, 'main-image')">
+                                <input type="checkbox" name="is-main-image" id="is-main-image" onclick="toggleMainImage(this)">
+                                <label for="is-main-image">메인 이미지</label>
                             </div>
                             <div class="image-preview" id="main-image-preview-container">
                                 <img id="main-image-preview" src="" alt="메인이미지 미리보기">

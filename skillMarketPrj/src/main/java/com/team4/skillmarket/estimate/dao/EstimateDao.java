@@ -3,9 +3,12 @@ package com.team4.skillmarket.estimate.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import com.team4.skillmarket.admin.category.vo.AdminCategoryVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
@@ -17,11 +20,12 @@ import com.team4.skillmarket.utill.file.AttachmentVo;
 //견적서 글쓰기
 public class EstimateDao {
 	
-	public int writeEstimate(Connection conn, EstimateVo estimate) throws Exception {
-	    String sql = "INSERT INTO ESTIMATE (ESTIMATE_NO, FREELANCER_NO, ESTIMATE_CAT_NO, ESTIMATE_TITLE, ESTIMATE_DURATION, ESTIMATE_LINE_INTRODUCTION, ESTIMATE_PRICE, ESTIMATE_DETAIL, ATTACHMENT_PATHS, ESTIMATE_ENROLL_DATE) "
-	            + "VALUES (SEQ_ESTIMATE.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)";
+	public int insertEstimate(Connection conn, EstimateVo estimate) throws SQLException {
+	    String sql = "INSERT INTO ESTIMATE (ESTIMATE_NO, FREELANCER_NO, ESTIMATE_CAT_NO, ESTIMATE_TITLE, ESTIMATE_DURATION, " +
+	            "ESTIMATE_LINE_INTRODUCTION, ESTIMATE_PRICE, ESTIMATE_DETAIL, ESTIMATE_ENROLL_DATE, ESTIMATE_MAIN_IMAGE, ESTIMATE_DETAIL_IMAGES) " +
+	            "VALUES (SEQ_ESTIMATE.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql, new String[]{"ESTIMATE_NO"})) {
 	        pstmt.setInt(1, estimate.getFreelancerNo());
 	        pstmt.setString(2, estimate.getEstimateCatNo());
 	        pstmt.setString(3, estimate.getEstimateTitle());
@@ -29,32 +33,45 @@ public class EstimateDao {
 	        pstmt.setString(5, estimate.getEstimateLineIntroduction());
 	        pstmt.setString(6, estimate.getEstimatePrice());
 	        pstmt.setString(7, estimate.getEstimateDetail());
-	        pstmt.setString(8, String.join(",", estimate.getAttachmentPaths()));
+	        pstmt.setString(8, estimate.getEstimateEnrollDate());
+
+	        if (estimate.getMainImage() != null) {
+	            pstmt.setString(9, estimate.getMainImage().getAttachmentServerName());
+	        } else {
+	            pstmt.setNull(9, Types.VARCHAR);
+	        }
+
+	        if (!estimate.getDetailImages().isEmpty()) {
+	            pstmt.setString(10, estimate.getDetailImages().get(0).getAttachmentServerName());
+	        } else {
+	            pstmt.setNull(10, Types.VARCHAR);
+	        }
+
 	        int result = pstmt.executeUpdate();
 
-	        return result;
+	        if (result > 0) {
+	            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+	            if (generatedKeys.next()) {
+	                int estimateNo = generatedKeys.getInt(1);
+	                return estimateNo;
+	            }
+	        }
+
+	        return 0; // 실패 시 0 반환
 	    }
 	}
-    
-    public int insertAttachments(Connection conn, List<AttachmentVo> attachments) throws Exception {
-        String sql = "INSERT INTO ATTACHMENT (ATTACHMENT_NO, ESTIMATE_NO, ATTACHMENT_INSERT_TIME, ATTACHMENT_ORIGIN_NAME, ATTACHMENT_SERVER_NAME, ATTACHMENT_TYPE, ATTACHMENT_MAIN_YN) "
-                + "VALUES (SEQ_ATTACHMENT.NEXTVAL, ?, SYSDATE, ?, ?, ?, ?)";
-        
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            int result = 0;
-            for (AttachmentVo attachment : attachments) {
-                pstmt.setInt(1, attachment.getEstimateNo());
-                pstmt.setString(2, attachment.getAttachmentOriginName());
-                pstmt.setString(3, attachment.getAttachmentServerName());
-                pstmt.setString(4, attachment.getAttachmentType());
-                pstmt.setString(5, attachment.isMainImage() ? "Y" : "N");
-                
-                result += pstmt.executeUpdate();
-            }
-            
-            return result;
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
     
     //견적서 번호조회하기
     public EstimateVo getEstimate(Connection conn, int estimateNo) throws Exception {
@@ -169,6 +186,11 @@ public class EstimateDao {
 			
 		}
 		return catArrList;
+	}
+
+	public int insertEstimate(EstimateVo estimate) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
     
 }

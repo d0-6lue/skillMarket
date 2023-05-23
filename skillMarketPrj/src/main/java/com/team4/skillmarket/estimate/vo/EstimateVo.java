@@ -1,6 +1,5 @@
 package com.team4.skillmarket.estimate.vo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.team4.skillmarket.utill.file.AttachmentVo;
@@ -17,18 +16,14 @@ public class EstimateVo {
     private String estimateLineIntroduction;
     private String estimatePrice;
     private String estimateDetail;
-    private List<AttachmentVo> attachments;
-    private List<String> attachmentPaths;
+    private AttachmentVo mainImage;
+    private String EstimateEnrollDate;
+    private List<AttachmentVo> detailImages;
+    private List<EstimateFaqVo> faqs; 
+    private List<EstimateOptionVo> additionalOptions; 
 
-    public void setAttachmentPaths(List<String> attachmentPaths) {
-        this.attachmentPaths = attachmentPaths;
-    }
+    
 
-    public List<String> getAttachmentPaths() {
-        return attachmentPaths;
-    }
-
-    // 생성자, getter, setter 생략
 
 }
     
