@@ -17,7 +17,13 @@
 <!-- 부트스트랩 css js -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
+
 </head>
+
+
 <body>
 
     <div id="wrap">
@@ -44,29 +50,29 @@
                         <!-- 기본정보 -->
                         <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                             <div class="form-group">
-                                <label for="job-title">제목</label>
+                                <label for="job-title">${estiCatevoList}</label>
                                 <input type="text" class="form-control" id="job-title" name="job-title" placeholder="서비스를 잘 드러낼 수 있는 제목을 입력하세요 최대 30자까지 가능합니다." maxlength="30">
                             </div>
                            <!-- 카테고리 -->
-                           <div class="form-group">
-                                <label for="job-category">카테고리</label>
-                                <div class="form-group">
-                                    <select class="form-control" id="job-category1">
-                                        <option value="" selected>대분류</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control" id="job-category2" disabled>
-                                        <option value="" selected>중분류</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control" id="job-category3" disabled>
-                                        <option value="" selected>소분류</option>
-                                    </select>
-                                </div>
-                                <input type="hidden" id="estiCatevoList" value='${estiCatevoList}'/>
+                           <div class="cate_wrap">
+                                <span>대분류</span>
+                                <select class="cate1">
+                                    <option selected value="none">선택</option>
+                                </select>
                             </div>
+                            <div class="cate_wrap">
+                                <span>중분류</span>
+                                <select class="cate2">
+                                    <option selected value="none">선택</option>
+                                </select>
+                            </div>
+                            <div class="cate_wrap">
+                                <span>소분류</span>
+                                <select class="cate3" name="cateCode">
+                                    <option selected value="none">선택</option>
+                                </select>
+                            </div> 
+                        
                             <!-- 포트폴리오 최대(5장) -->
                             <div class="form-group form-control-lg portfolio-container">
                                 <div id="job-portfolio-container">
@@ -119,7 +125,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                            <label for="job-price">${estiCatevolist}</label>
+                            <label for="job-price">가격</label>
                                 <input type="text" class="form-control" id="job-price" name="job-price" placeholder="5000">
                             </div>
                             <div id="customOptionsContainer"></div>
@@ -190,6 +196,109 @@
             </form>
                 
     </div>
+
+    <script>
+        let cateList = $.parseJSON('${estiCatevoList}');
+        
+        let cate1Array = new Array();
+        let cate2Array = new Array();
+        let cate3Array = new Array();
+        let cate10Obj = new Object();
+        let cate20Obj = new Object();
+        let cate30Obj = new Object();
+    
+        let cateSelect1 = $(".cate1");		
+        let cateSelect2 = $(".cate2");
+        let cateSelect3 = $(".cate3");
+    
+        for(let i = 0; i < cateList.length; i++){
+            if(cateList[i].estimateCatScope === "1"){
+                let cate1Obj = new Object();
+                
+                cate1Obj.cateName = cateList[i].estimateCatName;
+                cate1Obj.cateCode = cateList[i].estimateCatNo;
+                cate1Obj.cateParent = cateList[i].aboveCatNo;
+                
+                cate1Array.push(cate1Obj);				
+            }	
+        }
+    
+        $(document).ready(function(){
+            console.log(cate1Array);
+        });
+    
+        /* 카테고리 배열 초기화 메서드 */
+        function makeCateArray(obj, array, cateList, estimateCatScope){
+            for(let i = 0; i < cateList.length; i++){
+                if(cateList[i].estimateCatScope === estimateCatScope){
+                    obj = new Object();
+                    
+                    obj.cateName = cateList[i].estimateCatName;
+                    obj.cateCode = cateList[i].estimateCatNo;
+                    obj.cateParent = cateList[i].aboveCatNo;
+                    
+                    array.push(obj);                
+                    
+                }
+            }
+        }
+            
+        /* 배열 초기화 */
+        let cate1Obj = new Object();
+        let cate2Obj = new Object();
+        let cate3Obj = new Object();
+        
+        makeCateArray(cate1Obj, cate1Array, cateList, "1");
+        makeCateArray(cate2Obj, cate2Array, cateList, "2");
+        makeCateArray(cate3Obj, cate3Array, cateList, "3");
+        
+        $(document).ready(function(){
+            console.log(cate1Array);
+            console.log(cate2Array);
+            console.log(cate3Array);
+        });
+    
+        for(let i = 0; i < cate1Array.length; i++){
+            cateSelect1.append("<option value='" + cate1Array[i].cateCode + "'>" + cate1Array[i].cateName + "</option>");
+        }
+
+       /* 중분류 <option> 태그 */
+        $(cateSelect1).on("change",function(){
+            
+            let selectVal1 = $(this).find("option:selected").val();	
+            
+            cateSelect2.children().remove();
+            cateSelect3.children().remove();
+            
+            cateSelect2.append("<option value='none'>선택</option>");
+            cateSelect3.append("<option value='none'>선택</option>");
+            
+            for(let i = 0; i < cate2Array.length; i++){
+                if(selectVal1 === cate2Array[i].cateParent){
+                    cateSelect2.append("<option value='"+cate2Array[i].cateCode+"'>" + cate2Array[i].cateName + "</option>");	
+                }
+            }// for
+            
+        });
+
+        /* 소분류 <option>태그 */
+        $(cateSelect2).on("change",function(){
+            
+            let selectVal2 = $(this).find("option:selected").val();
+            
+            cateSelect3.children().remove();
+            
+            cateSelect3.append("<option value='none'>선택</option>");		
+            
+            for(let i = 0; i < cate3Array.length; i++){
+                if(selectVal2 === cate3Array[i].cateParent){
+                    cateSelect3.append("<option value='"+cate3Array[i].cateCode+"'>" + cate3Array[i].cateName + "</option>");	
+                }
+            }// for		
+            
+        });	
+    </script>
+    
 
 </body>
 </html>

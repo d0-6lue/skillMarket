@@ -23,7 +23,7 @@ public class EstimateDao {
 
 	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	        pstmt.setInt(1, estimate.getFreelancerNo());
-	        pstmt.setInt(2, estimate.getEstimateCatNo());
+	        pstmt.setString(2, estimate.getEstimateCatNo());
 	        pstmt.setString(3, estimate.getEstimateTitle());
 	        pstmt.setString(4, estimate.getEstimateDuration());
 	        pstmt.setString(5, estimate.getEstimateLineIntroduction());
@@ -68,7 +68,7 @@ public class EstimateDao {
                     EstimateVo estimate = new EstimateVo();
                     estimate.setEstimateNo(rs.getInt("ESTIMATE_NO"));
                     estimate.setFreelancerNo(rs.getInt("FREELANCER_NO"));
-                    estimate.setEstimateCatNo(rs.getInt("ESTIMATE_CAT_NO"));
+//                    estimate.setEstimateCatNo(rs.getInt("ESTIMATE_CAT_NO"));
                     estimate.setEstimateTitle(rs.getString("ESTIMATE_TITLE"));
                     estimate.setEstimateDuration(rs.getString("ESTIMATE_DURATION"));
                     estimate.setEstimateLineIntroduction(rs.getString("ESTIMATE_LINE_INTRODUCTION"));
@@ -147,8 +147,8 @@ public class EstimateDao {
 	//카테고리 가져오기
 	public List<EstimateCategoryVo> selectCatList(Connection conn) throws Exception {
 
-		String slq = "SELECT * FROM ESTIMATE_CAT";
-		PreparedStatement pstmt = conn.prepareStatement(slq);
+		String sql = "SELECT ESTIMATE_CAT_NO,ABOVE_CAT_NO,ESTIMATE_CAT_NAME,ESTIMATE_CAT_SCOPE FROM ESTIMATE_CAT";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		List<EstimateCategoryVo> catArrList = new ArrayList<>();
@@ -158,21 +158,18 @@ public class EstimateDao {
 			String aboveCatNo = rs.getString("ABOVE_CAT_NO");
 			String estimateCatName = rs.getString("ESTIMATE_CAT_NAME");
 			String estimateCatScope = rs.getString("ESTIMATE_CAT_SCOPE");
-			String estimateCatFile = rs.getString("ESTIMATE_CAT_FILE");
 			
 			EstimateCategoryVo vo = new EstimateCategoryVo();
 			vo.setEstimateCatNo(estimateCatNo);
 			vo.setAboveCatNo(aboveCatNo);
 			vo.setEstimateCatName(estimateCatName);
 			vo.setEstimateCatScope(estimateCatScope);
-			vo.setEstimateCatFile(estimateCatFile);
 			
 			catArrList.add(vo);
 			
 		}
-		
 		return catArrList;
-}
+	}
     
 }
 

@@ -31,10 +31,12 @@ public class CommunityListController extends HttpServlet {
             int page = Integer.parseInt(page_);
             int pageLimit = 5;
             int boardLimit = 20;
+      
 
             PageVo pv = new PageVo(cnt, page, pageLimit, boardLimit);
 
             List<CommunityPostVo> volist = cs.getFreeBoardList(pv);
+            System.out.println(volist);
 
             req.setAttribute("volist", volist);
             req.setAttribute("pv", pv);

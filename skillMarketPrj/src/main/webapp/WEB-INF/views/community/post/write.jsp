@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>커뮤니티에 의해 편집되는 페이지</title>
+    <title>커뮤니티에 글쓰기 페이지</title>
 
 <!-- ckeditor js -->
 <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
@@ -72,7 +72,9 @@
 					],
 					shouldNotGroupWhenFull: true
 				},
-				language: "en"
+				language: "kr",
+				htmlEncodeOutput: false, // 엔터를 &nbsp;로 변환하지 않음
+				entities: false // 공백 문자 등의 HTML 엔티티 변환 해제
 			})
 				.then(editor => {
 					editor.plugins.get("FileRepository").createUploadAdapter = loader => {

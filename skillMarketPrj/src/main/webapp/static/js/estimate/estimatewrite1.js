@@ -136,36 +136,5 @@ return customOptionsBox;
 
 //카테고리 대중소 하기 ~
 
-var estiCatevoList = JSON.parse(document.getElementById('estiCatevoList').value);
-console.log(estiCatevoList);
-$(document).ready(function() {
-    var estiCatevoList = JSON.parse(document.getElementById('estiCatevoList').value);
 
-    loadOptions('#job-category1', estiCatevoList, '1');
 
-    $('#job-category1').change(function() {
-        var selectedCategory1 = $(this).val();
-        loadOptions('#job-category2', estiCatevoList, '2', selectedCategory1);
-        $('#job-category2').prop('disabled', false);
-        $('#job-category3').prop('disabled', true);
-    });
-
-    $('#job-category2').change(function() {
-        var selectedCategory2 = $(this).val();
-        loadOptions('#job-category3', estiCatevoList, '3', selectedCategory2);
-        $('#job-category3').prop('disabled', false);
-    });
-});
-
-function loadOptions(selector, categoryList, scope, aboveCatNo) {
-    var $select = $(selector);
-    $select.empty().append($('<option/>', { value: '', text: '선택하세요' }));
-    categoryList.forEach(function(category) {
-        if (category.estimateCatScope === scope && (!aboveCatNo || category.aboveCatNo === aboveCatNo)) {
-            $select.append($('<option/>', {
-                value: category.estimateCatNo,
-                text: category.estimateCatName
-            }));
-        }
-    });
-}

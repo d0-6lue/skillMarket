@@ -11,7 +11,7 @@ import lombok.Data;
 public class EstimateVo {
     private int estimateNo;
     private int freelancerNo;
-    private int estimateCatNo;
+    private String estimateCatNo;
     private String estimateTitle;
     private String estimateDuration;
     private String estimateLineIntroduction;

@@ -1,9 +1,12 @@
 package com.team4.skillmarket.estimate.controller;
 
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.System.Logger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +46,8 @@ public class EstimateTemplateWriteController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+        
+      
 
         if (loginMember == null) {
             req.setAttribute("errorMsg", "로그인을 먼저 해주세요");
@@ -57,9 +62,11 @@ public class EstimateTemplateWriteController extends HttpServlet {
 			e.printStackTrace();
 		}
         
-        //카테고리 리스트받아왔어요
+        // Gson을 사용하여 카테고리 리스트를 JSON 형식으로 변환
         Gson gson = new Gson();
         String json = gson.toJson(esticatevoList);
+        
+      
         req.setAttribute("estiCatevoList", json);
         
 
@@ -78,37 +85,58 @@ public class EstimateTemplateWriteController extends HttpServlet {
                     getServletContext().getRealPath(UPLOAD_PATH),
                     MAX_FILE_SIZE,
                     "UTF-8",
-                    new DefaultFileRenamePolicy()
+                    new DefaultFileRenamePolicy() {
+                        @Override
+                        public File rename(File file) {
+                            // 파일 이름 변경 로직 구현
+                            // UUID로 새로운 파일 이름 생성
+                            String extension = getExtension(file.getName());
+                            String newName = UUID.randomUUID().toString() + extension;
+                            File renamedFile = new File(file.getParent(), newName);
+                            return renamedFile;
+                        }
+
+                        private String getExtension(String fileName) {
+                            int dotIndex = fileName.lastIndexOf('.');
+                            if (dotIndex >= 0 && dotIndex < fileName.length() - 1) {
+                                return fileName.substring(dotIndex);
+                            }
+                            return "";
+                        }
+                    }
             );
 
-            // 파일업로더만들기
-            EstimateFileUploader fileUploader = new EstimateFileUploader(UPLOAD_PATH, MAX_FILE_SIZE);
+            // Create FileUploader
+            EstimateFileUploader estimFileUploader = new EstimateFileUploader(UPLOAD_PATH, MAX_FILE_SIZE);
 
-            // 파일업로더 ~
-            List<AttachmentVo> attachmentList = fileUploader.uploadAttachments(multi);
+            // Handle attachments
+            List<AttachmentVo> attachmentList = estimFileUploader.uploadAttachments(multi);
 
-            // 데꺼
+            // Extract estimate information and create object
             String jobTitle = multi.getParameter("job-title");
             String jobPrice = multi.getParameter("job-price");
             String jobDuration = multi.getParameter("job-duration");
             String jobSummary = multi.getParameter("job-summary");
             String jobDescription = multi.getParameter("job-description");
             String freelancerNo = expertMember.getFreelancerNo();
+            String EstimateCatNo = multi.getParameter("cateCode");
+            System.out.println(EstimateCatNo);
 
             // 데뭉
             EstimateVo estimate = new EstimateVo();
             estimate.setFreelancerNo(Integer.parseInt(freelancerNo));
-            estimate.setEstimateCatNo(2);
+            estimate.setEstimateCatNo(EstimateCatNo);
             estimate.setEstimateTitle(jobTitle);
             estimate.setEstimateDuration(jobDuration);
             estimate.setEstimateLineIntroduction(jobSummary);
             estimate.setEstimatePrice(jobPrice);
             estimate.setEstimateDetail(jobDescription);
+            
 
-            // 파일 데뭉
+            // Set the list of processed attachments
             estimate.setAttachments(attachmentList);
 
-            // 파일 경로 담기 
+            // Update file paths in estimate object
             List<String> attachmentPaths = new ArrayList<>();
             for (AttachmentVo attachment : attachmentList) {
                 String attachmentPath = UPLOAD_PATH + "/" + attachment.getAttachmentServerName();
@@ -126,8 +154,7 @@ public class EstimateTemplateWriteController extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("errorMsg", "Failed to write the estimate...");
-            req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+            System.out.println("견적서 작성에러");
         }
     }
     
