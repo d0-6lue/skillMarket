@@ -805,8 +805,26 @@ FOREIGN KEY ("ESTIMATE_NO") REFERENCES "ESTIMATE" ("ESTIMATE_NO");
 
 --/더미데이터
 -- MEMBER 
-BEGIN 
+DECLARE
+  v_start_date DATE := TRUNC(SYSDATE, 'YYYY') + INTERVAL '1' MONTH;
+  v_end_date DATE := SYSDATE;
+  v_member_sign_date DATE;
+  v_member_modifi_date DATE;
+  v_status_no NUMBER;
+  v_prev_sign_date DATE := v_start_date;
+BEGIN
   FOR i IN 1..20 LOOP
+    v_member_sign_date := v_prev_sign_date + DBMS_RANDOM.VALUE * (v_end_date - v_prev_sign_date);
+    v_member_modifi_date := v_member_sign_date + DBMS_RANDOM.VALUE * (v_end_date - v_member_sign_date);
+    
+    IF i >= 16 AND i <= 19 THEN
+      v_status_no := 3;
+    ELSIF i = 20 THEN
+      v_status_no := 4;
+    ELSE
+      v_status_no := 1;
+    END IF;
+  
     INSERT INTO MEMBER (
       MEMBER_NO,
       STATUS_NO,
@@ -819,13 +837,15 @@ BEGIN
       MEMBER_INTERST,
       MEMBER_BANK,
       MEMBER_ACCOUNT,
-      MEMBER_CASH,
+      MEMBER_CASH, 
       MEMBER_PROFILE_PHOTO,
-      MEMBER_ADDRESS
+      MEMBER_ADDRESS,
+      MEMBER_SIGN_DATE,
+      MEMBER_MODIFI_DATE
     )
     VALUES (
       SEQ_MEMBER.NEXTVAL,
-      '1',
+      v_status_no,
       'user' || LPAD(i, 3, '0'),
       '1234',
       'nick' || LPAD(i, 3, '0'),
@@ -837,11 +857,19 @@ BEGIN
       '계좌' || LPAD(i, 3, '0'),
       i || 00,
       '프로필' || LPAD(i, 3, '0') || '.jpg',
-      '주소' || LPAD(i, 3, '0')
+      '주소' || LPAD(i, 3, '0'),
+      v_member_sign_date,
+      v_member_modifi_date
     );
+    
+    v_prev_sign_date := v_member_sign_date; -- 이전 레코드의 MEMBER_SIGN_DATE 값을 갱신
   END LOOP;
 END;
 /
+
+
+
+
 
 -- MEMBER_STATUS 
 INSERT INTO MEMBER_STATUS (STATUS_NO,STATUS_NAME) VALUES (SEQ_MEMBER_STATUS.NEXTVAL, '보통' );

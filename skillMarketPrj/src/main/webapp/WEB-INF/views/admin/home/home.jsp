@@ -46,7 +46,7 @@
                                                 <span>${ homeVo.reportCount }</span>
                                             </td>
                                             <td>
-                                                <span>${ homeVo.faqCount }</span>
+                                                <span>${ homeVo.noAnswerCount }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -66,7 +66,7 @@
                             </div>
                             <div class="statistics statistics_list2">
                                 <table>
-                                    <thead class="home_div">
+                                    <thead class="scroll_tbody home_div">
                                         <tr>
                                             <th>
                                                 <span>일자</span>
@@ -80,18 +80,22 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tbody class="home_div">
-                                        <tr>
-                                            <td>
-                                                <span>999</span>
-                                            </td>
-                                            <td>
-                                                <span>제목1</span>
-                                            </td>
-                                            <td>
-                                                <span>01/01</span>
-                                            </td>
-                                        </tr>
+                                    <tbody class="scroll_tbody home_div">
+                                        <c:forEach items="${monthStatsList}" var="list">
+                                            <tr>
+                                                <td>
+                                                    ${list.month}
+                                                </td>
+                                                <td>
+                                                    ${list.totalSales}
+                                                </td>
+                                                <td>
+                                                    ${list.signupCount}
+                                                </td>
+                                            </tr>
+                                        
+                                        </c:forEach>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -145,17 +149,26 @@
                                         </tr>
                                     </thead>
                                     <tbody class="home_div">
-                                        <tr>
-                                            <td>
-                                                <span>${ homeVo.notiNo }</span>
-                                            </td>
-                                            <td>
-                                                <span>${ homeVo.notiTitle }</span>
-                                            </td>
-                                            <td>
-                                                <span>${ homeVo.notiEnrolldate }</span>
-                                            </td>
-                                        </tr>
+                                        <c:if test="${!empty homeVo.notiNo }">
+                                            <tr>
+                                                <td>
+                                                    <span>${ homeVo.notiNo }</span>
+                                                </td>
+                                                <td>
+                                                    <span>${ homeVo.notiTitle }</span>
+                                                </td>
+                                                <td>
+                                                    <span>${ homeVo.notiEnrolldate }</span>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                        <c:if test="${empty homeVo.notiNo }">
+	                                        <tr>
+	                                            <td colspan='3'>
+	                                                <span>공지가 하나도 없어요 😥</span>
+	                                            </td>
+	                                        </tr>
+	                                    </c:if>
                                     </tbody>
                                 </table>
                             </div>
@@ -184,17 +197,26 @@
                                         </tr>
                                     </thead>
                                     <tbody class="home_div">
-                                        <tr>
-                                            <td>
-                                                <span>${ homeVo.faqCatNo }</span>
-                                            </td>
-                                            <td>
-                                                <span>${ homeVo.faqTitle }</span>
-                                            </td>
-                                            <td>
-                                                <span>${ homeVo.faqHit }</span>
-                                            </td>
-                                        </tr>
+	                                    <c:if test="${!empty homeVo.faqCatNo }">
+	                                    	<tr>
+	                                            <td>
+	                                                <span>${ homeVo.faqCatNo }</span>
+	                                            </td>
+	                                            <td>
+	                                                <span>${ homeVo.faqTitle }</span>
+	                                            </td>
+	                                            <td>
+	                                                <span>${ homeVo.faqHit }</span>
+	                                            </td>
+	                                        </tr>
+	                                    </c:if>
+	                                    <c:if test="${empty homeVo.faqCatNo }">
+	                                        <tr>
+	                                            <td colspan='3'>
+	                                                <span>FAQ가 하나도 없어요 😥</span>
+	                                            </td>
+	                                        </tr>
+	                                    </c:if>
                                     </tbody>
                                 </table>
                             </div>
