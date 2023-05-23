@@ -40,3 +40,35 @@ article tbody.home_div tr:hover {
     background-color: #f1f1f1;
     border-radius: 100px;
   }
+
+article tbody.home_div {
+  width: 335.531;
+}
+
+tbody {
+  overflow: scroll;
+}
+
+.home_div > tbody > tr {
+  border-radius: 10;
+}
+
+article .statistics_list2 th {
+  height: 50;
+}
+
+article tbody.scroll_tbody {
+  height: calc( 100% - 55px);
+}
+
+
+
+tbody.scroll_tbody tr {
+  font-size: 17;
+  
+}
+
+tbody.scroll_tbody tr:first-child {
+  
+  margin-top: 10;
+}

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.team4.skillmarket.admin.inquiry.dao.inquiryListDao;
 import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
-
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class inquiryListService {

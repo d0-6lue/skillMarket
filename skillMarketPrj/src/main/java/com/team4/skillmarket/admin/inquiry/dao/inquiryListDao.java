@@ -11,10 +11,22 @@ import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class inquiryListDao {
-
+	
+	/*	
+	  	SELECT Q.*, 
+       	CASE 
+         WHEN A.QUESTION_ANSWER_CONTENT IS NULL 
+         THEN 'N' 
+         ELSE 'Y' 
+       	END AS QUESTION_ANSWER_STATUS,
+       	A.QUESTION_ANSWER_NO, A.ADMIN_NO, A.QUESTION_ANSWER_CONTENT , A.QUESTION_ANSWER_ENROLLDATE
+		FROM QNA Q
+		LEFT JOIN QUESTION_ANSWER A 
+		ON Q.QNA_NO = A.QNA_NO;
+	 */
 	public List<inquiryListVo> selectInquiryList(Connection conn) throws Exception {
 
-		String sql = "SELECT * FROM QNA";
+		String sql = "SELECT Q.*, CASE WHEN A.QUESTION_ANSWER_CONTENT IS NULL THEN 'N' ELSE 'Y' END AS QUESTION_ANSWER_STATUS, A.QUESTION_ANSWER_NO, A.ADMIN_NO, A.QUESTION_ANSWER_CONTENT , A.QUESTION_ANSWER_ENROLLDATE FROM QNA Q LEFT JOIN QUESTION_ANSWER A ON Q.QNA_NO = A.QNA_NO";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -28,6 +40,10 @@ public class inquiryListDao {
 			String qnaContent = rs.getString("QNA_CONTENT");
 			String qnaEnrolldate = rs.getString("QNA_ENROLLDATE");
 			String qnaStatus = rs.getString("QNA_STATUS");
+			String questionAnswerNo = rs.getString("QUESTION_ANSWER_NO");
+			String adminNo = rs.getString("ADMIN_NO");
+			String questionAnswerContent = rs.getString("QUESTION_ANSWER_CONTENT");
+			String questionAnswerEnrolldate = rs.getString("QUESTION_ANSWER_ENROLLDATE");
 			
 			inquiryListVo ivo = new inquiryListVo();
 			ivo.setQnaNo(qnaNo);
@@ -37,6 +53,11 @@ public class inquiryListDao {
 			ivo.setQnaContent(qnaContent);
 			ivo.setQnaEnrolldate(qnaEnrolldate);
 			ivo.setQnaStatus(qnaStatus);
+			ivo.setQuestionAnswerNo(questionAnswerNo);
+			ivo.setAdminNo(adminNo);
+			ivo.setQnaNo(qnaNo);
+			ivo.setQuestionAnswerContent(questionAnswerContent);
+			ivo.setQuestionAnswerEnrolldate(questionAnswerEnrolldate);
 
 			
 			inquiryArrList.add(ivo);

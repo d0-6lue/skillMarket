@@ -98,3 +98,11 @@ function getCoordinatesForPercent(percent) {
       path.style.transitionDelay = `${index * 0.1}s`;
     });
   }, 100);
+
+
+
+
+
+
+// ---------------------------
+

@@ -60,7 +60,7 @@ public class AdminFAQDao {
 	public AdminFAQVo gerHitFAQ(Connection conn) throws Exception {
 
 		
-		String slq = "SELECT * FROM FAQ WHERE FAQ_STATUS = 'N' ORDER BY FAQ_HIT DESC FETCH FIRST ROW ONLY";
+		String slq = "SELECT * FROM FAQ WHERE FAQ_STATUS = 'Y' ORDER BY FAQ_HIT DESC FETCH FIRST ROW ONLY";
 		PreparedStatement pstmt = conn.prepareStatement(slq);
 		ResultSet rs = pstmt.executeQuery();
 		

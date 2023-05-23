@@ -36,7 +36,7 @@ public class HomeVo {
  	// 회원 -> 전문가수 회원수
  	private int noticeCount;
  	private int reportCount;
-	private int faqCount;
+	private int noAnswerCount;
 	private int memberCount;
 	private int freelancerCount;
   
