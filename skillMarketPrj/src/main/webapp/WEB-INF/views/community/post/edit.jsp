@@ -73,7 +73,9 @@
 					]
 				},
 				language: "kr",
-				extraPlugins: [imageUploadAdapter]
+				extraPlugins: [imageUploadAdapter],
+				htmlEncodeOutput: false, // 엔터를 &nbsp;로 변환하지 않음
+				entities: false // 공백 문자 등의 HTML 엔티티 변환 해제
 			})
 				.then(editor => {
 					editor.setData(`${vo.freeBoardContent}`);

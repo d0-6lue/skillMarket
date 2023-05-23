@@ -86,6 +86,8 @@ public class EstimateService {
 		
 		List<EstimateCategoryVo> estimateCategoryList = estimateDao.selectCatList(conn);
 		
+		JDBCTemplate.close(conn);
+		
 		return estimateCategoryList;
 		
 	}

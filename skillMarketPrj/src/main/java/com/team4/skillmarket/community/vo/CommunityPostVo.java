@@ -1,5 +1,6 @@
 package com.team4.skillmarket.community.vo;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 
 //게시글 리스트보기용 vo
 public class CommunityPostVo {
@@ -22,4 +24,5 @@ public class CommunityPostVo {
     private int viewCount;
     private int freeBoardStatus;
     private int FreeBoardHit;
+    private String CategoryName;
 }
