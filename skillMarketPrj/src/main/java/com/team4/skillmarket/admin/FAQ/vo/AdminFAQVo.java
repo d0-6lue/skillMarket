@@ -15,5 +15,6 @@ public class AdminFAQVo {
 	private String faqHit;
 	private String faqEnrolldate;
 	private String faqModifydate;
+	private String faqCatName;
 	
 }	

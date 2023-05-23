@@ -43,7 +43,7 @@
     </div>
     
     <div class="header-search">
-        <div class="bold">고객센터 > 공지사항</div>
+        <div class="bold"><a href="${root}/csc">고객센터</a> > <a href="${root}/notice">공지사항</a></div>
         <div class="header-search-area">
             <input type="text" placeholder="검색">
             <button>

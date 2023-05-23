@@ -43,7 +43,7 @@
     </div>
     
     <div class="header-search">
-        <div class="bold">고객센터 > 공지사항</div>
+        <div class="bold"><a href="${root}/csc">고객센터</a> > <a href="${root}/notice">공지사항</a></div>
         <div class="header-search-area">
             <input type="text" placeholder="검색">
             <button>
@@ -64,7 +64,7 @@
 
             <ul class="notice-ul">
                 <c:forEach items="${noticeList}" var="nvo">
-                	<li id="notice-list"><a href="${root}/notice/detail?no=${nvo.notiNo}">[${nvo.notiCatName}]${nvo.notiTitle}</a></li>
+                	<li id="notice-list"><a href="${root}/notice/detail?no=${nvo.notiNo}">[${nvo.notiCatName}] ${nvo.notiTitle}</a></li>
                 
                 </c:forEach>
             </ul>

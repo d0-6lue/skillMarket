@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team4.skillmarket.admin.FAQ.vo.AdminFAQVo;
 import com.team4.skillmarket.admin.notice.vo.noticeListVo;
 import com.team4.skillmarket.csc.service.CSCService;
 
@@ -21,7 +22,9 @@ public class CSCController extends HttpServlet{
 		try {
 			CSCService cs = new CSCService();
 			List<noticeListVo> noticeList = cs.getRecentNotice();
+			List<AdminFAQVo> faqList = cs.getRecentFAQ();
 			
+			req.setAttribute("faqList", faqList);
 			req.setAttribute("noticeList", noticeList);
 			req.getRequestDispatcher("/WEB-INF/views/csc/csc.jsp").forward(req, resp);
 		} catch (Exception e) {

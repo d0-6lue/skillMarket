@@ -42,7 +42,7 @@
 
     </div>
     <div class="header-search">
-        <div class="bold">고객센터 > FAQ</div>
+        <div class="bold"><a href="${root}/csc">고객센터</a> > <a href="${root}/faq">FAQ</a></div>
         <div class="header-search-area">
             <input type="text" placeholder="검색">
             <button>
@@ -57,44 +57,21 @@
 
         <div class="faq-title bold">FAQ</div>
         <div class="faq-category-area">
-            <div class="faq-category">
-                <div class="faq-category-title bold">카테고리1</div>
-                <ul>
-                    <li>[카테고리1] 카테고리1 제목입니다</li>
-                    <li>[카테고리1] 카테고리1 제목입니다</li>
-                    <li>[카테고리1] 카테고리1 제목입니다</li>
-                    <li>[카테고리1] 카테고리1 제목입니다</li>
-                    <li>[카테고리1] 카테고리1 제목입니다</li>
-                </ul>
-                <a href="">카테고리1 더보기</a>
-    
-            </div>
-            <div class="faq-category">
-                <div class="faq-category-title bold">카테고리2</div>
-                <ul>
-                    <li>[카테고리2] 카테고리2 제목입니다</li>
-                    <li>[카테고리2] 카테고리2 제목입니다</li>
-                    <li>[카테고리2] 카테고리2 제목입니다</li>
-                    <li>[카테고리2] 카테고리2 제목입니다</li>
-                    <li>[카테고리2] 카테고리2 제목입니다</li>
-                </ul>
-                <a href="">카테고리2 더보기</a>
-    
-            </div>
-            <div class="faq-category">
-                <div class="faq-category-title bold">카테고리2</div>
-                <ul>
-                    <li>[카테고리3] 카테고리3 제목입니다</li>
-                    <li>[카테고리3] 카테고리3 제목입니다</li>
-                    <li>[카테고리3] 카테고리3 제목입니다</li>
-                    <li>[카테고리3] 카테고리3 제목입니다</li>
-                    <li>[카테고리3] 카테고리3 제목입니다</li>
-                </ul>
-                <a href="">카테고리3 더보기</a>
-    
-            </div>
+        	<c:forEach items="${categoryList}" var="cvo">
+        		<div class="faq-category">
+	                <div class="faq-category-title bold">${cvo.faqCatName}</div>
+	                <ul>
+	                    <c:forEach items="${faqList}" var="fvo">
+	                    	<c:if test="${fvo.faqCatName == cvo.faqCatName}">
+	                    		<li><a href="${root}/faq/detail?no=${fvo.faqNo}">[${fvo.faqCatName}] ${fvo.faqTitle}</a></li>
+	                    	
+	                    	</c:if>
+								                    	
+	                    </c:forEach>
+	                </ul>
+            	</div>
+        	</c:forEach>
         </div>
-
     </main>
 
     <div class="modal" id="modal">
