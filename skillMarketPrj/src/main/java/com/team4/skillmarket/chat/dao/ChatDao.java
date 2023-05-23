@@ -493,13 +493,35 @@ public class ChatDao {
 						pstmt.setString(1, quotationNo);
 					}
 					else if("300".equals(category)) {
-						updataQuotationSql = "INSERT INTO QUOTATION_OPTION\r\n"
-						+ "( QUOTATION_OPTION_NO, QUOTATION_NO, ESTIMATE_OPTION_NO, QUOTATION_OPTION_QUANTITY )\r\n"
-						+ "VALUES ( SEQ_QUOTATION_OPTION_NO.NEXTVAL, ?, ?, ?)";	
-						pstmt = conn.prepareStatement(updataQuotationSql);
-						pstmt.setString(1, quotationNo);
-						pstmt.setString(2, optionNo);
-						pstmt.setString(3, inputNo);
+						// 기존에 같은 번호의 옵션이 있다면?
+						String CheckOptionSql = "SELECT QUOTATION_OPTION_NO, ESTIMATE_OPTION_NO, QUOTATION_NO, QUOTATION_OPTION_QUANTITY\r\n"
+								+ "FROM QUOTATION_OPTION WHERE ESTIMATE_OPTION_NO = ?";
+						pstmt = conn.prepareStatement(CheckOptionSql);
+						pstmt.setString(1, optionNo);
+						ResultSet rs__ = pstmt.executeQuery();
+						
+						pstmt = null;
+						if(rs__.next()) {
+							updataQuotationSql = "UPDATE QUOTATION SET QUOTATION_OPTION_QUOANTITY = QUOTATION_OPTION_QUOANTITY + ?\r\n"
+							+ "WHERE ESTIMATE_OPTION_NO = ?";
+							
+							pstmt= conn.prepareStatement(updataQuotationSql);
+							pstmt.setString(1, inputNo);
+							pstmt.setString(2, optionNo);
+							
+						}
+						else {
+							updataQuotationSql = "INSERT INTO QUOTATION_OPTION\r\n"
+							+ "( QUOTATION_OPTION_NO, QUOTATION_NO, ESTIMATE_OPTION_NO, QUOTATION_OPTION_QUANTITY )\r\n"
+							+ "VALUES ( SEQ_QUOTATION_OPTION_NO.NEXTVAL, ?, ?, ?)";	
+							
+							pstmt = conn.prepareStatement(updataQuotationSql);
+							pstmt.setString(1, quotationNo);
+							pstmt.setString(2, optionNo);
+							pstmt.setString(3, inputNo);
+							
+						}
+						
 					}
 					else if("400".equals(category)) {
 						updataQuotationSql = "DELETE FROM QUOTATION_OPTION WHERE QUOTATION_OPTION_NO = ?";
