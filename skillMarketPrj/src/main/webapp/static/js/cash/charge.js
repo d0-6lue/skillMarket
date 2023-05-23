@@ -1,19 +1,16 @@
 const amount = (new URLSearchParams(location.search).get('amount'));
 const chargePoint = document.querySelector(".charge-point");
 const amount_ = parseInt(amount);
-chargePoint.innerText = amount_.toLocaleString("ko-KR");
+chargePoint.value = amount_.toLocaleString("ko-KR");
 
 
-const memberPoint = getMemberPoint();
-function getMemberPoint() {
-    return 575000;
-}
+const memberPoint = document.querySelector('.holding-point').innerText;
 
 const holdingPoint = document.querySelector(".holding-point");
 holdingPoint.innerText = memberPoint.toLocaleString("ko-KR");
 
 const resultPoint = document.querySelector(".result-point");
-let result = amount_ + memberPoint;
+let result = (Number)(amount_) + (Number)(memberPoint);
 resultPoint.innerText = result.toLocaleString("ko-KR");
 
 

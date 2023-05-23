@@ -22,9 +22,10 @@
             <div class="charge-title bold">
                 캐치 충전하기
             </div>
-
+            
+            <form action="${root}/cash/charge" method="post" class="charge-form">
             <div class="horizontal-border"></div>
-
+            
             <div class="holiding-point-bar">
 
                 <div class="holidng-point-title regular">
@@ -33,7 +34,7 @@
 
                 <div class="holding-point-unit">
                     <div class="holding-point regular">
-
+                        ${userCash.userCashMoney}
                     </div>
                     <div class="unit regular">
                         sp
@@ -49,9 +50,7 @@
                 </div>
 
                 <div class="charge-point-unit">
-                    <div class="charge-point regular">
-
-                    </div>
+                    <input type="num" name="amount" class="charge-point regular"></input>
                     <div class="unit regular">
                         sp
                     </div>
@@ -77,17 +76,16 @@
                 </div>
 
             </div>
-
-
+            
 
             <div class="purchase-method-title">
                 결제수단
             </div>
 
             <div class="method-radio-div">
-                <input type="radio" name="purchase-method-radio" id="credit-card" checked>
-                <input type="radio" name="purchase-method-radio" id="account-transfer">
-                <input type="radio" name="purchase-method-radio" id="mobile-phone-payment">
+                <input type="radio" name="purchase-method-radio" id="credit-card" value="1" checked>
+                <input type="radio" name="purchase-method-radio" id="account-transfer" value="2">
+                <input type="radio" name="purchase-method-radio" id="mobile-phone-payment" value="3">
             </div>
 
             <div class="purchase-method-head">
@@ -111,6 +109,8 @@
             </div>
 
             <button class="charge-btn bold">충전하기</button>
+
+            </form>
 
         </main>
 
