@@ -128,32 +128,11 @@ main{
     font-size: 40px;
 }
 
-.notice-ul{
-    margin-top: 30px;
+.notice-cotent{
+    margin-top: 80px;
 }
 
-.notice-ul > li {
-    margin-top: 30px;
-    font-size: 20px;
-}
 
-#notice-list{
-    display: none;
-}
-
-.notice-ul > li > a{
-    text-decoration: none;
-    color: black;
-}
-
-.notice-btn{
-    margin-top: 60px;
-    width: 350px;
-    height: 60px;
-    background-color: white;
-    border: 1px solid #B4B4B4;
-    border-radius: 30px;
-}
 
 /* --------------------------------------------------------------------- */
 /* 로그인 모달 */

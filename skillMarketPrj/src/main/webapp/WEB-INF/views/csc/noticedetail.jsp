@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="${root}/static/css/csc/notice.css">
+<link rel="stylesheet" href="${root}/static/css/csc/noticedetail.css">
 </head>
 <body>
 
@@ -60,17 +60,9 @@
     <main>
 
         <div class="notice-area">
-            <div class="notice-title bold">공지사항</div>
+            <div class="notice-title bold">${noticeVo.notiTitle}</div>
 
-            <ul class="notice-ul">
-                <c:forEach items="${noticeList}" var="nvo">
-                	<li id="notice-list"><a href="${root}/notice/detail?no=${nvo.notiNo}">[${nvo.notiCatName}]${nvo.notiTitle}</a></li>
-                
-                </c:forEach>
-            </ul>
-
-            <button id="load" class="notice-btn">더보기</button>
-
+            <div class="notice-cotent">${noticeVo.notiContent}</div>
         </div>
 
     </main>

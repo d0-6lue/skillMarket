@@ -1,7 +1,6 @@
 package com.team4.skillmarket.csc.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,27 +11,32 @@ import javax.servlet.http.HttpServletResponse;
 import com.team4.skillmarket.admin.notice.vo.noticeListVo;
 import com.team4.skillmarket.csc.service.CSCService;
 
-@WebServlet("/csc")
-public class CSCController extends HttpServlet{
+@WebServlet("/notice/detail")
+public class NoticeDetailController extends HttpServlet{
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
-			CSCService cs = new CSCService();
-			List<noticeListVo> noticeList = cs.getRecentNotice();
+			String no = req.getParameter("no");
 			
-			req.setAttribute("noticeList", noticeList);
-			req.getRequestDispatcher("/WEB-INF/views/csc/csc.jsp").forward(req, resp);
+			CSCService cs = new CSCService();
+			
+			int result = cs.addHit(no);
+			if(result != 1) {
+				throw new Exception("조회수 에러");
+			}
+			
+			noticeListVo noticeVo = cs.getNoticeByNo(no);
+			
+			req.setAttribute("noticeVo", noticeVo);
+			req.getRequestDispatcher("/WEB-INF/views/csc/noticedetail.jsp").forward(req, resp);
 		} catch (Exception e) {
-			System.out.println("고객센터 조회 중 에러 발생...");
 			e.printStackTrace();
 			
-			req.setAttribute("errorMsg", "고객센터 에러");
+			req.setAttribute("errorMsg", "공지사항 상세 조회 에러");
 			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
 		}
-		
-		
 		
 	}
 	
