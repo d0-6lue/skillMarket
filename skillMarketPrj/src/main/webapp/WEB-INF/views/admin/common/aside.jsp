@@ -11,6 +11,7 @@
 <script src="${root}/static/js/summernote/summernote-lite.js"></script>
 <script src="${root}/static/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="${root}/static/css/summernote/summernote-lite.css">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <!--  -->
 <!-- 구글폰트 아이콘 -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />

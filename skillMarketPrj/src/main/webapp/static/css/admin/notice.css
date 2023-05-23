@@ -105,7 +105,7 @@ grid-template-areas:
 .note-editable{
     width: 836PX;
     height: 100%;
-    max-height: 398px;
+    /* max-height: 455.208; */
     overflow-y: auto;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -178,4 +178,9 @@ border-radius: 10px;
 
 .note-editor.note-frame .note-editing-area .note-editable[contenteditable=false], .note-editor.note-airframe .note-editing-area .note-editable[contenteditable=false] {
     background-color: #80808000;
+    
+}
+
+.note-editor.note-frame {
+    overflow: hidden;
 }

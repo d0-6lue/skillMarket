@@ -28,7 +28,7 @@ window.onload = function() {
 			// 썸머노트 에디터 초기화
 			$('#noticeDetailContent_'+ bno).summernote({
 				lang: 'ko-KR', // 한글 언어 설정
-				height: 300, // 에디터 높이 설정
+				height: 475.219, // 에디터 높이 설정
 				toolbar: [
 					// 에디터 툴바 옵션 설정
 						['style', ['bold', 'italic', 'underline', 'clear']],
@@ -47,10 +47,12 @@ window.onload = function() {
 			console.log($('#noticeDetailContent_'+ bno).find('disable'));
 
 			// 수정 버튼 클릭 시 썸머노트 에디터 활성화
-			const editButton = document.getElementById('submitBtn1');
-			editButton.addEventListener('click', function() {
+			const editButton = $("#noticeDetail_"+ bno).find('#submitBtn1');
+			console.log(editButton);
+			// const editButton = document.getElementById('submitBtn1');
+			editButton.click(function() {
 				$("#noticeDetail_"+ bno).find('.note-toolbar').css('display','block')
-				
+				console.log($("#noticeDetail_"+ bno));
 				
 				const noticeDetailContent = document.getElementById('noticeDetailContent_'+ bno);
 				$('#noticeDetailContent_'+ bno).summernote('enable');
@@ -74,7 +76,7 @@ window.onload = function() {
 		
         $('#summernote').summernote({		   // 썸머노트를 초기화 함
 			lang: 'ko-KR', // 한글 언어 설정
-			height: 300, // 에디터 높이 설정
+			height: 475.219, // 에디터 높이 설정
 			toolbar: [
 				// 에디터 툴바 옵션 설정
 					['style', ['bold', 'italic', 'underline', 'clear']],
@@ -101,8 +103,9 @@ window.onload = function() {
 		for(let f of fileList) {
 			fd.append("f",f)
 		}
+		fd.append("newNoticeNo",newNoticeNo)
 
-		console.log(fd);
+		console.log(fd.newNoticeNo);
 
 		$.ajax({
 			url : '/skillmarket/admin/notice/upload',
