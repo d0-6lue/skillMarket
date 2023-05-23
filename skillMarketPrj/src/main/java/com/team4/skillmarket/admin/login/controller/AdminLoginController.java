@@ -61,7 +61,6 @@ public class AdminLoginController extends HttpServlet {
 				
 			} else {
 				// 로그인 실패 시
-				
 				errorObject.addProperty("success", false);
 				
 				resp.setContentType("application/json");

@@ -148,7 +148,7 @@ CREATE TABLE "FREE_BOARD" (
 	"MEMBER_NO"	                NUMBER		        NOT NULL,
 	"FREE_BOARD_TITLE"	        VARCHAR2(20)		        ,
 	"FREE_BOARD_CONTENT"	    VARCHAR2(4000)		        ,
-	"FREE_BOARD_ENROLL_DATE"	TIMESTAMP		            ,
+	"FREE_BOARD_ENROLL_DATE"	TIMESTAMP	 DEFAULT SYSDATE,
 	"FREE_BOARD_EDIT_DATE"	    TIMESTAMP		            ,
 	"FREE_BOARD_STATUS"	        CHAR(1)	DEFAULT 1	NOT NULL,
 	"FREE_BOARD_HIT"	        NUMBER		                ,
@@ -162,8 +162,8 @@ CREATE TABLE "FREE_BOARD_COMMENT" (
 	"BOARD_NO"	                    NUMBER		    NOT NULL,
 	"REPLY_NO"	                    NUMBER		    NOT NULL,
 	"COMMENT_CONTENT"	            VARCHAR2(100)		    ,
-	"COMMENT_ENROLL_DATE"	        TIMESTAMP		        ,
-	"COMMENT_EDIT_DATE"	            TIMESTAMP		        ,
+	"COMMENT_ENROLL_DATE"	        TIMESTAMP	  DEFAULT SYSDATE,
+	"COMMENT_EDIT_DATE"	            TIMESTAMP	  DEFAULT SYSDATE,
 	"COMMENT_STATUS"	            CHAR(1)		   DEFAULT 0
 );
 
@@ -176,11 +176,9 @@ CREATE TABLE "FREE_BOARD_LIKE" (
 
 
 CREATE TABLE "USER_CASH" (
-    "CASH_NO"	                    NUMBER		    NOT NULL,
     "MEMBER_NO"	                    NUMBER		    NOT NULL,
-    "CASH_POINT"	                NUMBER,
-    "CASH_MONEY" 	                NUMBER,
-    "CASH_ENORLLDATE" 	            TIMESTAMP
+    "CASH_POINT"	                NUMBER          DEFAULT 0,
+    "CASH_MONEY" 	                NUMBER          DEFAULT 0
 );
 
 
@@ -197,7 +195,7 @@ CREATE TABLE "QNA" (
 	"QNA_TITLE" 	    VARCHAR2(100)		,
 	"QNA_CONTENT"	    VARCHAR2(4000)		,
 	"QNA_ENROLLDATE"	TIMESTAMP		    ,
-	"QNA_STATUS"	    CHAR(1)		
+	"QNA_STATUS"	    CHAR(1)	DEFAULT  'Y'
 );
 
 
@@ -479,7 +477,7 @@ CREATE TABLE "NOTICE" (
 	"NOTI_CONTENT"	    VARCHAR2(4000)		           ,
 	"NOTI_ENROLLDATE"	TIMESTAMP	    DEFAULT SYSDATE,
 	"NOTI_MODIFYDATE"	TIMESTAMP	    DEFAULT SYSDATE,
-	"NOTI_STATUS"	    CHAR(1)		    DEFAULT     'N',
+	"NOTI_STATUS"	    CHAR(1)		    DEFAULT     'Y',
 	"NOTI_HIT"	        NUMBER	DEFAULT 0      NOT NULL
 );
 
@@ -907,25 +905,25 @@ END;
 /
     
 -- USER_CASH 
-BEGIN 
-  FOR i IN 1..10 LOOP
-    INSERT INTO USER_CASH (
-        CASH_NO,
-        MEMBER_NO,
-        CASH_POINT,
-        CASH_MONEY,
-        CASH_ENORLLDATE
-    )
-    VALUES (
-        SEQ_USER_CASH.NEXTVAL,
-        i,
-        i || 000,
-        i || 000,
-        SYSDATE
-    );
-  END LOOP;
-END;
-/
+--BEGIN 
+--  FOR i IN 1..10 LOOP
+--    INSERT INTO USER_CASH (
+--        CASH_NO,
+--        MEMBER_NO,
+--        CASH_POINT,
+--        CASH_MONEY,
+--        CASH_ENORLLDATE
+--    )
+--    VALUES (
+--        SEQ_USER_CASH.NEXTVAL,
+--        i,
+--        i || 000,
+--        i || 000,
+--        SYSDATE
+--    );
+--  END LOOP;
+--END;
+--/
 
 -- WISH_LIST 
 BEGIN 
@@ -1160,7 +1158,7 @@ BEGIN
       LPAD(i , 3 , '0'),
       SYSDATE,
       SYSDATE,
-      'N',
+      'Y',
       i
     );
   END LOOP;
@@ -1238,7 +1236,7 @@ BEGIN
         'FAQ 제목' || LPAD(i , 3 , '0'),
         '질문 내용'|| LPAD(i , 3 , '0') || '.jpg',
         '답변 내용' || LPAD(i , 3 , '0'),
-        'N',
+        'Y',
         i,
         SYSDATE,
         SYSDATE
@@ -1246,6 +1244,15 @@ BEGIN
   END LOOP;
 END;
 /
+
+-- FAQ_CAT
+INSERT INTO FAQ_CATEGORY ( FAQ_CAT_NO, FAQ_CAT_NAME ) VALUES ( SEQ_FAQ_CATEGORY.NEXTVAL , '서비스 소개' );
+INSERT INTO FAQ_CATEGORY ( FAQ_CAT_NO, FAQ_CAT_NAME ) VALUES ( SEQ_FAQ_CATEGORY.NEXTVAL , '이용방법' );
+INSERT INTO FAQ_CATEGORY ( FAQ_CAT_NO, FAQ_CAT_NAME ) VALUES ( SEQ_FAQ_CATEGORY.NEXTVAL , '구매/환불' );
+INSERT INTO FAQ_CATEGORY ( FAQ_CAT_NO, FAQ_CAT_NAME ) VALUES ( SEQ_FAQ_CATEGORY.NEXTVAL , '계정' );
+INSERT INTO FAQ_CATEGORY ( FAQ_CAT_NO, FAQ_CAT_NAME ) VALUES ( SEQ_FAQ_CATEGORY.NEXTVAL , '신고/제보' );
+INSERT INTO FAQ_CATEGORY ( FAQ_CAT_NO, FAQ_CAT_NAME ) VALUES ( SEQ_FAQ_CATEGORY.NEXTVAL , '문제해결' );
+
 
 
 -- NOTICE 
@@ -1304,3 +1311,5 @@ BEGIN
     RETURN TEMP;
     END;
 /
+
+COMMIT;

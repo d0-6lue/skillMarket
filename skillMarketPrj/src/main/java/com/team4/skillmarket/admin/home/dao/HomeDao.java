@@ -13,7 +13,7 @@ public class HomeDao {
 	public HomeVo getListByHome(Connection conn) throws Exception {
 		
 		// FAQ 쿼리
-		String sql = "SELECT * FROM FAQ WHERE FAQ_STATUS = 'N' ORDER BY FAQ_HIT DESC FETCH FIRST ROW ONLY";
+		String sql = "SELECT * FROM FAQ WHERE FAQ_STATUS = 'Y' ORDER BY FAQ_HIT DESC FETCH FIRST ROW ONLY";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		// NOTICE 쿼리

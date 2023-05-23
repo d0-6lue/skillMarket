@@ -161,8 +161,8 @@
 
 <script>
    
-
-
+    const newNoticeNo = parseInt("${ newNotice.notiNo }")+1;
+ 
 
 </script>
     

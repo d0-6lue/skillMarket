@@ -46,7 +46,7 @@ public class NoticeUploadController extends HttpServlet{
 				if (!f.getName().equals("f")) {
 					continue;
 				}
-				String notice = "notice"; // 파일 이름 규칙 ** 게시글 번호 추가예정
+				String notice = "notice_"; // 파일 이름 규칙 ** 게시글 번호 추가예정
 				String orginName = f.getSubmittedFileName(); //원본 이름
 				String ext = orginName.substring(orginName.lastIndexOf(".")); // 파일 확장자 가져오기
 				
