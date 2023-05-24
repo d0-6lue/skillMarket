@@ -121,8 +121,15 @@ function open_notice_modal() {
   
 }
 
+// FAQ 모달
+function open_FAQ_modal(){
 
+
+  $('.FAQ_detail').css('display','block');
+
+}
 
 $('.close').click(function(){
-  $('.noticeDetail').css('display','none');
+  $('.modal').css('display','none');
 });
+

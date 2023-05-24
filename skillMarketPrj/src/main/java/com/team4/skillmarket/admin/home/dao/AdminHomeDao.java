@@ -12,6 +12,7 @@ import java.util.Map;
 import com.team4.skillmarket.admin.FAQ.vo.AdminFAQVo;
 import com.team4.skillmarket.admin.home.vo.HomeVo;
 import com.team4.skillmarket.admin.home.vo.MonthStatsVo;
+import com.team4.skillmarket.admin.notice.vo.noticeListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class AdminHomeDao {
@@ -115,32 +116,52 @@ public class AdminHomeDao {
 		return monthStatsList;
 	}
 
-	public Map<String, List<?>> getCategoryNameByHome(Connection conn) throws Exception {
-		
-		Map<String, List<?>> catNameMap = new HashMap<>();
-		List<AdminFAQVo> faqNameList = new ArrayList<>();
-		
-		String sql="SELECT * FROM FAQ_CATEGORY";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		ResultSet rs = pstmt.executeQuery();
-		while(rs.next()) {
-			
-			String faqCatNo = rs.getString("FAQ_CAT_NO");
-			String faqCatName = rs.getString("FAQ_CAT_NAME");
-			
-			AdminFAQVo vo = new AdminFAQVo();
-			vo.setFaqCatNo(faqCatNo);
-			vo.setFaqCatName(faqCatName);
-			
-			faqNameList.add(vo);
-		}
-		
-		
-		
-		
-		
-		return catNameMap;
+	public List<AdminFAQVo> getFAQCatName(Connection conn) throws Exception {
+	    List<AdminFAQVo> faqNameList = new ArrayList<>();
+
+	    String sql="SELECT * FROM FAQ_CATEGORY";
+	    PreparedStatement pstmt = conn.prepareStatement(sql);
+	    ResultSet rs = pstmt.executeQuery();
+	    while(rs.next()) {
+	        String faqCatNo = rs.getString("FAQ_CAT_NO");
+	        String faqCatName = rs.getString("FAQ_CAT_NAME");
+
+	        AdminFAQVo vo = new AdminFAQVo();
+	        vo.setFaqCatNo(faqCatNo);
+	        vo.setFaqCatName(faqCatName);
+
+	        faqNameList.add(vo);
+	    }
+
+	    JDBCTemplate.close(rs);
+	    JDBCTemplate.close(pstmt);
+
+	    return faqNameList;
 	}
+
+	public List<noticeListVo> getNoticeCatName(Connection conn) throws Exception {
+	    List<noticeListVo> noticeNameList = new ArrayList<>();
+
+	    String sql="SELECT * FROM NOTICE_CATEGORY";
+	    PreparedStatement pstmt = conn.prepareStatement(sql);
+	    ResultSet rs = pstmt.executeQuery();
+	    while(rs.next()) {
+	        String notiCatNo = rs.getString("NOTI_CAT_NO");
+	        String notiCatName = rs.getString("NOTI_CAT_NAME");
+
+	        noticeListVo vo = new noticeListVo();
+	        vo.setNotiCatNo(notiCatNo);
+	        vo.setNotiCatName(notiCatName);
+
+	        noticeNameList.add(vo);
+	    }
+
+	    JDBCTemplate.close(rs);
+	    JDBCTemplate.close(pstmt);
+
+	    return noticeNameList;
+	}
+
 	
 
 }

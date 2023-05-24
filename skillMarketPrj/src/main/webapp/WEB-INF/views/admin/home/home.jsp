@@ -198,7 +198,7 @@
                                     </thead>
                                     <tbody class="home_div">
 	                                    <c:if test="${!empty homeVo.faqCatNo }">
-	                                    	<tr>
+	                                    	<tr onclick="open_FAQ_modal();">
 	                                            <td>
 	                                                <span>${ homeVo.faqCatNo }</span>
 	                                            </td>
@@ -231,7 +231,7 @@
 
     </div>
 	
-    <!-- <div id="noticeDetail_${ homeVo.notiNo }" class="noticeDetail modal">
+    <div id="noticeDetail_${ homeVo.notiNo }" class="noticeDetail modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h1>공지 상세</h1>
@@ -247,30 +247,31 @@
             <div id="noticeDetailContent_${ homeVo.notiContent }"><div>${ homeVo.notiContent }</div></div>
             <button id="submitBtn1">수정하기</button>
         </div>
-    </div> -->
+    </div>
 
-    <div id="noticeDetail_${ homeVo.faqNo }" class="FAQDetail modal">
-        <div class="modal-content">
+    <div id="FAQ_detail_${ homeVo.faqNo }" class="FAQ_detail modal">
+        <div class="modal-content FAQ_modal">
             <span class="close">&times;</span>
             <div id="h1_area">
                 <h1>
-                    <select name="" id="">
-
+                    <select name="" id="cat_select_FAQ" disabled>
+                        <c:forEach var="FAQ" items="${catNameMap['FAQ']}">
+                        	<option value="${FAQ.faqNo }">${FAQ.faqCatName }</option>
+                        </c:forEach>
                     </select>
                 </h1>
                 <h1>FAQ</h1>
 
             </div>
             <div id="modal_div">
-                <select name="" id="cat_select_FAQ">
-                    <option value="default" selected>카테고리</option>
-                    <option value="1">공지</option>
-                    <option value="2">이벤트</option>
-                    <option value="3">안내</option>
-                </select>
-                <input type="text" placeholder="제목" value="${ homeVo.faqTitle }" readonly>
+                <input type="text" name="title" value="구매 건에 대한 세금계산서는 누가 발행하며, 어떻게 신청하나요? " placeholder="제목" readonly></input>
+                <div id="faq_Hit">
+                    조회수 
+                    <br>
+                    ${ homeVo.faqHit }
+                </div>
             </div>
-            <div id="noticeDetailContent_${ homeVo.notiContent }"><div>${ homeVo.notiContent }</div></div>
+            <div class="modal_content_area" id="FAQ_detailContent_${ homeVo.faqNo }"><div>${ homeVo.faqAContent }</div></div>
             <button id="submitBtn1">수정하기</button>
         </div>
     </div>

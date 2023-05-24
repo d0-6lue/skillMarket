@@ -18,7 +18,6 @@ import javax.swing.text.html.HTMLEditorKit.Parser;
 import com.google.gson.Gson;
 import com.team4.skillmarket.admin.notice.vo.noticeListVo;
 import com.team4.skillmarket.admin.notice.vo.noticeVo;
-import com.team4.skillmarket.admin.login.vo.AdminLoginVo;
 import com.team4.skillmarket.admin.login.vo.AdminVo;
 import com.team4.skillmarket.admin.notice.service.noticeListService;
 import com.team4.skillmarket.admin.notice.service.noticeService;
