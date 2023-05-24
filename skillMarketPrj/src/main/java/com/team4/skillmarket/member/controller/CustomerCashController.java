@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.team4.skillmarket.cash.vo.CashVo;
+import com.team4.skillmarket.cashlog.vo.CashLogVo;
 import com.team4.skillmarket.member.service.MemberService;
 import com.team4.skillmarket.member.vo.MemberVo;
 
@@ -29,7 +30,9 @@ public class CustomerCashController extends HttpServlet{
 			
 			MemberService ms = new MemberService();
 			CashVo cashVo = ms.getCash(loginMember);
+			List<CashLogVo> cashList = ms.getCashLogList(loginMember);
 			
+			req.setAttribute("cList", cashList);
 			req.setAttribute("cashVo", cashVo);
 			req.getRequestDispatcher("/WEB-INF/views/member/cash.jsp").forward(req, resp);
 		} catch (Exception e) {

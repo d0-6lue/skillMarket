@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.team4.skillmarket.cash.vo.CashVo;
+import com.team4.skillmarket.cashlog.vo.CashLogVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
@@ -169,6 +170,16 @@ public class MemberService {
 		
 		return cashVo;
 		
+	}
+
+	public List<CashLogVo> getCashLogList(MemberVo loginMember) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<CashLogVo> cashList = dao.getCashLogList(conn, loginMember);
+		
+		JDBCTemplate.close(conn);
+		
+		return cashList;
 	}
 
 	

@@ -95,7 +95,7 @@
 
                 <div class="cash-list-area">
 
-
+                    ${cList}
                 </div>
 
             </div>
