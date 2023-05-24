@@ -150,7 +150,7 @@
                                     </thead>
                                     <tbody class="home_div">
                                         <c:if test="${!empty homeVo.notiNo }">
-                                            <tr>
+                                            <tr onclick="open_notice_modal();">
                                                 <td>
                                                     <span>${ homeVo.notiNo }</span>
                                                 </td>
@@ -231,9 +231,57 @@
 
     </div>
 	
+    <!-- <div id="noticeDetail_${ homeVo.notiNo }" class="noticeDetail modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>공지 상세</h1>
+            <div id="modal_div">
+                <select name="" id="cat_select_notice">
+                    <option value="default" selected>카테고리</option>
+                    <option value="1">공지</option>
+                    <option value="2">이벤트</option>
+                    <option value="3">안내</option>
+                </select>
+                <input type="text" placeholder="제목" value="${ homeVo.notiTitle }" readonly>
+            </div>
+            <div id="noticeDetailContent_${ homeVo.notiContent }"><div>${ homeVo.notiContent }</div></div>
+            <button id="submitBtn1">수정하기</button>
+        </div>
+    </div> -->
+
+    <div id="noticeDetail_${ homeVo.faqNo }" class="FAQDetail modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="h1_area">
+                <h1>
+                    <select name="" id="">
+
+                    </select>
+                </h1>
+                <h1>FAQ</h1>
+
+            </div>
+            <div id="modal_div">
+                <select name="" id="cat_select_FAQ">
+                    <option value="default" selected>카테고리</option>
+                    <option value="1">공지</option>
+                    <option value="2">이벤트</option>
+                    <option value="3">안내</option>
+                </select>
+                <input type="text" placeholder="제목" value="${ homeVo.faqTitle }" readonly>
+            </div>
+            <div id="noticeDetailContent_${ homeVo.notiContent }"><div>${ homeVo.notiContent }</div></div>
+            <button id="submitBtn1">수정하기</button>
+        </div>
+    </div>
+
     <script>
         const memberCnt = parseInt('${ homeVo.memberCount }');
         const freeCnt = parseInt('${ homeVo.freelancerCount }');
+        // const noticeCatNo = '${ homeVo.notiCatNo }';
+        const noticeCatNo = 1;
+        
+
     </script>
 
 </body>

@@ -9,6 +9,7 @@ public class HomeVo {
 	private String faqNo;
 	private String adminNoFAQ;
 	private String faqCatNo;
+	private String faqCatName;
 	private String faqTitle;
 	private String faqQContent;
 	private String faqAContent;

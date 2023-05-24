@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.team4.skillmarket.admin.login.vo.AdminLoginVo;
 import com.team4.skillmarket.admin.login.vo.AdminVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class LoginDao {
 
-	public AdminVo login(Connection conn, AdminLoginVo avo) throws Exception {
+	public AdminVo login(Connection conn, AdminVo avo) throws Exception {
 
 		String sql = "SELECT * FROM ADMIN WHERE ADMIN_ID = ? AND ADMIN_PWD = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
