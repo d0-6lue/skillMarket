@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.team4.skillmarket.cash.vo.CashVo;
+import com.team4.skillmarket.cashlog.vo.CashLogVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
@@ -389,6 +390,41 @@ public class MemberDao {
 		JDBCTemplate.close(pstmt);
 		
 		return result;
+	}
+
+	public List<CashLogVo> getCashLogList(Connection conn, MemberVo loginMember) throws Exception {
+		
+		String sql = "SELECT C.NO, C.MEMBER_NO, C.AMOUNT, C.ENROLL_DATE, L.CATEGORY_NAME, P.PAYMENT_METHOD_NAME FROM CASH_LOG C JOIN LOG_CATEGORY L ON C.LOG_CATEGORY_NO = L.CATEGORY_NO JOIN PAYMENT_METHOD P ON C.PAYMENT_METHOD_NO = P.NO WHERE C.MEMBER_NO = ? ORDER BY ENROLL_DATE DESC";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getMemberNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<CashLogVo> cList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String amount = rs.getString("AMOUNT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String categoryName = rs.getString("CATEGORY_NAME");
+			String payMentMethodName = rs.getString("PAYMENT_METHOD_NAME");
+			
+			CashLogVo vo = new CashLogVo();
+			
+			vo.setNo(no);
+			vo.setMemberNo(memberNo);
+			vo.setAmount(amount);
+			vo.setEnrollDate(enrollDate);
+			vo.setCategoryName(categoryName);
+			vo.setPaymentMethodName(payMentMethodName);
+			
+			cList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cList;
 	}
 
 	
