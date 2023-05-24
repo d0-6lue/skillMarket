@@ -55,8 +55,8 @@ public class CashDao {
 		int result_ = 0;
 		int result = 0;
 		
-		String sql = "INSERT INTO CASH_CHARGE_LOG ( NO, MEMBER_NO, PAYMENT_METHOD_NO, CHARGE_AMOUNT, CHARGE_DATE )\r\n"
-				+ "VALUES ( SEQ_CASH_CHARGE_NO.NEXTVAL, ?, ?, ?, DEFAULT)";
+		String sql = "INSERT INTO CASH_LOG ( NO, MEMBER_NO, PAYMENT_METHOD_NO, LOG_CAT_NO, AMOUNT, ENROLL_DATE )\r\n"
+				+ "VALUES ( SEQ_CASH_CHARGE_NO.NEXTVAL, ?, ?, 1, ?, DEFAULT)";
 		
 		PreparedStatement pstmt = null;
 		try {
@@ -73,7 +73,7 @@ public class CashDao {
 			if(result == 1) {
 				
 				sql = "UPDATE USER_CASH \r\n"
-						+ "SET CASH_MONEY = CASH_MONEY + ?r\n"
+						+ "SET CASH_MONEY = CASH_MONEY + ?\r\n"
 						+ "WHERE MEMBER_NO = ?";
 				
 				
