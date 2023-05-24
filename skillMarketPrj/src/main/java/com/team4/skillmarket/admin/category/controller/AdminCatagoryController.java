@@ -11,19 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.team4.skillmarket.admin.category.service.AdminCatagoryService;
 import com.team4.skillmarket.admin.category.vo.AdminCategoryVo;
-import com.team4.skillmarket.admin.login.vo.AdminLoginVo;
 
 @WebServlet("/admin/category")
 public class AdminCatagoryController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		// 어드민 로그인 정보 없으면 로그인 창으로
-		if (req.getSession().getAttribute("AdminLoginVo") == null) {
-			resp.sendRedirect(req.getContextPath() + "/admin/login");
-			return;
-		}
 		
 		try {
 			

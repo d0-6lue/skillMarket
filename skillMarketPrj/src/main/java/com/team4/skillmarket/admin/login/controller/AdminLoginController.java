@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.team4.skillmarket.admin.login.service.AdminLoginService;
-import com.team4.skillmarket.admin.login.vo.AdminLoginVo;
 import com.team4.skillmarket.admin.login.vo.AdminVo;
 
 
@@ -42,14 +41,14 @@ public class AdminLoginController extends HttpServlet {
 
 	        // JSON 데이터를 AdminLoginVo 객체로 변환
 	        Gson gson = new Gson();
-	        AdminLoginVo avo = gson.fromJson(json, AdminLoginVo.class);
+	        AdminVo avo = gson.fromJson(json, AdminVo.class);
 				        
 			AdminLoginService as = new AdminLoginService();
 			AdminVo adminVo = as.login(avo);
 			
 			JsonObject errorObject = new JsonObject();
 			if (adminVo != null) {
-				req.getSession().setAttribute("AdminLoginVo", adminVo);
+				req.getSession().setAttribute("AdminLogin", adminVo);
 				
 				// 로그인 성공 시
 				errorObject.addProperty("success", true);

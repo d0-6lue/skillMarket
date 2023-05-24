@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.team4.skillmarket.admin.FAQ.vo.AdminFAQVo;
 import com.team4.skillmarket.admin.home.vo.HomeVo;
 import com.team4.skillmarket.admin.home.vo.MonthStatsVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
@@ -18,12 +21,13 @@ public class AdminHomeDao {
 		HomeVo homeVo = null;
 		
 	    // FAQ 쿼리 실행
-	    String sql = "SELECT * FROM FAQ WHERE FAQ_STATUS = 'Y' ORDER BY FAQ_HIT DESC FETCH FIRST ROW ONLY";
+	    String sql = "SELECT F.*,FC.FAQ_CAT_NAME FROM FAQ F JOIN FAQ_CATEGORY FC ON F.FAQ_CAT_NO = FC.FAQ_CAT_NO WHERE F.FAQ_STATUS = 'Y' ORDER BY F.FAQ_HIT DESC FETCH FIRST ROW ONLY";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 	    ResultSet rs = pstmt.executeQuery();
 	    if (rs.next()) {
 	        homeVo = new HomeVo();
 	        homeVo.setFaqNo(rs.getString("FAQ_NO"));
+	        homeVo.setFaqCatName(rs.getString("FAQ_CAT_NAME"));
 	        homeVo.setAdminNoFAQ(rs.getString("ADMIN_NO"));
 	        homeVo.setFaqCatNo(rs.getString("FAQ_CAT_NO"));
 	        homeVo.setFaqTitle(rs.getString("FAQ_TITLE"));
@@ -109,6 +113,33 @@ public class AdminHomeDao {
 		
 		
 		return monthStatsList;
+	}
+
+	public Map<String, List<?>> getCategoryNameByHome(Connection conn) throws Exception {
+		
+		Map<String, List<?>> catNameMap = new HashMap<>();
+		List<AdminFAQVo> faqNameList = new ArrayList<>();
+		
+		String sql="SELECT * FROM FAQ_CATEGORY";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			
+			String faqCatNo = rs.getString("FAQ_CAT_NO");
+			String faqCatName = rs.getString("FAQ_CAT_NAME");
+			
+			AdminFAQVo vo = new AdminFAQVo();
+			vo.setFaqCatNo(faqCatNo);
+			vo.setFaqCatName(faqCatName);
+			
+			faqNameList.add(vo);
+		}
+		
+		
+		
+		
+		
+		return catNameMap;
 	}
 	
 

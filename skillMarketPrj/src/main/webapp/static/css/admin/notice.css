@@ -18,7 +18,6 @@ background-color: rgba(0,0,0,0.4); /* 배경을 어둡게 함 */
 .modal-content, .modal-content {
 position: fixed; /* 모달창을 고정 위치에 띄움 */
 background-color: #fefefe; /* 모달창 배경색 */
-/* margin: 15% auto;  */
 width: 900px;
 height: 850px;
 padding: 20px;

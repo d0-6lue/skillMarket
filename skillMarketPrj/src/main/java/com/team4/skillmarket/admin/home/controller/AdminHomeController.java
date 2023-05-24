@@ -2,6 +2,7 @@ package com.team4.skillmarket.admin.home.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,18 +20,12 @@ public class AdminHomeController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		// 어드민 로그인 정보 없으면 로그인 창으로
-		if (req.getSession().getAttribute("AdminLoginVo") == null) {
-			resp.sendRedirect(req.getContextPath() + "/admin/login");
-			return;
-		}
-		
 		try {
 			
 			HomeService hs = new  HomeService();
 			HomeVo homeVo =  hs.getListByHome();
 			List<MonthStatsVo> monthStatsList = hs.getMonthlySalesAndSignupStats();
-			
+			Map<String, List<?>> catName = hs.getCategoryNameByHome();
 			
 			
 			if (homeVo == null) {

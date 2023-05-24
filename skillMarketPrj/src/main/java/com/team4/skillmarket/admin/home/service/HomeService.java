@@ -2,6 +2,7 @@ package com.team4.skillmarket.admin.home.service;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.team4.skillmarket.admin.home.dao.AdminHomeDao;
 import com.team4.skillmarket.admin.home.vo.HomeVo;
@@ -32,6 +33,17 @@ public class HomeService {
 		JDBCTemplate.close(conn);
 		
 		return monthStatsList;
+	}
+
+	public Map<String, List<?>> getCategoryNameByHome() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Map<String, List<?>> catNameMap = dao.getCategoryNameByHome(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return catNameMap;
 	}
 
 }

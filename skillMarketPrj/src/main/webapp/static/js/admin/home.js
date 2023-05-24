@@ -105,4 +105,24 @@ function getCoordinatesForPercent(percent) {
 
 
 // ---------------------------
+//공지 모달
+function open_notice_modal() {
+  
+  $("#cat_select_notice option[value='" + noticeCatNo + "']").prop("selected", true);
 
+  // 형제 중 value="default"인 옵션 숨기기
+  $("#cat_select_notice option[value='" + noticeCatNo + "']").siblings("option[value='default']").hide();
+
+  //disabled 속성 추가
+  $("#cat_select_notice").prop("disabled", true);
+  
+  
+  $('.noticeDetail').css('display','block');
+  
+}
+
+
+
+$('.close').click(function(){
+  $('.noticeDetail').css('display','none');
+});
