@@ -25,7 +25,7 @@ public class AdminHomeController extends HttpServlet{
 			HomeService hs = new  HomeService();
 			HomeVo homeVo =  hs.getListByHome();
 			List<MonthStatsVo> monthStatsList = hs.getMonthlySalesAndSignupStats();
-			Map<String, List<?>> catName = hs.getCategoryNameByHome();
+			Map<String, List<?>> catNameMap = hs.getCategoryNameByHome();
 			
 			
 			if (homeVo == null) {
@@ -35,6 +35,7 @@ public class AdminHomeController extends HttpServlet{
 				throw new IllegalStateException("홈화면의 통계 리스트가 null 확인 필요");
 			}
 			
+			req.setAttribute("catNameMap", catNameMap);
 			req.setAttribute("monthStatsList", monthStatsList);
 			req.setAttribute("homeVo", homeVo);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/home.jsp").forward(req, resp);

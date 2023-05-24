@@ -370,7 +370,7 @@ article .tatistics_list_2  thead th {
 
 /*----------------------------------*/
 .modal, .noticeDetail {
-    display: block; /* 모달창은 처음에 숨김 */
+    display: none; /* 모달창은 처음에 숨김 */
     position: relative;
     z-index: 99; /* 다른 요소보다 위에 위치 */
     left: 0;
@@ -491,6 +491,7 @@ article .tatistics_list_2  thead th {
 }
 
 #modal_div input {
+    width: 100%;
     font-size: 25px;
     color: #242424;
     font-weight: 700;
@@ -503,14 +504,26 @@ article .tatistics_list_2  thead th {
 
 
 
+
 :disabled {
     background-color: #fefefe;
     border: 1px solid rgba(128, 128, 128, 0.5);
     color: #242424;
-  }
+}
 
-.FAQDetail {
-    grid-template-rows: 30px 1.2fr 0.5fr 7fr 1fr;
+select:disabled {
+    border:none;
+    border-radius:0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background:url(../) no-repeat 80% 50%;
+}
+
+
+/* FAQ 모달 */
+.FAQ_modal {
+    grid-template-rows: 30px 1.2fr 2fr 7fr 1fr; 
     grid-template-areas: 
         "cs cs cs"
         "h1 h1 h1"
@@ -520,11 +533,68 @@ article .tatistics_list_2  thead th {
     ;
 }
 
-.FAQDetail #h1_area {
+.FAQ_detail #h1_area {
     grid-area: h1; 
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
     padding: 20px;
+}
+
+#cat_select_FAQ{
+    font-size: 50px;
+    font-weight: 900;
+    font-style: bolder;
+    color: #343434;
+}
+
+.FAQ_detail #modal_div {
+    grid-template-columns: 4fr 1fr !important;
+    vertical-align: middle;
+}
+
+textarea[name="title"] {
+    width: 658.391;
+    height: auto;
+    border:none;
+    border-radius:0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    font-size: 30;
+    font-weight: 500;
+    resize: none;
+    justify-self: flex-start;
+    align-self: center;
+    vertical-align: middle ;
+   
+}
+
+#faq_Hit{
+    justify-self: center;
+    align-self: center;
+   
+}
+
+
+textarea[name="title"]:focus {
+    border:none;
+    border-radius:0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+}
+
+.FAQ_detail #modal_div input {
+    font-size: 20;
+    font-weight: 500;
+}
+
+.modal_content_area {
+    width: 100%;
+    grid-column: span 3;
+    padding: 10;
 }

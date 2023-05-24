@@ -1,12 +1,15 @@
 package com.team4.skillmarket.admin.home.service;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.team4.skillmarket.admin.FAQ.vo.AdminFAQVo;
 import com.team4.skillmarket.admin.home.dao.AdminHomeDao;
 import com.team4.skillmarket.admin.home.vo.HomeVo;
 import com.team4.skillmarket.admin.home.vo.MonthStatsVo;
+import com.team4.skillmarket.admin.notice.vo.noticeListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class HomeService {
@@ -35,11 +38,16 @@ public class HomeService {
 		return monthStatsList;
 	}
 
-	public Map<String, List<?>> getCategoryNameByHome() {
+	public Map<String, List<?>> getCategoryNameByHome() throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Map<String, List<?>> catNameMap = dao.getCategoryNameByHome(conn);
+		List<AdminFAQVo> faqCatNameList = dao.getFAQCatName(conn);
+		List<noticeListVo> noticeCatNameList = dao.getNoticeCatName(conn);
+		
+		Map<String, List<?>> catNameMap = new HashMap<>();
+		catNameMap.put("FAQ", faqCatNameList);
+		catNameMap.put("NOTICE", noticeCatNameList);
 		
 		JDBCTemplate.close(conn);
 		
