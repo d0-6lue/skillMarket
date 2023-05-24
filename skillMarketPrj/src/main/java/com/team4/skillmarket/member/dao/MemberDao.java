@@ -229,7 +229,7 @@ public class MemberDao {
 
 	public int changeInfo(Connection conn, MemberVo vo) throws Exception {
 		
-		String sql = "UPDATE MEMBER SET MEMBER_NICK = ?, MEMBER_EMAIL = ?, MEMBER_PHONE = ?, MEMBER_INTERST = ?";
+		String sql = "UPDATE MEMBER SET MEMBER_NICK = ?, MEMBER_EMAIL = ?, MEMBER_PHONE = ?, MEMBER_INTERST = ?, MEMBER_BANK = ?, MEMBER_ACCOUNT = ?";
 		if(vo.getMemberProfilePhoto() != null) {
 			sql	+= ", MEMBER_PROFILE_PHOTO = ?";
 		}
@@ -240,12 +240,14 @@ public class MemberDao {
 		pstmt.setString(2, vo.getMemberEmail());
 		pstmt.setString(3, vo.getMemberPhone());
 		pstmt.setString(4, vo.getMemberInterst());
+		pstmt.setString(5, vo.getMemberBank());
+		pstmt.setString(6, vo.getMemberAccount());
 		if(vo.getMemberProfilePhoto() != null) {
-			pstmt.setString(5, vo.getMemberProfilePhoto());
-			pstmt.setString(6, vo.getMemberNo());
+			pstmt.setString(7, vo.getMemberProfilePhoto());
+			pstmt.setString(8, vo.getMemberNo());
 			
 		}else {
-			pstmt.setString(5, vo.getMemberNo());
+			pstmt.setString(7, vo.getMemberNo());
 		}
 		
 		int result = pstmt.executeUpdate();
@@ -257,7 +259,7 @@ public class MemberDao {
 
 	public MemberVo getMyInfo(Connection conn, MemberVo vo) throws Exception {
 		
-String sql = "SELECT * FROM MEMBER WHERE MEMBER_NO = ? AND STATUS_NO = 1";
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_NO = ? AND STATUS_NO = 1";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getMemberNo());

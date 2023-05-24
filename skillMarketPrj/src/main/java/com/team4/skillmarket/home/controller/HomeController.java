@@ -22,8 +22,10 @@ public class HomeController extends HttpServlet {
 		try {
 			HomeService hs = new HomeService();
 			List<EstimateCategoryVo> cList = hs.getCategory();
+			List<EstimateCategoryVo> pList = hs.getPopularCategoryList();
 
 			if(cList.size() > 0) {
+				req.setAttribute("pList", pList);
 				req.setAttribute("bigCategoryList", cList);
 				req.getRequestDispatcher("/WEB-INF/views/home/home.jsp").forward(req, resp);
 				

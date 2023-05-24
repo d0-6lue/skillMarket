@@ -127,6 +127,22 @@ input[name='memberPhone']{
     border: 1px solid #7C7C7C;
 }
 
+input[name='memberBank']{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 500px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+}
+
+input[name='memberAccount']{
+    border-radius: 6px;
+    padding-left: 10px;
+    width: 500px;
+    height: 60px;
+    border: 1px solid #7C7C7C;
+}
+
 select[name='memberFavorite']{
     border-radius: 6px;
     padding-left: 10px;

@@ -75,6 +75,11 @@
                             	<option value="${list.estimateCatNo}">${list.estimateCatName }</option>
                             </c:forEach>
                         </select>
+                        <div class="myinfo-content-text">계좌은행</div>
+                        <input type="text" name="memberBank" placeholder="계좌은행를 입력해주세요" value="${loginMember.memberBank}">
+                        <div class="myinfo-content-text">계좌번호</div>
+                        <input type="text" name="memberAccount" placeholder="계좌번호를 입력해주세요" value="${loginMember.memberAccount}">
+
                         <div class="myinfo-submit-btn">
                             <input class="bold" type="submit" value="수정 완료">
                         </div>

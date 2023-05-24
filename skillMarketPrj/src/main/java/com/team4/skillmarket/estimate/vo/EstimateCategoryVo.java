@@ -10,5 +10,6 @@ public class EstimateCategoryVo {
 	private String estimateCatName;
 	private String estimateCatScope;
 	private String estimateCatFile;
+	private String estimateViews;
 	
 }

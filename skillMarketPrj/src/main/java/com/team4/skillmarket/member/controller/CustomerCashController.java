@@ -22,6 +22,11 @@ public class CustomerCashController extends HttpServlet{
 		try {
 			MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
 			
+			if(loginMember == null) {
+				req.getSession().setAttribute("alertMsg", "로그인 먼저 해주세요");
+				resp.sendRedirect(req.getContextPath() + "/home");
+			}
+			
 			MemberService ms = new MemberService();
 			CashVo cashVo = ms.getCash(loginMember);
 			
