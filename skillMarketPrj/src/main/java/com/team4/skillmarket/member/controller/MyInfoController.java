@@ -62,6 +62,8 @@ public class MyInfoController extends HttpServlet{
 			String memberEmail = req.getParameter("memberEmail");
 			String memberPhone = req.getParameter("memberPhone");
 			String memberInterst = req.getParameter("memberFavorite");
+			String memberBank = req.getParameter("memberBank");
+			String memberAccount = req.getParameter("memberAccount");
 			Part profilePart = req.getPart("f");
 			
 			String path = req.getServletContext().getRealPath("/static/img/profile/");
@@ -78,6 +80,8 @@ public class MyInfoController extends HttpServlet{
 			vo.setMemberPhone(memberPhone);
 			vo.setMemberInterst(memberInterst);
 			vo.setMemberProfilePhoto(changeName);
+			vo.setMemberBank(memberBank);
+			vo.setMemberAccount(memberAccount);
 			
 			MemberService ms = new MemberService();
 			int result = ms.changeInfo(vo);

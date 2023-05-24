@@ -23,4 +23,15 @@ public class HomeService {
 		return cList;
 	}
 
+
+	public List<EstimateCategoryVo> getPopularCategoryList() throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<EstimateCategoryVo> pList = dao.getPopularCategoryList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return pList;
+	}
+
 }
