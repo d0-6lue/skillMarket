@@ -49,8 +49,8 @@
                 <div class="grade-title bold">스킬 등급</div>
                 <div class="grade-title-sub-area">
                     <span class="grade-title-sub bold">${loginMember.memberNick}</span>
-                    <span class="grade-title-sub">님의 전문가 등급은</span>
-                    <span class="grade-title-sub bold">null</span>
+                    <span class="grade-title-sub">님의 전문가 등급은 </span>
+                    <span class="grade-title-sub bold">${evo.freelancerClassName}</span>
                     <span class="grade-title-sub">입니다.</span>
 
                 </div>
@@ -67,7 +67,18 @@
 
                     </div>
                     <div class="grade-current-grade">
+                    <c:if test="${evo.freelancerClassName eq '스킬 레벨 0'}">
                         <img class="grade-current-gradeimg" src="${root}/static/svg/0_skill.svg" alt="스킬 등급">
+                    </c:if>
+                    <c:if test="${evo.freelancerClassName eq '스킬 레벨 1'}">
+                        <img class="grade-current-gradeimg" src="${root}/static/svg/1_skill.svg" alt="스킬 등급">
+                    </c:if>
+                    <c:if test="${evo.freelancerClassName eq '스킬 레벨 2'}">
+                        <img class="grade-current-gradeimg" src="${root}/static/svg/2_skill.svg" alt="스킬 등급">
+                    </c:if>
+                    <c:if test="${evo.freelancerClassName eq '스킬 레벨 3'}">
+                        <img class="grade-current-gradeimg" src="${root}/static/svg/3_skill.svg" alt="스킬 등급">
+                    </c:if>
                     </div>
 
                 </div>

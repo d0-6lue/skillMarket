@@ -256,6 +256,30 @@ public class ExpertDao {
 		
 		return result;		
 	}
+
+	public ExpertVo getGrade(Connection conn, ExpertVo loginExpert) throws Exception {
+		
+		String sql = "SELECT FREELANCER_CLASS_NAME FROM FREELANCER F JOIN FREELANCER_CLASS C ON F.FREELANCER_CLASS_NO = C.FREELANCER_CLASS_NO WHERE FREELANCER_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginExpert.getFreelancerNo());
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		ExpertVo evo = null;
+		if(rs.next()) {
+			String freelancerClassName = rs.getString("FREELANCER_CLASS_NAME");
+			
+			evo = new ExpertVo();
+			
+			evo.setFreelancerClassName(freelancerClassName);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return evo;
+	
+	}
 	
 	
 

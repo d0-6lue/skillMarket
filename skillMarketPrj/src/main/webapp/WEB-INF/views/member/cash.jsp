@@ -95,7 +95,16 @@
 
                 <div class="cash-list-area">
 
-                    ${cList}
+                    <table class="cash-list">
+                        <c:forEach items="${cList}" var="cvo">
+                        	<tr>
+                            	<td>${cvo.categoryName}</td>
+	                            <td>${cvo.amount}원</td>
+	                            <td>${cvo.paymentMethodName}</td>
+	                            <td>${cvo.enrollDate}</td>
+	                        </tr>
+                        </c:forEach>
+                    </table>
                 </div>
 
             </div>
