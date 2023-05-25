@@ -19,9 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.team4.skillmarket.estimate.file.EstimateFileUploader;
 import com.team4.skillmarket.estimate.service.EstimateService;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.estimate.vo.EstimateFaqVo;
@@ -29,16 +26,12 @@ import com.team4.skillmarket.estimate.vo.EstimateOptionVo;
 import com.team4.skillmarket.estimate.vo.EstimateVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.vo.MemberVo;
-import com.team4.skillmarket.utill.file.AttachmentVo;
 
 //견적서 템플릿 작성하기 컨트롤러 
 @WebServlet("/myestimate")
 public class EstimateTemplateWriteController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
-    private static final String UPLOAD_PATH = "/upload/estimate";
-    private static final int MAX_FILE_SIZE = 1024 * 1024 * 50;
 
     private EstimateService estimateService;
     
@@ -87,117 +80,65 @@ public class EstimateTemplateWriteController extends HttpServlet {
         ExpertVo expertMember = (ExpertVo) session.getAttribute("loginExpert");
 
         try {
-            // 파일 데꺼
-            MultipartRequest multi = new MultipartRequest(
-                    req,
-                    getServletContext().getRealPath(UPLOAD_PATH),
-                    MAX_FILE_SIZE,
-                    "UTF-8",
-                    new DefaultFileRenamePolicy() {
-                        @Override
-                        public File rename(File file) {
-                            // 파일 이름 변경 로직 구현
-                            // UUID로 새로운 파일 이름 생성
-                            String extension = getExtension(file.getName());
-                            String newName = UUID.randomUUID().toString() + extension;
-                            File renamedFile = new File(file.getParent(), newName);
-                            return renamedFile;
-                        }
-
-                        private String getExtension(String fileName) {
-                            int dotIndex = fileName.lastIndexOf('.');
-                            if (dotIndex >= 0 && dotIndex < fileName.length() - 1) {
-                                return fileName.substring(dotIndex);
-                            }
-                            return "";
-                        }
-                    }
-            );
-
-            // 파일업로더 객체생성
-
-            // 첨부파일들 다루기
-
-            // 데꺼
-            String freelancerNo = expertMember.getFreelancerNo();
-            String jobTitle = multi.getParameter("job-title");
-            String EstimateCatNo = multi.getParameter("cateCode");
-            String jobPrice = multi.getParameter("job-price");
-            String jobDuration = multi.getParameter("job-duration");
-            String jobSummary = multi.getParameter("job-summary");
-            String jobDescription = multi.getParameter("job-description");
-            
-            logger.info("freelancerNo: " + freelancerNo);
-            logger.info("jobTitle: " + jobTitle);
-            logger.info("EstimateCatNo: " + EstimateCatNo);
-            logger.info("jobPrice: " + jobPrice);
-            logger.info("jobDuration: " + jobDuration);
-            logger.info("jobSummary: " + jobSummary);
-            logger.info("jobDescription: " + jobDescription);
+        	// 데꺼(그냥 텍스트에 이미지 담는걸로 바꿈) 개편함
+        	String freelancerNo = expertMember.getFreelancerNo();
+            String jobTitle = req.getParameter("job-title");
+            String EstimateCatNo = req.getParameter("cateCode");
+            String jobPrice = req.getParameter("job-price");
+            String jobDuration = req.getParameter("job-duration");
+            String jobSummary = req.getParameter("job-summary");
+            String jobDescription = req.getParameter("job-description");
+            String mainimage = req.getParameter("main-image");
+            String subImage = req.getParameter("sub-image");
 
             // 데뭉
             EstimateVo estimateVo = new EstimateVo();
-            estimateVo.setFreelancerNo(Integer.parseInt(freelancerNo));
+            estimateVo.setFreelancerNo(freelancerNo);
             estimateVo.setEstimateCatNo(EstimateCatNo);
             estimateVo.setEstimateTitle(jobTitle);
             estimateVo.setEstimateDuration(jobDuration);
             estimateVo.setEstimateLineIntroduction(jobSummary);
             estimateVo.setEstimatePrice(jobPrice);
             estimateVo.setEstimateDetail(jobDescription);
-            
+            estimateVo.setMainImage(mainimage);
+            estimateVo.setSubImage(subImage);
 
-            // 메인이미지 상세이미지 초기화
-            AttachmentVo mainImage = null;
-            List<AttachmentVo> detailImages = new ArrayList<>();
 
-            // 첨부파일들 다루기
-            Enumeration<String> fileNames = multi.getFileNames();
-            while (fileNames.hasMoreElements()) {
-                String fileName = fileNames.nextElement();
-                String originalFileName = multi.getOriginalFileName(fileName);
-                String serverFileName = multi.getFilesystemName(fileName);
+            List<EstimateOptionVo> estimateOptions = Optional.ofNullable(req.getParameterValues("additionalOptions"))
+            	    .map(options -> {
+            	        List<EstimateOptionVo> optionList = new ArrayList<>();
+            	        for (String option : options) {
+            	            String title = req.getParameter(option + ".title");
+            	            logger.info(title);
+            	            String price = req.getParameter(option + ".price");
+            	            String work = req.getParameter(option + ".work");
 
-                if (originalFileName == null || serverFileName == null) {
-                    continue;
-                }
+            	            EstimateOptionVo estimateOption = new EstimateOptionVo();
+            	            estimateOption.setEstimateOptionName(title);
+            	            estimateOption.setEstimateOptionPrice(price);
+            	            estimateOption.setEstimateOptionQuantity(work);
 
-                AttachmentVo attachment = new AttachmentVo();
-                attachment.setAttachmentOriginName(originalFileName);
-                attachment.setAttachmentServerName(serverFileName);
+            	            optionList.add(estimateOption);
+            	        }
+            	        return optionList;
+            	    })
+            	    .orElse(Collections.emptyList());
+            	estimateVo.setAdditionalOptions(estimateOptions);
 
-                // 파일 업로드 시 메인 이미지 여부 체크
-                String isMainImage = multi.getParameter("is-main-image");
-                if (fileName.equals("main-file-upload") && isMainImage != null && isMainImage.equals("true")) {
-                    attachment.setMainImage(true);
-                    mainImage = attachment;
-                    logger.info("Main Image: " + originalFileName + " (" + serverFileName + ")");
-                } else {
-                    attachment.setMainImage(false);
-                    detailImages.add(attachment);
-                    logger.info("Detail Image: " + originalFileName + " (" + serverFileName + ")");
-                }
-            }
+            	// 파라미터 값 로그 출력
+            	if (!estimateOptions.isEmpty()) {
+            	    for (EstimateOptionVo option : estimateOptions) {
+            	        System.out.println("Title: " + option.getEstimateOptionName());
+            	        System.out.println("Price: " + option.getEstimateOptionPrice());
+            	        System.out.println("Work: " + option.getEstimateOptionQuantity());
+            	        System.out.println("--------------------");
+            	    }
+            	}
 
-            estimateVo.setMainImage(mainImage);
-            estimateVo.setDetailImages(detailImages);
 
-            // 추가 옵션 정보 저장
-            List<EstimateOptionVo> estimateOptions = Optional.ofNullable(multi.getParameterValues("optionName"))
-                    .map(names -> {
-                        List<EstimateOptionVo> options = new ArrayList<>();
-                        for (String name : names) {
-                            EstimateOptionVo option = new EstimateOptionVo();
-                            option.setEstimateOptionName(name);
-                            // 추가 처리 로직
-                            options.add(option);
-                        }
-                        return options;
-                    })
-                    .orElse(Collections.emptyList());
-            estimateVo.setAdditionalOptions(estimateOptions);
 
             // FAQ 정보 저장
-            List<EstimateFaqVo> estimateFaqs = Optional.ofNullable(multi.getParameterValues("faqQuestion"))
+            List<EstimateFaqVo> estimateFaqs = Optional.ofNullable(req.getParameterValues("faqQuestion"))
                     .map(questions -> {
                         List<EstimateFaqVo> faqs = new ArrayList<>();
                         for (String question : questions) {

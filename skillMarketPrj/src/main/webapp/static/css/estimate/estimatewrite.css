@@ -216,3 +216,7 @@ border-radius: 4px;
 .job-subimage-container{
   height: 80px;
 }
+
+.hidden-inputs {
+  display: none;
+}

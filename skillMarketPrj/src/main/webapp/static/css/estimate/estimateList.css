@@ -95,7 +95,7 @@
 /* 제일 바깥 회색테두리 */
 .service-border {
     width: 160px;
-    height: 210px;
+    height: 250px;
     background-color: #d9d9d9;
     border-radius: 10px;
     display: flex;
@@ -121,7 +121,7 @@
 .expert-info {
     width: 140px;
     display: flex;
-    height: 80px;
+    height: 120px;
     flex-direction: column;
     align-items: flex-start;
     margin-top: 5px;
@@ -149,9 +149,10 @@
     margin-left: 5px;
 }
 
+/* 한줄소개입니다 */
 .expert-account {
-    font-size: 10px;
-    background-color: #3258a3;
+    width: 100%;
+    font-size: 14px;
     padding: 2px 5px;
     border-radius: 3px;
     margin-top: 5px;
@@ -186,3 +187,61 @@
     margin-right: 5px;
 }
 
+figure.image {
+    /* CSS 속성 및 스타일 */
+    width : 200px;
+    height : 200px;
+}
+
+.expert-title{
+    font-size : 15px;
+    height : 35px;
+}
+
+
+.ck.ck-editor {
+    width: 200px;
+    margin: 0 auto;
+    }
+    
+.ck-editor__editable {
+height: 60vh;
+}
+
+.ck-content figure.image {
+display: inline-block;
+vertical-align: top;
+margin-right: 30px;
+width: calc(25% - 30px);
+}
+
+.ck-content figure.image img {
+width: 100%;
+height: auto;
+max-width: 200px;
+max-height: 200px;
+}
+
+.ck-content p {
+display: inline;
+margin: 0;
+padding: 0;
+white-space: nowrap;
+}
+
+.ck-content::after {
+content: "";
+display: table;
+clear: both;
+}
+
+/* 이미지 크기 제한 */
+img {
+    max-width: 200px !important;
+    max-height: 200px !important;
+}
+
+.textcontent{
+    width: 100%;
+    resize: none;
+}

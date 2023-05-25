@@ -1,109 +1,109 @@
+function getRandomFileName() {
+  const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const length = 8;
+  let fileName = '';
 
-//이미지 관련 JS
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    fileName += characters.charAt(randomIndex);
+  }
 
-function previewImage(input, imageId) {
-    var container = document.getElementById(imageId + '-container');
-    var image = document.getElementById(imageId);
-
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            var img = document.createElement('img');
-            img.setAttribute('id', imageId);
-            img.setAttribute('src', e.target.result);
-            img.setAttribute('alt', '이미지 미리보기');
-            container.appendChild(img);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
+  return fileName;
 }
 
-function removeImage(containerId) {
-    var container = document.getElementById(containerId);
 
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
+function previewMainImage(input) {
+  const image = document.getElementById('main-image-preview');
+  const container = document.getElementById('main-image-preview-container');
+
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const img = document.createElement('img');
+      console.log(img);
+      img.setAttribute('id', 'main-image-preview');
+      img.setAttribute('src', e.target.result);
+      img.setAttribute('alt', '메인이미지 미리보기');
+      container.appendChild(img);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
 }
 
-// 메인 이미지 이벤트 처리
-document.querySelector('#main-file-upload').addEventListener('change', function() {
-    const isMainImageCheckbox = document.querySelector('#is-main-image');
-    isMainImageCheckbox.checked = true;
-});
+function removeMainImage() {
+  const container = document.getElementById('main-image-preview-container');
 
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+}
 
+function resetMainImage() {
+  const mainImageInput = document.getElementById('main-file-upload');
+  mainImageInput.value = '';
 
-//상세 이미지 이벤트 처리
+  const mainImagePreview = document.getElementById('main-image-preview');
+  if (mainImagePreview) {
+    mainImagePreview.src = '';
+    mainImagePreview.removeAttribute('data-is-main-image');
+  }
+}
+
+// Event handler for sub-file-upload change event
 document.querySelector('#sub-file-upload').addEventListener('change', function() {
-    const previewContainer = document.querySelector('#subimage-preview-container');
-    const existingImages = previewContainer.querySelectorAll('img');
+  const previewContainer = document.querySelector('#subimage-preview-container');
+  const existingImages = previewContainer.querySelectorAll('img');
 
-    const files = this.files;
-    const totalImageCount = existingImages.length + files.length;
+  const files = this.files;
+  const totalImageCount = existingImages.length + files.length;
 
-    if (totalImageCount > 6) {
-        alert('최대 6장까지 선택할 수 있습니다.');
-        this.value = ''; // 파일 선택 취소
-        return;
+  if (totalImageCount > 6) {
+    alert('최대 6장까지 선택할 수 있습니다.');
+    this.value = '';
+    return;
+  }
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert('10MB 이하의 이미지만 업로드할 수 있습니다.');
+      continue;
     }
 
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
+    const reader = new FileReader();
 
-        if (file.size > 10 * 1024 * 1024) {
-            alert('10MB 이하의 이미지만 업로드할 수 있습니다.');
-            continue; // 다음 파일로 넘어감
-        }
+    reader.onload = function(e) {
+      const img = document.createElement('img');
+      const fileName = getRandomFileName(); // 랜덤한 파일 이름 생성
+      img.id = `subimage-preview-${fileName}`; // 랜덤한 파일 이름을 이미지의 ID로 설정
 
-        const reader = new FileReader();
+      img.src = e.target.result;
+      img.style.width = '200px';
+      img.style.height = '200px';
+      img.style.marginRight = '10px';
+      img.style.border = '1px solid #ccc';
+      img.setAttribute('data-file-name', fileName); // 파일 이름을 img 요소에 저장
+      const imgas = previewContainer.appendChild(img);
+      console.log(imgas);
+    };
 
-        reader.onload = function(e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.style.width = '200px';
-            img.style.height = '200px';
-            img.style.marginRight = '10px';
-            img.style.border = '1px solid #ccc'; // 보더 추가
-            previewContainer.appendChild(img);
-        };
-
-        reader.readAsDataURL(file);
-    }
+    reader.readAsDataURL(file);
+  }
 });
 
-// 상세이미지 초기화 버튼 이벤트 처리
-document.querySelector('#cancel-subimage-button').addEventListener('click', function() {
-    const subimageInput = document.querySelector('#sub-file-upload');
-    subimageInput.value = ''; // 파일 선택 취소
-    const previewContainer = document.querySelector('#subimage-preview-container');
-    previewContainer.innerHTML = ''; // 미리보기 영역 초기화
-});
 
 function toggleMainImage(checkbox) {
-    const mainImagePreview = document.querySelector('#main-image-preview');
-    if (mainImagePreview) {
-        mainImagePreview.setAttribute('data-is-main-image', checkbox.checked);
-    }
+  const mainImagePreview = document.getElementById('main-image-preview');
+  if (mainImagePreview) {
+    mainImagePreview.setAttribute('data-is-main-image', checkbox.checked);
+  }
+  console.log('Main Image Checkbox:', checkbox.checked);
 }
-
-reader.onload = function(e) {
-    var img = document.createElement('img');
-    img.setAttribute('id', imageId);
-    img.setAttribute('src', e.target.result);
-    img.setAttribute('alt', '이미지 미리보기');
-    img.setAttribute('data-is-main-image', document.querySelector('#is-main-image').checked);
-    container.appendChild(img);
-}
-
-
-
-
-
 

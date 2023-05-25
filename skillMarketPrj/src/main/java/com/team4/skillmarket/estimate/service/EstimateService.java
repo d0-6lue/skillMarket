@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.team4.skillmarket.common.db.JDBCTemplate;
-import com.team4.skillmarket.estimate.attachment.dao.AttachmentDao;
+import com.team4.skillmarket.common.page.PageVo;
 import com.team4.skillmarket.estimate.dao.EstimateDao;
 import com.team4.skillmarket.estimate.faq.dao.EstimateFaqDao;
 import com.team4.skillmarket.estimate.option.dao.EstimateOptionDao;
@@ -19,35 +19,22 @@ public class EstimateService {
 	private EstimateDao estimateDao;
     private EstimateOptionDao estimateOptionDao;
     private EstimateFaqDao estimateFaqDao;
-    private AttachmentDao attachmentDao;
 
     public EstimateService() {
         estimateDao = new EstimateDao();
         estimateOptionDao = new EstimateOptionDao();
         estimateFaqDao = new EstimateFaqDao();
-        attachmentDao = new AttachmentDao();
     };
 
     public int writeEstimate(EstimateVo estimateVo, List<EstimateOptionVo> estimateOptions, List<EstimateFaqVo> estimateFaqs) {
         try (Connection conn = JDBCTemplate.getConnection()) {
             conn.setAutoCommit(false);
-            AttachmentDao attachmentDao = new AttachmentDao();
 
             try {
                 int estimateNo = estimateDao.insertEstimate(conn, estimateVo);
 
                 if (estimateNo > 0) {
-                    AttachmentVo mainImage = estimateVo.getMainImage();
-                    if (mainImage != null) {
-                        mainImage.setEstimateNo(estimateNo);
-                        attachmentDao.insertAttachment(conn, mainImage);
-                    }
 
-                    List<AttachmentVo> detailImages = estimateVo.getDetailImages();
-                    for (AttachmentVo attachment : detailImages) {
-                        attachment.setEstimateNo(estimateNo);
-                        attachmentDao.insertAttachment(conn, attachment);
-                    }
 
                     for (EstimateOptionVo option : estimateOptions) {
                         option.setEstimateNo(estimateNo);
@@ -72,11 +59,6 @@ public class EstimateService {
             throw new IllegalStateException("Failed to write the estimate...", e);
         }
     }
-
-
-
-
-
 
 
 
@@ -106,9 +88,14 @@ public class EstimateService {
     }
 
     //견적서 갯수가져오기
-	public int getEstimateListCnt(String searchType, String searchValue) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getEstimateListCnt(String searchType, String searchValue ) throws Exception {
+Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = estimateDao.EstimateBoardCnt(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return cnt;
 	}
 
 	
@@ -123,6 +110,18 @@ public class EstimateService {
 		JDBCTemplate.close(conn);
 		
 		return estimateCategoryList;
+		
+	}
+
+	public List<EstimateVo> getEstimateList(PageVo pv, String categoryNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<EstimateVo> list =  estimateDao.selectEstimateList(conn, pv, categoryNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
 		
 	}
     
