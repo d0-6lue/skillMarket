@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/setup.jsp" %>
- 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +22,11 @@
             <div class="purchase-area">
 
                 <div class="project-info">
-                    <img src="" alt="프로젝트 썸네일" class="project-thumbnail">
+                    <img src="${root}/static/img/${infoVo.estimateThumbnail}" alt="프로젝트 썸네일" class="project-thumbnail">
                     <div class="project-info-text">
-                        <div class="project-title bold">프로젝트명</div>
+                        <div class="project-title bold">${infoVo.estimateTitle}</div>
                         <div class="project-explanation regular">
-                            프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 프로젝트 설명. 
+                            ${infoVo.estimateLineIntroduction}
                         </div>
                     </div>
                 </div>
@@ -41,12 +41,12 @@
 
                     <div class="purchase-table-body ">
                         <div class="table-body-elem horizontal-alignment">
-                            <div class="regular purchase-item">기초적인 프로젝트</div>
+                            <div class="regular purchase-item">${infoVo.estimateTitle}</div>
                             <div class="purchase-quantity">
                                 <input class="quantity-input" type="number" min="1" value="1">
                             </div>
-                            <div class="regular purchase-day align-center">300 일</div>
-                            <div class="regular purchase-price align-end">₩ 3,000,000</div>
+                            <div class="regular purchase-day align-center">${infoVo.estimatePeriod} 일</div>
+                            <div class="regular purchase-price align-end prjPrice">${infoVo.estimatePrice }</div>
                         </div>
                         <div class="table-body-elem btn-row horizontal-alignment">
                             <div class="add-elem bold">
@@ -115,6 +115,11 @@
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
         
     </div>
+
+    <script>
+        sessionStorage.setItem("optionList", '${optionList}');
+        sessionStorage.setItem("userCash", '${userCash}');
+    </script>
 
 </body>
 </html>

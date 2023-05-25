@@ -1,3 +1,6 @@
+const prjPrice = document.querySelector(".prjPrice");
+prjPrice.innerText = '₩ ' + prjPrice.innerText.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
 // 결제수단 선택
 
 const radioBtns = document.querySelectorAll('input[name="purchase-method-radio"]');
@@ -103,8 +106,13 @@ function purchaseDetailAreaToSp() {
     deficientPoint.classList.add("deficient-point");
     deficientPoint.classList.add("regular");
 
+    const unit_ = document.createElement("span");
+    unit_.classList.add("sp-unit");
+    unit_.classList.add("regular");
+    unit_.innerText = "sp";
+
     tempDiv.append(deficientPoint);
-    tempDiv.append(unit);
+    tempDiv.append(unit_);
 
     deficientArea.append(tempDiv);
 
@@ -156,11 +164,11 @@ function purchaseDetailAreaToMP() {
 
 
 // ---------------------------------------------------------------
+const optionList = JSON.parse(sessionStorage.getItem("optionList"));
+console.log(optionList);
 let optionNum = 0;
-const maxOptionNume = 2;
+const maxOptionNume = optionList.length;
 
-const projectPrice = 3000000;
-const projectDay = 300;
 const option1Price = 100000;
 const option1Day = 1;
 const option2Price = 500000;
@@ -200,13 +208,13 @@ function addOption() {
     optionElem.innerText = "--옵션을 선택해주세요--";
 
     selectOption.append(optionElem)
-    for(var i = 1; i <= 2; i++){
+    optionList.forEach( (option) => {
         const optionElem = document.createElement("option");
-        optionElem.value = "option" + i;
-        optionElem.innerText = "옵션" + i;
+        optionElem.value = option.estimateOptionNo;
+        optionElem.innerText = option.estimateOptionName;
 
-        selectOption.append(optionElem)
-    }
+        selectOption.append(optionElem);
+    })
     purchaseItem.append(selectOption);
 
     // purchase-quantity
@@ -430,11 +438,12 @@ purchaseBtn.addEventListener("click", () => {
 
 function getHoldingPoint() {
 
-    return 3000000;
+    const userCash = JSON.parse(sessionStorage.getItem("userCash"));
+    return userCash.userCashMoney;
 }
 
 function changeHoldingPoint() {
-
+    
     document.querySelector(".holding-point").innerText = getHoldingPoint();
 
 }
@@ -446,7 +455,9 @@ function changeDeficientPoint() {
 
     const totalPay = (Number)( totalPayResult.innerText.split(",").join("").substring(2) );
 
-    const deficient = getHoldingPoint() - totalPay;
+    let deficient = totalPay - getHoldingPoint();
+
+    if(deficient <= 0 ) { deficient = '0'; }
 
     document.querySelector(".deficient-point").innerText = deficient;
 
