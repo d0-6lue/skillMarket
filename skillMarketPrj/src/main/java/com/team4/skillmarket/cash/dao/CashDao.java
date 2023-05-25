@@ -55,7 +55,7 @@ public class CashDao {
 		int result_ = 0;
 		int result = 0;
 		
-		String sql = "INSERT INTO CASH_LOG ( NO, MEMBER_NO, PAYMENT_METHOD_NO, LOG_CAT_NO, AMOUNT, ENROLL_DATE )\r\n"
+		String sql = "INSERT INTO CASH_LOG ( NO, MEMBER_NO, PAYMENT_METHOD_NO, LOG_CATEGORY_NO, AMOUNT, ENROLL_DATE )\r\n"
 				+ "VALUES ( SEQ_CASH_CHARGE_NO.NEXTVAL, ?, ?, 1, ?, DEFAULT)";
 		
 		PreparedStatement pstmt = null;
