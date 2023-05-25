@@ -20,5 +20,6 @@ public class ExpertVo {
 	private String fieldOfExpertise;
 	private String freelancerContactTime;
 	private String freelancerStatus;
+	private String freelancerClassName;
 
 }

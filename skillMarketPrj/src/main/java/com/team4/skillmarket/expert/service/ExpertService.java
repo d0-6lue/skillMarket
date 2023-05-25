@@ -119,6 +119,18 @@ public class ExpertService {
 		return  result;
 		
 	}
+
+	public ExpertVo getGrade(ExpertVo loginExpert) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ExpertVo evo = dao.getGrade(conn,loginExpert);
+		
+		JDBCTemplate.close(conn);
+		
+		return evo;
+		
+	}
 	
 	
 }

@@ -211,9 +211,33 @@ main{
 
 .cash-list-area{
     margin-top: 20px;
-    width: 620px;
-    height: 400px;
     border: 1px solid #B6B6B6;
     border-radius: 10px;
 }
 
+.cash-list{
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 620px;
+    border-spacing: 0px 10px;
+    border-collapse: separate;
+}
+
+table td{
+    text-align: center;
+    font-size: 16px;
+    background-color: #FFE56B;
+    height: 40px;
+    vertical-align:middle;
+    font-weight: 800;
+}
+
+table td:first-of-type{
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+table td:last-of-type{
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
