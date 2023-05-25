@@ -171,6 +171,8 @@ public class FreeBoardDao {
 	        vo.setFreeBoardCategoryNo(rs.getString("FREE_BOARD_CATEGORY_NO"));
 	    }
 	    
+	    JDBCTemplate.close(pstmt);
+	    
 	    return vo;
 	}
 
@@ -206,6 +208,8 @@ public class FreeBoardDao {
 		pstmt.setString(1, vo.getBoardNo());
 		pstmt.setString(2, vo.getMemberNo());
 		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
 		
 		return result;
 		
@@ -264,6 +268,9 @@ public class FreeBoardDao {
 
 	        list.add(commentVo);
 	    }
+	    
+	    JDBCTemplate.close(rs);
+	    JDBCTemplate.close(pstmt);
 
 	    return list;
 	}

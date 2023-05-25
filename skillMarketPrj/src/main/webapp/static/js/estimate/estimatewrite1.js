@@ -78,13 +78,7 @@ addQuestionButton.addEventListener('click', function() {
     customQAContent.appendChild(customQAGroup);
 });
 
-// 전송 버튼 클릭 이벤트 처리
-const submitButton = document.getElementById('submitButton');
-submitButton.addEventListener('click', function() {
-    // Q&A 데이터를 수집하고 필요한 처리를 수행하는 로직 작성
 
-    // 비동기 요청을 보내고 응답을 처리하는 코드 작성
-});
 
 //추가옵션 박스
 const customOptionsContainer = document.getElementById('customOptionsContainer');
@@ -92,47 +86,46 @@ const addCustomOptionsButton = document.getElementById('addCustomOptionsButton')
 let customOptionsCount = 0;
 
 addCustomOptionsButton.addEventListener('click', function() {
-
-customOptionsCount++;
-const customOptionsBox = createCustomOptionsBox(customOptionsCount);
-customOptionsContainer.appendChild(customOptionsBox);
+    customOptionsCount++;
+    const customOptionsBox = createCustomOptionsBox(customOptionsCount);
+    customOptionsContainer.appendChild(customOptionsBox);
 });
 
 function createCustomOptionsBox(count) {
-const customOptionsBox = document.createElement('div');
-customOptionsBox.classList.add('custom-options-box');
+    const customOptionsBox = document.createElement('div');
+    customOptionsBox.classList.add('custom-options-box');
 
-const customOptionsContent = document.createElement('div');
-customOptionsContent.classList.add('custom-options-content');
+    const customOptionsContent = document.createElement('div');
+    customOptionsContent.classList.add('custom-options-content');
 
-const titleInput = document.createElement('input');
-titleInput.classList.add('custom-options-title');
-titleInput.setAttribute('type', 'text');
-titleInput.setAttribute('placeholder', '제목을 입력하세요');
+    const titleInput = document.createElement('input');
+    titleInput.classList.add('custom-options-title');
+    titleInput.setAttribute('type', 'text');
+    titleInput.setAttribute('name', `additionalOptions[${count - 1}].title`);
+    titleInput.setAttribute('placeholder', '제목을 입력하세요');
 
-const priceInput = document.createElement('input');
-priceInput.classList.add('custom-price-amount');
-priceInput.setAttribute('type', 'text');
-priceInput.setAttribute('placeholder', '1000원 추가시');
+    const priceInput = document.createElement('input');
+    priceInput.classList.add('custom-price-amount');
+    priceInput.setAttribute('type', 'text');
+    priceInput.setAttribute('name', `additionalOptions[${count - 1}].price`);
+    priceInput.setAttribute('placeholder', '1000원 추가시');
 
-const workSelect = document.createElement('select');
-workSelect.classList.add('custom-options-work');
+    const workInput = document.createElement('input');
+    workInput.classList.add('custom-options-work');
+    workInput.setAttribute('type', 'text');
+    workInput.setAttribute('name', `additionalOptions[${count - 1}].work`);
+    workInput.setAttribute('placeholder', '일수 입력하세요');
 
-for (let i = 0; i <= 6; i++) {
-const option = document.createElement('option');
-option.setAttribute('value', i);
-option.textContent = i;
-workSelect.appendChild(option);
+    customOptionsContent.appendChild(titleInput);
+    customOptionsContent.appendChild(priceInput);
+    customOptionsContent.appendChild(workInput);
+
+    customOptionsBox.appendChild(customOptionsContent);
+
+    return customOptionsBox;
 }
 
-customOptionsContent.appendChild(titleInput);
-customOptionsContent.appendChild(priceInput);
-customOptionsContent.appendChild(workSelect);
 
-customOptionsBox.appendChild(customOptionsContent);
-
-return customOptionsBox;
-}
 
 //카테고리 대중소 하기 ~
 

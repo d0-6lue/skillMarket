@@ -19,14 +19,10 @@
 
     <div id="wrap">
 
-
         <!-- header -->
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
 		<main>
-            ${estimate}
-            ${attachmentList}
-			
+           
 			<div class="esti-list-box">
             
                 <div class="sidebar">
@@ -92,155 +88,53 @@
                     <div class="seller-service-box">
                         
                         <div class="four-service-list">
-                            <!-- 개별 서비스 미리보기 글 하나~~ -->
+                           
+                            <c:forEach var="estimate" items="${estimateList}">
                             <div class="service-border">
                                 <div class="profile-image-box">
-                                    <img src="${root}/static/png/카톡 기본프로필.png" class="profile-image" >
+                                <div id="content">
+                                    <c:out value="${estimate.mainImage}" escapeXml="false" />
+                                </div>
                                 </div>
                                 <div class="expert-info">
-                                    <div class="expert-box">
-                                        <div class="expert-name">${estimateList.name}</div>
-                                        <div class="expert-badge">Master</div>
-                                    </div>
-                                    <div class="expert-account">인증계정</div>                         
-                                    <div class="expert-balance">100,000원</div>                               
-                                    <div class="heart-area">
-                                        <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">${estimateList}평가</div>
-                                    </div>
+                                <div class="expert-box">
+                                    <div class="expert-name">${estimate.memberNick}</div>
+                                    <div class="expert-badge">${estimate.estimateNo}</div>
+                                </div>
+                                <div class="expert-title">${estimate.estimateTitle}</div>
+                                <div class="expert-account">${estimate.estimateLineIntroduction}</div>
+                                <div class="expert-balance">${estimate.estimatePrice}원</div>
+                                <div class="heart-area">
+                                    <div class="heart-icon">❤️</div>
+                                    <div class="expert-ratings">${estimate.reviewCount}</div>
+                                </div>
                                 </div>
                             </div>
-
-                            <div class="service-border">
-                                <div class="profile-image-box">
-                                    <img src="${root}/static/png/카톡 기본프로필.png" class="profile-image" >
-                                </div>
-                                <div class="expert-info">
-                                    <div class="expert-box">
-                                        <div class="expert-name">전문가 닉네임</div>
-                                        <div class="expert-badge">Master</div>
-                                    </div>
-                                    <div class="expert-account">인증계정</div>                         
-                                    <div class="expert-balance">100,000원</div>                               
-                                    <div class="heart-area">
-                                        <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">1234평가</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="service-border">
-                                <div class="profile-image-box">
-                                    <img src="${root}/static/png/카톡 기본프로필.png" class="profile-image" >
-                                </div>
-                                <div class="expert-info">
-                                    <div class="expert-box">
-                                        <div class="expert-name">전문가 닉네임</div>
-                                        <div class="expert-badge">Master</div>
-                                    </div>
-                                    <div class="expert-account">인증계정</div>                         
-                                    <div class="expert-balance">100,000원</div>                               
-                                    <div class="heart-area">
-                                        <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">1234평가</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="service-border">
-                                <div class="profile-image-box">
-                                    <img src="${root}/static/png/카톡 기본프로필.png" class="profile-image" >
-                                </div>
-                                <div class="expert-info">
-                                    <div class="expert-box">
-                                        <div class="expert-name">전문가 닉네임</div>
-                                        <div class="expert-badge">Master</div>
-                                    </div>
-                                    <div class="expert-account">인증계정</div>                         
-                                    <div class="expert-balance">100,000원</div>                               
-                                    <div class="heart-area">
-                                        <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">1234평가</div>
-                                    </div>
-                                </div>
-                            </div>  
+                            </c:forEach>
+                 
                         </div>
 
-                        <div class="four-service-list">
-                            <!-- 개별 서비스 미리보기 글 하나~~ -->
-                            <div class="service-border">
-                                <div class="profile-image-box">
-                                    <img src="${root}/static/png/카톡 기본프로필.png" class="profile-image" >
-                                </div>
-                                <div class="expert-info">
-                                    <div class="expert-box">
-                                        <div class="expert-name">전문가 닉네임</div>
-                                        <div class="expert-badge">Master</div>
-                                    </div>
-                                    <div class="expert-account">인증계정</div>                         
-                                    <div class="expert-balance">100,000원</div>                               
-                                    <div class="heart-area">
-                                        <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">1234평가</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="service-border">
-                                <div class="profile-image-box">
-                                    <img src="${root}/static/png/카톡 기본프로필.png" class="profile-image" >
-                                </div>
-                                <div class="expert-info">
-                                    <div class="expert-box">
-                                        <div class="expert-name">전문가 닉네임</div>
-                                        <div class="expert-badge">Master</div>
-                                    </div>
-                                    <div class="expert-account">인증계정</div>                         
-                                    <div class="expert-balance">100,000원</div>                               
-                                    <div class="heart-area">
-                                        <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">1234평가</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="service-border">
-                                <div class="profile-image-box">
-                                    <img src="${root}/static/png/카톡 기본프로필.png" class="profile-image" >
-                                </div>
-                                <div class="expert-info">
-                                    <div class="expert-box">
-                                        <div class="expert-name">전문가 닉네임</div>
-                                        <div class="expert-badge">Master</div>
-                                    </div>
-                                    <div class="expert-account">인증계정</div>                         
-                                    <div class="expert-balance">100,000원</div>                               
-                                    <div class="heart-area">
-                                        <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">1234평가</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="service-border">
-                                <div class="profile-image-box">
-                                    <img src="${root}/static/png/카톡 기본프로필.png" class="profile-image" >
-                                </div>
-                                <div class="expert-info">
-                                    <div class="expert-box">
-                                        <div class="expert-name">전문가 닉네임</div>
-                                        <div class="expert-badge">Master</div>
-                                    </div>
-                                    <div class="expert-account">인증계정</div>                         
-                                    <div class="expert-balance">100,000원</div>                               
-                                    <div class="heart-area">
-                                        <div class="heart-icon">❤️</div>
-                                        <div class="expert-ratings">1234평가</div>
-                                    </div>
-                                </div>
-                            </div>  
+                   
                         </div>
                     </div>
+
+                    <div class="page-area">
+                        <c:if test="${pv.currentPage > 1}">
+                        <a class="btn btn-primary" href="${root}/community?page=${pv.currentPage - 1}">이전</a>
+                        </c:if>
+                            <c:forEach begin="${pv.startPage}" end="${pv.endPage}" step="1" var="i">
+                                <c:if test="${pv.currentPage != i}">
+                                    <a class="btn btn-primary btn-sm" href="${root}/community?page=${i}">${i}</a>
+                                </c:if>
+                                <c:if test="${pv.currentPage == i}">
+                                    <a class="btn btn-primary btn-sm">${i}</a>
+                                </c:if>
+                            </c:forEach>
+                        <c:if test="${pv.currentPage < pv.maxPage}">
+                            <a class="btn btn-primary btn-sm" href="${root}/community?page=${pv.currentPage + 1}">다음</a>
+                        </c:if>
+                    </div>
+                    
                         
                 </div>
 				

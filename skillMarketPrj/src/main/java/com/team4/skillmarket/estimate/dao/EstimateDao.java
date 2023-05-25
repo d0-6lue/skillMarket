@@ -23,29 +23,20 @@ public class EstimateDao {
 	public int insertEstimate(Connection conn, EstimateVo estimate) throws SQLException {
 	    String sql = "INSERT INTO ESTIMATE (ESTIMATE_NO, FREELANCER_NO, ESTIMATE_CAT_NO, ESTIMATE_TITLE, ESTIMATE_DURATION, " +
 	            "ESTIMATE_LINE_INTRODUCTION, ESTIMATE_PRICE, ESTIMATE_DETAIL, ESTIMATE_ENROLL_DATE, ESTIMATE_MAIN_IMAGE, ESTIMATE_DETAIL_IMAGES) " +
-	            "VALUES (SEQ_ESTIMATE.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	            "VALUES (SEQ_ESTIMATE.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
 
 	    try (PreparedStatement pstmt = conn.prepareStatement(sql, new String[]{"ESTIMATE_NO"})) {
-	        pstmt.setInt(1, estimate.getFreelancerNo());
+	        pstmt.setString(1, estimate.getFreelancerNo());
 	        pstmt.setString(2, estimate.getEstimateCatNo());
 	        pstmt.setString(3, estimate.getEstimateTitle());
 	        pstmt.setString(4, estimate.getEstimateDuration());
 	        pstmt.setString(5, estimate.getEstimateLineIntroduction());
 	        pstmt.setString(6, estimate.getEstimatePrice());
 	        pstmt.setString(7, estimate.getEstimateDetail());
-	        pstmt.setString(8, estimate.getEstimateEnrollDate());
-
-	        if (estimate.getMainImage() != null) {
-	            pstmt.setString(9, estimate.getMainImage().getAttachmentServerName());
-	        } else {
-	            pstmt.setNull(9, Types.VARCHAR);
-	        }
-
-	        if (!estimate.getDetailImages().isEmpty()) {
-	            pstmt.setString(10, estimate.getDetailImages().get(0).getAttachmentServerName());
-	        } else {
-	            pstmt.setNull(10, Types.VARCHAR);
-	        }
+	        pstmt.setString(8, estimate.getMainImage());
+	        pstmt.setString(9, estimate.getSubImage());
+	        
+	      
 
 	        int result = pstmt.executeUpdate();
 
@@ -63,15 +54,6 @@ public class EstimateDao {
 
 
 
-
-
-
-
-
-
-
-
-
     
     //견적서 번호조회하기
     public EstimateVo getEstimate(Connection conn, int estimateNo) throws Exception {
@@ -83,17 +65,15 @@ public class EstimateDao {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     EstimateVo estimate = new EstimateVo();
-                    estimate.setEstimateNo(rs.getInt("ESTIMATE_NO"));
-                    estimate.setFreelancerNo(rs.getInt("FREELANCER_NO"));
-//                    estimate.setEstimateCatNo(rs.getInt("ESTIMATE_CAT_NO"));
+                    estimate.setEstimateNo(rs.getString("ESTIMATE_NO"));
+                    estimate.setFreelancerNo(rs.getString("FREELANCER_NO"));
+                    estimate.setEstimateCatNo(rs.getString("ESTIMATE_CAT_NO"));
                     estimate.setEstimateTitle(rs.getString("ESTIMATE_TITLE"));
                     estimate.setEstimateDuration(rs.getString("ESTIMATE_DURATION"));
                     estimate.setEstimateLineIntroduction(rs.getString("ESTIMATE_LINE_INTRODUCTION"));
                     estimate.setEstimatePrice(rs.getString("ESTIMATE_PRICE"));
                     estimate.setEstimateDetail(rs.getString("ESTIMATE_DETAIL"));
-                    estimate.setAttachmentPaths(rs.getString("ATTACHMENT_PATHS") != null
-                            ? List.of(rs.getString("ATTACHMENT_PATHS").split(","))
-                            : new ArrayList<>());
+             
 
                     return estimate;
                 } else {
@@ -110,15 +90,13 @@ public class EstimateDao {
                 + "ESTIMATE_DETAIL = ?, ATTACHMENT_PATHS = ? WHERE ESTIMATE_NO = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, estimate.getFreelancerNo());
-            pstmt.setInt(2, estimate.getEstimateCatNo());
+            pstmt.setString(1, estimate.getFreelancerNo());
+            pstmt.setString(2, estimate.getEstimateCatNo());
             pstmt.setString(3, estimate.getEstimateTitle());
             pstmt.setString(4, estimate.getEstimateDuration());
             pstmt.setString(5, estimate.getEstimateLineIntroduction());
             pstmt.setString(6, estimate.getEstimatePrice());
             pstmt.setString(7, estimate.getEstimateDetail());
-            pstmt.setString(8, String.join(",", estimate.getAttachmentPaths()));
-            pstmt.setInt(9, estimate.getEstimateNo());
 	        int result = pstmt.executeUpdate();
 
 
@@ -126,40 +104,7 @@ public class EstimateDao {
         }
     }
     
-    //견적서 목록 조회하기
-	public List<EstimateVo> getEstimateList(Connection conn, PageVo pv) throws Exception{
-		
-		//SQL
-		String sql = "SELECT E.ESTIMATE_NO, E.ESTIMATE_TITLE, E.ESTIMATE_THUMBNAIL, E.ESTIMATE_PRICE, COUNT(R.REVIEW_NO) AS REVIEW_COUNT " +
-	             "FROM ESTIMATE E " +
-	             "JOIN FREELANCER F ON E.FREELANCER_NO = F.FREELANCER_NO " +
-	             "LEFT JOIN REVIEW R ON E.ESTIMATE_NO = R.ESTIMATE_NO " +
-	             "GROUP BY E.ESTIMATE_NO, E.ESTIMATE_TITLE, E.ESTIMATE_THUMBNAIL, E.ESTIMATE_PRICE";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		ResultSet rs= pstmt.executeQuery();
-		
-		// tx||rs
-		List<EstimateVo> estimateList = new ArrayList<>();
-		while (rs.next()) {
-		    int estimateNo = rs.getInt("ESTIMATE_NO");
-		    String estimateTitle = rs.getString("ESTIMATE_TITLE");
-		    String estimateThumbnail = rs.getString("ESTIMATE_THUMBNAIL");
-		    String estimatePrice = rs.getString("ESTIMATE_PRICE");
-		    int reviewCount = rs.getInt("REVIEW_COUNT");
-
-		    // 데뭉
-		    EstimateVo estimate = new EstimateVo();
-		    estimate.setEstimateNo(estimateNo);
-		    estimate.setEstimateTitle(estimateTitle);
-		    estimate.setEstimatePrice(estimatePrice);
-
-		    estimateList.add(estimate);
-		}
-
-		JDBCTemplate.close(rs);
-		JDBCTemplate.close(pstmt);
-		return estimateList;
-	}
+    
 
 	//카테고리 가져오기
 	public List<EstimateCategoryVo> selectCatList(Connection conn) throws Exception {
@@ -188,12 +133,90 @@ public class EstimateDao {
 		return catArrList;
 	}
 
-	public int insertEstimate(EstimateVo estimate) {
-		// TODO Auto-generated method stub
-		return 0;
+
+
+	public List<EstimateVo> selectEstimateList(Connection conn, PageVo pv, String categoryNo ) {
+	    String sql = "SELECT * FROM ( SELECT e.ESTIMATE_NO, e.ESTIMATE_TITLE, e.ESTIMATE_PRICE, e.ESTIMATE_ENROLL_DATE, e.ESTIMATE_MAIN_IMAGE, e.ESTIMATE_LINE_INTRODUCTION, m.MEMBER_NICK, COUNT(r.REVIEW_NO) AS REVIEW_COUNT, f.FREELANCER_NO, ROW_NUMBER() OVER (ORDER BY e.ESTIMATE_NO DESC) AS rn FROM estimate e JOIN freelancer f ON e.FREELANCER_NO = f.FREELANCER_NO JOIN member m ON f.MEMBER_NO = m.MEMBER_NO LEFT JOIN review r ON e.ESTIMATE_NO = r.ESTIMATE_NO AND r.REVIEW_STATUS = '1' WHERE f.MEMBER_NO = m.MEMBER_NO AND e.ESTIMATE_CAT_NO = ? GROUP BY e.ESTIMATE_NO, e.ESTIMATE_TITLE, e.ESTIMATE_PRICE, e.ESTIMATE_ENROLL_DATE, e.ESTIMATE_MAIN_IMAGE, e.ESTIMATE_LINE_INTRODUCTION, m.MEMBER_NICK, f.FREELANCER_NO ) WHERE rn >= ? AND rn <= ?";
+	    List<EstimateVo> estimateList = new ArrayList<>();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, categoryNo);
+	        pstmt.setInt(2, pv.getBeginRow());
+	        pstmt.setInt(3, pv.getLastRow());
+	        
+	        rs = pstmt.executeQuery();
+	        
+	        while (rs.next()) {
+	            String estimateNo = rs.getString("ESTIMATE_NO");
+	            String estimateTitle = rs.getString("ESTIMATE_TITLE");
+	            String estimatePrice = rs.getString("ESTIMATE_PRICE");
+	            String estimateEnrollDate = rs.getString("ESTIMATE_ENROLL_DATE");
+	            String estimateMainImage = rs.getString("ESTIMATE_MAIN_IMAGE");
+	            String estimateLineIntroduction = rs.getString("ESTIMATE_LINE_INTRODUCTION");
+	            String memberNick = rs.getString("MEMBER_NICK");
+	            String reviewCountStr = rs.getString("REVIEW_COUNT");
+	            String reviewCount;
+	            if (reviewCountStr == null) {
+	                reviewCount = "0";
+	            } else {
+	                reviewCount = reviewCountStr;
+	            }            
+	            System.out.println(reviewCount);
+	            String freelancerNo = rs.getString("FREELANCER_NO");
+	            
+	            EstimateVo estimateVo = new EstimateVo();
+	            estimateVo.setEstimateNo(estimateNo);
+	            estimateVo.setEstimateTitle(estimateTitle);
+	            estimateVo.setEstimatePrice(estimatePrice);
+	            estimateVo.setEstimateEnrollDate(estimateEnrollDate);
+	            estimateVo.setMainImage(estimateMainImage);
+	            estimateVo.setEstimateLineIntroduction(estimateLineIntroduction);
+	            estimateVo.setMemberNick(memberNick);
+	            estimateVo.setReviewCount(reviewCount);
+	            estimateVo.setFreelancerNo(freelancerNo);
+	            
+	            estimateList.add(estimateVo);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        JDBCTemplate.close(rs);
+	        JDBCTemplate.close(pstmt);
+	    }
+	    
+	    return estimateList;
 	}
+
+
+
+	public int EstimateBoardCnt(Connection conn) throws Exception {
+		
+			String sql = "SELECT COUNT(*) FROM ESTIMATE WHERE ESTIMATE_STATUS = 1";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			int cnt = 0;
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+			
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+			
+			return cnt;
+		}
+	}
+
+
+
+	
     
-}
+
 
 
 

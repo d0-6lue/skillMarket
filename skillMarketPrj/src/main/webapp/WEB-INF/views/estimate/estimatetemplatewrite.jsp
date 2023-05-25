@@ -18,6 +18,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+<script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
 
 
 
@@ -30,7 +31,7 @@
 
         <!-- header -->
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
-        <form id="estimate-post-btn" method="post" action="${root}/myestimate" enctype="multipart/form-data">
+        <form id="estimate-post-btn" method="post" action="${root}/myestimate">
         <main>
                 <div class="estimate-main-box">
                     <!-- 왼쪽 사이드바 -->
@@ -117,9 +118,10 @@
                             <label for="job-price">가격</label>
                                 <input type="text" class="form-control" id="job-price" name="job-price" placeholder="5000">
                             </div>
-                            <div id="customOptionsContainer"></div>
+                            <div id="customOptionsContainer">
+                                <button id="addCustomOptionsButton" type="button">추가옵션 추가</button>
+                            </div>
     
-                            <button id="addCustomOptionsButton" type="button">추가옵션 추가</button>
                         </div>
     
                         <!-- 서비스설명 -->
@@ -138,27 +140,32 @@
                         <!-- 이미지 -->
                         <div class="tab-pane fade" id="list-image" role="tabpanel" aria-labelledby="list-image-list">
 
-                            <!-- 메인 이미지(필수) 1장 -->
-                            <div class="form-group">
-                                <label for="job-mainfile-upload">메인이미지등록(필수)</label>
-                                <input class="form-control form-control-lg" type="file" name="main-file-upload" id="main-file-upload" onchange="previewImage(this, 'main-image')">
-                                <input type="checkbox" name="is-main-image" id="is-main-image" onclick="toggleMainImage(this)">
-                                <label for="is-main-image">메인 이미지</label>
+                          <!-- 메인 이미지(필수) 1장 -->
+                        <div class="form-group">
+                            <label for="job-mainfile-upload">메인이미지등록(필수)</label>
+                            <input type="hidden" name="is-main-image" id="is-main-image">
+                            <label for="is-main-image">메인 이미지</label>
+                        </div>
+                        <div class="image-preview" id="main-image-preview-container">
+                            <img id="main-image-preview" src="">
+                                <textarea id="editor" name="main-image" class="custom-toolbar"></textarea>
+                        </div>
+
+                        <button type="button" onclick="resetMainImage()">초기화</button>
+
+                        <hr>
+
+                        <!-- Single file input field visible to the user -->
+                        <div class="form-group form-control-lg image-container">
+                            <div id="job-subimage-container">
+                                <label for="is-sub-images">상세 이미지(선택)</label>
+                                <textarea id="editor1" name="sub-image" class="custom-toolbar"></textarea>
                             </div>
-                            <div class="image-preview" id="main-image-preview-container">
-                                <img id="main-image-preview" src="" alt="메인이미지 미리보기">
-                                <button type="button" class="remove-image" onclick="removeImage('main-image-preview-container')">X</button>
-                            </div>
-                            <hr>
-                            <!-- 상세 이미지 (6장) -->
-                            <div class="form-group form-control-lg image-container">
-                                <div id="job-subimage-container">
-                                    <label for="job-subimage">상세이미지</label>
-                                    <input type="file" id="sub-file-upload" name="sub-file-upload" accept="image/*" multiple>
-                                    <div id="subimage-preview-container"></div>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary" type="button" id="cancel-subimage-button">상세이미지 초기화</button>
+                           
+                        </div>
+
+                       
+                           
 
                             
                         </div>
@@ -175,7 +182,6 @@
                                     <button id="addQuestionButton" type="button">질문 추가</button>
                                 </div>
                             </div>
-                            <button id="submitButton" type="button">전송</button>
                         </div>
                     </main>
                     <!-- footer -->
@@ -243,12 +249,6 @@
         makeCateArray(cate2Obj, cate2Array, cateList, "2");
         makeCateArray(cate3Obj, cate3Array, cateList, "3");
         
-        $(document).ready(function(){
-            console.log(cate1Array);
-            console.log(cate2Array);
-            console.log(cate3Array);
-        });
-    
         for(let i = 0; i < cate1Array.length; i++){
             cateSelect1.append("<option value='" + cate1Array[i].cateCode + "'>" + cate1Array[i].cateName + "</option>");
         }
@@ -288,6 +288,111 @@
             }// for		
             
         });	
+
+
+        //이미지관련(그냥 textarea로 넣어버림)
+        document.addEventListener("DOMContentLoaded", function() {
+			ClassicEditor.create(document.querySelector("#editor"), {
+				toolbar: {
+					items: [
+						"imageUpload",
+					],
+					shouldNotGroupWhenFull: true
+				},
+				language: "kr",
+				htmlEncodeOutput: false, // 엔터를 &nbsp;로 변환하지 않음
+				entities: false // 공백 문자 등의 HTML 엔티티 변환 해제
+			})
+				.then(editor => {
+					editor.plugins.get("FileRepository").createUploadAdapter = loader => {
+						return {
+							upload: async () => {
+								const file = await loader.file;
+								const imageUrl = await uploadImage(file);
+								return {
+									default: imageUrl
+								};
+							}
+						};
+					};
+
+					function uploadImage(file) {
+						return new Promise((resolve, reject) => {
+							const formData = new FormData();
+							formData.append("file", file);
+
+							fetch("${root}/upload/community", {
+								method: "POST",
+								body: formData
+							})
+								.then(response => response.json())
+								.then(data => {
+									const imageUrl = data.filePath;
+									resolve(imageUrl);
+								})
+								.catch(error => {
+									console.error(error);
+									reject(error);
+								});
+						});
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		});
+
+        document.addEventListener("DOMContentLoaded", function() {
+			ClassicEditor.create(document.querySelector("#editor1"), {
+				toolbar: {
+					items: [
+						"imageUpload",
+					],
+					shouldNotGroupWhenFull: true
+				},
+				language: "kr",
+				htmlEncodeOutput: false, // 엔터를 &nbsp;로 변환하지 않음
+				entities: false // 공백 문자 등의 HTML 엔티티 변환 해제
+			})
+				.then(editor => {
+					editor.plugins.get("FileRepository").createUploadAdapter = loader => {
+						return {
+							upload: async () => {
+								const file = await loader.file;
+								const imageUrl = await uploadImage(file);
+								return {
+									default: imageUrl
+								};
+							}
+						};
+					};
+
+					function uploadImage(file) {
+						return new Promise((resolve, reject) => {
+							const formData = new FormData();
+							formData.append("file", file);
+
+							fetch("${root}/upload/community", {
+								method: "POST",
+								body: formData
+							})
+								.then(response => response.json())
+								.then(data => {
+									const imageUrl = data.filePath;
+									resolve(imageUrl);
+								})
+								.catch(error => {
+									console.error(error);
+									reject(error);
+								});
+						});
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		});
+        
     </script>
     
 

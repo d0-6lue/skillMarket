@@ -8,24 +8,25 @@ import lombok.Data;
 
 @Data
 public class EstimateVo {
-    private int estimateNo;
-    private int freelancerNo;
+    private String estimateNo;
+    private String freelancerNo;
     private String estimateCatNo;
     private String estimateTitle;
     private String estimateDuration;
     private String estimateLineIntroduction;
     private String estimatePrice;
     private String estimateDetail;
-    private AttachmentVo mainImage;
+    private String mainImage;
+    private String subImage;
     private String EstimateEnrollDate;
-    private List<AttachmentVo> detailImages;
     private List<EstimateFaqVo> faqs; 
-    private List<EstimateOptionVo> additionalOptions; 
+    private List<EstimateOptionVo> additionalOptions;
+	private String memberNick;
+	private String reviewCount;
+	
+} 
 
-    
-
-
-}
+ 
     
 
 
