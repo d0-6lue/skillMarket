@@ -12,10 +12,16 @@ public class EstimateFaqDao {
 	public int insertEstimateFaq(Connection conn, EstimateFaqVo faq) throws SQLException {
         PreparedStatement pstmt = null;
         try {
-            String sql = "INSERT INTO ESTIMATE_FAQ (ESTIMATE_FAQ_NO, ESTIMATE_NO, ESTIMATE_FAQ_QCONTENT) VALUES (SEQ_ESTIMATE_FAQ.NEXTVAL, ?, ?)";
+            String sql = "INSERT INTO ESTIMATE_FAQ "
+            		+ "(ESTIMATE_FAQ_NO, ESTIMATE_NO, "
+            		+ "ESTIMATE_FAQ_Q_CONTENT,"
+            		+ "ESTIMATE_FAQ_A_CONTENT,"
+            		+ "ESTIMATE_FAQ_ENROLLDATE) VALUES (SEQ_ESTIMATE_FAQ.NEXTVAL, ?, ?,?,sysdate)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, faq.getEstimateNo());
             pstmt.setString(2, faq.getEstimateFaqQContent());
+            pstmt.setString(3, faq.getEstimateFaqQContent());
+            
 
             int result = pstmt.executeUpdate();
             

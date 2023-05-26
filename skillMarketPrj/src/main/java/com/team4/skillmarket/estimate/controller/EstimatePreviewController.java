@@ -34,8 +34,7 @@ public class EstimatePreviewController extends HttpServlet {
 		try {
 			String searchType = req.getParameter("searchType");
 			String searchValue = req.getParameter("searchValue");
-			String categoryNo = req.getParameter("catecode");
-			
+			String categoryNo = req.getParameter("categoryNo"); 			
 			// 카테고리 받아오기
 			List<EstimateCategoryVo> esticatevoList = new ArrayList<>();
 			try {
@@ -58,7 +57,7 @@ public class EstimatePreviewController extends HttpServlet {
 			
 			Gson gson = new Gson();
 			String json = gson.toJson(esticatevoList);
-			
+			System.out.println(json);
 			//서비스
 			List<EstimateVo> estimateList = estimateService.getEstimateList(pv,categoryNo);
 			
@@ -68,6 +67,9 @@ public class EstimatePreviewController extends HttpServlet {
 			map.put("searchValue", searchValue);
 			
 			//화면
+			//카테고리번호
+			req.setAttribute("esticatvo", esticatevoList);
+			//이건 json
 			req.setAttribute("estiCatevoList", json);
 //			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);
