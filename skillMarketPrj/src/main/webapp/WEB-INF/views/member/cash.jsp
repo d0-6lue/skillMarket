@@ -77,17 +77,53 @@
                     </div>
 
                 </div>
-                <form action="">
+                <form action="${root}/customer/cash" method="post">
                     <div class="cash-form-area">
                         <select class="cash-selectbox bold" name="orderStatus">
-                            <option value="">전체상태</option>
+                            <option value="" disabled selected hidden>전체상태</option>
+                            <option value="충전">충전</option>
+                            <option value="환불">환불</option>
                         </select>
-                        <select class="cash-selectbox bold" name="">
-                            <option value="">2022-04</option>
+                        <select id="cash-date1" class="cash-selectbox bold" name="orderDate1">
+                            <option value="2023-06">2023-06</option>
+                            <option value="2023-05">2023-05</option>
+                            <option value="2023-04">2023-04</option>
+                            <option value="2023-03">2023-03</option>
+                            <option value="2023-02">2023-02</option>
+                            <option value="2023-01">2023-01</option>
+                            <option value="2022-12">2022-12</option>
+                            <option value="2022-11">2022-11</option>
+                            <option value="2022-10">2022-10</option>
+                            <option value="2022-09">2022-09</option>
+                            <option value="2022-08">2022-08</option>
+                            <option value="2022-07">2022-07</option>
+                            <option value="2022-06">2022-06</option>
+                            <option value="2022-05">2022-05</option>
+                            <option value="2022-04">2022-04</option>
+                            <option value="2022-03">2022-03</option>
+                            <option value="2022-02">2022-02</option>
+                            <option value="2022-01">2022-01</option>
                         </select>
                         <div class="cash-deco bold">~</div>
-                        <select class="cash-selectbox bold" name="">
-                            <option value="">2022-04</option>
+                        <select id="cash-date2" class="cash-selectbox bold" name="orderDate2">
+                            <option value="2023-06">2023-06</option>
+                            <option value="2023-05">2023-05</option>
+                            <option value="2023-04">2023-04</option>
+                            <option value="2023-03">2023-03</option>
+                            <option value="2023-02">2023-02</option>
+                            <option value="2023-01">2023-01</option>
+                            <option value="2022-12">2022-12</option>
+                            <option value="2022-11">2022-11</option>
+                            <option value="2022-10">2022-10</option>
+                            <option value="2022-09">2022-09</option>
+                            <option value="2022-08">2022-08</option>
+                            <option value="2022-07">2022-07</option>
+                            <option value="2022-06">2022-06</option>
+                            <option value="2022-05">2022-05</option>
+                            <option value="2022-04">2022-04</option>
+                            <option value="2022-03">2022-03</option>
+                            <option value="2022-02">2022-02</option>
+                            <option value="2022-01">2022-01</option>
                         </select>
                         <input class="cash-searchbtn bold" type="submit" value="검색">
                     </div>
@@ -96,14 +132,26 @@
                 <div class="cash-list-area">
 
                     <table class="cash-list">
-                        <c:forEach items="${cList}" var="cvo">
-                        	<tr>
-                            	<td>${cvo.categoryName}</td>
-	                            <td>${cvo.amount}원</td>
-	                            <td>${cvo.paymentMethodName}</td>
-	                            <td>${cvo.enrollDate}</td>
-	                        </tr>
-                        </c:forEach>
+                        <thead>
+                            <tr>
+                                <td>상태</td>
+                                <td>금액</td>
+                                <td>결제수단</td>
+                                <td>날짜</td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${cList}" var="cvo">
+                                <tr>
+                                    <td class="cash-list-box${cvo.logCategoryNo}">${cvo.categoryName}</td>
+                                    <td>${cvo.amount}원</td>
+                                    <td>${cvo.paymentMethodName}</td>
+                                    <td>${cvo.enrollDate}</td>
+                                </tr>
+                            </c:forEach>
+
+                        </tbody>
                     </table>
                 </div>
 
@@ -146,5 +194,26 @@
 
     location.href = "${root}/cash/refund?amount=" + result;
 })
+
+const cashDate1 = document.querySelector("#cash-date1");
+const cashDate2 = document.querySelector("#cash-date2");
+
+// function addDateList(){
+
+//     const now = new Date;
+//     var year = now.getFullYear();
+//     var month = now.getMonth();
+
+//     for(let i = 0; i < 30; i++){
+//         const optionTag = document.createElement('option');
+//         optionTag.value = year + '-' + month;
+//         optionTag.innerHTML = year + '-0' + month;
+//         cashDate1.appendChild(optionTag);
+
+//     }
+    
+// }
+
+// addDateList();
 
 </script>

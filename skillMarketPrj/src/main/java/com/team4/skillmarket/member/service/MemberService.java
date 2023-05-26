@@ -5,11 +5,13 @@ import java.util.List;
 
 import com.team4.skillmarket.cash.vo.CashVo;
 import com.team4.skillmarket.cashlog.vo.CashLogVo;
+import com.team4.skillmarket.cashlog.vo.CashSearchVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.dao.MemberDao;
 import com.team4.skillmarket.member.vo.MemberVo;
+import com.team4.skillmarket.order.vo.QuotationViewVo;
 
 public class MemberService {
 	private final MemberDao dao = new MemberDao();
@@ -180,6 +182,27 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return cashList;
+	}
+
+	public List<CashLogVo> getSearchCashLogList(CashSearchVo csv) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<CashLogVo> cashList = dao.getSearchCashLogList(conn,csv);
+
+		JDBCTemplate.close(conn);
+		
+		return cashList;
+	}
+
+	public List<QuotationViewVo> getOrderList(MemberVo loginMember) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<QuotationViewVo> orderList = dao.getOrderList(conn,loginMember);
+
+		JDBCTemplate.close(conn);
+		
+		return orderList;
 	}
 
 	

@@ -43,6 +43,29 @@ public class FileUploader {
         return attachmentList;
     }
     
+    // 프로필 파일 서버 저장
+    public static String saveFile(String path , Part f) throws Exception {
+        String randomName = UUID.randomUUID().toString();
+        String originName = f.getSubmittedFileName();
+        String ext = originName.substring( originName.lastIndexOf(".") ); 
+        String changeName = randomName + ext;
+        File target = new File(path + changeName);
+        
+        
+        try (
+                FileOutputStream fos = new FileOutputStream(target);
+                InputStream is = f.getInputStream();
+            ) 
+        {
+            byte[] buf = new byte[1024];
+            int size = 0;
+            while((size = is.read(buf)) != -1) {
+                fos.write(buf, 0, size);
+            }
+        }
+        
+        return changeName;
+    }
  
     
 }
