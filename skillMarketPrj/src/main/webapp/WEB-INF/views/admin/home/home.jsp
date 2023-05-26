@@ -36,17 +36,17 @@
                                 <table id="statistics_1">
                                     <thead >
                                         <tr>
-                                            <th><div>신고</div></th>
-                                            <th><span>문의</span></th>
+                                            <th><div onclick="linkReport();">신고</div></th>
+                                            <th><div onclick="linkInquiry();">문의</div></th>
                                         </tr>
                                     </thead>
                                     <tbody >
                                         <tr>
-                                            <td>
-                                                <span>${ homeVo.reportCount }</span>
+                                            <td onclick="linkReport();">
+                                                <span >${ homeVo.reportCount }</span>
                                             </td>
-                                            <td>
-                                                <span>${ homeVo.noAnswerCount }</span>
+                                            <td onclick="linkInquiry();">
+                                                <span >${ homeVo.noAnswerCount }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -104,7 +104,7 @@
 
                     <div class="container_admin" id="container_area_3">
                         <div class="admin_box">
-                            <div class="subtitle">
+                            <div class="subtitle" onclick="linkMembers();">
                                 <h3>회원 요약</h3>
                                 <div id="memebr_color">
                                     <div>
@@ -129,8 +129,11 @@
 
                     <div class="container_admin" id="container_area_3">
                         <div class="admin_box">
-                            <div class="subtitle">
-                                <h3>최근 공지</h3>
+                            <div class="subtitle" onclick="linkNotice();">
+                                <h3>최근 공지 </h3>
+                                <span class="material-symbols-outlined">
+                                    arrow_forward_ios
+                                </span>
                             </div>
                             <div class="statistics statistics_list2">
                                 <table>
@@ -177,8 +180,11 @@
                     
                     <div class="container_admin" id="container_area_3">
                         <div class="admin_box">
-                            <div class="subtitle">
+                            <div class="subtitle" onclick="linkFAQ();">
                                 <h3>인기 FAQ</h3>
+                                <span class="material-symbols-outlined">
+                                    arrow_forward_ios
+                                </span>
                             </div>
                             <div class="statistics statistics_list2">
                                 <table>
@@ -231,6 +237,7 @@
 
     </div>
 	
+    <!-- 공지 모달 -->
     <div id="noticeDetail_${ homeVo.notiNo }" class="noticeDetail modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -244,11 +251,15 @@
                 </select>
                 <input type="text" placeholder="제목" value="${ homeVo.notiTitle }" readonly>
             </div>
-            <div id="noticeDetailContent_${ homeVo.notiContent }"><div>${ homeVo.notiContent }</div></div>
-            <button id="submitBtn1">수정하기</button>
+            <div class="modal_content_area" id="noticeDetailContent_${ homeVo.notiContent }">
+                <div>${ homeVo.notiContent }</div>
+            </div>
+            <button id="submitBtn1" onclick="linkNotice()">공지페이지</button>
         </div>
     </div>
 
+
+    <!-- FAQ 모달 -->
     <div id="FAQ_detail_${ homeVo.faqNo }" class="FAQ_detail modal">
         <div class="modal-content FAQ_modal">
             <span class="close">&times;</span>
@@ -264,23 +275,25 @@
 
             </div>
             <div id="modal_div">
-                <input type="text" name="title" value="구매 건에 대한 세금계산서는 누가 발행하며, 어떻게 신청하나요? " placeholder="제목" readonly></input>
+                <input type="text" name="title" value="${ homeVo.faqTitle }" placeholder="제목" readonly></input>
                 <div id="faq_Hit">
                     조회수 
                     <br>
                     ${ homeVo.faqHit }
                 </div>
             </div>
-            <div class="modal_content_area" id="FAQ_detailContent_${ homeVo.faqNo }"><div>${ homeVo.faqAContent }</div></div>
-            <button id="submitBtn1">수정하기</button>
+            <div class="modal_content_area" id="FAQ_detailContent_${ homeVo.faqNo }">
+                <div> ${ homeVo.faqAContent }</div>
+            </div>
+            <button id="submitBtn1" onclick="linkFAQ();">FAQ페이지</button>
         </div>
     </div>
 
     <script>
         const memberCnt = parseInt('${ homeVo.memberCount }');
         const freeCnt = parseInt('${ homeVo.freelancerCount }');
-        // const noticeCatNo = '${ homeVo.notiCatNo }';
-        const noticeCatNo = 1;
+        const noticeCatNo = '${ homeVo.notiCatNo }';
+        const root_admin = '${root}'+'/admin';
         
 
     </script>

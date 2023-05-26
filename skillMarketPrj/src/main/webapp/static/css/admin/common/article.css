@@ -1,5 +1,3 @@
-
-
 article {
     display: flex;
     justify-content: center;
@@ -324,10 +322,17 @@ article .statistics_rank {
 .statistics_rank > div:nth-child(3) > span:first-child {color: #7D6933;}
 .list_box {overflow: scroll;}
 
+article tbody.scroll_tbody tr {
+    border-right: 7px solid #ffbb2700;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
 article tbody.scroll_tbody tr:hover {
     background-color: #f1f1f1;
     border-radius: 10px;
-  }
+    scale: 1.003;
+}
 
 button#openModalBtn {
     width: 140px;
@@ -598,3 +603,74 @@ textarea[name="title"]:focus {
     grid-column: span 3;
     padding: 10;
 }
+
+
+
+div input#search_input {
+    width: 100;
+    height: 50;
+    border-radius: 8px;
+    border: 2px solid #898f9a;
+    background-color: #eeeeee;
+    font-weight: 600;
+    text-align: center;
+    animation-duration: 100ms;
+    animation-timing-function: cubic-bezier(.17,.67,.83,.67);
+    animation-fill-mode: forwards; 
+    color: transparent;
+    text-shadow: 0 0 0 #434e61;
+}
+
+div input#search_input:hover {
+    background-color: #FDFDFD;
+    border-color: #898f9a;
+    scale: 1.01;
+}
+
+div input#search_input:focus {
+    border-radius: 10px;
+    outline: none !important;
+    border-color: #2a3342;
+    animation-name: search_input_Anima;
+    animation-duration: 70ms;
+    animation-timing-function: cubic-bezier(.17,.67,.83,.67);
+    animation-fill-mode: forwards; 
+    background-color: #FDFDFD;
+    
+}
+
+@keyframes search_input_Anima{
+    0% {
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.01;
+    }
+
+    100% {
+        scale: 1.05;
+        height: 37;
+        width: auto;
+    }
+}
+
+#msgTbody {
+    text-align: center;
+}
+
+/* ===================================
+/* 썸머노트 */
+.note-toolbar {
+    display: none;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable[contenteditable=false], .note-editor.note-airframe .note-editing-area .note-editable[contenteditable=false] {
+    background-color: #80808000;
+    
+}
+
+.note-editor.note-frame {
+    overflow: hidden;
+}
+

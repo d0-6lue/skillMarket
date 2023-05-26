@@ -31,11 +31,6 @@ public class AdminNoticeController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		// 어드민 로그인 정보 없으면 로그인 창으로
-		if (req.getSession().getAttribute("AdminLoginVo") == null) {
-			resp.sendRedirect(req.getContextPath() + "/admin/login");
-			return;
-		}
 		
 		try {
 					

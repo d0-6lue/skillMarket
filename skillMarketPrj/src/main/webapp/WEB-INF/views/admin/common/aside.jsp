@@ -3,7 +3,9 @@
 
 <%@ include file="/WEB-INF/views/common/setup.jsp" %>
 
-
+<!-- 구글폰트 아이콘 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<!--  -->
 <link rel="stylesheet" href="${root}/static/css/admin/common/aside.css">
 <script src="${root}/static/js/admin/common/adminSet.js"></script>
 <!-- 썸머노트 -->
@@ -13,9 +15,7 @@
 <link rel="stylesheet" href="${root}/static/css/summernote/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <!--  -->
-<!-- 구글폰트 아이콘 -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<!--  -->
+
 
 
 <aside>

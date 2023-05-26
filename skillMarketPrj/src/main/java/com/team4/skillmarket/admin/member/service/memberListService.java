@@ -11,12 +11,14 @@ import com.team4.skillmarket.admin.member.vo.memberListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class memberListService {
-
+	
+	private final MemberListDao dao = new MemberListDao();
+	
 	public List<memberListVo> selectMemberList() throws Exception {
 
 		Connection conn = JDBCTemplate.getConnection();
 		
-		MemberListDao dao = new MemberListDao();
+		
 		List<memberListVo> memberArrList = dao.selectMemberList(conn);
 		
 		JDBCTemplate.close(conn);
@@ -24,6 +26,18 @@ public class memberListService {
 		
 		return memberArrList;
 	}
+	
+	public List<memberListVo> searchMemberList(String userId) throws Exception {
 
+		Connection conn = JDBCTemplate.getConnection();
+		
+		
+		List<memberListVo> memberArrList = dao.searchMemberList(conn,userId);
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return memberArrList;
+	}
 }
 

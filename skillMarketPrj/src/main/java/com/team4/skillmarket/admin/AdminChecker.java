@@ -23,8 +23,6 @@ public class AdminChecker implements Filter {
     	
     	try {
 			
-    		 System.out.println("어드민 체크 ...");
-
     	        HttpServletRequest req = (HttpServletRequest) request;
     	        HttpServletResponse resp = (HttpServletResponse) response;
 

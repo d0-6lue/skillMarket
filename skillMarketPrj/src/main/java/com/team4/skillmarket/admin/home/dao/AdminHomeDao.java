@@ -43,7 +43,7 @@ public class AdminHomeDao {
 	    JDBCTemplate.close(rs);
 
 	    // NOTICE 쿼리 실행
-	    sql = "SELECT * FROM (SELECT * FROM NOTICE WHERE NOTI_STATUS = 'N' ORDER BY NOTI_NO DESC) WHERE ROWNUM = 1";
+	    sql = "SELECT * FROM (SELECT * FROM NOTICE WHERE NOTI_STATUS = 'Y' ORDER BY NOTI_NO DESC) WHERE ROWNUM = 1";
 	    pstmt = conn.prepareStatement(sql);
 	    rs = pstmt.executeQuery();
 	    if (rs.next()) {
