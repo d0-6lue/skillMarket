@@ -270,3 +270,6 @@
     align-self: center;
 }
 
+.quantity-input {
+    text-align: end;
+}

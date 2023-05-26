@@ -58,7 +58,23 @@ public class PuchaseController extends HttpServlet {
 		@Override
 		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+			String estimateNo = req.getParameter("estimateNo");
+			String[] estimateOptions = req.getParameterValues("estimateOption");
+			String[] quantitys = req.getParameterValues("quantity");
+			String purchaseMethod = req.getParameter("purchaseMethod");
 			
+			System.out.println(estimateNo);
+			for(String option : estimateOptions) {
+				System.out.println(option);
+			}
+			for(String quantity : quantitys) {
+				System.out.println(quantity);
+			}
+			System.out.println(purchaseMethod);
+			
+			// 주문서 추가
+			// 주문서 옵션 추가 ( 있다면 )
+			// Sales에 구매자 수수료 3% 추가
 		
 		}
 		

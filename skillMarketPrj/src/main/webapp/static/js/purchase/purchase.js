@@ -3,7 +3,7 @@ prjPrice.innerText = '₩ ' + prjPrice.innerText.replace(/\B(?<!\.\d*)(?=(\d{3})
 
 // 결제수단 선택
 
-const radioBtns = document.querySelectorAll('input[name="purchase-method-radio"]');
+const radioBtns = document.querySelectorAll('input[name="purchaseMethod"]');
 
 radioBtns.forEach( radioBtn => {
 
@@ -165,14 +165,8 @@ function purchaseDetailAreaToMP() {
 
 // ---------------------------------------------------------------
 const optionList = JSON.parse(sessionStorage.getItem("optionList"));
-console.log(optionList);
 let optionNum = 0;
 const maxOptionNume = optionList.length;
-
-const option1Price = 100000;
-const option1Day = 1;
-const option2Price = 500000;
-const option2Day = 5;
 
 const removeOptionBtn = document.querySelector(".remove-elem");
 
@@ -197,8 +191,9 @@ function addOption() {
 
     // select-option
     const selectOption = document.createElement("select");
-    selectOption.name = "select-option";
+    selectOption.name = "estimateOption";
     selectOption.classList.add("select-option");
+    selectOption.name = 'estimateOption';
 
     const optionElem = document.createElement("option");
     optionElem.disabled = true;
@@ -225,6 +220,7 @@ function addOption() {
     quantityInput.type = "number";
     quantityInput.min = "0";
     quantityInput.value = "0";
+    quantityInput.name = "quantity"
     quantityInput.classList.add("regular");
     quantityInput.classList.add("quantity-input");
     purchaseQuantity.append(quantityInput);
@@ -284,32 +280,6 @@ removeOptionBtn.addEventListener("click" , function() {
 });
 
 
-// 수량 변경시 날짜랑 금액 변경
-const tableBodyElems = document.querySelectorAll(".table-body-elem");
-
-const elem = tableBodyElems[0];
-
-const inputNumber = elem.querySelector(".quantity-input");
-
-inputNumber.addEventListener("change", function changeValue() {
-
-    const number = inputNumber.value;
-
-    const purchaseDay = elem.querySelector(".purchase-day");
-    purchaseDay.innerText = ( number * projectDay ) + " 일";
-
-    const pPrice = elem.querySelector(".purchase-price");
-    const newPrice = number * projectPrice;
-    const localPrice = newPrice.toLocaleString("ko-KR");
-    pPrice.innerText = "₩ " + localPrice;
-
-
-    setTotalPrice();
-
-    changeDeficientPoint();
-
-})
-
 // 수량 바뀌면 기간이랑 금액 변경
 function changeLineValue() {
     const tableBodyElems = document.querySelectorAll(".table-body-elem");
@@ -327,35 +297,20 @@ function changeLineValue() {
             const number = inputNumber.value;
     
             const purchaseDay = elem.querySelector(".purchase-day");
-            if(optionValue == "option1") {
-                
-                purchaseDay.innerText = ( number * option1Day ) + " 일";
-            }
-            else if(optionValue == "option2") {
-                
-                purchaseDay.innerText = ( number * option2Day ) + " 일";
-            }
-            else {
-                purchaseDay.innerText = " 일";
+            for(let i = 0; i < optionList.length; i++){
+                if (optionValue == optionList[i].estimateOptionNo) {
+                    purchaseDay.innerText = ( number * optionList[i].estimateOptionPeriod ) + " 일";
+                }
             }
     
             const pPrice = elem.querySelector(".purchase-price");
-            if(optionValue == "option1") {
-                newPrice = ( number * option1Price );
-                const localPrice = newPrice.toLocaleString("ko-KR");
-                pPrice.innerText = "₩ " + localPrice;
-            }
-            else if(optionValue == "option2") {
-                newPrice = ( number * option2Price );
-                const localPrice = newPrice.toLocaleString("ko-KR");
-                pPrice.innerText = "₩ " + localPrice;
-            }
-            else {
-                purchaseDay.innerText = "";
+            for(let i = 0; i < optionList.length; i++){
+                if (optionValue == optionList[i].estimateOptionNo) {
+                    pPrice.innerText = "₩ " + ( number * optionList[i].estimateOptionPrice ).toLocaleString('ko-KR');
+                }
             }
             
             setTotalPrice();
-
             changeDeficientPoint();
     
         })

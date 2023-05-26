@@ -97,7 +97,7 @@ public class PurchaseDao {
 
 		String sql = "SELECT ESTIMATE_OPTION_NO, ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD\r\n"
 				+ "FROM ESTIMATE_OPTION\r\n"
-				+ "WHERE ESTIMATE_NO = ?";
+				+ "WHERE ESTIMATE_NO = ? ORDER BY ESTIMATE_OPTION_NO";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
