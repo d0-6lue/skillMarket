@@ -366,6 +366,19 @@ function setTotalPrice() {
     const localPrice = totalPrice.toLocaleString("ko-KR");
     totalPriceResult.innerText = "₩ " + localPrice;
 
+
+    const inputTotalPeriod = document.createElement("input");
+    inputTotalPeriod.name = "totalPeriod";
+    inputTotalPeriod.hidden = "true";
+    inputTotalPeriod.value = totalDay;
+    const inputTotalPrice = document.createElement("input");
+    inputTotalPrice.name = "totalPrice";
+    inputTotalPrice.hidden = "true"
+    inputTotalPrice.value = totalPrice;
+
+    totalPriceResult.append(inputTotalPeriod);
+    totalPriceResult.append(inputTotalPrice);
+
 }
 setTotalPrice();
 

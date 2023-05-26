@@ -21,6 +21,7 @@ public class QuotationVo {
 	private String requestNo;
 	private String quotationPrice;
 	private String quotationPeriod;
+	private String paymetnMethodNo;
 	private String quotationEnrollDate;
 	private String quotationModificationDate;
 	

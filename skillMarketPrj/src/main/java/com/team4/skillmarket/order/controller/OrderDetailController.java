@@ -44,7 +44,6 @@ public class OrderDetailController extends HttpServlet {
 			quotationVo = (QuotationVo) voMap.get("quotation");
 			optionVoList = (List<QuotationOptionVo>) voMap.get("optionList");
 			
-			
 			if(quotationVo != null) {
 				
 				req.setAttribute("quotationVo", quotationVo);
@@ -56,9 +55,7 @@ public class OrderDetailController extends HttpServlet {
 				
 			}
 			else {
-				
 				throw new Exception();
-				
 			}
 			
 		} catch (Exception e) {

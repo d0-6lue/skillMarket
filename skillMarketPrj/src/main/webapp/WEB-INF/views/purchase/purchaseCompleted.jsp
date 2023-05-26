@@ -37,22 +37,24 @@
                     </div>
                     <div class="receipt-table-body ">
                         <div class="table-body-elem horizontal-alignment">
-                            <div class="regular receipt-item">기초적인 프로젝트</div>
+                            <div class="regular receipt-item">${quotationVo.estimateTitle }</div>
                             <div class="regular bold receipt-quantity align-center">1</div>
-                            <div class="regular receipt-day align-center">300일</div>
-                            <div class="regular receipt-price align-end">₩ 3,000,000</div>
+                            <div class="regular receipt-day align-center">${quotationVo.estimatePeriod }</div>
+                            <div class="regular receipt-price align-end">${quotationVo.estimatePrice }</div>
                         </div>
-                        <div class="table-body-elem horizontal-alignment">
-                            <div class="regular receipt-item">기본적인 옵션</div>
-                            <div class="regular bold receipt-quantity align-center">3</div>
-                            <div class="regular receipt-day align-center">30일</div>
-                            <div class="regular receipt-price align-end">₩ 300,000</div>
-                        </div>
+                        <c:forEach var="option" items="${quotationOptionList}">
+                            <div class="table-body-elem horizontal-alignment">
+                                <div class="regular receipt-item">${option.estimateOptionName }</div>
+                                <div class="regular bold receipt-quantity align-center">${option.quotationOptionQuantity }</div>
+                                <div class="regular receipt-day align-center">${option.estimateOptionPeriod * option.quotationOptionQuantity } 일</div>
+                                <div class="regular receipt-price align-end">₩ ${option.estimateOptionPrice * option.quotationOptionQuantity }</div>
+                            </div>
+                        </c:forEach>
                     </div>
                     <div class="receipt-table-footer horizontal-alignment">
                         <div class="total-pay horizontal-alignment">
                             <div class="bold ">총 결제금액</div>
-                            <div class="bold ">₩ 3,300,000</div>
+                            <div class="bold ">₩ ${quotationVo.quotationPrice }</div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +64,9 @@
                 </div>
     
                 <div class="btn-area">
-                    <button class="regular order-detail-btn">주문 상세 보기</button>
+                    <a href="${root}/order/detail?no=${quotationVo.quotationNo}">
+                        <button class="regular order-detail-btn">주문 상세 보기</button>
+                    </a>
                 </div>
 
             </div>

@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.team4.skillmarket.common.db.JDBCTemplate;
+import com.team4.skillmarket.order.vo.QuotationVo;
 import com.team4.skillmarket.purchase.vo.InfoVo;
 import com.team4.skillmarket.purchase.vo.OptionVo;
+import com.team4.skillmarket.purchase.vo.QuotationOptionVo;
+import com.team4.skillmarket.purchase.vo.WriteQuotationVo;
 
 public class PurchaseDao {
 
@@ -133,5 +136,209 @@ public class PurchaseDao {
 		
 		return optionList;
 	} // getOptionList
+
+	public String writeQuotation(Connection conn, WriteQuotationVo writeQuotationVo) {
+		
+		String quotationNo = null;
+		
+		String insertQuotationSql = "INSERT INTO QUOTATION\r\n"
+				+ "( QUOTATION_NO, ESTIMATE_NO, QUOTATION_PREV_VER, MEMBER_NO, QUOTATION_STATUS_NO, QUOTATION_PRICE, QUOTATION_PERIOD, PAYMENT_METHOD_NO,\r\n"
+				+ "QUOTATION_ENROLL_DATE, QUOTATION_MODIFICATION_DATE)\r\n"
+				+ "VALUES ( SEQ_QUOTATION_NO.NEXTVAL, ?, NULL, ?, 1, ?, ?, ?, SYSDATE, NULL)";
+		
+		PreparedStatement pstmt = null;
+		try {
+			
+			pstmt = conn.prepareStatement(insertQuotationSql);
+			pstmt.setString(1, writeQuotationVo.getEstimateNo());
+			pstmt.setString(2, writeQuotationVo.getMemberNo());
+			pstmt.setString(3, writeQuotationVo.getTotalPrice());
+			pstmt.setString(4, writeQuotationVo.getTotalPeriod());
+			pstmt.setString(5, writeQuotationVo.getPurchaseMethod());
+			
+			int result = pstmt.executeUpdate();
+			
+			pstmt = null;
+			if(result == 1) {
+				
+				quotationNo = getQuotationNo(conn, writeQuotationVo);
+				
+				String insertQuotationOptionSql = "INSERT INTO QUOTATION_OPTION\r\n"
+						+ "( QUOTATION_OPTION_NO, QUOTATION_NO, ESTIMATE_OPTION_NO, QUOTATION_OPTION_QUANTITY )\r\n"
+						+ "VALUES ( SEQ_QUOTATION_OPTION_NO.NEXTVAl, ?, ?, ?)";
+				
+				pstmt = conn.prepareStatement(insertQuotationOptionSql);
+				
+				for(int i = 0; i < writeQuotationVo.getEstimateOptions().length; i++) {
+					
+					pstmt.setString(1, quotationNo);
+					pstmt.setString(2, writeQuotationVo.getEstimateOptions()[i]);
+					pstmt.setString(3, writeQuotationVo.getQuantitys()[i]);
+					
+					int result_ = pstmt.executeUpdate();
+					
+					if(result_ != 1) {
+						throw new Exception();
+					}
+				}
+				
+				pstmt = null;
+				
+				String insertSalesLogSql = "INSERT INTO SALES_LOG \r\n"
+						+ "( SALES_LOG_NO, CATEGORY_NO, SALES, ENROLL_DATE, QUOTATION_NO )\r\n"
+						+ "VALUES (SEQ_SALES_LOG_NO.NEXTVAL, 1, ?, DEFAULT, ?)";
+				
+				pstmt = conn.prepareStatement(insertSalesLogSql);
+				pstmt.setString(1, Integer.toString((int)(Integer.parseInt(writeQuotationVo.getTotalPrice()) * 0.03)) );
+				pstmt.setString(2, quotationNo);
+				
+				int result__ = pstmt.executeUpdate();
+				
+				if(result__ != 1) {
+					throw new Exception();
+				}
+				
+			}
+			else {
+				throw new Exception("Quotation Insert 실패");
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return quotationNo;
+	} // writeQuotation
+	
+	
+	private String getQuotationNo(Connection conn, WriteQuotationVo writeQuotationVo) {
+		
+		String quotationNo = null;
+		
+		String getQuotationSql = "SELECT QUOTATION_NO FROM QUOTATION WHERE ESTIMATE_NO = ? AND MEMBER_NO = ? AND QUOTATION_STATUS_NO = 1";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			pstmt = conn.prepareStatement(getQuotationSql);
+			pstmt.setString(1, writeQuotationVo.getEstimateNo());
+			pstmt.setString(2, writeQuotationVo.getMemberNo());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				quotationNo = rs.getString("QUOTATION_NO");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return quotationNo;
+	}
+
+	public QuotationVo getQuotationInfo(Connection conn, String quotationNo) {
+		
+		QuotationVo quotationVo = null;
+		
+		String getQuotationInfoSql = "SELECT QUOTATION_NO, A.ESTIMATE_NO, ESTIMATE_TITLE, ESTIMATE_PRICE, ESTIMATE_PERIOD, \r\n"
+				+ "QUOTATION_PREV_VER, MEMBER_NO, QUOTATION_STATUS_NO, QUOTATION_PRICE, QUOTATION_PERIOD, PAYMENT_METHOD_NO, \r\n"
+				+ "QUOTATION_ENROLL_DATE, QUOTATION_MODIFICATION_DATE\r\n"
+				+ "FROM QUOTATION A\r\n"
+				+ "    JOIN ESTIMATE B ON A.ESTIMATE_NO = B.ESTIMATE_NO\r\n"
+				+ "WHERE QUOTATION_NO = ?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(getQuotationInfoSql);
+			pstmt.setString(1, quotationNo);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				quotationVo = new QuotationVo();
+				
+				quotationVo.setQuotationNo(rs.getString("QUOTATION_NO"));
+				quotationVo.setEstimateNo(rs.getString("ESTIMATE_NO"));
+				quotationVo.setEstimateTitle(rs.getString("ESTIMATE_TITLE"));
+				quotationVo.setEstimatePrice(rs.getString("ESTIMATE_PRICE"));
+				quotationVo.setEstimatePeriod(rs.getString("ESTIMATE_PERIOD"));
+				quotationVo.setMemberNo(rs.getString("MEMBER_NO"));
+				quotationVo.setQuotationStatusNo(rs.getString("QUOTATION_STATUS_NO"));
+				quotationVo.setQuotationPrice(rs.getString("QUOTATION_PRICE"));
+				quotationVo.setQuotationPeriod(rs.getString("QUOTATION_PERIOD"));
+				quotationVo.setPaymetnMethodNo(rs.getString("PAYMENT_METHOD_NO"));
+				quotationVo.setQuotationEnrollDate(rs.getString("QUOTATION_ENROLL_DATE"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return quotationVo;
+	}
+
+	public List<QuotationOptionVo> getQuotationOptionList(Connection conn, String quotationNo) {
+		
+		List<QuotationOptionVo> quotationOptionList = new ArrayList<>();
+		
+		String getQuotationOptionsSql = "SELECT QUOTATION_OPTION_NO, QUOTATION_NO, \r\n"
+				+ "A.ESTIMATE_OPTION_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD, QUOTATION_OPTION_QUANTITY\r\n"
+				+ "FROM QUOTATION_OPTION A\r\n"
+				+ "    JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
+				+ "WHERE QUOTATION_NO = ?\r\n"
+				+ "ORDER BY QUOTATION_OPTION_NO";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			pstmt = conn.prepareStatement(getQuotationOptionsSql);
+			pstmt.setString(1, quotationNo);
+			
+			rs = pstmt.executeQuery();
+			
+			while( rs.next() ) {
+				
+				String quotationOptionNo = rs.getString("QUOTATION_OPTION_NO");
+				String estimateOptionNo = rs.getString("ESTIMATE_OPTION_NO");
+				String estimateOptionName = rs.getString("ESTIMATE_OPTION_NAME");
+				String estimateOptionPrice = rs.getString("ESTIMATE_OPTION_PRICE");
+				String estimateOptionPeriod = rs.getString("ESTIMATE_OPTION_PERIOD");
+				String quotationOptionQuantity = rs.getString("QUOTATION_OPTION_QUANTITY");
+				
+				QuotationOptionVo quotationOptionVo = new QuotationOptionVo();
+				
+				quotationOptionVo.setQuotationOptionNo(quotationOptionNo);
+				quotationOptionVo.setEstimateOptionNo(estimateOptionNo);
+				quotationOptionVo.setEstimateOptionName(estimateOptionName);
+				quotationOptionVo.setEstimateOptionPrice(estimateOptionPrice);
+				quotationOptionVo.setEstimateOptionPeriod(estimateOptionPeriod);
+				quotationOptionVo.setQuotationOptionQuantity(quotationOptionQuantity);
+				
+				quotationOptionList.add(quotationOptionVo);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return quotationOptionList;
+	}
 
 }
