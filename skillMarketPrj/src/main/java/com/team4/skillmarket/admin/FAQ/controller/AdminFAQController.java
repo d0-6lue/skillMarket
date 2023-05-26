@@ -21,6 +21,8 @@ public class AdminFAQController extends HttpServlet{
 		
 		try {
 			
+			
+			
 			AdminFAQService ads = new AdminFAQService();
 			AdminFAQVo FAQHit = new AdminFAQVo();
 			List<AdminFAQVo> FAQArrList =  ads.selectFAQList();

@@ -59,6 +59,8 @@ bannerArea.forEach((e)=>{
     
     })  
 
+    
+
 // 모달창 열기 버튼 클릭 시
 $(".openModalBtn").click(function() {
     $("#bannerEdit").css("display", "block"); // 모달창을 보이게 함
