@@ -279,7 +279,7 @@ public class ChatDao {
 		// 300 == 옵션추가 -> 견적서 옵션
 		if("300".equals(value)) {
 			
-			sql = "SELECT ESTIMATE_OPTION_NO, ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD\r\n"
+			sql = "SELECT ESTIMATE_OPTION_NO, ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_QUANTITY\r\n"
 					+ "FROM ESTIMATE_OPTION\r\n"
 					+ "WHERE ESTIMATE_NO = \r\n"
 					+ "(SELECT ESTIMATE_NO FROM QUOTATION WHERE QUOTATION_NO = ?)";
@@ -288,7 +288,7 @@ public class ChatDao {
 		else if("400".equals(value)) {
 			
 			sql = "SELECT QUOTATION_OPTION_NO, QUOTATION_NO, QUOTATION_OPTION_QUANTITY, B.ESTIMATE_OPTION_NO,\r\n"
-					+ "ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD\r\n"
+					+ "ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_QUANTITY\r\n"
 					+ "FROM QUOTATION_OPTION A\r\n"
 					+ "    JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
 					+ "WHERE QUOTATION_NO = ?";
@@ -310,7 +310,7 @@ public class ChatDao {
 				vo.setEstimateOptionNo(rs.getString("ESTIMATE_OPTION_NO"));
 				vo.setEstimateOptionName(rs.getString("ESTIMATE_OPTION_NAME"));
 				vo.setEstimateOptionPrice(rs.getString("ESTIMATE_OPTION_PRICE"));
-				vo.setEstimateOptionPeriod(rs.getString("ESTIMATE_OPTION_PERIOD"));
+				vo.setEstimateOptionPeriod(rs.getString("ESTIMATE_OPTION_QUANTITY"));
 				
 				if("400".equals(value)) {
 					

@@ -20,7 +20,7 @@ public class PurchaseDao {
 		InfoVo infoVo = null;
 		
 		String sql = "SELECT ESTIMATE_NO, A.FREELANCER_NO, MEMBER_NICK, A.ESTIMATE_CAT_NO, ESTIMATE_CAT_NAME, ESTIMATE_TITLE, ESTIMATE_THUMBNAIL, ESTIMATE_LINE_INTRODUCTION,\r\n"
-				+ "ESTIMATE_PRICE, ESTIMATE_PERIOD, ESTIMATE_DETAIL, ESTIMATE_DETAIL_FILE, ESTIMATE_PORTFOLIO, BUSINESS_REGISTRATION_NUMBER, \r\n"
+				+ "ESTIMATE_PRICE, ESTIMATE_DURATION, ESTIMATE_DETAIL, ESTIMATE_DETAIL_FILE, BUSINESS_REGISTRATION_NUMBER, \r\n"
 				+ "TO_CHAR(ESTIMATE_ENROLL_DATE, 'YYYY-MM-DD') AS ESTIMATE_ENROLL_DATE, ESTIMATE_MODIFICATION_DATE, ESTIMATE_STATUS, ESTIMATE_VIEWS\r\n"
 				+ "FROM ESTIMATE A\r\n"
 				+ "    JOIN ( SELECT FREELANCER_NO, MEMBER_NICK\r\n"
@@ -52,7 +52,6 @@ public class PurchaseDao {
 				String estimatePeriod = rs.getString("ESTIMATE_PERIOD");
 				String estimateDetail = rs.getString("ESTIMATE_DETAIL");
 				String estimateDetailFile = rs.getString("ESTIMATE_DETAIL_FILE");
-				String estimatePortfolio = rs.getString("ESTIMATE_PORTFOLIO");
 				String businessRegistrationNumber = rs.getString("BUSINESS_REGISTRATION_NUMBER");
 				String estimateEnrollDate = rs.getString("ESTIMATE_ENROLL_DATE");
 				String estimateModificationDate = rs.getString("ESTIMATE_MODIFICATION_DATE");
@@ -73,7 +72,6 @@ public class PurchaseDao {
 				infoVo.setEstimatePeriod(estimatePeriod);
 				infoVo.setEstimateDetail(estimateDetail);
 				infoVo.setEstimateDetailFile(estimateDetailFile);
-				infoVo.setEstimatePortfolio(estimatePortfolio);
 				infoVo.setBusinessRegistrationNumber(businessRegistrationNumber);
 				infoVo.setEstimateEnrollDate(estimateEnrollDate);
 				infoVo.setEstimateModificationDate(estimateModificationDate);
@@ -98,7 +96,7 @@ public class PurchaseDao {
 		
 		List<OptionVo> optionList = new ArrayList<>();
 
-		String sql = "SELECT ESTIMATE_OPTION_NO, ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD\r\n"
+		String sql = "SELECT ESTIMATE_OPTION_NO, ESTIMATE_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_QUANTITY\r\n"
 				+ "FROM ESTIMATE_OPTION\r\n"
 				+ "WHERE ESTIMATE_NO = ? ORDER BY ESTIMATE_OPTION_NO";
 		
@@ -116,7 +114,7 @@ public class PurchaseDao {
 				String estimateNo = rs.getString("ESTIMATE_NO");
 				String estimateOptionName = rs.getString("ESTIMATE_OPTION_NAME");
 				String estimateOptionPrice = rs.getString("ESTIMATE_OPTION_PRICE");
-				String EstimateOptionPeriod = rs.getString("ESTIMATE_OPTION_PERIOD");
+				String EstimateOptionPeriod = rs.getString("ESTIMATE_OPTION_QUANTITY");
 				
 				OptionVo vo = new OptionVo();
 				
@@ -250,7 +248,7 @@ public class PurchaseDao {
 		
 		QuotationVo quotationVo = null;
 		
-		String getQuotationInfoSql = "SELECT QUOTATION_NO, A.ESTIMATE_NO, ESTIMATE_TITLE, ESTIMATE_PRICE, ESTIMATE_PERIOD, \r\n"
+		String getQuotationInfoSql = "SELECT QUOTATION_NO, A.ESTIMATE_NO, ESTIMATE_TITLE, ESTIMATE_PRICE, ESTIMATE_DURATION, \r\n"
 				+ "QUOTATION_PREV_VER, MEMBER_NO, QUOTATION_STATUS_NO, QUOTATION_PRICE, QUOTATION_PERIOD, PAYMENT_METHOD_NO, \r\n"
 				+ "QUOTATION_ENROLL_DATE, QUOTATION_MODIFICATION_DATE\r\n"
 				+ "FROM QUOTATION A\r\n"
@@ -275,7 +273,7 @@ public class PurchaseDao {
 				quotationVo.setEstimateNo(rs.getString("ESTIMATE_NO"));
 				quotationVo.setEstimateTitle(rs.getString("ESTIMATE_TITLE"));
 				quotationVo.setEstimatePrice(rs.getString("ESTIMATE_PRICE"));
-				quotationVo.setEstimatePeriod(rs.getString("ESTIMATE_PERIOD"));
+				quotationVo.setEstimatePeriod(rs.getString("ESTIMATE_DURATION"));
 				quotationVo.setMemberNo(rs.getString("MEMBER_NO"));
 				quotationVo.setQuotationStatusNo(rs.getString("QUOTATION_STATUS_NO"));
 				quotationVo.setQuotationPrice(rs.getString("QUOTATION_PRICE"));
@@ -297,7 +295,7 @@ public class PurchaseDao {
 		List<QuotationOptionVo> quotationOptionList = new ArrayList<>();
 		
 		String getQuotationOptionsSql = "SELECT QUOTATION_OPTION_NO, QUOTATION_NO, \r\n"
-				+ "A.ESTIMATE_OPTION_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_PERIOD, QUOTATION_OPTION_QUANTITY\r\n"
+				+ "A.ESTIMATE_OPTION_NO, ESTIMATE_OPTION_NAME, ESTIMATE_OPTION_PRICE, ESTIMATE_OPTION_QUANTITY, QUOTATION_OPTION_QUANTITY\r\n"
 				+ "FROM QUOTATION_OPTION A\r\n"
 				+ "    JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
 				+ "WHERE QUOTATION_NO = ?\r\n"
@@ -318,7 +316,7 @@ public class PurchaseDao {
 				String estimateOptionNo = rs.getString("ESTIMATE_OPTION_NO");
 				String estimateOptionName = rs.getString("ESTIMATE_OPTION_NAME");
 				String estimateOptionPrice = rs.getString("ESTIMATE_OPTION_PRICE");
-				String estimateOptionPeriod = rs.getString("ESTIMATE_OPTION_PERIOD");
+				String estimateOptionPeriod = rs.getString("ESTIMATE_OPTION_QUANTITY");
 				String quotationOptionQuantity = rs.getString("QUOTATION_OPTION_QUANTITY");
 				
 				QuotationOptionVo quotationOptionVo = new QuotationOptionVo();
