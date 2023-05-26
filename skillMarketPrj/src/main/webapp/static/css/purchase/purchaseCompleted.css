@@ -27,7 +27,6 @@ main {
 /* 영수증 테이블 */
 .receipt {
     width: 900px;
-    height: 200px;
 }
 
 .receipt-table-head {
@@ -88,7 +87,7 @@ main {
 .payment-method {
     font-size: 28px;
     align-self: baseline;
-    margin: 30px 0;
+    margin-top: 50px;
 }
 
 /* 주문목록으로 돌아가기 버튼 */

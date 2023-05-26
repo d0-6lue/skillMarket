@@ -16,11 +16,13 @@ import com.team4.skillmarket.member.vo.MemberVo;
 import com.team4.skillmarket.purchase.service.PurchaseService;
 import com.team4.skillmarket.purchase.vo.InfoVo;
 import com.team4.skillmarket.purchase.vo.OptionVo;
-
+import com.team4.skillmarket.purchase.vo.WriteQuotationVo;
 import com.google.gson.*;
 
 @WebServlet("/purchase")
 public class PuchaseController extends HttpServlet {
+	
+		private final PurchaseService perchaseService = new PurchaseService();
 
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,13 +35,12 @@ public class PuchaseController extends HttpServlet {
 			String no = req.getParameter("no");
 			
 			//서비스
-			PurchaseService purchaseService = new PurchaseService();
 			CashService cashService = new CashService();
 			
 			// 견적서 정보
-			InfoVo infoVo = purchaseService.getInfo(no);
+			InfoVo infoVo = perchaseService.getInfo(no);
 			// 옵션 정보
-			List<OptionVo> optionList = purchaseService.getOptionList(no);
+			List<OptionVo> optionList = perchaseService.getOptionList(no);
 			// 유저 캐시 정보
 			UserCashVo userCash = cashService.getMemberCash(loginMember.getMemberNo());
 			
@@ -57,26 +58,52 @@ public class PuchaseController extends HttpServlet {
 		
 		@Override
 		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-			String estimateNo = req.getParameter("estimateNo");
-			String[] estimateOptions = req.getParameterValues("estimateOption");
-			String[] quantitys = req.getParameterValues("quantity");
-			String purchaseMethod = req.getParameter("purchaseMethod");
 			
-			System.out.println(estimateNo);
-			for(String option : estimateOptions) {
-				System.out.println(option);
+			try {
+				
+				// 데이터
+				HttpSession session = req.getSession();
+				MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+				
+				String memberNo = loginMember.getMemberNo();
+				String estimateNo = req.getParameter("estimateNo");
+				String totalPeriod = req.getParameter("totalPeriod");
+				String totalPrice = req.getParameter("totalPrice");
+				
+				String[] estimateOptions = req.getParameterValues("estimateOption");
+				String[] quantitys = req.getParameterValues("quantity");
+				
+				String purchaseMethod = req.getParameter("purchaseMethod");
+				
+				WriteQuotationVo writeQuotationVo = new WriteQuotationVo();
+				
+				writeQuotationVo.setMemberNo(memberNo);
+				writeQuotationVo.setEstimateNo(estimateNo);
+				writeQuotationVo.setTotalPeriod(totalPeriod);
+				
+				writeQuotationVo.setTotalPrice(totalPrice);
+				writeQuotationVo.setEstimateOptions(estimateOptions);
+				writeQuotationVo.setQuantitys(quantitys);
+				
+				writeQuotationVo.setPurchaseMethod(purchaseMethod);
+				
+				// 서비스
+				// 주문서 추가
+				// 주문서 옵션 추가 ( 있다면 )
+				// Sales에 구매자 수수료 3% 추가
+				String quotationNo = perchaseService.writeQuotation(writeQuotationVo);
+				
+				if(quotationNo == null) {
+					throw new IllegalStateException();
+				}
+				
+				// 결과 처리
+				resp.sendRedirect(req.getContextPath() + "/purchase/completed?no=" + quotationNo);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+				
 			}
-			for(String quantity : quantitys) {
-				System.out.println(quantity);
-			}
-			System.out.println(purchaseMethod);
-			
-			// 주문서 추가
-			// 주문서 옵션 추가 ( 있다면 )
-			// Sales에 구매자 수수료 3% 추가
-		
 		}
-		
-		
 }
