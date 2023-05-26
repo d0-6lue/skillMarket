@@ -18,10 +18,20 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 200px;
+    width: 300px;
     height: 100%;
     padding: 20px;
 }
+
+.sidebar .category {
+    margin-bottom: 20px;
+}
+
+.sidebar .category .subcategory {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
 
 .main-list-box{
     width: 800px;
@@ -84,12 +94,15 @@
 /* 글 4개씩 한줄 */
 .four-service-list{
     width: 660px;
+    height: auto;
     height: 320px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-right: 100;
     margin-bottom: 30;
+    flex-wrap: wrap; /* 이 부분을 추가합니다 */
+    gap: 20px; /* 이 부분을 추가하여 아이템 사이의 간격을 설정합니다 */
 }
 
 /* 제일 바깥 회색테두리 */
@@ -244,4 +257,16 @@ img {
 .textcontent{
     width: 100%;
     resize: none;
+}
+
+.page-area {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    margin-top: 20px; /* 상단 여백 설정 */
+    margin-bottom: 30px; /* 하단 여백 설정 */
+  }
+  
+#selectedCategories {
+margin-top: 10px;
+font-weight: bold;
 }

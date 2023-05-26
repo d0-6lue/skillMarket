@@ -119,10 +119,20 @@
                                 <input type="text" class="form-control" id="job-price" name="job-price" placeholder="5000">
                             </div>
                             <div id="customOptionsContainer">
-                                <button id="addCustomOptionsButton" type="button">추가옵션 추가</button>
+                                 <div id="customOptionsContainer">
+                                    <div class="custom-options-box">
+                                        <div class="custom-options-content">
+                                            <input type="text" class="custom-options-title" name="additionalOptions[].title" placeholder="제목을 입력하세요">
+                                            <input type="text" class="custom-price-amount" name="additionalOptions[].price" placeholder="1000원 추가시">
+                                            <input type="text" class="custom-options-work" name="additionalOptions[].work" placeholder="일수 입력하세요">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="addCustomOptions()">추가옵션 추가</button>
                             </div>
-    
                         </div>
+    
+                        
     
                         <!-- 서비스설명 -->
                         <div class="tab-pane fade" id="list-service" role="tabpanel" aria-labelledby="list-service-list">
@@ -173,14 +183,11 @@
     
                         <!-- FAQ -->
                         <div class="tab-pane fade show" id="list-faq" role="tabpanel" aria-labelledby="list-faq-list">
-                            <div class="form-group">
-                                <label for="custom-qa">자주 묻는 질문</label>
-                                <div class="custom-qa-box">
-                                    <div class="custom-qa-content">
-                                        <div id="customQAGroupContainer"></div>
-                                    </div>
-                                    <button id="addQuestionButton" type="button">질문 추가</button>
+                            <div class="custom-qa-box">
+                                <div class="custom-qa-content">
+                                    <div id="customQAGroupContainer"></div>
                                 </div>
+                                <button id="addQuestionButton" type="button">질문 추가</button>
                             </div>
                         </div>
                     </main>

@@ -104,26 +104,29 @@ public class EstimateTemplateWriteController extends HttpServlet {
             estimateVo.setSubImage(subImage);
 
 
-            List<EstimateOptionVo> estimateOptions = Optional.ofNullable(req.getParameterValues("additionalOptions"))
-            	    .map(options -> {
-            	        List<EstimateOptionVo> optionList = new ArrayList<>();
-            	        for (String option : options) {
-            	            String title = req.getParameter(option + ".title");
-            	            logger.info(title);
-            	            String price = req.getParameter(option + ".price");
-            	            String work = req.getParameter(option + ".work");
+            String[] optionTitles = req.getParameterValues("additionalOptions[].title");
+            String[] optionPrices = req.getParameterValues("additionalOptions[].price");
+            String[] optionWorks = req.getParameterValues("additionalOptions[].work");
 
-            	            EstimateOptionVo estimateOption = new EstimateOptionVo();
-            	            estimateOption.setEstimateOptionName(title);
-            	            estimateOption.setEstimateOptionPrice(price);
-            	            estimateOption.setEstimateOptionQuantity(work);
+            List<EstimateOptionVo> estimateOptions = new ArrayList<>();
 
-            	            optionList.add(estimateOption);
-            	        }
-            	        return optionList;
-            	    })
-            	    .orElse(Collections.emptyList());
-            	estimateVo.setAdditionalOptions(estimateOptions);
+            if (optionTitles != null && optionPrices != null && optionWorks != null) {
+                for (int i = 0; i < optionTitles.length; i++) {
+                    String title = optionTitles[i];
+                    String price = optionPrices[i];
+                    String work = optionWorks[i];
+
+                    EstimateOptionVo estimateOption = new EstimateOptionVo();
+                    estimateOption.setEstimateOptionName(title);
+                    estimateOption.setEstimateOptionPrice(price);
+                    estimateOption.setEstimateOptionQuantity(work);
+
+                    estimateOptions.add(estimateOption);
+                }
+            }
+
+            estimateVo.setAdditionalOptions(estimateOptions);
+
 
             	// 파라미터 값 로그 출력
             	if (!estimateOptions.isEmpty()) {
@@ -137,20 +140,28 @@ public class EstimateTemplateWriteController extends HttpServlet {
 
 
 
+
             // FAQ 정보 저장
-            List<EstimateFaqVo> estimateFaqs = Optional.ofNullable(req.getParameterValues("faqQuestion"))
-                    .map(questions -> {
-                        List<EstimateFaqVo> faqs = new ArrayList<>();
-                        for (String question : questions) {
-                            EstimateFaqVo faq = new EstimateFaqVo();
-                            faq.setEstimateFaqQContent(question);
-                            // 추가 처리 로직
-                            faqs.add(faq);
-                        }
-                        return faqs;
-                    })
-                    .orElse(Collections.emptyList());
-            estimateVo.setFaqs(estimateFaqs);
+        	String[] questions = req.getParameterValues("custom-question");
+        	String[] answers = req.getParameterValues("custom-answer");
+        	List<EstimateFaqVo> estimateFaqs = null;
+        	if ( questions != null && answers != null) {
+        	    estimateFaqs = new ArrayList<>();
+        	    for (int i = 0; i < questions.length; i++) {
+        	        String question = questions[i];
+        	        String answer = answers[i];
+
+        	        EstimateFaqVo faq = new EstimateFaqVo();
+        	        faq.setEstimateFaqQContent(question);
+        	        faq.setEstimateFaqAContent(answer);
+
+        	        estimateFaqs.add(faq);
+        	    }
+        	    estimateVo.setFaqs(estimateFaqs);
+        	}
+        	
+        	
+
 
 
             // 견적서작성하기
