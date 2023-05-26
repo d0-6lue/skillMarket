@@ -36,6 +36,11 @@ width: 250;
     
 }
 
+article tbody.home_div tr {
+    width: 100%;
+    border-radius: 100px !important; 
+}
+
 article tbody.home_div tr:hover {
     background-color: #f1f1f1;
     border-radius: 100px;

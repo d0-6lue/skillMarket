@@ -73,6 +73,7 @@
                         <div>
                             <div class="subtitle">
                                 <h3>회원 목록</h3>
+                                <div><input type="text" name="search" placeholder="아이디 검색" id="search_input"></div>
                             </div>
                             <div class="statistics statistics_list_2">
                                 <table>
@@ -87,8 +88,8 @@
                                             <th>
                                                 <span>가입일</span>
                                             </th>
-                                            <th>
-                                                <span>상태</span>
+                                            <th id="status_Sort" oncli>
+                                                상태
                                             </th>
                                         </tr>
                                     </thead>
@@ -96,22 +97,24 @@
                                         <div class="list_box">
 
                                             <c:forEach items="${ memberArrList }" var="list">
-                                                <tr>
+                                                <tr class="tr_backColor_${ list.statusNo } tr_R10">
                                                     <td>
-                                                        <span>${ list.memberNo }</span>
+                                                        ${ list.memberNo }
+                                                    </td>
+                                                    <td class="list_memberId_td">
+                                                        ${ list.memberId }
                                                     </td>
                                                     <td>
-                                                        <span>${ list.memberId }</span>
+                                                        ${ list.memberSignDate }
                                                     </td>
                                                     <td>
-                                                        <span>${ list.memberSignDate }</span>
-                                                    </td>
-                                                    <td>
-                                                        <span>${ list.statusName }</span>
+                                                        ${ list.statusName }
                                                     </td>
                                                 </tr>
                                             </c:forEach>
-
+                                            <tr id="msgTbody">
+                                                <td>일치하는 회원이 없습니다. 🤔</td>
+                                            </tr>
                                         </div>
                                     </tbody>
                                 </table>
@@ -125,7 +128,12 @@
         </article>
 
     </div>
+<script>
 
+    const rootAdmin = '${root}'+'/admin/';
+    console.log(rootAdmin);
+
+</script>
 
 </body>
 </html>
@@ -133,3 +141,5 @@
 
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
+<link rel="stylesheet" href="${root}/static/css/admin/members.css">
+<script src="${root}/static/js/admin/members.js"></script>
