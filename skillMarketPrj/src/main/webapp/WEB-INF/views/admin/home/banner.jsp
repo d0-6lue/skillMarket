@@ -126,6 +126,6 @@
 </body>
 </html>
 
-<link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
+<link rel="stylesheet" hsref="${root}/static/css/admin/common/article.css">
 <link rel="stylesheet" href="${root}/static/css/admin/banner.css">
 <script src="${root}/static/js/admin/banner.js"></script>

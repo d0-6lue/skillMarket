@@ -243,6 +243,12 @@ window.onload = function() {
 	});
 
 
+	// 상태요약 정렬
+	$("#freeLancerModal_open").click(function () {
+
+		console.log(123);
+		
+	})
 
 
 

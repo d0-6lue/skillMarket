@@ -68,10 +68,10 @@ public class AdminNoticeDao {
 		
 		return result;
 	}
-
+	
 	public noticeListVo getNewNotice(Connection conn) throws Exception {
 
-		String slq = "SELECT * FROM ( SELECT * FROM NOTICE WHERE NOTI_STATUS = 'N' ORDER BY NOTI_NO DESC ) WHERE ROWNUM = 1";
+		String slq = "SELECT * FROM ( SELECT * FROM NOTICE WHERE NOTI_STATUS = 'Y' ORDER BY NOTI_NO DESC ) WHERE ROWNUM = 1";
 		PreparedStatement pstmt = conn.prepareStatement(slq);
 		ResultSet rs = pstmt.executeQuery();
 		

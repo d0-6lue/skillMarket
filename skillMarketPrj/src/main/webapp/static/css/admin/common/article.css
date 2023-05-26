@@ -128,12 +128,12 @@ article tbody.scroll_tbody {
     width: 681.297px;
     height: calc( 100% - 85px);
     
-    /* margin-top: 20px; */
     overflow: scroll;
     
-    }
+}
 
-thead.scroll_tbody,tbody.scroll_tbody tr {
+thead.scroll_tbody,
+tbody.scroll_tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;

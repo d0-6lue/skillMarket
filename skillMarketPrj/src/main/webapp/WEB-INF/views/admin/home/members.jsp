@@ -49,14 +49,14 @@
                                     </thead>
                                     <tbody>
                                         <tr class="table_type_2">
-                                            <td>
-                                                <span>${ adminMemberVo.freeLancerCnt }</span>
+                                            <td id="freeLancerModal_open">
+                                                ${ adminMemberVo.freeLancerCnt }
                                             </td>
-                                            <td>
-                                                <span>${ adminMemberVo.newBeCnt }</span>
+                                            <td id="newMemberModal_open">
+                                                ${ adminMemberVo.newBeCnt }
                                             </td>
-                                            <td>
-                                                <span>${ adminMemberVo.statusCnt }</span>
+                                            <td id="reportMemberModal_open">
+                                                ${ adminMemberVo.statusCnt }
                                             </td>
                                         </tr>
                                     </tbody>
@@ -88,7 +88,7 @@
                                             <th>
                                                 <span>가입일</span>
                                             </th>
-                                            <th id="status_Sort" oncli>
+                                            <th id="status_Sort">
                                                 상태
                                             </th>
                                         </tr>
@@ -131,7 +131,6 @@
 <script>
 
     const rootAdmin = '${root}'+'/admin/';
-    console.log(rootAdmin);
 
 </script>
 

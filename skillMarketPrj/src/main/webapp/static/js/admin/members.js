@@ -48,7 +48,7 @@ window.onload = function() {
 
       $('#search_input').on('input', function() {
         const inputValue = $(this).val().trim(); // 입력된 값 가져오기
-    
+        
         let found = false; // 일치하는 회원을 찾았는지 여부를 나타내는 플래그
     
         $('.list_memberId_td').each(function() {
@@ -69,6 +69,12 @@ window.onload = function() {
         });
 
 
+    // 상태요약 정렬
+    $("#freeLancerModal_open").click(function () {
+
+      console.log();
+      
+    })
 
 
 
