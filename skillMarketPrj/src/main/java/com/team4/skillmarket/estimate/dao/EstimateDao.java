@@ -22,7 +22,7 @@ public class EstimateDao {
 	
 	public int insertEstimate(Connection conn, EstimateVo estimate) throws SQLException {
 	    String sql = "INSERT INTO ESTIMATE (ESTIMATE_NO, FREELANCER_NO, ESTIMATE_CAT_NO, ESTIMATE_TITLE, ESTIMATE_DURATION, " +
-	            "ESTIMATE_LINE_INTRODUCTION, ESTIMATE_PRICE, ESTIMATE_DETAIL, ESTIMATE_ENROLL_DATE, ESTIMATE_MAIN_IMAGE, ESTIMATE_DETAIL_IMAGES) " +
+	            "ESTIMATE_LINE_INTRODUCTION, ESTIMATE_PRICE, ESTIMATE_DETAIL, ESTIMATE_ENROLL_DATE, ESTIMATE_THUMBNAIL, ESTIMATE_DETAIL_FILE) " +
 	            "VALUES (SEQ_ESTIMATE.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
 
 	    try (PreparedStatement pstmt = conn.prepareStatement(sql, new String[]{"ESTIMATE_NO"})) {
@@ -35,8 +35,6 @@ public class EstimateDao {
 	        pstmt.setString(7, estimate.getEstimateDetail());
 	        pstmt.setString(8, estimate.getMainImage());
 	        pstmt.setString(9, estimate.getSubImage());
-	        
-	      
 
 	        int result = pstmt.executeUpdate();
 
@@ -51,6 +49,7 @@ public class EstimateDao {
 	        return 0; // 실패 시 0 반환
 	    }
 	}
+
 
 
 
@@ -136,7 +135,7 @@ public class EstimateDao {
 
 
 	public List<EstimateVo> selectEstimateList(Connection conn, PageVo pv, String categoryNo ) {
-	    String sql = "SELECT * FROM ( SELECT e.ESTIMATE_NO, e.ESTIMATE_TITLE, e.ESTIMATE_PRICE, e.ESTIMATE_ENROLL_DATE, e.ESTIMATE_MAIN_IMAGE, e.ESTIMATE_LINE_INTRODUCTION, m.MEMBER_NICK, COUNT(r.REVIEW_NO) AS REVIEW_COUNT, f.FREELANCER_NO, ROW_NUMBER() OVER (ORDER BY e.ESTIMATE_NO DESC) AS rn FROM estimate e JOIN freelancer f ON e.FREELANCER_NO = f.FREELANCER_NO JOIN member m ON f.MEMBER_NO = m.MEMBER_NO LEFT JOIN review r ON e.ESTIMATE_NO = r.ESTIMATE_NO AND r.REVIEW_STATUS = '1' WHERE f.MEMBER_NO = m.MEMBER_NO AND e.ESTIMATE_CAT_NO = ? GROUP BY e.ESTIMATE_NO, e.ESTIMATE_TITLE, e.ESTIMATE_PRICE, e.ESTIMATE_ENROLL_DATE, e.ESTIMATE_MAIN_IMAGE, e.ESTIMATE_LINE_INTRODUCTION, m.MEMBER_NICK, f.FREELANCER_NO ) WHERE rn >= ? AND rn <= ?";
+	    String sql = "SELECT * FROM ( SELECT e.ESTIMATE_NO, e.ESTIMATE_TITLE, e.ESTIMATE_PRICE, e.ESTIMATE_ENROLL_DATE, e.ESTIMATE_THUMBNAIL, e.ESTIMATE_LINE_INTRODUCTION, m.MEMBER_NICK, COUNT(r.REVIEW_NO) AS REVIEW_COUNT, f.FREELANCER_NO, ROW_NUMBER() OVER (ORDER BY e.ESTIMATE_NO DESC) AS rn FROM estimate e JOIN freelancer f ON e.FREELANCER_NO = f.FREELANCER_NO JOIN member m ON f.MEMBER_NO = m.MEMBER_NO LEFT JOIN review r ON e.ESTIMATE_NO = r.ESTIMATE_NO AND r.REVIEW_STATUS = 'Y' WHERE f.MEMBER_NO = m.MEMBER_NO AND e.ESTIMATE_CAT_NO = ? GROUP BY e.ESTIMATE_NO, e.ESTIMATE_TITLE, e.ESTIMATE_PRICE, e.ESTIMATE_ENROLL_DATE, e.ESTIMATE_THUMBNAIL, e.ESTIMATE_LINE_INTRODUCTION, m.MEMBER_NICK, f.FREELANCER_NO ) WHERE rn >= ? AND rn <= ?";
 	    List<EstimateVo> estimateList = new ArrayList<>();
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -154,7 +153,7 @@ public class EstimateDao {
 	            String estimateTitle = rs.getString("ESTIMATE_TITLE");
 	            String estimatePrice = rs.getString("ESTIMATE_PRICE");
 	            String estimateEnrollDate = rs.getString("ESTIMATE_ENROLL_DATE");
-	            String estimateMainImage = rs.getString("ESTIMATE_MAIN_IMAGE");
+	            String estimateMainImage = rs.getString("ESTIMATE_THUMBNAIL");
 	            String estimateLineIntroduction = rs.getString("ESTIMATE_LINE_INTRODUCTION");
 	            String memberNick = rs.getString("MEMBER_NICK");
 	            String reviewCountStr = rs.getString("REVIEW_COUNT");
@@ -195,7 +194,7 @@ public class EstimateDao {
 
 	public int EstimateBoardCnt(Connection conn) throws Exception {
 		
-			String sql = "SELECT COUNT(*) FROM ESTIMATE WHERE ESTIMATE_STATUS = 1";
+			String sql = "SELECT COUNT(*) FROM ESTIMATE WHERE ESTIMATE_STATUS = 'Y'";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();

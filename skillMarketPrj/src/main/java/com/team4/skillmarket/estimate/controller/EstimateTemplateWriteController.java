@@ -67,7 +67,6 @@ public class EstimateTemplateWriteController extends HttpServlet {
         Gson gson = new Gson();
         String json = gson.toJson(esticatevoList);
         
-      
         req.setAttribute("estiCatevoList", json);
         
 
@@ -90,7 +89,8 @@ public class EstimateTemplateWriteController extends HttpServlet {
             String jobDescription = req.getParameter("job-description");
             String mainimage = req.getParameter("main-image");
             String subImage = req.getParameter("sub-image");
-
+            
+    
             // 데뭉
             EstimateVo estimateVo = new EstimateVo();
             estimateVo.setFreelancerNo(freelancerNo);
