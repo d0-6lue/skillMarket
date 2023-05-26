@@ -7,7 +7,7 @@ public class CashLogVo {
 
 	private String no;
 	private String memberNo;
-	private String log_categoryNo;
+	private String logCategoryNo;
 	private String amount;
 	private String paymentMethodNo;
 	private String enrollDate;

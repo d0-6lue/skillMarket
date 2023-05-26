@@ -9,10 +9,12 @@ import java.util.List;
 
 import com.team4.skillmarket.cash.vo.CashVo;
 import com.team4.skillmarket.cashlog.vo.CashLogVo;
+import com.team4.skillmarket.cashlog.vo.CashSearchVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.vo.MemberVo;
+import com.team4.skillmarket.order.vo.QuotationViewVo;
 
 public class MemberDao {
 
@@ -394,7 +396,7 @@ public class MemberDao {
 
 	public List<CashLogVo> getCashLogList(Connection conn, MemberVo loginMember) throws Exception {
 		
-		String sql = "SELECT C.NO, C.MEMBER_NO, C.LOG_CATEGORY_NO, C.AMOUNT, C.PAYMENT_METHOD_NO, TO_CHAR(C.ENROLL_DATE, 'YYYY\"년\"MM\"월\"DD\"일\"') AS ENROLL_DATE, L.CATEGORY_NO, L.CATEGORY_NAME, P.PAYMENT_METHOD_NAME FROM CASH_LOG C JOIN LOG_CATEGORY L ON C.LOG_CATEGORY_NO = L.CATEGORY_NO JOIN PAYMENT_METHOD P ON C.PAYMENT_METHOD_NO = P.NO WHERE C.MEMBER_NO = ? ORDER BY ENROLL_DATE DESC";
+		String sql = "SELECT NO, MEMBER_NO, LOG_CATEGORY_NO, AMOUNT, PAYMENT_METHOD_NO, TO_CHAR(ENROLL_DATE, 'YYYY\"년\"MM\"월\"DD\"일\"') AS ENROLL_DATE, CATEGORY_NO, CATEGORY_NAME, PAYMENT_METHOD_NAME FROM ( SELECT C.NO, C.MEMBER_NO, C.LOG_CATEGORY_NO, C.AMOUNT, C.PAYMENT_METHOD_NO, C.ENROLL_DATE, L.CATEGORY_NO, L.CATEGORY_NAME, P.PAYMENT_METHOD_NAME FROM CASH_LOG C JOIN LOG_CATEGORY L ON C.LOG_CATEGORY_NO = L.CATEGORY_NO JOIN PAYMENT_METHOD P ON C.PAYMENT_METHOD_NO = P.NO WHERE C.MEMBER_NO = ? ORDER BY ENROLL_DATE DESC)";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, loginMember.getMemberNo());
@@ -406,6 +408,7 @@ public class MemberDao {
 			String memberNo = rs.getString("MEMBER_NO");
 			String amount = rs.getString("AMOUNT");
 			String enrollDate = rs.getString("ENROLL_DATE");
+			String categoryNo = rs.getString("CATEGORY_NO");
 			String categoryName = rs.getString("CATEGORY_NAME");
 			String payMentMethodName = rs.getString("PAYMENT_METHOD_NAME");
 			
@@ -416,6 +419,7 @@ public class MemberDao {
 			vo.setAmount(amount);
 			vo.setEnrollDate(enrollDate);
 			vo.setCategoryName(categoryName);
+			vo.setLogCategoryNo(categoryNo);
 			vo.setPaymentMethodName(payMentMethodName);
 			
 			cList.add(vo);
@@ -425,6 +429,81 @@ public class MemberDao {
 		JDBCTemplate.close(pstmt);
 		
 		return cList;
+	}
+
+	public List<CashLogVo> getSearchCashLogList(Connection conn, CashSearchVo csv) throws Exception {
+		
+		String sql = "SELECT NO, MEMBER_NO, LOG_CATEGORY_NO, AMOUNT, PAYMENT_METHOD_NO, TO_CHAR(ENROLL_DATE, 'YYYY\"년\"MM\"월\"DD\"일\"') AS ENROLL_DATE, CATEGORY_NO, CATEGORY_NAME, PAYMENT_METHOD_NAME FROM (SELECT C.NO, C.MEMBER_NO, C.LOG_CATEGORY_NO, C.AMOUNT , C.PAYMENT_METHOD_NO, C.ENROLL_DATE, L.CATEGORY_NO, L.CATEGORY_NAME, P.PAYMENT_METHOD_NAME FROM CASH_LOG C JOIN LOG_CATEGORY L ON C.LOG_CATEGORY_NO = L.CATEGORY_NO JOIN PAYMENT_METHOD P ON C.PAYMENT_METHOD_NO = P.NO WHERE C.MEMBER_NO = ? AND CATEGORY_NAME = ? AND ENROLL_DATE BETWEEN '"+ csv.getOrderDate1() +"-01' AND ( SELECT LAST_DAY(TO_DATE('"+ csv.getOrderDate2() + "-01', 'YYYY-MM-DD')) FROM DUAL) ORDER BY ENROLL_DATE DESC)";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, csv.getMemberNo());
+		pstmt.setString(2, csv.getOrderStatus());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<CashLogVo> cList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String amount = rs.getString("AMOUNT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String categoryNo = rs.getString("CATEGORY_NO");
+			String categoryName = rs.getString("CATEGORY_NAME");
+			String payMentMethodName = rs.getString("PAYMENT_METHOD_NAME");
+			
+			CashLogVo vo = new CashLogVo();
+			
+			vo.setNo(no);
+			vo.setMemberNo(memberNo);
+			vo.setAmount(amount);
+			vo.setEnrollDate(enrollDate);
+			vo.setCategoryName(categoryName);
+			vo.setLogCategoryNo(categoryNo);
+			vo.setPaymentMethodName(payMentMethodName);
+			
+			cList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cList;
+		
+	}
+
+	public List<QuotationViewVo> getOrderList(Connection conn, MemberVo loginMember) throws Exception {
+		
+		String sql = "SELECT Q.QUOTATION_NO, Q.QUOTATION_ENROLL_DATE, E.ESTIMATE_TITLE, QS.QUOTATION_STATUS_NAME, Q.QUOTATION_PRICE FROM QUOTATION Q JOIN ESTIMATE E ON Q.ESTIMATE_NO = E.ESTIMATE_NO JOIN QUOTATION_STATUS QS ON Q.QUOTATION_STATUS_NO = QS.QUOTATION_STATUS_NO WHERE Q.MEMBER_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getMemberNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<QuotationViewVo> orderList = new ArrayList<>(); 
+		while(rs.next()) {
+			
+			String quotationNo = rs.getString("QUOTATION_NO");
+			String quotationEnrollDate = rs.getString("QUOTATION_ENROLL_DATE");
+			String estimateTitle = rs.getString("ESTIMATE_TITLE");
+			String quotationStatusName = rs.getString("QUOTATION_STATUS_NAME");
+			String quotationPrice = rs.getString("QUOTATION_PRICE");
+			
+			
+			QuotationViewVo vo = new QuotationViewVo();
+			
+			vo.setEstimateTitle(estimateTitle);
+			vo.setQuotationEnrollDate(quotationEnrollDate);
+			vo.setQuotationNo(quotationNo);
+			vo.setQuotationPrice(quotationPrice);
+			vo.setQuotationStatusName(quotationStatusName);
+			
+			orderList.add(vo);
+			System.out.println(vo);
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return orderList;
 	}
 
 	
