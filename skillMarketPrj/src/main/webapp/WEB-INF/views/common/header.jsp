@@ -191,32 +191,30 @@
 
             const bigList = JSON.parse(sessionStorage.getItem('bigList'));
 
-            if(bigList != null){
-                bigList.forEach(bigCategory => {
-                    const categoryMenu = document.createElement('div');
-                    categoryMenu.classList.add('category-menu');
-                    categoryMenu.id = bigCategory.estimateCatNo;
+            bigList.forEach(bigCategory => {
+                const categoryMenu = document.createElement('div');
+                categoryMenu.classList.add('category-menu');
+                categoryMenu.id = bigCategory.estimateCatNo;
 
-                    const bigCategoryDiv = document.createElement('div');
-                    bigCategoryDiv.classList.add('big-category');
-                    bigCategoryDiv.classList.add('bold');
-                    bigCategoryDiv.innerText = bigCategory.estimateCatName;
-                    categoryMenu.append(bigCategoryDiv);
+                const bigCategoryDiv = document.createElement('div');
+                bigCategoryDiv.classList.add('big-category');
+                bigCategoryDiv.classList.add('bold');
+                bigCategoryDiv.innerText = bigCategory.estimateCatName;
+                categoryMenu.append(bigCategoryDiv);
 
-                    getSubCategory('mid', bigCategory.estimateCatNo);
-                    const midCategoryList = JSON.parse(sessionStorage.getItem('midList' + bigCategory.estimateCatNo));
-                    midCategoryList.forEach(midCategory => {
-                        const midCategoryDiv = document.createElement('div');
-                        midCategoryDiv.classList.add('mid-category');
-                        midCategoryDiv.classList.add('regular');
-                        midCategoryDiv.innerText = midCategory.estimateCatName;
-                        categoryMenu.append(midCategoryDiv);
-                    })
+                getSubCategory('mid', bigCategory.estimateCatNo);
+                const midCategoryList = JSON.parse(sessionStorage.getItem('midList' + bigCategory.estimateCatNo));
+                midCategoryList.forEach(midCategory => {
+                    const midCategoryDiv = document.createElement('div');
+                    midCategoryDiv.classList.add('mid-category');
+                    midCategoryDiv.classList.add('regular');
+                    midCategoryDiv.innerText = midCategory.estimateCatName;
+                    categoryMenu.append(midCategoryDiv);
+                })
 
-                    simpleCategory.append(categoryMenu);
+                simpleCategory.append(categoryMenu);
 
-                });
-            }
+            });
 
         }
 
@@ -227,6 +225,7 @@
                 data : {
                     "type" : type
                 },
+                async: false,
                 dataType : "json",
                 success : function(list){
                     const key = type + "List";
@@ -246,6 +245,7 @@
                     "type" : type,
                     "aboveNo" : aboveNo
                 },
+                async: false,
                 dataType : "json",
                 success : function(list){
                     const key = type + "List" + aboveNo;
@@ -290,16 +290,14 @@
                         getSubCategory('small', midCategory.estimateCatNo);
                         const smallCategoryList = JSON.parse(sessionStorage.getItem('smallList' + midCategory.estimateCatNo));
 
-                        if(smallCategoryList != null){
-                            smallCategoryList.forEach(smallCategory => {
-                                const detailSmlCategory = document.createElement('div');
-                                detailSmlCategory.classList.add('detail-sml-category');
-                                detailSmlCategory.classList.add('regular');
-                                detailSmlCategory.innerText = smallCategory.estimateCatName;
+                        smallCategoryList.forEach(smallCategory => {
+                            const detailSmlCategory = document.createElement('div');
+                            detailSmlCategory.classList.add('detail-sml-category');
+                            detailSmlCategory.classList.add('regular');
+                            detailSmlCategory.innerText = smallCategory.estimateCatName;
 
-                                detailCategoryMenu.append(detailSmlCategory);
-                            })
-                        }
+                            detailCategoryMenu.append(detailSmlCategory);
+                        })
                         
                         detailCategory.append(detailCategoryMenu);
                     })
