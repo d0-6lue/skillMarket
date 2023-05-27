@@ -10,9 +10,22 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 <script>
+        const rootPath = '${root}';
+        console.log(rootPath);
     window.onbeforeunload = function() {
   window.location.replace(window.location.href);
 };
+
+
+function boardDelete() {
+    const result = confirm("삭제하시겠습니까?");
+    
+    if (result) {
+        location.href = rootPath + '/community/post/delete?no=<c:out value="${vo.boardNo}" />';
+    }
+}
+
+
 </script>
 </head>
 <body>
@@ -26,7 +39,7 @@
                     </div>
                         <span>
                             <a class="btn btn-primary" href="${root}/community/post/edit?no=${vo.boardNo}">수정하기</a>
-                            <a class="btn btn-primary" href="${root}/community/post/delete?no=${vo.boardNo}">삭제하기</a>
+                            <a class="btn btn-primary" onclick="boardDelete();">삭제하기</a>
                         </span>
                         
                     <div>
@@ -142,6 +155,8 @@
     }
 
         loadComment();
+
+      
 
         </script>
 </body>

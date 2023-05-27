@@ -14,6 +14,8 @@
 <!-- 부트스트랩 css js -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
 </head>
 <body>
 
@@ -28,17 +30,16 @@
                       <div class="category-title">
                         <strong>카테고리</strong>
                       </div>
-                      <div id="middleCategories" class="middle-category-container">
+                      <div class="middle-category-container" id="middleCategories">
                         <!-- 중분류 카테고리가 동적으로 추가될 위치 -->
-                        <div id="subCategories" class="sub-category-container">
-                            <!-- 소분류 카테고리가 동적으로 추가될 위치 -->
-                          </div>
                       </div>
-                      
                     </div>
                   </div>
                   
                   
+                  
+                    
+                    
                   
 				
                 <div class="main-list-box">
@@ -76,32 +77,35 @@
                         <div class="four-service-list">
                            
                             <c:forEach var="estimate" items="${estimateList}">
-                            <div class="service-border">
-                                <div class="profile-image-box">
-                                <div id="content">
-                                    <c:out value="${estimate.mainImage}" escapeXml="false" />
+                                <div class="service-border">
+                                    <div class="profile-image-box">
+                                        <a href="${root}/esti?estimateNo=${estimate.estimateNo}">
+                                            <div id="content">
+                                                <c:out value="${estimate.mainImage}" escapeXml="false" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="expert-info">
+                                        <div class="expert-box">
+                                            <div class="expert-name">${estimate.memberNick}</div>
+                                            <div class="expert-badge">${estimate.estimateNo}</div>
+                                        </div>
+                                        <div class="expert-title">${estimate.estimateTitle}</div>
+                                        <div class="expert-account">${estimate.estimateLineIntroduction}</div>
+                                        <div class="expert-balance">${estimate.estimatePrice}원</div>
+                                        <div class="heart-area">
+                                            <div class="heart-icon">❤️</div>
+                                            <div class="expert-ratings">${estimate.reviewCount}</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                </div>
-                                <div class="expert-info">
-                                <div class="expert-box">
-                                    <div class="expert-name">${estimate.memberNick}</div>
-                                    <div class="expert-badge">${estimate.estimateNo}</div>
-                                </div>
-                                <div class="expert-title">${estimate.estimateTitle}</div>
-                                <div class="expert-account">${estimate.estimateLineIntroduction}</div>
-                                <div class="expert-balance">${estimate.estimatePrice}원</div>
-                                <div class="heart-area">
-                                    <div class="heart-icon">❤️</div>
-                                    <div class="expert-ratings">${estimate.reviewCount}</div>
-                                </div>
-                                </div>
-                            </div>
                             </c:forEach>
-                 
+                                            
                         </div>
 
+                       
+
                    
-                        </div>
                     </div>
 
                     <div class="page-area">
@@ -120,6 +124,10 @@
                             <a class="btn btn-primary btn-sm" href="${root}/category?categoryNo=${catvo.estimateCatNo}&page=${pv.currentPage + 1}">다음</a>
                         </c:if>
                     </div>
+                  
+                    </div>
+
+                    
                     
                         
                 </div>
@@ -136,95 +144,76 @@
 	</div>
 
     <script>
-    let cateList = $.parseJSON('${estiCatevoList}');
+ let cateList = $.parseJSON('${estiCatevoList}');
 
-    let middleCategories = []; // 중분류 카테고리 배열
-    let subCategories = []; // 소분류 카테고리 배열
+let middleCategories = []; // 중분류 카테고리 배열
 
-    let cateSelect2 = $("#middleCategories");
-    let cateSelect3 = $("#subCategories");
+let cateSelect2 = $("#middleCategories");
 
-    let selectedCategories = $("#selectedCategories");
+/* 중분류 및 소분류 카테고리 초기화 */
+for (let i = 0; i < cateList.length; i++) {
+  if (cateList[i].estimateCatScope === "2") { // 중분류 카테고리인 경우
+    let middleCategory = {
+      name: cateList[i].estimateCatName, // 중분류 카테고리 이름
+      code: cateList[i].estimateCatNo, // 중분류 카테고리 코드
+      parent: cateList[i].aboveCatNo, // 상위 카테고리 번호
+      subCategories: [] // 소분류 카테고리 배열
+    };
+    middleCategories.push(middleCategory); // 중분류 카테고리를 배열에 추가
+  }
+}
 
-    /* 중분류 카테고리 초기화 */
-    for (let i = 0; i < cateList.length; i++) {
-    if (cateList[i].estimateCatScope === "2") { // 중분류 카테고리인 경우
-        let middleCategory = {
-        name: cateList[i].estimateCatName, // 카테고리 이름
-        code: cateList[i].estimateCatNo, // 카테고리 코드
-        parent: cateList[i].aboveCatNo, // 상위 카테고리 번호
-        subCategories: [] // 소분류 카테고리 배열
-        };
-        middleCategories.push(middleCategory); // 중분류 카테고리를 배열에 추가
+$(document).ready(function () {
+  for (let i = 0; i < middleCategories.length; i++) {
+    let middleCategoryDiv = $("<div class='middle-category'></div>");
+    let middleCategoryLink = $("<a></a>")
+      .attr("href", '${root}/category?categoryNo=' + middleCategories[i].code)
+      .text(middleCategories[i].name);
+    middleCategoryDiv.append(middleCategoryLink);
+
+    let subCategoryUl = $("<ul class='sub-category'></ul>");
+    for (let j = 0; j < cateList.length; j++) {
+      if (
+        cateList[j].estimateCatScope === "3" &&
+        cateList[j].aboveCatNo === middleCategories[i].code
+      ) {
+        let subCategoryLi = $("<li></li>");
+        let subCategoryLink = $("<a></a>")
+          .attr("href", '${root}/category?categoryNo=' + cateList[j].estimateCatNo)
+          .text(cateList[j].estimateCatName);
+        subCategoryLi.append(subCategoryLink);
+        subCategoryUl.append(subCategoryLi);
+        middleCategories[i].subCategories.push({
+          name: cateList[j].estimateCatName,
+          code: cateList[j].estimateCatNo,
+          parent: cateList[j].aboveCatNo,
+          categoryNo: cateList[j].categoryNo // 소분류 카테고리 번호
+        });
+      }
     }
-    }
+    middleCategoryDiv.append(subCategoryUl);
+    cateSelect2.append(middleCategoryDiv);
+  }
+});
 
-    $(document).ready(function () {
-    for (let i = 0; i < middleCategories.length; i++) {
-        cateSelect2.append(
-        "<div class='middle-category' data-code='" +
-        middleCategories[i].code +
-        "'>" +
-        middleCategories[i].name +
-        "</div>"
-        );
-    }
-    });
+/* 중분류 카테고리 호버 이벤트 */
+$(document).on("mouseenter", ".middle-category", function () {
+  $(this).find(".sub-category").show();
+});
 
-    /* 중분류 카테고리 선택 이벤트 */
-    $(document).on("click", ".middle-category", function () {
-    let selectedCateCode = $(this).attr("data-code");
-    let selectedMiddleCategory = middleCategories.find(
-        (category) => category.code === selectedCateCode
-    );
+$(document).on("mouseleave", ".middle-category", function () {
+  $(this).find(".sub-category").hide();
+});
 
-    cateSelect3.empty();
-    selectedMiddleCategory.subCategories = [];
+/* 카테고리 링크 클릭 이벤트 */
+$(document).on("click", ".middle-category a, .sub-category a", function (e) {
+  e.preventDefault();
+  let href = $(this).attr("href");
+  window.location.href = href;
+});
 
-    for (let i = 0; i < cateList.length; i++) {
-        if (
-        cateList[i].estimateCatScope === "3" &&
-        cateList[i].aboveCatNo === selectedMiddleCategory.code
-        ) {
-        let subCategory = {
-            name: cateList[i].estimateCatName,
-            code: cateList[i].estimateCatNo
-        };
-        selectedMiddleCategory.subCategories.push(subCategory);
-        }
-    }
 
-    for (let i = 0; i < selectedMiddleCategory.subCategories.length; i++) {
-        cateSelect3.append(
-        "<div class='sub-category' data-code='" +
-        selectedMiddleCategory.subCategories[i].code +
-        "'>" +
-        selectedMiddleCategory.subCategories[i].name +
-        "</div>"
-        );
-    }
 
-    console.log("선택된 중분류 카테고리: " + selectedMiddleCategory.name);
-    console.log("소분류 카테고리 초기화");
-
-    // 선택된 카테고리 표시
-    selectedCategories.text(selectedMiddleCategory.name);
-
-    // 소분류 카테고리 이름 출력
-    for (let i = 0; i < selectedMiddleCategory.subCategories.length; i++) {
-        console.log("소분류 카테고리: " + selectedMiddleCategory.subCategories[i].name);
-    }
-    });
-
-    /* 소분류 카테고리 선택 이벤트 */
-    $(document).on("click", ".sub-category", function () {
-    let selectedCateCode = $(this).attr("data-code");
-    let selectedSubCategory = selectedMiddleCategory.subCategories.find(
-        (category) => category.code === selectedCateCode
-    );
-
-    console.log("선택된 소분류 카테고리: " + selectedSubCategory.name);
-    });
 
 
 
