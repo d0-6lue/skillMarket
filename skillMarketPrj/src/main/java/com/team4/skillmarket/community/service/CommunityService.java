@@ -104,8 +104,14 @@ public class CommunityService {
 	//게시판 조회하기
 	public List<CommunityPostVo> getFreeBoardList(PageVo pv) {
 	    Connection conn = JDBCTemplate.getConnection();
+	    
+	    long startTime = System.currentTimeMillis();
 
 	    List<CommunityPostVo> volist = dao.getCommunityPostList(conn, pv);
+	    
+	    long endTime = System.currentTimeMillis();
+	    long executionTime = endTime - startTime;
+	    System.out.println("메서드 실행 시간: " + executionTime + "ms");
 
 	    JDBCTemplate.close(conn);
 
