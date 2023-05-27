@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/setup.jsp" %>
-
     
 <!DOCTYPE html>
 <html>
@@ -119,81 +118,11 @@
                         <span class=" bold">전체 카테고리</span>
                         <div class="category-bar">
                             <div class="simple-category">
-                                <div class="category-menu bc-design">
-                                    <div class="big-category bold">디자인</div>
-                                    <a class="mid-category regular" href="">디자인1</a>
-                                    <a class="mid-category regular" href="">디자인2</a>
-                                    <a class="mid-category regular" href="">디자인3</a>
-                                    <a class="mid-category regular" href="">디자인4</a>
-                                    <a class="mid-category regular" href="">디자인5</a>
-                                </div>
-                                <div class="category-menu">
-                                    <div class="big-category bold">IT/프로그래밍</div>
-                                    <a class="mid-category regular" href="">IT/프로그래밍1</a>
-                                    <a class="mid-category regular" href="">IT/프로그래밍2</a>
-                                    <a class="mid-category regular" href="">IT/프로그래밍3</a>
-                                    <a class="mid-category regular" href="">IT/프로그래밍4</a>
-                                    <a class="mid-category regular" href="">IT/프로그래밍5</a>
-                                </div>
-                                <div class="category-menu">
-                                    <div class="big-category bold">영상,사진,음향</div>
-                                    <a class="mid-category regular" href="">영상,사진,음향1</a>
-                                    <a class="mid-category regular" href="">영상,사진,음향2</a>
-                                    <a class="mid-category regular" href="">영상,사진,음향3</a>
-                                    <a class="mid-category regular" href="">영상,사진,음향4</a>
-                                    <a class="mid-category regular" href="">영상,사진,음향5</a>
-                                </div>
-                                <div class="category-menu">
-                                    <div class="big-category bold">마켓팅</div>
-                                    <a class="mid-category regular" href="">마켓팅1</a>
-                                    <a class="mid-category regular" href="">마켓팅2</a>
-                                    <a class="mid-category regular" href="">마켓팅3</a>
-                                    <a class="mid-category regular" href="">마켓팅4</a>
-                                    <a class="mid-category regular" href="">마켓팅5</a>
-                                </div>
+                                
                             </div>
                             <div class="detail-category-area">
                                 <div class="detail-category">
-                                    <div class="detail-category-menu">
-                                        <div class="detail-mid-category bold">로고·브랜딩</div>
-                                        <div class="detail-sml-category regular">로고 디자인</div>
-                                        <div class="detail-sml-category regular">브랜드 디자인·가이드</div>
-                                    </div>
-    
-                                    <div class="detail-category-menu">
-                                        <div class="detail-mid-category bold">웹·모바일 디자인</div>
-                                        <div class="detail-sml-category regular">웹 디자인</div>
-                                        <div class="detail-sml-category regular">웹·모바일 디자인</div>
-                                        <div class="detail-sml-category regular">템플릿형 홈페이지</div>
-                                        <div class="detail-sml-category regular">아이콘·버튼</div>
-                                    </div>
-    
-                                    <div class="detail-category-menu">
-                                        <div class="detail-mid-category bold">캐릭터·일러스트</div>
-                                        <div class="detail-sml-category regular">일러스트</div>
-                                        <div class="detail-sml-category regular">캐리커처</div>
-                                        <div class="detail-sml-category regular">웹툰·콘티</div>
-                                        <div class="detail-sml-category regular">캐릭터</div>
-                                        <div class="detail-sml-category regular">이모티콘</div>
-                                    </div>
-    
-                                    <div class="detail-category-menu">
-                                        <div class="detail-mid-category bold">공간·건축</div>
-                                        <div class="detail-sml-category regular">도면제작·수정</div>
-                                        <div class="detail-sml-category regular">인테리어 컨설팅</div>
-                                        <div class="detail-sml-category regular">전시·무대 디자인</div>
-                                        <div class="detail-sml-category regular">간판·시공</div>
-                                    </div>
-    
-                                    <div class="detail-category-menu">
-                                        <div class="detail-mid-category bold">인쇄·홍보물</div>
-                                        <div class="detail-sml-category regular">명함</div>
-                                        <div class="detail-sml-category regular">전단지·포스터·인쇄물</div>
-                                        <div class="detail-sml-category regular">현수막·X배너</div>
-                                        <div class="detail-sml-category regular">메뉴판</div>
-                                        <div class="detail-sml-category regular">홍보물 인쇄·출력</div>
-                                        <div class="detail-sml-category regular">스티커·봉투·초대장</div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -243,7 +172,6 @@
         </div>
     </div>
 
-        
 
 
 </body>
@@ -253,4 +181,144 @@
         const currentUrl = document.querySelector('input[name=currentUrl]');
         url = window.location.pathname;
         currentUrl.value = url;
+
+        printCategoryHover();
+        function printCategoryHover(){
+
+            const simpleCategory = document.querySelector(".simple-category");
+
+            getCategory('big');
+
+            const bigList = JSON.parse(sessionStorage.getItem('bigList'));
+
+            bigList.forEach(bigCategory => {
+                const categoryMenu = document.createElement('div');
+                categoryMenu.classList.add('category-menu');
+                categoryMenu.id = bigCategory.estimateCatNo;
+
+                const bigCategoryDiv = document.createElement('div');
+                bigCategoryDiv.classList.add('big-category');
+                bigCategoryDiv.classList.add('bold');
+                bigCategoryDiv.innerText = bigCategory.estimateCatName;
+                categoryMenu.append(bigCategoryDiv);
+
+                getSubCategory('mid', bigCategory.estimateCatNo);
+                const midCategoryList = JSON.parse(sessionStorage.getItem('midList' + bigCategory.estimateCatNo));
+                midCategoryList.forEach(midCategory => {
+                    const midCategoryDiv = document.createElement('div');
+                    midCategoryDiv.classList.add('mid-category');
+                    midCategoryDiv.classList.add('regular');
+                    midCategoryDiv.innerText = midCategory.estimateCatName;
+                    categoryMenu.append(midCategoryDiv);
+                })
+
+                simpleCategory.append(categoryMenu);
+
+            });
+
+        }
+
+        function getCategory(type){
+            $.ajax({
+                url : "${root}/home/get-category",
+                type : "get",
+                data : {
+                    "type" : type
+                },
+                dataType : "json",
+                success : function(list){
+                    const key = type + "List";
+                    sessionStorage.setItem(key, JSON.stringify(list));
+                },
+                error : function(er) {
+                    console.log(er);
+                }
+            })
+        }
+
+        function getSubCategory(type, aboveNo){
+            $.ajax({
+                url : "${root}/home/get-category",
+                type : "get",
+                data : {
+                    "type" : type,
+                    "aboveNo" : aboveNo
+                },
+                dataType : "json",
+                success : function(list){
+                    const key = type + "List" + aboveNo;
+                    sessionStorage.setItem(key, JSON.stringify(list));
+                },
+                error : function(er) {
+                    console.log(er);
+                }
+            })
+        }
+
+        //----------------------------------------------------------------
+        // 디테일 카테고리 호버
+        categoryDetailHover();
+        function categoryDetailHover() {
+            const detailCategoryArea = document.querySelector(".detail-category-area");
+
+            const detailCategory = document.querySelector(".detail-category");
+
+            const categoryMenuList = document.querySelectorAll(".category-menu");
+            categoryMenuList.forEach(categoryMenu => {
+
+                categoryMenu.addEventListener("mouseover", function() {
+                    detailCategoryArea.classList.add('detail-category-area-active');
+
+                    detailCategory.replaceChildren('');
+                    detailCategory.id = categoryMenu.id;
+
+                    getSubCategory('mid', categoryMenu.id);
+                    const midCategoryList = JSON.parse(sessionStorage.getItem('midList' + categoryMenu.id));
+
+                    midCategoryList.forEach(midCategory => {
+                        const detailCategoryMenu = document.createElement('div');
+                        detailCategoryMenu.classList.add('detail-category-menu');
+
+                        const detailMidCategory = document.createElement('div');
+                        detailMidCategory.classList.add('detail-mid-category');
+                        detailMidCategory.classList.add('bold');
+                        detailMidCategory.innerText = midCategory.estimateCatName;
+                        detailCategoryMenu.append(detailMidCategory);
+
+                        getSubCategory('small', midCategory.estimateCatNo);
+                        const smallCategoryList = JSON.parse(sessionStorage.getItem('smallList' + midCategory.estimateCatNo));
+
+                        smallCategoryList.forEach(smallCategory => {
+
+                            const detailSmlCategory = document.createElement('div');
+                            detailSmlCategory.classList.add('detail-sml-category');
+                            detailSmlCategory.classList.add('regular');
+                            detailSmlCategory.innerText = smallCategory.estimateCatName;
+
+                            detailCategoryMenu.append(detailSmlCategory);
+                        })
+                        detailCategory.append(detailCategoryMenu);
+                    })
+                })
+
+                categoryMenu.addEventListener('mouseout', ()=>{
+                    detailCategoryArea.classList.remove('detail-category-area-active');
+                })
+                detailCategoryArea.addEventListener('mouseover', ()=>{
+                    detailCategoryArea.classList.add('detail-category-area-active');
+                    
+                    const categoryMenuList = document.querySelectorAll(".category-menu");
+                    categoryMenuList.forEach(categoryMenu => {
+                        const detailCategory = document.querySelector(".detail-category");
+
+                        if(categoryMenu.id == detailCategory.id){
+                            categoryMenu.classList.add('category-menu-hover');
+                        }
+                    })
+                })
+                detailCategoryArea.addEventListener('mouseout', ()=>{
+                    detailCategoryArea.classList.remove('detail-category-area-active');
+                })
+            })
+        }
 </script>
