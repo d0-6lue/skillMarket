@@ -191,30 +191,32 @@
 
             const bigList = JSON.parse(sessionStorage.getItem('bigList'));
 
-            bigList.forEach(bigCategory => {
-                const categoryMenu = document.createElement('div');
-                categoryMenu.classList.add('category-menu');
-                categoryMenu.id = bigCategory.estimateCatNo;
+            if(bigList != null){
+                bigList.forEach(bigCategory => {
+                    const categoryMenu = document.createElement('div');
+                    categoryMenu.classList.add('category-menu');
+                    categoryMenu.id = bigCategory.estimateCatNo;
 
-                const bigCategoryDiv = document.createElement('div');
-                bigCategoryDiv.classList.add('big-category');
-                bigCategoryDiv.classList.add('bold');
-                bigCategoryDiv.innerText = bigCategory.estimateCatName;
-                categoryMenu.append(bigCategoryDiv);
+                    const bigCategoryDiv = document.createElement('div');
+                    bigCategoryDiv.classList.add('big-category');
+                    bigCategoryDiv.classList.add('bold');
+                    bigCategoryDiv.innerText = bigCategory.estimateCatName;
+                    categoryMenu.append(bigCategoryDiv);
 
-                getSubCategory('mid', bigCategory.estimateCatNo);
-                const midCategoryList = JSON.parse(sessionStorage.getItem('midList' + bigCategory.estimateCatNo));
-                midCategoryList.forEach(midCategory => {
-                    const midCategoryDiv = document.createElement('div');
-                    midCategoryDiv.classList.add('mid-category');
-                    midCategoryDiv.classList.add('regular');
-                    midCategoryDiv.innerText = midCategory.estimateCatName;
-                    categoryMenu.append(midCategoryDiv);
-                })
+                    getSubCategory('mid', bigCategory.estimateCatNo);
+                    const midCategoryList = JSON.parse(sessionStorage.getItem('midList' + bigCategory.estimateCatNo));
+                    midCategoryList.forEach(midCategory => {
+                        const midCategoryDiv = document.createElement('div');
+                        midCategoryDiv.classList.add('mid-category');
+                        midCategoryDiv.classList.add('regular');
+                        midCategoryDiv.innerText = midCategory.estimateCatName;
+                        categoryMenu.append(midCategoryDiv);
+                    })
 
-                simpleCategory.append(categoryMenu);
+                    simpleCategory.append(categoryMenu);
 
-            });
+                });
+            }
 
         }
 
@@ -318,6 +320,15 @@
                 })
                 detailCategoryArea.addEventListener('mouseout', ()=>{
                     detailCategoryArea.classList.remove('detail-category-area-active');
+
+                    const categoryMenuList = document.querySelectorAll(".category-menu");
+                    categoryMenuList.forEach(categoryMenu => {
+                        const detailCategory = document.querySelector(".detail-category");
+
+                        if(categoryMenu.id == detailCategory.id){
+                            categoryMenu.classList.remove('category-menu-hover');
+                        }
+                    })
                 })
             })
         }
