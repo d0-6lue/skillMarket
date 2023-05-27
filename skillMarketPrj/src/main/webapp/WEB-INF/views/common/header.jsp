@@ -290,15 +290,17 @@
                         getSubCategory('small', midCategory.estimateCatNo);
                         const smallCategoryList = JSON.parse(sessionStorage.getItem('smallList' + midCategory.estimateCatNo));
 
-                        smallCategoryList.forEach(smallCategory => {
+                        if(smallCategoryList != null){
+                            smallCategoryList.forEach(smallCategory => {
+                                const detailSmlCategory = document.createElement('div');
+                                detailSmlCategory.classList.add('detail-sml-category');
+                                detailSmlCategory.classList.add('regular');
+                                detailSmlCategory.innerText = smallCategory.estimateCatName;
 
-                            const detailSmlCategory = document.createElement('div');
-                            detailSmlCategory.classList.add('detail-sml-category');
-                            detailSmlCategory.classList.add('regular');
-                            detailSmlCategory.innerText = smallCategory.estimateCatName;
-
-                            detailCategoryMenu.append(detailSmlCategory);
-                        })
+                                detailCategoryMenu.append(detailSmlCategory);
+                            })
+                        }
+                        
                         detailCategory.append(detailCategoryMenu);
                     })
                 })
