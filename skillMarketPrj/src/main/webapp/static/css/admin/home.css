@@ -10,8 +10,8 @@ transform: scale(1.1);
 
 .center-circle {
 position: absolute;
-width: 49%;
-height: 49%;
+width: 60%;
+height: 60%;
 background-color: #fdfdfd;
 border-radius: 50%;
 z-index: 99;
@@ -78,3 +78,22 @@ tbody.scroll_tbody tr:first-child {
   margin-top: 10;
 }
 
+.modal-content, .modal-content {
+  position: fixed;
+  background-color: #fefefe;
+  width: 900px;
+  height: 850px;
+  padding: 20px;
+  border: 1px solid #888;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-rows: 30px 1.2fr 0.5fr 7fr 1fr;
+  grid-template-areas:
+      "cs cs cs"
+      "h1 h1 h1"
+      "dv dv dv"
+      "sn sn sn"
+      "sb sb sb";
+}

@@ -17,13 +17,14 @@ import com.team4.skillmarket.admin.home.vo.MonthStatsVo;
 @WebServlet("/admin/home")
 public class AdminHomeController extends HttpServlet{
 	
+	private final HomeService hs = new  HomeService();
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
 			
 			
-			HomeService hs = new  HomeService();
 			HomeVo homeVo =  hs.getListByHome();
 			List<MonthStatsVo> monthStatsList = hs.getMonthlySalesAndSignupStats();
 			Map<String, List<?>> catNameMap = hs.getCategoryNameByHome();

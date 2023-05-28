@@ -536,7 +536,8 @@ CREATE TABLE "BANNER" (
 	"BANNER_NO"	                    NUMBER		NOT NULL,
 	"BANNER_BACKGROUNDCOLOR"        VARCHAR2(100)       ,
 	"BANNER_FILE"	                VARCHAR2(100)		,
-	"BANNER_ENROLLDATE"	            TIMESTAMP	DEFAULT SYSDATE	  
+	"BANNER_ENROLLDATE"	            TIMESTAMP	DEFAULT SYSDATE,	  
+    "BANNER_STATUS"	                CHAR(1)
 );
 
 
@@ -894,7 +895,7 @@ DECLARE
   v_status_no NUMBER;
   v_prev_sign_date DATE := v_start_date;
 BEGIN
-  FOR i IN 1..20 LOOP
+  FOR i IN 1..200 LOOP
     v_member_sign_date := v_prev_sign_date + DBMS_RANDOM.VALUE * (v_end_date - v_prev_sign_date);
     v_member_modifi_date := v_member_sign_date + DBMS_RANDOM.VALUE * (v_end_date - v_member_sign_date);
     
@@ -918,8 +919,7 @@ BEGIN
       MEMBER_INTERST,
       MEMBER_BANK,
       MEMBER_ACCOUNT,
-      MEMBER_CASH, 
-      MEMBER_PROFILE_PHOTO,
+      MEMBER_CASH,
       MEMBER_ADDRESS,
       MEMBER_SIGN_DATE,
       MEMBER_MODIFI_DATE
@@ -937,7 +937,6 @@ BEGIN
       '은행' || LPAD(i, 3, '0'),
       '계좌' || LPAD(i, 3, '0'),
       i || 00,
-      '프로필' || LPAD(i, 3, '0') || '.jpg',
       '주소' || LPAD(i, 3, '0'),
       v_member_sign_date,
       v_member_modifi_date
@@ -1528,10 +1527,10 @@ VALUES (3, 0, '마켓팅' , 1, 'Cat_Markerting.svg');
         VALUES (31002, 310, '전광판•키오크스' , 3, NULL);
         INSERT INTO ESTIMATE_CAT 
         ( ESTIMATE_CAT_NO,ABOVE_CAT_NO,ESTIMATE_CAT_NAME,ESTIMATE_CAT_SCOPE,ESTIMATE_CAT_FILE ) 
-        VALUES (31002, 310, 'TV•라디오' , 3, NULL);
+        VALUES (31003, 310, 'TV•라디오' , 3, NULL);
         INSERT INTO ESTIMATE_CAT 
         ( ESTIMATE_CAT_NO,ABOVE_CAT_NO,ESTIMATE_CAT_NAME,ESTIMATE_CAT_SCOPE,ESTIMATE_CAT_FILE ) 
-        VALUES (31002, 310, '인쇄 광고' , 3, NULL);
+        VALUES (31004, 310, '인쇄 광고' , 3, NULL);
     
     INSERT INTO ESTIMATE_CAT 
     ( ESTIMATE_CAT_NO,ABOVE_CAT_NO,ESTIMATE_CAT_NAME,ESTIMATE_CAT_SCOPE,ESTIMATE_CAT_FILE ) 
@@ -2560,3 +2559,9 @@ INSERT INTO "ESTIMATE" (
     1, -- ESTIMATE_STATUS
     9 -- ESTIMATE_VIEWS
 );
+
+
+INSERT INTO BANNER (BANNER_NO, BANNER_STATUS) VALUES(1, 'X');
+INSERT INTO BANNER (BANNER_NO, BANNER_STATUS) VALUES(2, 'X');
+INSERT INTO BANNER (BANNER_NO, BANNER_STATUS) VALUES(3, 'X');
+INSERT INTO BANNER (BANNER_NO, BANNER_STATUS) VALUES(4, 'X');

@@ -49,7 +49,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr id="FAQ_Detail_${ FAQHit.faqNo }" class="FAQ_Detail_TR">
                                             <td>
                                                 ${ FAQHit.faqNo }
                                             </td>
@@ -98,15 +98,15 @@
                                     </thead>
                                     <tbody class="scroll_tbody">
                                         <c:forEach items="${ FAQArrList }" var="list">
-                                            <tr>
+                                            <tr id="FAQ_Detail_${list.faqNo}" class="FAQ_Detail_TR">
                                                 <td>
                                                     ${ list.faqNo }
                                                 </td>
                                                 <td>
-                                                    ${ list.faqCatNo }
+                                                    ${ list.faqCatName }
                                                 </td>
                                                 <td>
-                                                    ${ list.faqTitle }
+                                                    ${ list.faqQContent }
                                                 </td>
                                                 <td>
                                                     ${ list.faqHit }
@@ -126,23 +126,44 @@
 
     </div>
 
-	 <!-- 모달 -->
-     <c:forEach items="${ FAQArrList }" var="modal">
+	 
 
-     <div id="noticeDetail_${ modal.faqNo }" class="noticeDetail modal">
-         <div class="modal-content">
-             <span class="close">&times;</span>
-             <h1>FAQ 상세</h1>
-             <div id="modal_div">
-                 <div class="nDC">[${ modal.faqCatNo }]</div>
-                 <input type="text" placeholder="제목" value="${ modal.faqQContent }" readonly>
-             </div>
-             <div id="noticeDetailContent_${ modal.faqNo }"><div>${ modal.faqAContent }</div></div>
-             <button id="submitBtn1" onclick="editForm();">수정하기</button>
-         </div>
-     </div>
+    <c:forEach items="${ FAQArrList }" var="modal">
+        <!-- FAQ 모달 -->
+        <div id="FAQ_detail_${ modal.faqNo }" class="FAQ_detail modal">
+            <div class="modal-content FAQ_modal">
+                <span id="close_${modal.faqNo}"  class="close">&times;</span>
+                <div id="h1_area">
+                    <h1>
+                        <select name="" id="cat_select_FAQ" class="cat_select_FAQ_${modal.faqNo}" disabled>
+                            <c:forEach var="FAQ" items="${catNameMap['FAQ']}">
+                                <c:if test="${modal.faqCatNo eq FAQ.faqCatNo}">
+                                    <option value="${FAQ.faqCatNo }" selected >${FAQ.faqCatName }</option>
+                                </c:if>
+                                <c:if test="${not modal.faqCatNo eq FAQ.faqCatNo}">
+                                    <option value="${FAQ.faqCatNo }">${FAQ.faqCatName }</option>
+                                </c:if>
+                            </c:forEach>
+                        </select>
+                    </h1>
+                    <h1>FAQ</h1>
 
- </c:forEach>
+                </div>
+                <div id="modal_div">
+                    <input type="text" id="modal_Title_${ modal.faqNo }" class="modal_Title" name="title" value="${ modal.faqQContent }" placeholder="제목" readonly></input>
+                    <div id="faq_Hit" class="faq_Hit_${modal.faqNo }">
+                        조회수 
+                        <br>
+                        ${ modal.faqHit }
+                    </div>
+                </div>
+                <div class="modal_content_area" id="FAQ_detailContent_${ modal.faqNo }">
+                    <div id="FAQ_summer_note_${ modal.faqNo }"> ${ modal.faqAContent }</div>
+                </div>
+                <button id="submitBtn1" class="FAQ_edit_btn FAQ_edit_btn_${ modal.faqNo }" >수정하기</button>
+            </div>
+        </div>
+    </c:forEach>
 
 </body>
 </html>
@@ -150,4 +171,4 @@
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
 <script src="${root}/static/js/admin/common/adminSet.js"></script>
 <link rel="stylesheet" href="${root}/static/css/admin/FAQ.css">
-<script src="${root}/static/js/admin/notice.js"></script>
+<script src="${root}/static/js/admin/FAQ.js"></script>

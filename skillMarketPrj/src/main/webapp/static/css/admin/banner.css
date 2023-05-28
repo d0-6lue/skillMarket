@@ -1,6 +1,10 @@
 
 article {
     background-color: #eeeded;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -2;
 }
 
 #banner_area {
@@ -32,6 +36,7 @@ article {
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-self: center;
 }
 
 .banner_area_col>div {
@@ -57,7 +62,6 @@ article {
     font-weight: 600;
     font-size: 17px;
     color: #545353;
-    background-color: #FFD15A;
     margin-top: 10px;
     border: none;
 }
@@ -94,6 +98,7 @@ article {
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    z-index: 2;
 }
 
 #img_area{
@@ -147,15 +152,19 @@ article {
     transform: translate(-50%, -50%);
 
     display: grid;
-    grid-template-rows: 30px 1.2fr 0.5fr 7fr 1fr;
+    grid-template-rows: 30px 1.2fr 8fr 2fr 0.5fr;
     grid-template-areas: 
         "cs cs cs"
         "h1 h1 h1"
-        "dv dv dv"
-        "sn sn sn"
+        "ig ig ig"
         "sb sb sb"
+        "dv dv dv"
     ;
     
+}
+
+.modal_img_area_box {
+    grid-area: ig; 
 }
 
 .modal h1 {
@@ -168,21 +177,23 @@ article {
 }
 
 .modal #modal_div {
-    grid-area: dv; 
-    width: 100%;
-    height: 100%;
-    border-top: 3px solid #cdcdcd;
-    border-bottom: 3px solid #cdcdcd;
+    grid-area: dv;
+    width: 10%;
+    background-color: #ffcccc;
     text-align: center;
     padding: 10px;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
     grid-gap: 10px;
-    justify-self: center;
+    justify-self: end;
     align-self: center;
+    font-size: 10;
+    color: #dbc9c9;
+    border-radius: 10px;
 }
 
-
+.modal #modal_div:hover {
+    background-color: #f34646;
+    color: #444444;
+}
 
 
 .close {
@@ -205,3 +216,103 @@ article {
     background-color: rgb(240, 240, 240);
     border-radius: 10px;
 }
+
+.modal #submitBtn , #submitBtn1{
+    border-radius: 10px;
+    width: 15%;
+    height: 70%;
+    grid-column: span 3;
+    grid-area: sb;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    background-color: #273F6D;
+    color: #fefefe;
+    justify-self: center;
+    align-self: center;
+}
+
+
+
+.modal_img_area_box {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+div#modal_upload_img {
+    background-color: rgb(215 215 215 / 30%);
+    height: 370;
+    width: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    position: absolute;
+    font-weight: 600;
+}
+div#modal_upload_img:hover {
+    background-color: rgba(233, 233, 233, 0.509);
+}
+
+.modal_img_area{
+    border-radius: 10px;
+    object-fit: none;
+}
+
+img{
+    max-height: 296;
+    max-width: 400;
+}
+
+.imageUpload {
+    display: none;
+}
+
+/* 배너 이미지 컬러피커 */
+input.modal_img_area_box_backGround {
+    
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    
+}
+
+img.banner_aticle_img_box {
+    max-height: 150;
+    max-width: 202;
+    z-index: 2;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(215 215 215 / 30%)
+}
+
+input#back_color_area {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+
+.banner_add_area {
+    position: relative;
+}
+
+input.edit_btn.openModalBtn {
+    background-color: #ffc745;
+}
+
+input.edit_btn.openModalBtn:disabled {
+    background-color: #F0F0F0;
+}
+

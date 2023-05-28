@@ -13,27 +13,26 @@
 
 
 .modal-content, .modal-content {
-position: fixed; /* 모달창을 고정 위치에 띄움 */
-background-color: #fefefe; /* 모달창 배경색 */
-/* margin: 15% auto;  */
-width: 900px;
-height: 850px;
-padding: 20px;
-border: 1px solid #888;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-
-display: grid;
-grid-template-rows: 30px 1.2fr 0.5fr 7fr 1fr;
-grid-template-areas: 
-    "cs cs cs"
-    "h1 h1 h1"
-    "dv dv dv"
-    "sn sn sn"
-    "sb sb sb"
-;
+    position: fixed;
+    background-color: #fefefe;
+    width: 900px;
+    height: 850px;
+    padding: 20px;
+    border: 1px solid #888;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-rows: 30px 1.2fr 0.5fr 7fr 1fr;
+    grid-template-areas:
+        "cs cs cs"
+        "h1 h1 h1"
+        "dv dv dv"
+        "sn sn sn"
+        "sb sb sb";
 }
+
+
 
 
 .modal h1 {
@@ -120,7 +119,81 @@ border-radius: 10px;
 }
 
 
+input.modal_Title {
+    border: 2px solid #d4d4d4;
+    border-radius: 10px;
+    padding: 10px;
+}
 
+input.modal_Title:read-only {
+    border: none;
+    padding: 0;
+}
+
+select#cat_select_FAQ {
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 2px solid #d4d4d4
+}
+
+select#cat_select_FAQ:disabled {
+    border: none;
+}
+
+
+.FAQ_detail #h1_area {
+    grid-area: h1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-height: 100;
+    padding: 20px;
+}
+
+
+/*  */
 .note-modal-backdrop{
     z-index: 1;
+}
+.note-editor.note-frame{
+    grid-area: sn;
+    resize: none;
+    justify-self: center;
+    align-self: center;
+    grid-column: span 3;
+    overflow: hidden;
+}
+
+
+
+.note-editable{
+    width: 836PX;
+    height: 100%;
+    /* max-height: 455.208; */
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.note-statusbar {
+    display: none;
+}
+
+
+.note-toolbar {
+    display: none;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable[contenteditable=false], .note-editor.note-airframe .note-editing-area .note-editable[contenteditable=false] {
+    background-color: #80808000;
+    
+}
+
+.note-editing-area {
+    max-height: 430;
+}
+
+td {
+    overflow: visible;
 }
