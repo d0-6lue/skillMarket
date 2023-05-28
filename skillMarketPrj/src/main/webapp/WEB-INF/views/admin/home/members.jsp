@@ -97,7 +97,7 @@
                                         <div class="list_box">
 
                                             <c:forEach items="${ memberArrList }" var="list">
-                                                <tr class="tr_backColor_${ list.statusNo } tr_R10">
+                                                <tr id="member_TR_${list.memberNo}" class="tr_backColor_${ list.statusNo } tr_R10 member_TR">
                                                     <td>
                                                         ${ list.memberNo }
                                                     </td>
@@ -128,6 +128,84 @@
         </article>
 
     </div>
+
+    
+    <c:forEach items="${ memberArrList }" var="modal">
+
+        <div id="modal_memberDetail_${ modal.memberNo }" class="modal_memberDetail modal">
+            <div class="modal-content" id="modal-content_${ modal.memberNo }">
+                <span class="close">&times;</span>
+                <c:if test="${modal.statusNo == '1'}">
+                    <h1>회원 상세</h1>
+                </c:if>
+                <c:if test="${modal.statusNo == '3'}">
+                    <h1>🛑 회원 상세 🛑</h1>
+                </c:if>
+                <c:if test="${modal.statusNo == '4'}">
+                    <h1>🚨 회원 상세 🚨</h1>
+                </c:if>
+
+                <div class="memberProfilePhoto_area">
+                    <img class="memberProfilePhoto" src="${root}/static/img/profile/${modal.memberProfilePhoto}" alt="">
+                </div>
+                <div id="modal_div">
+                    <div class="mNO">No.${ modal.memberNo }</div>
+                    <div class="memberId_area">${ modal.memberId }</div>
+                </div>
+                <div id="modal_memberDetail_Content_${ modal.memberNo }" class="modal_subMain_box">
+                    
+                    <div class="modal_subMain">
+                        <div>
+                            닉네임 
+                            <input type="text" value="${modal.memberNick}" readonly>
+                        </div>
+                        <div>닉네임 변경 
+                            <input type="text" value="${modal.memberNickStatus}" readonly>
+                        </div>
+                        <div>전화번호
+                            <input type="tel" value="${modal.memberPhone}" readonly>
+                        </div>
+                        <div>이메일 
+                            <input type="email" value="${modal.memberEmail}" readonly>
+                        </div>
+                        <div>은행
+                            <input type="text" value="${modal.memberBank}" readonly>
+                        </div>
+                        <div>계좌
+                            <input type="text" value="${modal.memberAccount}" readonly>
+                        </div>
+                        <div>캐시
+                            <input type="text" value="${modal.memberCash}" readonly>
+                        </div>
+                        <div>관심분야 
+                            <input type="text" value="${modal.memberInterst}" readonly>
+                        </div>
+                        <div>프래랜서
+                            <input type="text" value="${modal.freelancerY}" readonly>
+                        </div>
+                        <div>상태
+                            <input type="text" value="${modal.statusName}" readonly>
+                        </div>
+                        <div>신고내역
+                            <input type="text" value="" readonly>
+                        </div>
+                        <div>문의내역
+                            <input type="text" value="" readonly>
+                        </div>
+                        <div>가입일
+                            <input type="text" value="${modal.memberSignDate}" readonly>
+                        </div>
+                        <div>마지막 수정일
+                            <input type="text" value="${modal.memberModifiDate}" readonly>
+                        </div>
+                    </div>
+                </div>
+                <button id="submitBtn">계정정지</button>
+            </div>
+        </div>
+
+    </c:forEach>
+
 <script>
 
     const rootAdmin = '${root}'+'/admin/';

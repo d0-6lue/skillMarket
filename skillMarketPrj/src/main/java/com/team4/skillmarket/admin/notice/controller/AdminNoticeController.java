@@ -74,7 +74,7 @@ public class AdminNoticeController extends HttpServlet{
         String title = dto.getTitle();
         String content = dto.getContent();
         String category = dto.getCategory();
-        AdminVo admin =  (AdminVo) req.getSession().getAttribute("AdminLoginVo");
+        AdminVo admin =  (AdminVo) req.getSession().getAttribute("AdminLogin");
         String adminNo = admin.getAdminNo();
         
         

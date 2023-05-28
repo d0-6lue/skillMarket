@@ -1,5 +1,7 @@
 window.onload = function() {
 
+    $('#msgTbody').hide()
+
 
     // 상태별 필터
     $('#status_Sort').click(function () {
@@ -28,22 +30,6 @@ window.onload = function() {
     });
 
 
-    // $('#search_input').on('input', function() {
-        
-    //       const inputValue = $(this).val().trim(); // 입력된 값 가져오기
-          
-    //       console.log(inputValue);
-
-    //       $('.list_memberId_td').each(function() {
-    //         var text = $(this).text().trim(); // .list_memberId_td의 텍스트 가져오기
-    //         if (text.includes(inputValue)) {
-    //           $(this).closest('tr').show(); // 부모 <tr> 요소 보이기
-    //         } else {
-    //           $(this).closest('tr').hide(); // 부모 <tr> 요소 숨기기
-    //         }
-    //       });
-        
-    //   });
 
 
       $('#search_input').on('input', function() {
@@ -77,5 +63,23 @@ window.onload = function() {
     })
 
 
+    $(".member_TR").click(function () {
+      console.log(this);
+
+      const id = $(this).attr("id");
+      const lastUnderscoreIndex = id.lastIndexOf("_");
+      const no = id.substring(lastUnderscoreIndex + 1);
+
+      console.log(no);
+
+      $("#modal_memberDetail_"+no).css("display","block")
+
+    })
+
+
+    // 모달창 닫기 버튼 클릭 시
+    $(".close").click(function() {
+      $(".modal").css("display", "none"); // 모달창을 숨김
+  });
 
 };
