@@ -65,7 +65,7 @@ import com.team4.skillmarket.common.db.JDBCTemplate;
 			
 			JDBCTemplate.close(conn);
 			
-			System.out.println("updateFAQList : " + updateFAQList);
+			
 			
 			return updateFAQList;
 		}

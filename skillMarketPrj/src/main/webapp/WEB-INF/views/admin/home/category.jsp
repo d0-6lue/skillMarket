@@ -78,21 +78,40 @@
                                         </tr>
                                     </thead>
                                     <tbody class="scroll_tbody">
-                                        <c:forEach items="${ catArrList }" var="list">
-                                            <tr>
-                                                <td>
-                                                    <span>${ list.estimateCatName }</span>
-                                                </td>
-                                                <td>
-                                                    <input type="button" value="수정" id="catEditBtn">
-                                                </td>
-                                                <td>
-                                                    <span>중분류</span>
-                                                </td>
-                                                <td>
-                                                    <span>소분류</span>
-                                                </td>
-                                            </tr>
+                                        <c:forEach items="${ catArrList }" var="list_big">
+                                            
+                                            <c:if test="${ list_big.estimateCatScope == '1' }">
+
+                                                <tr id="cat_box_${ list_big.estimateCatNo }" class="cat_box_div">
+                                                    <td>
+                                                        <span>${ list_big.estimateCatName }</span>
+                                                    </td>
+
+                                                    <td>
+                                                        <input type="button" value="수정" id="catEditBtn">
+                                                    </td>
+
+                                                    <td id="meddle_cat_area_${ list_big.estimateCatNo }"  class="meddle_cat_area"">
+                                                        중분류
+                                                        <div id="meddle_cat_box_${ list_big.estimateCatNo }" class="meddle_cat_box">
+                                                            <c:forEach items="${ catArrList }" var="list_middle">
+
+                                                                <c:if test="${ list_middle.aboveCatNo eq list_big.estimateCatNo }">
+
+                                                                    <div>${list_middle.estimateCatName}</div>
+
+                                                                </c:if>
+
+
+                                                            </c:forEach>
+                                                        </div>
+                                                    </td>
+                                                   
+                                                </tr>
+
+                                            </c:if>
+                                            
+
                                         </c:forEach>
                                     </tbody>
                                 </table>
