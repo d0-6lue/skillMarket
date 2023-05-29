@@ -23,3 +23,26 @@ button#openModalBtn {
 article tbody.scroll_tbody{
     height: calc( 100% - 25px);
 }
+
+.meddle_cat_box {
+    display: none;
+    grid-auto-flow: column;
+   
+    width: 100%;
+
+    background: coral;
+
+    top: 26%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#meddle_cat_box_2 {
+    display: grid;
+    grid-auto-flow: row;
+   
+    width: 100%;
+
+    background: coral;
+
+}

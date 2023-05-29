@@ -129,8 +129,8 @@
 
     </div>
 
-    
-    <c:forEach items="${ memberArrList }" var="modal">
+    <div>
+        <c:forEach items="${ memberArrList }" var="modal">
 
         <div id="modal_memberDetail_${ modal.memberNo }" class="modal_memberDetail modal">
             <div class="modal-content" id="modal-content_${ modal.memberNo }">
@@ -206,6 +206,9 @@
 
     </c:forEach>
 
+    </div>
+    
+   
 <script>
 
     const rootAdmin = '${root}'+'/admin/';
