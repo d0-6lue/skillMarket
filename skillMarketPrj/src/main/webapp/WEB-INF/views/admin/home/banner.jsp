@@ -22,7 +22,7 @@
         <header>
                 
             <h1>배너 관리</h1>
-        
+            <button onclick="timestamp();">test</button>
         </header>
 
         <article>
@@ -149,18 +149,24 @@
                 <h1>배너 ${loop.index + 1}</h1>
                 <div class="modal_img_area_box">
                     <c:if test="${not empty banner and banner.bannerStatus ne 'X'}">
-                            <div class="modal_img_area" id="modal_upload_img">
+                            <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img">
+
                                 <img class="modal_img_box" id="modal_img_${loop.index + 1}" src="${root}/static/img/banner/배너이미지${loop.index + 1}.png" alt="배너이미지">
-                            </div>
+                                <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
+
+                            </label>
                             <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="${banner.bannerBackgroundcolor}">
                     </c:if>
                     <c:if test="${empty banner or banner.bannerStatus == 'X'}">
-                            <div class="modal_img_area" id="modal_upload_img" >
-                                <label  class="modal_upload_img" id="modal_upload_img_${loop.index + 1}">
+                            <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img" >
+                                
+                                <div  class="modal_upload_img " id="modal_upload_img_${loop.index + 1}">
                                     이미지 업로드
-                                    <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
-                                </label>
-                            </div>
+                                </div>
+                                <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
+
+
+                            </label>
                             <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround colorpicker_back_${loop.index + 1}" value="#737373">
                     </c:if>
                     
@@ -185,23 +191,24 @@
                 <h1>배너 ${loop.index + 1}</h1>
                 <div class="modal_img_area_box">
                     <c:if test="${not empty banner and banner.bannerStatus ne 'X'}">
-                            <div class="modal_img_area" id="modal_upload_img">
+                            <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img">
 
                                 <img class="modal_img_box" id="modal_img_${loop.index + 1}" src="${root}/static/img/banner/배너이미지${loop.index + 1}.png" alt="배너이미지">
+                                <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
 
-                            </div>
+                            </label>
                             <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="${banner.bannerBackgroundcolor}">
                     </c:if>
                     <c:if test="${empty banner or banner.bannerStatus == 'X'}">
-                        <div class="modal_img_area" id="modal_upload_img" >
+                            <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img" >
 
-                            <label  class="modal_upload_img" id="modal_upload_img_${loop.index + 1}">
-                                이미지 업로드
+                                <div  class="modal_upload_img" id="modal_upload_img_${loop.index + 1}">
+                                    이미지 업로드
+                                </div>
                                 <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
-                            </label>
 
-                        </div>
-                        <input type="color"  id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="#737373">
+                            </label>
+                            <input type="color"  id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="#737373">
                     </c:if>
                     
                 </div>
@@ -218,7 +225,7 @@
     
  
 <script>
-   const root = "${root}";
+    const root = "${root}";
     const log = "${bannerList[0].bannerBackgroundcolor}";
     console.log(log);
 </script>

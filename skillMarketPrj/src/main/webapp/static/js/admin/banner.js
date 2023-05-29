@@ -38,15 +38,17 @@ $(".delete_bth").click(function() {
     const confirmDelete = confirm("⚠ 진짜 삭제 하시나요?");
 
     if (confirmDelete) {
-        $(modal_upload_img).empty();
-        $(modal_upload_img).replaceWith(`
-            <div class="modal_img_area" id="modal_upload_img">
-                <label class="modal_upload_img" id="modal_upload_img_${no}">
-                    이미지 업로드
-                    <input type="file" class="imageUpload" id="imageUpload_Id_${no}" value="이미지 업로드">
-                </label>
+        $(".modal_img_area_"+no).html(
+            `
+            <div class="modal_upload_img" id="modal_upload_img_${no}">
+                이미지 업로드
             </div>
-        `);
+            
+            <input type="file" class="imageUpload" id="imageUpload_Id_${no}" value="이미지 업로드">
+
+            `
+        );
+        
         
 
         $.ajax({
@@ -65,6 +67,11 @@ $(".delete_bth").click(function() {
             }
 
         });
+    
+
+    }
+    else{
+        isUploading = false;
     }
 });
 
@@ -74,27 +81,29 @@ $(".delete_bth").click(function() {
 $(".edit_btn").click(function () {
     const id = $(this).parent().parent().attr("id");
     const no = id.substring(9);
+    $('.img_edit_' + no).css("display", "block");
+
     openModalAndUploadImage(no);
 })
 
 $(".banner_add_area").click(function() {
-    const id = $(this).parent().attr("id");
-    const no = id.substring(9);
+    const id = $(this).attr("id");
+    const lastUnderscoreIndex = id.lastIndexOf("_");
+    const no = id.substring(lastUnderscoreIndex + 1);
+    $('.img_edit_' + no).css("display", "block");
+
     openModalAndUploadImage(no);
-    console.log(123);
 });
 
 // 배너 업로드 + 썸네일
 function openModalAndUploadImage(no) {
    
-
-
-    const id = $(this).parent().attr("id");
     const openModal = "#img_edit" + no;
-    // 모달 열기
-    $('.img_edit_' + no).css("display", "block");
+   
+    
 
     $('#imageUpload_Id_' + no).change(function() {
+
         const input = $(this);
         const reader = new FileReader();
 
@@ -132,6 +141,7 @@ function openModalAndUploadImage(no) {
 
                 canvas.toBlob(function(blob) {
                     if (isUploading) {
+                        console.log("137");
                         return;
                       }
                     
@@ -150,27 +160,42 @@ function openModalAndUploadImage(no) {
                         success: function(savedImagePath) {
                             // 서버 응답에서 저장된 파일 경로 받기
                             console.log(savedImagePath);
-
-                            // 이미지 경로 변경
-                            const imageElement = input.closest('.modal_img_area_box').find('img.modal_img_area');
+                
 
                             // 라벨 및 자식 변경
-                            const labelElement = input.closest('.modal_upload_img');
-                            labelElement.html('<img class="modal_img_box" id="modal_img_' + no + '" src="' + root + savedImagePath + '" alt="배너이미지"' + no + '">');
+                            const labelElement = $("#back_color_"+no).parent().find("label");
+
+                            console.log(labelElement);
+
+                        
+
+                            const src = timestamp(no);
+                            console.log(src);
+                            $(".modal_img_area_"+no).html(
+
+                            `
+                            <img class="modal_img_box" id="modal_img_${no}" src="${src}" alt="배너이미지">
+                            <input type="file" class="imageUpload" id="imageUpload_Id_${no}" value="이미지 업로드">
+
+                            `
+                            )
+
+                            console.log( $(".modal_img_area_"+no).html());
 
                             
-                           
-                            
-                            
-                            $("#img_area_"+no).find(".banner_add_area :first-child").html(' <img class="banner_aticle_img_box" id="modal_img_' + no + '" src="' + root + savedImagePath + '" alt="배너이미지">')
+                            $("#img_area_"+no).find(".banner_add_area :first-child").html(` 
+                             <img class="banner_aticle_img_box" id="modal_img_' + no + '" src="${src}'" alt="배너이미지">
+                            `)
                             
                             console.log($("#img_area_"+no).find(".banner_add_area :first-child").html());
 
                             $("#Yn_check_" + no).parent().siblings().find(".edit_btn").prop("disabled", false);
+
                             isUploading = false;
                         },
                         error: function(xhr, status, error) {
                             console.log("에러ㅠㅠ");
+
                             isUploading = false;
                         }
                     });
@@ -185,6 +210,7 @@ function openModalAndUploadImage(no) {
     // 등록하기
     $(".submitBtn_NO_" + no).click(function() {
         if (isUploading) {
+            console.log("221");
             return;
           }
     
@@ -216,7 +242,6 @@ function openModalAndUploadImage(no) {
             success: function(updateBanner) {
                 // 성공적으로 요청이 처리되었을 때의 동작
                 console.log("AJAX 요청 성공");
-                console.log(ok);
                 alert("등록 성공! 👍");
 
                 isUploading = false;
@@ -258,4 +283,10 @@ function updateBanner(no) {
          
     `)
    
+}
+
+function timestamp(no) {
+    const timestamp = new Date().getTime(); // 고유한 타임스탬프 생성
+    return `${root}/static/img/banner/배너이미지${no}.png?t=${timestamp}`; // 이미지 URL에 쿼리 매개변수 추가
+    
 }

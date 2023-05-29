@@ -245,7 +245,7 @@ article {
     border-radius: 10px;
 }
 
-div#modal_upload_img {
+label#modal_upload_img {
     background-color: rgb(215 215 215 / 30%);
     height: 370;
     width: 500;
@@ -256,7 +256,7 @@ div#modal_upload_img {
     position: absolute;
     font-weight: 600;
 }
-div#modal_upload_img:hover {
+label#modal_upload_img:hover {
     background-color: rgba(233, 233, 233, 0.509);
 }
 
