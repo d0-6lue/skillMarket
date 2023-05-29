@@ -24,6 +24,7 @@ public class RefundCashController extends HttpServlet {
 		MemberVo loginMember= (MemberVo) session.getAttribute("loginMember");
 		
 		if(loginMember == null) {
+			req.getSession().setAttribute("alertMsg", "로그인 하셔야 합니다.");
 			resp.sendRedirect(req.getContextPath() + "/home");
 		}
 		

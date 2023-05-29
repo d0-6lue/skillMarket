@@ -93,7 +93,7 @@
 
 /* 프로젝트 썸네일(홍보 이미지) */
 .project-thumbnail {
-    width: 120px;
+    width: 190px;
     height: 120px;
 
     margin: 5px 5px;
@@ -166,11 +166,23 @@
 
     overflow-y: visible;
 
+    display: flex;
+
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
 }
 .chat::-webkit-scrollbar {
     display: none;
+}
+
+.thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.info-content {
+
 }
 
 /* 채팅 정보 */

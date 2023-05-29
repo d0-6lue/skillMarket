@@ -5,7 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
+import com.team4.skillmarket.chat.dao.ChatDao;
+import com.team4.skillmarket.chat.vo.ChatVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.order.vo.QuotationOptionVo;
 import com.team4.skillmarket.order.vo.QuotationVo;
@@ -19,14 +23,14 @@ public class OrderDao {
 		// 
 		String getQuotationSql = "SELECT QUOTATION_NO, QUOTATION_PREV_VER, QUOTATION_STATUS_NAME, QUOTATION_PRICE, QUOTATION_PERIOD,\r\n"
 				+ "TO_CHAR(QUOTATION_ENROLL_DATE, 'YYYY-MM-DD') AS QUOTATION_ENROLL_DATE_, TO_CHAR(QUOTATION_MODIFICATION_DATE, 'YYYY-MM-DD') AS QUOTATION_MODIFICATION_DATE_,\r\n"
-				+ "A.MEMBER_NO, B.MEMBER_NICK AS BUYER, C.MEMBER_NICK AS SELLER,\r\n"
+				+ "A.MEMBER_NO, B.MEMBER_NICK AS BUYER, C.MEMBER_NICK AS SELLER, C.MEMBER_PROFILE_PHOTO,\r\n"
 				+ "A.ESTIMATE_NO, ESTIMATE_TITLE, ESTIMATE_THUMBNAIL, ESTIMATE_LINE_INTRODUCTION, ESTIMATE_DETAIL, ESTIMATE_PRICE, ESTIMATE_DURATION\r\n"
 				+ "FROM QUOTATION A\r\n"
 				+ "    JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO\r\n"
 				+ "    JOIN (\r\n"
 				+ "        SELECT *\r\n"
 				+ "        FROM ESTIMATE A\r\n"
-				+ "            JOIN (SELECT MEMBER_NICK, FREELANCER_NO\r\n"
+				+ "            JOIN (SELECT MEMBER_NICK, FREELANCER_NO, MEMBER_PROFILE_PHOTO\r\n"
 				+ "                FROM FREELANCER A\r\n"
 				+ "                    JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO\r\n"
 				+ "                ) B ON A.FREELANCER_NO = B.FREELANCER_NO\r\n"
@@ -63,6 +67,7 @@ public class OrderDao {
 				quotationVo.setEstimatePrice(rs.getString("ESTIMATE_PRICE"));
 				quotationVo.setEstimatePeriod(rs.getString("ESTIMATE_DURATION"));
 				
+				quotationVo.setMemberProfile(rs.getString("MEMBER_PROFILE_PHOTO"));
 			}
 			
 		} catch (Exception e) {
@@ -122,5 +127,46 @@ public List<QuotationOptionVo> getOrderOptionbyNo(Connection conn, String quatat
 		
 		return optionVoList;
 	}
+
+public String getLastChat(Connection conn, String quotationNo, String memberNo) {
+	
+	String lastChatContent = null;
+	
+	Map<String, String> temp = new HashMap<>();
+	temp.put("quotationNo", quotationNo);
+	temp.put("participantNo", memberNo);
+	
+	ChatDao chatDao = new ChatDao();
+	int sender = chatDao.getReceiverByNo(conn, temp);
+	
+	String sql = "SELECT ROWNUM, CHAT_CONTENT \r\n"
+			+ "FROM ( SELECT * FROM CHAT_LOG WHERE QUOTATION_NO = ? AND CHAT_SENDER = ?\r\n"
+			+ "        ORDER BY CHAT_ENROLL_DATE DESC\r\n"
+			+ "        )\r\n"
+			+ "WHERE ROWNUM = 1";
+	
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	try {
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, quotationNo);
+		pstmt.setString(2, Integer.toString(sender));
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			
+			lastChatContent = rs.getString("CHAT_CONTENT");
+			
+		}
+		
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+	
+	
+	return lastChatContent;
+}
 
 }

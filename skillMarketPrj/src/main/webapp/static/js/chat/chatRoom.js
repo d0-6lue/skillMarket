@@ -219,6 +219,19 @@ function printChat(chatList, chatBox) {
         const chat = document.createElement("div");
         chat.classList.add("chat");
 
+        //보낸사람 썸네일 thumbnail
+        if( senderNo != loginMemberNo ) {
+            const thumbnail = document.createElement('img');
+            thumbnail.src = root +'/static/img/profile/' + chatVo.chatSenderProfile;
+            thumbnail.alt = '프로필 사진';
+            thumbnail.classList.add('thumbnail');
+            chat.append(thumbnail);
+        }
+
+        const infoContent = document.createElement('div');
+        infoContent.classList.add('info-content');
+
+
         // chat-info ------------------------------------------------
         const chatInfo = document.createElement("div");
         chatInfo.classList.add("chat-info");
@@ -227,7 +240,7 @@ function printChat(chatList, chatBox) {
             const chatSender = document.createElement("span");
             chatSender.classList.add("chat-sender");
             chatSender.classList.add("bold");
-            chatSender.innerText = sellerNick;
+            chatSender.innerText = sender;
 
             chatInfo.append(chatSender);
         }
@@ -291,8 +304,10 @@ function printChat(chatList, chatBox) {
         }
         // ---------------------------------------------
 
-        chat.append(chatInfo);
-        chat.append(chatContent);
+        infoContent.append(chatInfo);
+        infoContent.append(chatContent);
+
+        chat.append(infoContent);
         // -----------------------------------------------------
         // 보낸이가 본인일경우
         if( senderNo == loginMemberNo ) {

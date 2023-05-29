@@ -12,20 +12,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.team4.skillmarket.estimate.vo.EstimateVo;
+import com.team4.skillmarket.member.vo.MemberVo;
 import com.team4.skillmarket.order.service.OrderService;
 import com.team4.skillmarket.order.vo.QuotationOptionVo;
 import com.team4.skillmarket.order.vo.QuotationVo;
+import com.team4.skillmarket.chat.vo.ChatVo;
 
 @WebServlet("/order/detail")
 public class OrderDetailController extends HttpServlet {
 
+	private final OrderService orderService = new OrderService();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
+			MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
 			
+			if(loginMember == null) {
+				req.getSession().setAttribute("alertMsg", "로그인 하셔야 합니다.");
+				resp.sendRedirect(req.getContextPath() + "/home");
+			}
+			
+			String memberNo = loginMember.getMemberNo();
 			// 주문서 번호 (?no=)
 			String quotationNo = req.getParameter("no");
 			
@@ -36,13 +48,13 @@ public class OrderDetailController extends HttpServlet {
 			
 			Map<String, Object> voMap = new HashMap<>();
 			
-			
 			// Service
-			OrderService orderService = new OrderService();
 			voMap = orderService.getOrderDetailbyNo(quotationNo);
 			
 			quotationVo = (QuotationVo) voMap.get("quotation");
 			optionVoList = (List<QuotationOptionVo>) voMap.get("optionList");
+			
+			String lastChatContent = orderService.getLastChat(quotationNo, memberNo);
 			
 			if(quotationVo != null) {
 				
@@ -50,6 +62,7 @@ public class OrderDetailController extends HttpServlet {
 				if(!optionVoList.isEmpty()) {
 					req.setAttribute("optionVoList", optionVoList);
 				}
+				req.setAttribute("lastChatContent", lastChatContent);
 				
 				req.getRequestDispatcher("/WEB-INF/views/order/orderDetail.jsp").forward(req, resp);
 				

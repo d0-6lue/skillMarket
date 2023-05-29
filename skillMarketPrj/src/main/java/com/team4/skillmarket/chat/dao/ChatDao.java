@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 
 import com.team4.skillmarket.chat.vo.ChatRoomSideInfoVo;
 import com.team4.skillmarket.chat.vo.ChatVo;
@@ -90,8 +91,8 @@ public class ChatDao {
 		
 		List<ChatVo> chatList = new ArrayList<>();
 		
-		String loadChatSql = "SELECT CHAT_NO, QUOTATION_NO, CHAT_SENDER, MEMBER_NICK, CHAT_CONTENT, CHAT_REQUEST, CHAT_ATTACHMENT, CHAT_READ, CHAT_STATUS, TO_CHAR(CHAT_ENROLL_DATE, 'YYYY/MM/DD HH24:MI') AS CHAT_ENROLL_DATE\r\n"
-				+ "FROM ( SELECT CHAT_NO, QUOTATION_NO, CHAT_SENDER, MEMBER_NICK, CHAT_CONTENT, CHAT_REQUEST, CHAT_ATTACHMENT, CHAT_READ, CHAT_STATUS, CHAT_ENROLL_DATE\r\n"
+		String loadChatSql = "SELECT CHAT_NO, QUOTATION_NO, CHAT_SENDER, MEMBER_NICK, MEMBER_PROFILE_PHOTO, CHAT_CONTENT, CHAT_REQUEST, CHAT_ATTACHMENT, CHAT_READ, CHAT_STATUS, TO_CHAR(CHAT_ENROLL_DATE, 'YYYY/MM/DD HH24:MI') AS CHAT_ENROLL_DATE\r\n"
+				+ "FROM ( SELECT CHAT_NO, QUOTATION_NO, CHAT_SENDER, MEMBER_NICK, MEMBER_PROFILE_PHOTO, CHAT_CONTENT, CHAT_REQUEST, CHAT_ATTACHMENT, CHAT_READ, CHAT_STATUS, CHAT_ENROLL_DATE\r\n"
 				+ "        FROM CHAT_LOG A\r\n"
 				+ "            JOIN MEMBER B ON A.CHAT_SENDER = B.MEMBER_NO\r\n"
 				+ "            WHERE QUOTATION_NO = ? AND CHAT_NO > ?\r\n"
@@ -121,6 +122,8 @@ public class ChatDao {
 				chatVo.setChatRead(rs.getString("CHAT_READ"));
 				chatVo.setChatStatus(rs.getString("CHAT_STATUS"));
 				chatVo.setChatEnrollDate(rs.getString("CHAT_ENROLL_DATE"));
+				chatVo.setChatSenderProfile(rs.getString("MEMBER_PROFILE_PHOTO"));
+				
 				
 				
 				if("O".equals(chatVo.getChatRequest())) {
@@ -509,6 +512,7 @@ public class ChatDao {
 							pstmt.setString(1, inputNo);
 							pstmt.setString(2, optionNo);
 							
+							pstmt.executeUpdate();
 						}
 						else {
 							updataQuotationSql = "INSERT INTO QUOTATION_OPTION\r\n"
@@ -519,7 +523,6 @@ public class ChatDao {
 							pstmt.setString(1, quotationNo);
 							pstmt.setString(2, optionNo);
 							pstmt.setString(3, inputNo);
-							
 						}
 						
 					}
@@ -551,7 +554,38 @@ public class ChatDao {
 					
 					
 					pstmt = null;
-					if(result_ == 1 && "300".equals(category)) {
+					if(result_ == 1 && "100".equals(category)) {
+						
+						Map<String,String> infoMap = getCompletedUpdateInfo(conn, requestNo);
+						
+						String quotationNo_ = infoMap.get("quotationNo");
+						String quotationPrice = infoMap.get("quotationPrice");
+						String sellerNo = infoMap.get("sellerNo");
+						
+						String insertCashSql = "INSERT INTO CASH_LOG(NO, MEMBER_NO, LOG_CATEGORY_NO, AMOUNT,PAYMENT_METHOD_NO) \r\n"
+								+ "VALUES (SEQ_CASH_LOG_NO.NEXTVAL, ?, 3, ?, NULL)";
+						pstmt = conn.prepareStatement(insertCashSql);
+						pstmt.setString(1, sellerNo);
+						pstmt.setString(2, quotationPrice);
+						int insertCashResult = pstmt.executeUpdate();
+						
+						pstmt = null;
+						String updateUserCashSql = "UPDATE USER_CASH SET CASH_MONEY = CASH_MONEY + ?\r\n"
+								+ "WHERE MEMBER_NO = ?";
+						pstmt = conn.prepareStatement(updateUserCashSql);
+						pstmt.setString(1, quotationPrice);
+						pstmt.setString(2, sellerNo);
+						int updateUserCashResult = pstmt.executeUpdate();
+						
+						pstmt = null;
+						String insertSalesLogSql = "INSERT INTO SALES_LOG (NO, CATEGORY_NO, SALES, ENROLL_DATE, QUOTATION_NO) \r\n"
+								+ "VALUES(SEQ_SALES_LOG_NO.NEXTVAL, 2, ?*0.15, SYSDATE, ?)";
+						pstmt = conn.prepareStatement(insertSalesLogSql);
+						pstmt.setString(1, Long.toString( Math.round(Integer.parseInt(quotationPrice) * 0.15)) );
+						pstmt.setString(2, quotationNo_);
+						
+					}
+					else if(result_ == 1 && "300".equals(category)) {
 						// 옵션 추가한 만큼 주문서 가격 이랑 기간 업데이트
 						updataQuotationSql = "UPDATE QUOTATION \r\n"
 						+ "SET QUOTATION_PERIOD = QUOTATION_PERIOD + (SELECT (ESTIMATE_OPTION_PERIOD * ?)\r\n"
@@ -568,7 +602,6 @@ public class ChatDao {
 						pstmt.setString(3, inputNo);
 						pstmt.setString(4, optionNo);
 						pstmt.setString(5, quotationNo);
-						result_ = pstmt.executeUpdate();
 					}
 					else if (result_ == 1 && "400".equals(category)) {
 						// 옵션 취소한 만큼 주문서 가격 이랑 기간 업데이트
@@ -587,9 +620,9 @@ public class ChatDao {
 						pstmt.setString(1, optionNo);
 						pstmt.setString(2, optionNo);
 						pstmt.setString(3, quotationNo);
-						result_ = pstmt.executeUpdate();
 					}
 					
+					result_ = pstmt.executeUpdate();
 			//-----------------------------------------------------------------------------------------------------------------------------------------------------
 				}
 			}
@@ -607,5 +640,49 @@ public class ChatDao {
 		
 		return result_;
 	} // requestReply
+	
+	
+	private Map<String, String> getCompletedUpdateInfo(Connection conn, String requestNo) {
+		
+		Map<String, String> infoMap = null;
+		
+		String getInfoSql =  "SELECT QUOTATION_NO, QUOTATION_PRICE, B.MEMBER_NO\r\n"
+				+ "FROM QUOTATION a\r\n"
+				+ "    JOIN (SELECT ESTIMATE_NO, A.FREELANCER_NO, B.MEMBER_NO\r\n"
+				+ "        FROM ESTIMATE A\r\n"
+				+ "        JOIN (SELECT FREELANCER_NO, A.MEMBER_NO FROM FREELANCER A JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO) B \r\n"
+				+ "    ON A.FREELANCER_NO = B.FREELANCER_NO) B ON A.ESTIMATE_NO = B.ESTIMATE_NO\r\n"
+				+ "WHERE QUOTATION_NO = (SELECT QUOTATION_NO FROM CHAT_REQUEST A JOIN CHAT_LOG B ON A.CHAT_LOG_NO = B.CHAT_NO  WHERE REQUEST_NO = ?)";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			pstmt = conn.prepareStatement(getInfoSql);
+			pstmt.setString(1, requestNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String quotationNo = rs.getString("QUOTATION_NO");
+				String quotationPrice = rs.getString("QUOTATION_PRICE");
+				String sellerNo = rs.getString("MEMBER_NO");
+				
+				infoMap = new HashMap<>();
+				
+				infoMap.put("quotationNo", quotationNo);
+				infoMap.put("quotationPrice", quotationPrice);
+				infoMap.put("sellerNo", sellerNo);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return infoMap;
+	}
 	
 }
