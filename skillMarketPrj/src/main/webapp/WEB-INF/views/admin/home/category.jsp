@@ -55,50 +55,74 @@
     
                 <div class="article_area" id="article_area_2">
                     <div class="container_admin" id="container_area_2">
+
                         <div>
+                            <!-- 박스 상단 -->
                             <div class="subtitle">
                                 <h3>카테고리 리스트</h3>
+                                
                                 <div >
                                     <button id="openModalBtn">카테고리 추가</button>
                                 </div>
                             </div>
+
+                            <!-- 테이블 -->
                             <div class="statistics statistics_list_2">
                                 <table>
-                                    <thead>
+
+                                    <!-- 테이블 헤드 -->
+                                    <thead id="cat_THEAD" class="scroll_tbody">
                                         <tr>
                                             <th>
                                                 <span></span>
                                             </th>
                                             <th>
-                                                <span></span>
+                                                <span class="thead_center_size">대분류</span>
                                             </th>
                                             <th>
-                                                <span></span>
+                                                <span>
+                                                    <div>
+                                                        <input type="text" placeholder="카테고리 검색🔍"> 
+                                                    </div>
+                                                </span>
                                             </th>
                                         </tr>
                                     </thead>
+                                    
+                                    <!-- 테이블 바디 -->
                                     <tbody class="scroll_tbody">
                                         <c:forEach items="${ catArrList }" var="list_big">
                                             
                                             <c:if test="${ list_big.estimateCatScope == '1' }">
 
                                                 <tr id="cat_box_${ list_big.estimateCatNo }" class="cat_box_div">
-                                                    <td>
-                                                        <span>${ list_big.estimateCatName }</span>
+
+                                                    <!-- 앞쪽 td -->
+                                                    <td class="cat_box_first_td">
+                                                        <span id="list_big_name_${ list_big.estimateCatNo }">${ list_big.estimateCatName }</span>
                                                     </td>
 
-                                                    <td>
+                                                    <td class="cat_box_first_td">
                                                         <input type="button" value="수정" id="catEditBtn">
                                                     </td>
 
-                                                    <td id="meddle_cat_area_${ list_big.estimateCatNo }"  class="meddle_cat_area"">
-                                                        중분류
-                                                        <div id="meddle_cat_box_${ list_big.estimateCatNo }" class="meddle_cat_box">
+                                                    <!--  -->
+                                                    <td id="meddle_cat_area_${ list_big.estimateCatNo }"  class="meddle_cat_area" >
+                                                        <span> 중분류 
+                                                            <span class="material-symbols-outlined">
+                                                                arrow_drop_down
+                                                                </span>
+                                                        </span>
+                                                        <div id="meddle_cat_box_${ list_big.estimateCatNo }" class="meddle_cat_box" style="display: none;">
                                                             <c:forEach items="${ catArrList }" var="list_middle">
 
                                                                 <c:if test="${ list_middle.aboveCatNo eq list_big.estimateCatNo }">
 
-                                                                    <div>${list_middle.estimateCatName}</div>
+                                                                    <div id="meddle_cat_list_${list_middle.estimateCatNo}" class="meddle_cat_list">
+                                                                        <span style="font-size: 80%;">${list_middle.estimateCatNo}</span> 
+                                                                        <br>
+                                                                        <span id="meddle_cat_name_${list_middle.estimateCatNo}">${list_middle.estimateCatName}</span> 
+                                                                    </div>
 
                                                                 </c:if>
 
@@ -106,7 +130,7 @@
                                                             </c:forEach>
                                                         </div>
                                                     </td>
-                                                   
+                                                    <!--  -->
                                                 </tr>
 
                                             </c:if>
@@ -133,4 +157,4 @@
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
 <link rel="stylesheet" href="${root}/static/css/admin/category.css">
-
+<script src="${root}/static/js/admin/category.js"></script>

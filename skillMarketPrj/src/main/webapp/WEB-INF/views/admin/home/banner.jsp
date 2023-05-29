@@ -33,7 +33,7 @@
                         <input type="button" value="수정 / 삭제" class="edit_btn openModalBtn" disabled>
                     </div>
                     <c:if test="${empty bannerList[0] or bannerList[0].bannerStatus == 'X'}">
-                        <div class="banner_add_area">
+                        <div class="banner_add_area" id="banner_add_area_1">
                             <div>
                                 <span>배너 추가</span> 
                                 <span class="material-symbols-outlined">
@@ -46,7 +46,7 @@
                         </div>        
                     </c:if>
                     <c:if test="${not empty bannerList[0] and bannerList[0].bannerStatus ne 'X'}">
-                        <div class="banner_add_area" >
+                        <div class="banner_add_area" id="banner_add_area_1">
                             <img class="banner_aticle_img_box" id="modal_img_1" src="${root}/static/img/banner/배너이미지1.png" alt="배너이미지">
                             <input type="text" id="Yn_check_1" value="YYY" style="display: none;">
                             <input type="color" value="${bannerList[0].bannerBackgroundcolor}" id="back_color_area" class="colorpicker_back_1" disabled></input>
@@ -60,7 +60,7 @@
                         <input type="button" value="수정 / 삭제" class="edit_btn openModalBtn" disabled>
                     </div>
                     <c:if test="${empty bannerList[1] or bannerList[1].bannerStatus == 'X'}">
-                        <div class="banner_add_area">
+                        <div class="banner_add_area" id="banner_add_area_2">
                             <div>
                                 <span>배너 추가</span> 
                                 <span class="material-symbols-outlined">
@@ -72,7 +72,7 @@
                         </div>        
                     </c:if>
                     <c:if test="${not empty bannerList[1] and bannerList[1].bannerStatus ne 'X'}">
-                        <div class="banner_add_area" >
+                        <div class="banner_add_area" id="banner_add_area_2">
                             <img class="banner_aticle_img_box" id="modal_img_2" src="${root}/static/img/banner/배너이미지2.png" alt="배너이미지">
                             <input type="text" id="Yn_check_2" value="YYY" style="display: none;">
                             <input type="color" value="${bannerList[1].bannerBackgroundcolor}" id="back_color_area" class="colorpicker_back_2" disabled></input>
@@ -86,7 +86,7 @@
                         <input type="button" value="수정 / 삭제" class="edit_btn openModalBtn" disabled>
                     </div>
                     <c:if test="${empty bannerList[2] or bannerList[2].bannerStatus == 'X'}">
-                        <div class="banner_add_area">
+                        <div class="banner_add_area" id="banner_add_area_3">
                             <div>
                                 <span>배너 추가</span> 
                                 <span class="material-symbols-outlined">
@@ -98,7 +98,7 @@
                         </div>        
                     </c:if>
                     <c:if test="${not empty bannerList[2] and bannerList[2].bannerStatus ne 'X'}">
-                        <div class="banner_add_area" >
+                        <div class="banner_add_area" id="banner_add_area_3">
                             <img class="banner_aticle_img_box" id="modal_img_3" src="${root}/static/img/banner/배너이미지3.png" alt="배너이미지">
                             <input type="text" id="Yn_check_3" value="YYY" style="display: none;">
                             <input type="color" value="${bannerList[2].bannerBackgroundcolor}" id="back_color_area" class="colorpicker_back_3" disabled></input>
@@ -112,7 +112,7 @@
                         <input type="button" value="수정 / 삭제" class="edit_btn openModalBtn" disabled>
                     </div>
                     <c:if test="${empty bannerList[3] or bannerList[3].bannerStatus == 'X'}">
-                        <div class="banner_add_area">
+                        <div class="banner_add_area" id="banner_add_area_4">
                             <div>
                                 <span>배너 추가</span> 
                                 <span class="material-symbols-outlined">
@@ -124,7 +124,7 @@
                         </div>        
                     </c:if>
                     <c:if test="${not empty bannerList[3] and bannerList[3].bannerStatus ne 'X'}">
-                        <div class="banner_add_area" >
+                        <div class="banner_add_area" id="banner_add_area_4">
                             <img class="banner_aticle_img_box" id="modal_img_4" src="${root}/static/img/banner/배너이미지4.png" alt="배너이미지">
                             <input type="text" id="Yn_check_4" value="YYY" style="display: none;">
                             <input type="color" value="${bannerList[3].bannerBackgroundcolor}" id="back_color_area" class="colorpicker_back_4" disabled></input>
