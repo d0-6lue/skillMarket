@@ -11,6 +11,7 @@ import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.dao.MemberDao;
 import com.team4.skillmarket.member.vo.MemberVo;
+import com.team4.skillmarket.order.vo.QuotationSerachVo;
 import com.team4.skillmarket.order.vo.QuotationViewVo;
 
 public class MemberService {
@@ -203,6 +204,37 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return orderList;
+	}
+
+	public List<QuotationViewVo> getSearchOrderList(QuotationSerachVo qvo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<QuotationViewVo> searchList = dao.getSearchOrderList(conn, qvo);
+
+		JDBCTemplate.close(conn);
+		
+		return searchList;
+	}
+
+	public List<QuotationViewVo> getSaleList(ExpertVo loginExpert) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<QuotationViewVo> saleList = dao.getSaleList(conn,loginExpert);
+
+		JDBCTemplate.close(conn);
+		
+		return saleList;
+	}
+
+	public List<QuotationViewVo> getSearchSaleList(QuotationSerachVo qvo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<QuotationViewVo> searchList = dao.getSearchSaleList(conn, qvo);
+
+		JDBCTemplate.close(conn);
+		
+		return searchList;
+		
 	}
 
 	
