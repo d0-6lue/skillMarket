@@ -8,6 +8,7 @@ import com.team4.skillmarket.cashlog.vo.CashLogVo;
 import com.team4.skillmarket.cashlog.vo.CashSearchVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
+import com.team4.skillmarket.estimate.vo.EstimateViewVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.dao.MemberDao;
 import com.team4.skillmarket.member.vo.MemberVo;
@@ -234,6 +235,17 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return searchList;
+		
+	}
+
+	public List<EstimateViewVo> getEstimateList(ExpertVo loginExpert) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<EstimateViewVo> estimateList = dao.getEstimateList(conn, loginExpert);
+
+		JDBCTemplate.close(conn);
+		
+		return estimateList;
 		
 	}
 

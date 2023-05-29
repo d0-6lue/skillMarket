@@ -131,6 +131,28 @@ public class ExpertService {
 		return evo;
 		
 	}
+
+	public String getCompleteCount(ExpertVo loginExpert) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String salesRate = dao.getCompleteCount(conn,loginExpert);
+		
+		JDBCTemplate.close(conn);
+		
+		return salesRate;
+	}
+
+	public String getCompletePrice(ExpertVo loginExpert) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String salesMoney = dao.getCompletePrice(conn,loginExpert);
+		
+		JDBCTemplate.close(conn);
+		
+		return salesMoney;
+	}
 	
 	
 }

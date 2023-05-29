@@ -280,6 +280,46 @@ public class ExpertDao {
 		return evo;
 	
 	}
+
+	public String getCompleteCount(Connection conn, ExpertVo loginExpert) throws Exception {
+		
+		String sql = "SELECT COUNT(*) COMPLETE_COUNT FROM QUOTATION Q JOIN QUOTATION_STATUS S ON Q.QUOTATION_STATUS_NO = S.QUOTATION_STATUS_NO JOIN ESTIMATE E ON E.ESTIMATE_NO = Q.ESTIMATE_NO WHERE S.QUOTATION_STATUS_NAME = '완료' AND E.FREELANCER_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginExpert.getFreelancerNo());
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		String salesRate = null;
+		if(rs.next()) {
+			salesRate = rs.getString("COMPLETE_COUNT");
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return salesRate;
+		
+	}
+
+	public String getCompletePrice(Connection conn, ExpertVo loginExpert) throws Exception {
+		
+		String sql = "SELECT SUM(QUOTATION_PRICE) QUOTATION_PRICE FROM QUOTATION Q JOIN QUOTATION_STATUS S ON Q.QUOTATION_STATUS_NO = S.QUOTATION_STATUS_NO JOIN ESTIMATE E ON E.ESTIMATE_NO = Q.ESTIMATE_NO WHERE S.QUOTATION_STATUS_NAME = '완료' AND E.FREELANCER_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginExpert.getFreelancerNo());
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		String salesMoney = null;
+		if(rs.next()) {
+			salesMoney = rs.getString("QUOTATION_PRICE");
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return salesMoney;
+		
+	}
 	
 	
 
