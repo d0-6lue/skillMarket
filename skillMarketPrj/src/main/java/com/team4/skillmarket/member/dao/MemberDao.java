@@ -12,6 +12,7 @@ import com.team4.skillmarket.cashlog.vo.CashLogVo;
 import com.team4.skillmarket.cashlog.vo.CashSearchVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
+import com.team4.skillmarket.estimate.vo.EstimateViewVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.vo.MemberVo;
 import com.team4.skillmarket.order.vo.QuotationSerachVo;
@@ -633,6 +634,43 @@ public class MemberDao {
 		JDBCTemplate.close(pstmt);
 		
 		return saleList;
+		
+	}
+
+	public List<EstimateViewVo> getEstimateList(Connection conn, ExpertVo loginExpert) throws Exception {
+		
+		String sql = "SELECT E.ESTIMATE_NO, SUBSTR(E.ESTIMATE_TITLE, 1, 12) ESTIMATE_TITLE, E.ESTIMATE_PRICE, SUBSTR(E.ESTIMATE_LINE_INTRODUCTION, 1 , 15) ESTIMATE_LINE_INTRODUCTION, E.ESTIMATE_THUMBNAIL, E.BUSINESS_REGISTRATION_NUMBER, (SELECT COUNT(*) FROM REVIEW R WHERE R.ESTIMATE_NO = E.ESTIMATE_NO AND REVIEW_STATUS = 'Y') ESTIMATE_REVIEW_COUNT FROM ESTIMATE E WHERE E.FREELANCER_NO = ? AND E.ESTIMATE_STATUS = 'Y'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginExpert.getFreelancerNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<EstimateViewVo> estimateList = new ArrayList<>();
+		while(rs.next()) {
+			String estimateNo = rs.getString("ESTIMATE_NO");
+			String estimateTitle = rs.getString("ESTIMATE_TITLE");
+			String estimateLineIntroduction = rs.getString("ESTIMATE_LINE_INTRODUCTION");
+			String estimatePrice = rs.getString("ESTIMATE_PRICE");
+			String estimateThumbnail = rs.getString("ESTIMATE_THUMBNAIL");
+			String businessRegistrationNumber = rs.getString("BUSINESS_REGISTRATION_NUMBER");
+			String estimateReviewCount = rs.getString("ESTIMATE_REVIEW_COUNT");
+			
+			EstimateViewVo vo = new EstimateViewVo();
+			
+			vo.setBusinessRegistrationNumber(businessRegistrationNumber);
+			vo.setEstimateLineIntroducation(estimateLineIntroduction);
+			vo.setEstimateNo(estimateNo);
+			vo.setEstimatePrice(estimatePrice);
+			vo.setEstimateReviewCount(estimateReviewCount);
+			vo.setEstimateThumbnail(estimateThumbnail);
+			vo.setEstimateTitle(estimateTitle);
+			
+			estimateList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return estimateList;
 		
 	}
 

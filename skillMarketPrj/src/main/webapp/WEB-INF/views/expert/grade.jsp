@@ -59,11 +59,11 @@
                 <div class="grade-current-area">
                     <div class="grade-current-sale">
                         <div class="bold">누적 판매량</div>
-                        <div class="grade-current-num bold">0</div>
+                        <div class="grade-current-num bold">${salesRate}</div>
                     </div>
                     <div class="grade-current-money">
                         <div class="bold">누적 판매 금액</div>
-                        <div class="grade-current-num bold">0</div>
+                        <div class="grade-current-num bold">${salesMoney}</div>
 
                     </div>
                     <div class="grade-current-grade">
