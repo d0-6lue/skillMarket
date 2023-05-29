@@ -46,57 +46,113 @@
         </nav>
 
             <div class="salelist-area">
-                <div class="salelist-title bold">구매 관리</div>
+                <div class="salelist-title1 bold">판매 관리</div>
                 <div class="salelist-showboard-area">
                     <div class="salelist-showboard">
                         <div class="salelist-textbox">
                             <div class="salelist-showboard-text bold">진행중</div>
-                            <div class="salelist-showboard-num bold">0</div>
+                            <div class="salelist-showboard-num bold">${vo.progress}</div>
                         </div>
                     </div>
                     <div class="salelist-showboard">
                         <div class="salelist-textbox">
                             <div class="salelist-showboard-text bold">거래완료</div>
-                            <div class="salelist-showboard-num bold">0</div>
+                            <div class="salelist-showboard-num bold">${vo.complete}</div>
                         </div>
                     </div>
                     <div class="salelist-showboard">
                         <div class="salelist-textbox">
                             <div class="salelist-evaluation">
                                 <div class="salelist-smalltext">작성 가능한 평가</div>
-                                <div class="salelist-smalltext">0</div>
+                                <div class="salelist-smalltext">${vo.complete}</div>
                             </div>
                             <div class="salelist-cancel">
                                 <div class="salelist-smalltext">주문 취소</div>
-                                <div class="salelist-smalltext">0</div>
+                                <div class="salelist-smalltext">${vo.cancel}</div>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <form action="">
+                <form action="${root}/expert/sale-list" method="post">
                     <div class="salelist-form-area">
-                        <select class="salelist-selectbox bold" name="orderStatus">
-                            <option value="">전체상태</option>
+                        <select class="salelist-selectbox bold" name="saleStatus">
+                            <option value="" disabled selected hidden>전체상태</option>
+                            <option value="진행중">진행중</option>
+                            <option value="완료">완료</option>
+                            <option value="중지">중지</option>
+                            <option value="취소">취소</option>
                         </select>
-                        <select class="salelist-selectbox bold" name="">
-                            <option value="">2022-04</option>
+                        <select id="salelist-date1" class="salelist-selectbox bold" name="saleDate1">
+                            <option value="2023-06">2023-06</option>
+                            <option value="2023-05">2023-05</option>
+                            <option value="2023-04">2023-04</option>
+                            <option value="2023-03">2023-03</option>
+                            <option value="2023-02">2023-02</option>
+                            <option value="2023-01">2023-01</option>
+                            <option value="2022-12">2022-12</option>
+                            <option value="2022-11">2022-11</option>
+                            <option value="2022-10">2022-10</option>
+                            <option value="2022-09">2022-09</option>
+                            <option value="2022-08">2022-08</option>
+                            <option value="2022-07">2022-07</option>
+                            <option value="2022-06">2022-06</option>
+                            <option value="2022-05">2022-05</option>
+                            <option value="2022-04">2022-04</option>
+                            <option value="2022-03">2022-03</option>
+                            <option value="2022-02">2022-02</option>
+                            <option value="2022-01">2022-01</option>
                         </select>
-                        <div class="bold" style="font-size: 24px;">~</div>
-                        <select class="salelist-selectbox bold" name="">
-                            <option value="">2022-04</option>
+                        <div class="salelist-deco bold">~</div>
+                        <select id="salelist-date2" class="salelist-selectbox bold" name="saleDate2">
+                            <option value="2023-06">2023-06</option>
+                            <option value="2023-05">2023-05</option>
+                            <option value="2023-04">2023-04</option>
+                            <option value="2023-03">2023-03</option>
+                            <option value="2023-02">2023-02</option>
+                            <option value="2023-01">2023-01</option>
+                            <option value="2022-12">2022-12</option>
+                            <option value="2022-11">2022-11</option>
+                            <option value="2022-10">2022-10</option>
+                            <option value="2022-09">2022-09</option>
+                            <option value="2022-08">2022-08</option>
+                            <option value="2022-07">2022-07</option>
+                            <option value="2022-06">2022-06</option>
+                            <option value="2022-05">2022-05</option>
+                            <option value="2022-04">2022-04</option>
+                            <option value="2022-03">2022-03</option>
+                            <option value="2022-02">2022-02</option>
+                            <option value="2022-01">2022-01</option>
                         </select>
-                        <select class="salelist-selectbox bold" name="">
-                            <option value="">닉네임</option>
-                        </select>
-                        <input class="salelist-searchbox" type="text">
+                        <input type="text" name="saleSearch">
                         <input class="salelist-searchbtn bold" type="submit" value="검색">
                     </div>
                 </form>
 
                 <div class="salelist-list-area">
 
+                    <table class="salelist-list">
+                        <thead>
+                            <tr>
+                                <td>상태</td>
+                                <td>제목</td>
+                                <td>금액</td>
+                                <td>날짜</td>
+                            </tr>
 
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${saleList}" var="vo">
+                                <tr onclick="location.href='${root}/order/detail?no=${vo.quotationNo}'">
+                                    <td class="salelist-list-box${vo.quotationStatusNo}">${vo.quotationStatusName}</td>
+                                    <td class="salelist-title">${vo.estimateTitle}</td>
+                                    <td class="table-cell">${vo.quotationPrice}원</td>
+                                    <td class="table-cell">${vo.quotationEnrollDate}</td>
+                                </tr>
+                            </c:forEach>
+
+                        </tbody>
+                    </table>
                 </div>
 
             </div>

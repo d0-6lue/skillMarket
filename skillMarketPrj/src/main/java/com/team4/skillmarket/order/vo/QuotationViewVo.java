@@ -10,5 +10,6 @@ public class QuotationViewVo {
 	private String estimateTitle;
 	private String quotationStatusName;
 	private String quotationPrice;
+	private String quotationStatusNo;
 	
 }

@@ -14,6 +14,7 @@ import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.vo.MemberVo;
+import com.team4.skillmarket.order.vo.QuotationSerachVo;
 import com.team4.skillmarket.order.vo.QuotationViewVo;
 
 public class MemberDao {
@@ -472,7 +473,7 @@ public class MemberDao {
 
 	public List<QuotationViewVo> getOrderList(Connection conn, MemberVo loginMember) throws Exception {
 		
-		String sql = "SELECT Q.QUOTATION_NO, Q.QUOTATION_ENROLL_DATE, E.ESTIMATE_TITLE, QS.QUOTATION_STATUS_NAME, Q.QUOTATION_PRICE FROM QUOTATION Q JOIN ESTIMATE E ON Q.ESTIMATE_NO = E.ESTIMATE_NO JOIN QUOTATION_STATUS QS ON Q.QUOTATION_STATUS_NO = QS.QUOTATION_STATUS_NO WHERE Q.MEMBER_NO = ?";
+		String sql = "SELECT QUOTATION_NO, TO_CHAR(QUOTATION_ENROLL_DATE, 'YYYY\"년\"MM\"월\"DD\"일\"') AS QUOTATION_ENROLL_DATE, ESTIMATE_TITLE, QUOTATION_STATUS_NAME, QUOTATION_PRICE, QUOTATION_STATUS_NO FROM ( SELECT Q.QUOTATION_NO, Q.QUOTATION_ENROLL_DATE, E.ESTIMATE_TITLE, QS.QUOTATION_STATUS_NAME, Q.QUOTATION_PRICE, Q.QUOTATION_STATUS_NO FROM QUOTATION Q JOIN ESTIMATE E ON Q.ESTIMATE_NO = E.ESTIMATE_NO JOIN QUOTATION_STATUS QS ON Q.QUOTATION_STATUS_NO = QS.QUOTATION_STATUS_NO WHERE Q.MEMBER_NO = ? ORDER BY Q.QUOTATION_ENROLL_DATE DESC)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, loginMember.getMemberNo());
 		ResultSet rs = pstmt.executeQuery();
@@ -485,6 +486,7 @@ public class MemberDao {
 			String estimateTitle = rs.getString("ESTIMATE_TITLE");
 			String quotationStatusName = rs.getString("QUOTATION_STATUS_NAME");
 			String quotationPrice = rs.getString("QUOTATION_PRICE");
+			String quotationStatusNo = rs.getString("QUOTATION_STATUS_NO");
 			
 			
 			QuotationViewVo vo = new QuotationViewVo();
@@ -494,9 +496,9 @@ public class MemberDao {
 			vo.setQuotationNo(quotationNo);
 			vo.setQuotationPrice(quotationPrice);
 			vo.setQuotationStatusName(quotationStatusName);
+			vo.setQuotationStatusNo(quotationStatusNo);
 			
 			orderList.add(vo);
-			System.out.println(vo);
 			
 		}
 		
@@ -504,6 +506,134 @@ public class MemberDao {
 		JDBCTemplate.close(pstmt);
 		
 		return orderList;
+	}
+
+	public List<QuotationViewVo> getSearchOrderList(Connection conn, QuotationSerachVo qvo) throws Exception {
+		
+		String sql = "SELECT QUOTATION_NO, TO_CHAR(QUOTATION_ENROLL_DATE, 'YYYY\"년\"MM\"월\"DD\"일\"') AS QUOTATION_ENROLL_DATE, ESTIMATE_TITLE, QUOTATION_STATUS_NAME, QUOTATION_PRICE, QUOTATION_STATUS_NO FROM ( SELECT Q.QUOTATION_NO, Q.QUOTATION_ENROLL_DATE, E.ESTIMATE_TITLE, QS.QUOTATION_STATUS_NAME, Q.QUOTATION_PRICE, Q.QUOTATION_STATUS_NO FROM QUOTATION Q JOIN ESTIMATE E ON Q.ESTIMATE_NO = E.ESTIMATE_NO JOIN QUOTATION_STATUS QS ON Q.QUOTATION_STATUS_NO = QS.QUOTATION_STATUS_NO WHERE Q.MEMBER_NO = ? AND QS.QUOTATION_STATUS_NAME = ? AND Q.QUOTATION_ENROLL_DATE BETWEEN '"+ qvo.getOrderDate1() +"-01' AND ( SELECT LAST_DAY(TO_DATE('"+ qvo.getOrderDate2() +"-01', 'YYYY-MM-DD')) FROM DUAL)";
+		if(!"".equals(qvo.getOrderSearch())) {
+			sql	+= " AND ESTIMATE_TITLE LIKE '%'||?||'%'";
+		}
+		sql	+= " ORDER BY Q.QUOTATION_ENROLL_DATE DESC)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, qvo.getMemberNo());
+		pstmt.setString(2, qvo.getOrderStatus());
+		if(!"".equals(qvo.getOrderSearch())) {
+			pstmt.setString(3, qvo.getOrderSearch());
+		}
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<QuotationViewVo> orderList = new ArrayList<>(); 
+		while(rs.next()) {
+			
+			String quotationNo = rs.getString("QUOTATION_NO");
+			String quotationEnrollDate = rs.getString("QUOTATION_ENROLL_DATE");
+			String estimateTitle = rs.getString("ESTIMATE_TITLE");
+			String quotationStatusName = rs.getString("QUOTATION_STATUS_NAME");
+			String quotationPrice = rs.getString("QUOTATION_PRICE");
+			String quotationStatusNo = rs.getString("QUOTATION_STATUS_NO");
+			
+			
+			QuotationViewVo vo = new QuotationViewVo();
+			
+			vo.setEstimateTitle(estimateTitle);
+			vo.setQuotationEnrollDate(quotationEnrollDate);
+			vo.setQuotationNo(quotationNo);
+			vo.setQuotationPrice(quotationPrice);
+			vo.setQuotationStatusName(quotationStatusName);
+			vo.setQuotationStatusNo(quotationStatusNo);
+			
+			orderList.add(vo);
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return orderList;
+		
+	}
+
+	public List<QuotationViewVo> getSaleList(Connection conn, ExpertVo loginExpert) throws Exception {
+		
+		String sql = "SELECT QUOTATION_NO, TO_CHAR(QUOTATION_ENROLL_DATE, 'YYYY\"년\"MM\"월\"DD\"일\"') AS QUOTATION_ENROLL_DATE, ESTIMATE_TITLE, QUOTATION_STATUS_NAME, QUOTATION_PRICE, QUOTATION_STATUS_NO FROM ( SELECT Q.QUOTATION_NO, Q.QUOTATION_ENROLL_DATE, E.ESTIMATE_TITLE, QS.QUOTATION_STATUS_NAME, Q.QUOTATION_PRICE, Q.QUOTATION_STATUS_NO FROM QUOTATION Q JOIN ESTIMATE E ON Q.ESTIMATE_NO = E.ESTIMATE_NO JOIN QUOTATION_STATUS QS ON Q.QUOTATION_STATUS_NO = QS.QUOTATION_STATUS_NO WHERE E.FREELANCER_NO = ? ORDER BY Q.QUOTATION_ENROLL_DATE DESC)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginExpert.getFreelancerNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<QuotationViewVo> saleList = new ArrayList<>(); 
+		while(rs.next()) {
+			
+			String quotationNo = rs.getString("QUOTATION_NO");
+			String quotationEnrollDate = rs.getString("QUOTATION_ENROLL_DATE");
+			String estimateTitle = rs.getString("ESTIMATE_TITLE");
+			String quotationStatusName = rs.getString("QUOTATION_STATUS_NAME");
+			String quotationPrice = rs.getString("QUOTATION_PRICE");
+			String quotationStatusNo = rs.getString("QUOTATION_STATUS_NO");
+			
+			
+			QuotationViewVo vo = new QuotationViewVo();
+			
+			vo.setEstimateTitle(estimateTitle);
+			vo.setQuotationEnrollDate(quotationEnrollDate);
+			vo.setQuotationNo(quotationNo);
+			vo.setQuotationPrice(quotationPrice);
+			vo.setQuotationStatusName(quotationStatusName);
+			vo.setQuotationStatusNo(quotationStatusNo);
+			
+			saleList.add(vo);
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return saleList;
+	}
+
+	public List<QuotationViewVo> getSearchSaleList(Connection conn, QuotationSerachVo qvo) throws Exception {
+		String sql = "SELECT QUOTATION_NO, TO_CHAR(QUOTATION_ENROLL_DATE, 'YYYY\"년\"MM\"월\"DD\"일\"') AS QUOTATION_ENROLL_DATE , ESTIMATE_TITLE, QUOTATION_STATUS_NAME , QUOTATION_PRICE , QUOTATION_STATUS_NO FROM ( SELECT Q.QUOTATION_NO, Q.QUOTATION_ENROLL_DATE, E.ESTIMATE_TITLE, QS.QUOTATION_STATUS_NAME, Q.QUOTATION_PRICE, Q.QUOTATION_STATUS_NO FROM QUOTATION Q JOIN ESTIMATE E ON Q.ESTIMATE_NO = E.ESTIMATE_NO JOIN QUOTATION_STATUS QS ON Q.QUOTATION_STATUS_NO = QS.QUOTATION_STATUS_NO WHERE E.FREELANCER_NO = ? AND QS.QUOTATION_STATUS_NAME = ? AND Q.QUOTATION_ENROLL_DATE BETWEEN '"+ qvo.getOrderDate1() +"-01' AND ( SELECT LAST_DAY(TO_DATE('"+ qvo.getOrderDate2() +"-01', 'YYYY-MM-DD')) FROM DUAL)";
+		if(!"".equals(qvo.getOrderSearch())) {
+			sql	+= " AND ESTIMATE_TITLE LIKE '%'||?||'%'";
+		}
+		sql	+= " ORDER BY Q.QUOTATION_ENROLL_DATE DESC)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, qvo.getMemberNo());
+		pstmt.setString(2, qvo.getOrderStatus());
+		if(!"".equals(qvo.getOrderSearch())) {
+			pstmt.setString(3, qvo.getOrderSearch());
+		}
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<QuotationViewVo> saleList = new ArrayList<>(); 
+		while(rs.next()) {
+			
+			String quotationNo = rs.getString("QUOTATION_NO");
+			String quotationEnrollDate = rs.getString("QUOTATION_ENROLL_DATE");
+			String estimateTitle = rs.getString("ESTIMATE_TITLE");
+			String quotationStatusName = rs.getString("QUOTATION_STATUS_NAME");
+			String quotationPrice = rs.getString("QUOTATION_PRICE");
+			String quotationStatusNo = rs.getString("QUOTATION_STATUS_NO");
+			
+			
+			QuotationViewVo vo = new QuotationViewVo();
+			
+			vo.setEstimateTitle(estimateTitle);
+			vo.setQuotationEnrollDate(quotationEnrollDate);
+			vo.setQuotationNo(quotationNo);
+			vo.setQuotationPrice(quotationPrice);
+			vo.setQuotationStatusName(quotationStatusName);
+			vo.setQuotationStatusNo(quotationStatusNo);
+			
+			saleList.add(vo);
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return saleList;
+		
 	}
 
 	
