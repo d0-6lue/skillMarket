@@ -30,7 +30,7 @@
                 <div class="horizontal-border"></div>
 
                 <div class="project-info">
-                    <img src="${root}/static/img/thumbnial/${quotationVo.estimateThumbnail}" alt=프로젝트 홍보 이미지" class="project-info-img">
+                    <img src="${root}/static/img/thumbnail/${quotationVo.estimateThumbnail}" alt=프로젝트 홍보 이미지" class="project-info-img">
                     <div class="project-info-text">
                         <div class="project-title bold">${quotationVo.estimateTitle }</div>
                         <div class="seller-info horizontal-alignment">
@@ -54,7 +54,7 @@
 			                        let startDay = '<%=(String)session.getAttribute("startDay")%>';
 			                        
 	                                startDay = new Date(startDay);
-	                                deadlineTime = startDay.getTime() + ( ${quotationVo.quotationPeriod} * 24 * 60 * 60 * 1000 );
+	                                deadlineTime = startDay.getTime() + ( '${quotationVo.quotationPeriod}' * 24 * 60 * 60 * 1000 );
 	                                deadline = new Date(deadlineTime);
 	
 	                                deadlineStr = deadline.getFullYear() + "-" + (deadline.getMonth() + 1) + "-" + deadline.getDate();
@@ -88,9 +88,9 @@
 
                 <div class="bold sub-title">최근 메시지</div>
                 <div class="recent-message">
-                    <img src="" alt="프로필사진" class="message-profile-img">
-                    <div class="recent-message-content">
-
+                    <img src="${root}/static/img/profile/${quotationVo.memberProfile}" alt="프로필사진" class="message-profile-img">
+                    <div class="recent-message-area">
+                        <div class="recent-message-content">${lastChatContent}</div>
                     </div>
                     <button class="bold message-check-btn">확인하기</button>
                 </div>

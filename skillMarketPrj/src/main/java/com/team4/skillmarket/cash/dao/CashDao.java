@@ -56,7 +56,7 @@ public class CashDao {
 		int result = 0;
 		
 		String sql = "INSERT INTO CASH_LOG ( NO, MEMBER_NO, PAYMENT_METHOD_NO, LOG_CATEGORY_NO, AMOUNT, ENROLL_DATE )\r\n"
-				+ "VALUES ( SEQ_CASH_CHARGE_NO.NEXTVAL, ?, ?, 1, ?, DEFAULT)";
+				+ "VALUES ( SEQ_CASH_LOG_NO.NEXTVAL, ?, ?, 1, ?, DEFAULT)";
 		
 		PreparedStatement pstmt = null;
 		try {
@@ -137,29 +137,42 @@ public class CashDao {
 	
 	public int refund(Connection conn, CashChargeVo refundVo) {
 		
+		int result_ = 0;
 		int result = 0;
 		
-		String sql = "UPDATE USER_CASH \r\n"
-				+ "SET CASH_MONEY = CASH_MONEY - ?\r\n"
-				+ "WHERE MEMBER_NO = ?";
+		String insertCashLogSql = "INSERT INTO CASH_LOG ( NO, MEMBER_NO, PAYMENT_METHOD_NO, LOG_CATEGORY_NO, AMOUNT, ENROLL_DATE )\r\n"
+				+ "VALUES ( SEQ_CASH_LOG_NO.NEXTVAL, ?, 2, 2, ?, DEFAULT)";
 		
 		PreparedStatement pstmt = null;
 		try {
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, refundVo.getChargeAmount());
-			pstmt.setString(2, refundVo.getMemberNo());
+			pstmt = conn.prepareStatement(insertCashLogSql);
+			pstmt.setString(1, refundVo.getMemberNo());
+			pstmt.setString(2, refundVo.getChargeAmount());
 			
 			result = pstmt.executeUpdate();
 			
+			
+			pstmt = null;
+			String updateUserCashSql = "UPDATE USER_CASH \r\n"
+					+ "SET CASH_MONEY = CASH_MONEY - ?\r\n"
+					+ "WHERE MEMBER_NO = ?";
+				
+				
+			pstmt = conn.prepareStatement(updateUserCashSql);
+			pstmt.setString(1, refundVo.getChargeAmount());
+			pstmt.setString(2, refundVo.getMemberNo());
+				
+			result_ = pstmt.executeUpdate();
+			
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(pstmt);
 		}
 		
-		return result;
+		
+		return result_;
 	} // refund
 
 }

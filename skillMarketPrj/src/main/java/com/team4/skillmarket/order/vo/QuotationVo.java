@@ -33,6 +33,6 @@ public class QuotationVo {
 	private String estimatePrice;
 	private String estimatePeriod;
 	
-	
+	private String memberProfile;
 
 }

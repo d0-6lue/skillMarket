@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team4.skillmarket.member.vo.MemberVo;
 import com.team4.skillmarket.order.vo.QuotationVo;
 import com.team4.skillmarket.purchase.service.PurchaseService;
 import com.team4.skillmarket.purchase.vo.QuotationOptionVo;
@@ -22,7 +23,14 @@ public class PurchaseCompleteController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
+			MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
 			
+			if(loginMember == null) {
+				req.getSession().setAttribute("alertMsg", "로그인 하셔야 합니다.");
+				resp.sendRedirect(req.getContextPath() + "/home");
+			}
+			
+			String memberNo = loginMember.getMemberNo();
 			String quotationNo = req.getParameter("no");
 			
 			QuotationVo quotaionVo = purchaseSerivce.getQuotationInfo(quotationNo);

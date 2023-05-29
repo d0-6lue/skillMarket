@@ -49,7 +49,7 @@ public class PurchaseDao {
 				String estimateThumbnail = rs.getString("ESTIMATE_THUMBNAIL");
 				String estimateLineIntroduction = rs.getString("ESTIMATE_LINE_INTRODUCTION");
 				String estimatePrice = rs.getString("ESTIMATE_PRICE");
-				String estimatePeriod = rs.getString("ESTIMATE_PERIOD");
+				String estimatePeriod = rs.getString("ESTIMATE_DURATION");
 				String estimateDetail = rs.getString("ESTIMATE_DETAIL");
 				String estimateDetailFile = rs.getString("ESTIMATE_DETAIL_FILE");
 				String businessRegistrationNumber = rs.getString("BUSINESS_REGISTRATION_NUMBER");
@@ -182,6 +182,29 @@ public class PurchaseDao {
 				
 				pstmt = null;
 				
+				String decreaseBuyerCashSql = "UPDATE USER_CASH SET CASH_MONEY = CASH_MONEY - ?\r\n"
+						+ "WHERE MEMBER_NO = ?";
+				
+				pstmt = conn.prepareStatement(decreaseBuyerCashSql);
+				pstmt.setString(1, writeQuotationVo.getTotalPrice());
+				pstmt.setString(2, writeQuotationVo.getMemberNo());
+				
+				int result__ = pstmt.executeUpdate();
+				
+				pstmt = null;
+				
+				String insertCashLogSql = "INSERT INTO CASH_LOG (NO, MEMBER_NO, LOG_CATEGORY_NO, AMOUNT, PAYMENT_METHOD_NO, ENROLL_DATE)\r\n"
+						+ "VALUES (SEQ_CASH_LOG_NO.NEXTVAL, ?, 4, ?, ?, SYSDATE)";
+				
+				pstmt = conn.prepareStatement(insertCashLogSql);
+				pstmt.setString(1, writeQuotationVo.getMemberNo());
+				pstmt.setString(2, writeQuotationVo.getTotalPrice());
+				pstmt.setString(3, writeQuotationVo.getPurchaseMethod());
+				
+				result__ = pstmt.executeUpdate();
+				
+				pstmt = null;
+				
 				String insertSalesLogSql = "INSERT INTO SALES_LOG \r\n"
 						+ "( SALES_LOG_NO, CATEGORY_NO, SALES, ENROLL_DATE, QUOTATION_NO )\r\n"
 						+ "VALUES (SEQ_SALES_LOG_NO.NEXTVAL, 1, ?, DEFAULT, ?)";
@@ -190,7 +213,7 @@ public class PurchaseDao {
 				pstmt.setString(1, Integer.toString((int)(Integer.parseInt(writeQuotationVo.getTotalPrice()) * 0.03)) );
 				pstmt.setString(2, quotationNo);
 				
-				int result__ = pstmt.executeUpdate();
+				result__ = pstmt.executeUpdate();
 				
 				if(result__ != 1) {
 					throw new Exception();

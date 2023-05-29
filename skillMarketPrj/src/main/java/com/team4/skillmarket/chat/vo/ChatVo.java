@@ -32,4 +32,5 @@ public class ChatVo {
 	private String optionNo;
 	private String inputNo;
 	
+	private String chatSenderProfile;
 }

@@ -31,6 +31,10 @@ public class PuchaseController extends HttpServlet {
 			
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+			if(loginMember == null) {
+				req.getSession().setAttribute("alertMsg", "로그인 하셔야 합니다.");
+				resp.sendRedirect(req.getContextPath() + "/home");
+			}
 			
 			String no = req.getParameter("no");
 			
@@ -43,6 +47,10 @@ public class PuchaseController extends HttpServlet {
 			List<OptionVo> optionList = perchaseService.getOptionList(no);
 			// 유저 캐시 정보
 			UserCashVo userCash = cashService.getMemberCash(loginMember.getMemberNo());
+			
+			System.out.println(infoVo);
+			System.out.println(optionList);
+			System.out.println(userCash);
 			
 			if(infoVo == null || userCash == null) {
 				throw new IllegalStateException("구매페이지 조회 실패");
@@ -90,6 +98,7 @@ public class PuchaseController extends HttpServlet {
 				// 서비스
 				// 주문서 추가
 				// 주문서 옵션 추가 ( 있다면 )
+				// 구매자 캐시 감소
 				// Sales에 구매자 수수료 3% 추가
 				String quotationNo = perchaseService.writeQuotation(writeQuotationVo);
 				

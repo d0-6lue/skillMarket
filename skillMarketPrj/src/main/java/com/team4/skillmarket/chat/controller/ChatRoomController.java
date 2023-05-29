@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.team4.skillmarket.chat.service.ChatService;
 import com.team4.skillmarket.chat.vo.*;
+import com.team4.skillmarket.member.vo.MemberVo;
 
 @WebServlet("/chat/room")
 public class ChatRoomController extends HttpServlet {
@@ -20,6 +22,13 @@ public class ChatRoomController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
+			HttpSession session = req.getSession();
+			MemberVo loginMember= (MemberVo) session.getAttribute("loginMember");
+			
+			if(loginMember == null) {
+				req.getSession().setAttribute("alertMsg", "로그인 하셔야 합니다.");
+				resp.sendRedirect(req.getContextPath() + "/home");
+			}
 			
 			String quotationNo = req.getParameter("no");
 			

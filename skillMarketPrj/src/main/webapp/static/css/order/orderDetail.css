@@ -110,14 +110,22 @@
     width: 80px;
     height: 80px;
     border-radius: 40px;
-    background-color: cadetblue;
+    background-color: white;
 }
 
 /* 최근 메시지 내용 */
-.recent-message-content {
+.recent-message-area {
     width: 690px;
     height: 80px;
+    border-radius: 10px;
     background-color: white;
+
+    display: flex;
+    align-items: center;
+}
+
+.recent-message-content {
+    margin-left: 20px;
 }
 
 /* 확인하기 버튼 */

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.team4.skillmarket.chat.vo.ChatVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.order.dao.OrderDao;
 import com.team4.skillmarket.order.vo.QuotationOptionVo;
@@ -12,7 +13,9 @@ import com.team4.skillmarket.order.vo.QuotationVo;
 
 public class OrderService {
 
-	public Map<String, Object> getOrderDetailbyNo(String quatationNo) {
+	private final OrderDao orderDao = new OrderDao();
+	
+	public Map<String, Object> getOrderDetailbyNo(String quotationNo) {
 		
 		Map<String, Object> voMap = new HashMap();
 		
@@ -20,9 +23,8 @@ public class OrderService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// DAO
-		OrderDao orderDao = new OrderDao();
-		QuotationVo quotationVo = orderDao.getOrderDetailbyNo(conn, quatationNo);
-		List<QuotationOptionVo> optionVoList = orderDao.getOrderOptionbyNo(conn, quatationNo); 
+		QuotationVo quotationVo = orderDao.getOrderDetailbyNo(conn, quotationNo);
+		List<QuotationOptionVo> optionVoList = orderDao.getOrderOptionbyNo(conn, quotationNo); 
 		
 		voMap.put("quotation", quotationVo);
 		voMap.put("optionList", optionVoList);
@@ -31,6 +33,19 @@ public class OrderService {
 		JDBCTemplate.close(conn);
 		
 		return voMap;
+	}
+
+	public String getLastChat(String quotationNo, String memberNo) {
+
+		// getConnection
+		Connection conn = JDBCTemplate.getConnection();
+
+		String lastChatContent = orderDao.getLastChat(conn, quotationNo, memberNo);
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return lastChatContent;
 	}
 	
 	
