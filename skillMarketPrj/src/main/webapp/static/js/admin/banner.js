@@ -34,7 +34,6 @@ $(".delete_bth").click(function() {
     
     const no = secondClass.split("_").pop();
 
-    console.log(no);
 
     const confirmDelete = confirm("⚠ 진짜 삭제 하시나요?");
 
@@ -57,6 +56,7 @@ $(".delete_bth").click(function() {
             success: function(ok) {
                 alert("삭제성공")
                 $(".img_edit_" + no).css("display", "none");
+                updateBanner(no); // 리스트 이미지 제거
                 isUploading = false;
             },
             error: function(xhr, status, error) {
@@ -159,6 +159,7 @@ function openModalAndUploadImage(no) {
                             labelElement.html('<img class="modal_img_box" id="modal_img_' + no + '" src="' + root + savedImagePath + '" alt="배너이미지"' + no + '">');
 
                             
+                           
                             
                             
                             $("#img_area_"+no).find(".banner_add_area :first-child").html(' <img class="banner_aticle_img_box" id="modal_img_' + no + '" src="' + root + savedImagePath + '" alt="배너이미지">')
@@ -198,7 +199,6 @@ function openModalAndUploadImage(no) {
         // 잘라낼 부분 구하기
         const filename = src.substring(src.lastIndexOf("/") + 1);
 
-        console.log(filename);
 
         // AJAX 요청 데이터 생성
         const formData = new FormData();
@@ -213,11 +213,12 @@ function openModalAndUploadImage(no) {
             data: formData,
             processData: false,
             contentType: false,
-            success: function(ok) {
+            success: function(updateBanner) {
                 // 성공적으로 요청이 처리되었을 때의 동작
                 console.log("AJAX 요청 성공");
                 console.log(ok);
                 alert("등록 성공! 👍");
+
                 isUploading = false;
             },
             error: function(xhr, status, error) {
@@ -234,6 +235,27 @@ function openModalAndUploadImage(no) {
         $(".img_edit_" + no).css("display", "none");
         isUploading = false;
     });
+
+
+    
 }
 
+//리스트 이미지 제거
+function updateBanner(no) {
+    
 
+    $("#banner_add_area_"+no).html(`
+        
+            <div>
+                <span>배너 추가</span> 
+                <span class="material-symbols-outlined">
+                add_circle
+                </span>
+            </div>
+            
+            <input type="text" id="Yn_check_1" value="XXX" style="display: none;">
+            <input type="color" value="#737373" id="back_color_area" class="colorpicker_back_1" disabled></input>
+         
+    `)
+   
+}
