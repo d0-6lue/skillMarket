@@ -129,7 +129,7 @@
 
     </div>
 
-    <div>
+    <div id="div_area">
         <c:forEach items="${ memberArrList }" var="modal">
 
         <div id="modal_memberDetail_${ modal.memberNo }" class="modal_memberDetail modal">

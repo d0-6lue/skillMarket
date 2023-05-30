@@ -126,44 +126,45 @@
 
     </div>
 
-	 <div>
+	<div id="div_area">
+        
         <c:forEach items="${ FAQArrList }" var="modal">
 
-        <!-- FAQ 모달 -->
-        <div id="FAQ_detail_${ modal.faqNo }" class="FAQ_detail modal">
-            <div class="modal-content FAQ_modal">
-                <span id="close_${modal.faqNo}"  class="close">&times;</span>
-                <div id="h1_area">
-                    <h1>
-                        <select name="" id="cat_select_FAQ" class="cat_select_FAQ_${modal.faqNo}" disabled>
-                            <c:forEach var="FAQ" items="${catNameMap['FAQ']}">
-                                <c:if test="${modal.faqCatNo eq FAQ.faqCatNo}">
-                                    <option value="${FAQ.faqCatNo }" selected >${FAQ.faqCatName }</option>
-                                </c:if>
-                                <c:if test="${not modal.faqCatNo eq FAQ.faqCatNo}">
-                                    <option value="${FAQ.faqCatNo }">${FAQ.faqCatName }</option>
-                                </c:if>
-                            </c:forEach>
-                        </select>
-                    </h1>
-                    <h1>FAQ</h1>
+            <!-- FAQ 모달 -->
+            <div id="FAQ_detail_${ modal.faqNo }" class="FAQ_detail modal">
+                <div class="modal-content FAQ_modal">
+                    <span id="close_${modal.faqNo}"  class="close">&times;</span>
+                    <div id="h1_area">
+                        <h1>
+                            <select name="" id="cat_select_FAQ" class="cat_select_FAQ_${modal.faqNo}" disabled>
+                                <c:forEach var="FAQ" items="${catNameMap['FAQ']}">
+                                    <c:if test="${modal.faqCatNo eq FAQ.faqCatNo}">
+                                        <option value="${FAQ.faqCatNo }" selected >${FAQ.faqCatName }</option>
+                                    </c:if>
+                                    <c:if test="${not modal.faqCatNo eq FAQ.faqCatNo}">
+                                        <option value="${FAQ.faqCatNo }">${FAQ.faqCatName }</option>
+                                    </c:if>
+                                </c:forEach>
+                            </select>
+                        </h1>
+                        <h1>FAQ</h1>
 
-                </div>
-                <div id="modal_div">
-                    <input type="text" id="modal_Title_${ modal.faqNo }" class="modal_Title" name="title" value="${ modal.faqQContent }" placeholder="제목" readonly></input>
-                    <div id="faq_Hit" class="faq_Hit_${modal.faqNo }">
-                        조회수 
-                        <br>
-                        ${ modal.faqHit }
                     </div>
+                    <div id="modal_div">
+                        <input type="text" id="modal_Title_${ modal.faqNo }" class="modal_Title" name="title" value="${ modal.faqQContent }" placeholder="제목" readonly></input>
+                        <div id="faq_Hit" class="faq_Hit_${modal.faqNo }">
+                            조회수 
+                            <br>
+                            ${ modal.faqHit }
+                        </div>
+                    </div>
+                    <div class="modal_content_area" id="FAQ_detailContent_${ modal.faqNo }">
+                        <div id="FAQ_summer_note_${ modal.faqNo }"> ${ modal.faqAContent }</div>
+                    </div>
+                    <button id="submitBtn1" class="FAQ_edit_btn FAQ_edit_btn_${ modal.faqNo }" >수정하기</button>
                 </div>
-                <div class="modal_content_area" id="FAQ_detailContent_${ modal.faqNo }">
-                    <div id="FAQ_summer_note_${ modal.faqNo }"> ${ modal.faqAContent }</div>
-                </div>
-                <button id="submitBtn1" class="FAQ_edit_btn FAQ_edit_btn_${ modal.faqNo }" >수정하기</button>
             </div>
-        </div>
-    </c:forEach>
+        </c:forEach>
 
      </div>
 

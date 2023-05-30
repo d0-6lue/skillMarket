@@ -126,6 +126,11 @@ article {
 
 
 /*  */
+#div_area{
+    width: 100%;
+    height: 100%;
+}
+
 #bannerEdit {
     display: none; /* 모달창은 처음에 숨김 */
     position: relative;
@@ -139,6 +144,8 @@ article {
     
   }
   
+
+
 .modal-content {
     position: fixed; /* 모달창을 고정 위치에 띄움 */
     background-color: #fefefe; /* 모달창 배경색 */

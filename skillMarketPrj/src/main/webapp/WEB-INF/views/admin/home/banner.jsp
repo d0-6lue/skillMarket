@@ -22,7 +22,6 @@
         <header>
                 
             <h1>배너 관리</h1>
-            <button onclick="timestamp();">test</button>
         </header>
 
         <article>
@@ -139,90 +138,93 @@
        
     <!-- 모달 -->
 
-    <c:set var="initialCount" value="${bannerList.size()}" />
-    
-    <c:forEach items="${bannerList}" var="banner" varStatus="loop">
+    <div id="div_area"> 
+        <c:set var="initialCount" value="${bannerList.size()}" />
         
-        <div id="bannerEdit" class="modal img_edit_${loop.index + 1}">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h1>배너 ${loop.index + 1}</h1>
-                <div class="modal_img_area_box">
-                    <c:if test="${not empty banner and banner.bannerStatus ne 'X'}">
-                            <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img">
+        
+            <c:forEach items="${bannerList}" var="banner" varStatus="loop">
+                
+                <div id="bannerEdit" class="modal img_edit_${loop.index + 1}">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h1>배너 ${loop.index + 1}</h1>
+                        <div class="modal_img_area_box">
+                            <c:if test="${not empty banner and banner.bannerStatus ne 'X'}">
+                                    <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img">
 
-                                <img class="modal_img_box" id="modal_img_${loop.index + 1}" src="${root}/static/img/banner/배너이미지${loop.index + 1}.png" alt="배너이미지">
-                                <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
+                                        <img class="modal_img_box" id="modal_img_${loop.index + 1}" src="${root}/static/img/banner/배너이미지${loop.index + 1}.png" alt="배너이미지">
+                                        <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
 
-                            </label>
-                            <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="${banner.bannerBackgroundcolor}">
-                    </c:if>
-                    <c:if test="${empty banner or banner.bannerStatus == 'X'}">
-                            <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img" >
-                                
-                                <div  class="modal_upload_img " id="modal_upload_img_${loop.index + 1}">
-                                    이미지 업로드
-                                </div>
-                                <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
+                                    </label>
+                                    <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="${banner.bannerBackgroundcolor}">
+                            </c:if>
+                            <c:if test="${empty banner or banner.bannerStatus == 'X'}">
+                                    <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img" >
+                                        
+                                        <div  class="modal_upload_img " id="modal_upload_img_${loop.index + 1}">
+                                            이미지 업로드
+                                        </div>
+                                        <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
 
 
-                            </label>
-                            <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround colorpicker_back_${loop.index + 1}" value="#737373">
-                    </c:if>
-                    
+                                    </label>
+                                    <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround colorpicker_back_${loop.index + 1}" value="#737373">
+                            </c:if>
+                            
+                        </div>
+                        <div id="modal_div" class="delete_bth delete_bth_${loop.index + 1}">
+                            ⚠ 삭제 하기
+                        </div>
+                        <button id="submitBtn" class="submitBtn_NO_${loop.index + 1}">등록하기</button>
+                    </div>
                 </div>
-                <div id="modal_div" class="delete_bth delete_bth_${loop.index + 1}">
-                    ⚠ 삭제 하기
+
+            </c:forEach>
+        
+        <c:if test="${bannerList.size() < 4}">
+            <c:set var="remainingItems" value="${4 - bannerList.size()}" />
+            
+            
+            <c:forEach begin="${initialCount}" end="${initialCount + remainingItems-1}" varStatus="loop">
+            <div id="bannerEdit" class="modal img_edit_${loop.index + 1}">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h1>배너 ${loop.index + 1}</h1>
+                    <div class="modal_img_area_box">
+                        <c:if test="${not empty banner and banner.bannerStatus ne 'X'}">
+                                <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img">
+
+                                    <img class="modal_img_box" id="modal_img_${loop.index + 1}" src="${root}/static/img/banner/배너이미지${loop.index + 1}.png" alt="배너이미지">
+                                    <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
+
+                                </label>
+                                <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="${banner.bannerBackgroundcolor}">
+                        </c:if>
+                        <c:if test="${empty banner or banner.bannerStatus == 'X'}">
+                                <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img" >
+
+                                    <div  class="modal_upload_img" id="modal_upload_img_${loop.index + 1}">
+                                        이미지 업로드
+                                    </div>
+                                    <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
+
+                                </label>
+                                <input type="color"  id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="#737373">
+                        </c:if>
+                        
+                    </div>
+                    <div id="modal_div" class="delete_bth delete_bth_${loop.index + 1}">
+                        ⚠ 삭제 하기
+                    </div>
+                    <button id="submitBtn" class="submitBtn_NO_${loop.index + 1}">등록하기</button>
                 </div>
-                <button id="submitBtn" class="submitBtn_NO_${loop.index + 1}">등록하기</button>
             </div>
-        </div>
+            
+            </c:forEach>
 
-    </c:forEach>
+        </c:if>
     
-    <c:if test="${bannerList.size() < 4}">
-        <c:set var="remainingItems" value="${4 - bannerList.size()}" />
-        
-        
-        <c:forEach begin="${initialCount}" end="${initialCount + remainingItems-1}" varStatus="loop">
-        <div id="bannerEdit" class="modal img_edit_${loop.index + 1}">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h1>배너 ${loop.index + 1}</h1>
-                <div class="modal_img_area_box">
-                    <c:if test="${not empty banner and banner.bannerStatus ne 'X'}">
-                            <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img">
-
-                                <img class="modal_img_box" id="modal_img_${loop.index + 1}" src="${root}/static/img/banner/배너이미지${loop.index + 1}.png" alt="배너이미지">
-                                <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
-
-                            </label>
-                            <input type="color" id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="${banner.bannerBackgroundcolor}">
-                    </c:if>
-                    <c:if test="${empty banner or banner.bannerStatus == 'X'}">
-                            <label class="modal_img_area modal_img_area_${loop.index + 1}" id="modal_upload_img" >
-
-                                <div  class="modal_upload_img" id="modal_upload_img_${loop.index + 1}">
-                                    이미지 업로드
-                                </div>
-                                <input type="file" class="imageUpload" id="imageUpload_Id_${loop.index + 1}" value="이미지 업로드">
-
-                            </label>
-                            <input type="color"  id="back_color_${loop.index + 1}" class="modal_img_area_box_backGround" value="#737373">
-                    </c:if>
-                    
-                </div>
-                <div id="modal_div" class="delete_bth delete_bth_${loop.index + 1}">
-                    ⚠ 삭제 하기
-                </div>
-                <button id="submitBtn" class="submitBtn_NO_${loop.index + 1}">등록하기</button>
-            </div>
-        </div>
-        
-        </c:forEach>
-
-    </c:if>
-    
+    </div>
  
 <script>
     const root = "${root}";

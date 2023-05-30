@@ -52,4 +52,22 @@ public class inquiryListService {
 		return result;
 	}
 
+	public int updateAnswerInquiry(InquiryVo vo) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.updateAnswerInquiry(vo,conn);
+		
+		if (result==1&&dao.inquiryStatusUpdate(vo,conn) > 0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 }

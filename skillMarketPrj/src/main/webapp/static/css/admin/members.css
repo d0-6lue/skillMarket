@@ -33,6 +33,25 @@ article tbody.scroll_tbody .tr_R10 {
     border-radius: 5px ;
 }
 
+#div_area{
+    width: 100%;
+    height: 100%;
+}
+
+.modal, .noticeDetail {
+    display: none; /* 모달창은 처음에 숨김 */
+    position: relative;
+    z-index: 99; /* 다른 요소보다 위에 위치 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* 스크롤 가능하게 함 */
+    background-color: rgba(0,0,0,0.4); /* 배경을 어둡게 함 */
+    
+}
+
+
 .modal-content {
     position: fixed;
     background-color: #fefefe;
