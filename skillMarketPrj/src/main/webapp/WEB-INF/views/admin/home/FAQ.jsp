@@ -126,9 +126,9 @@
 
     </div>
 
-	 
+	 <div>
+        <c:forEach items="${ FAQArrList }" var="modal">
 
-    <c:forEach items="${ FAQArrList }" var="modal">
         <!-- FAQ 모달 -->
         <div id="FAQ_detail_${ modal.faqNo }" class="FAQ_detail modal">
             <div class="modal-content FAQ_modal">
@@ -164,6 +164,10 @@
             </div>
         </div>
     </c:forEach>
+
+     </div>
+
+  
 
 </body>
 </html>
