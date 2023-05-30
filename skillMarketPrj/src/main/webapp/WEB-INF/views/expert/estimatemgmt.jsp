@@ -54,18 +54,18 @@
                     <div class="estimate-grid-area">
                     	<c:forEach items="${estimateList}" var="vo">
                     		<a href="${root}/myestimate/edit?no=${vo.estimateNo}" class="estimate-list">
-                            <div class="estimate-certification">인증계정</div>
-                            <img src="" alt="로고이미지">
-                            <div class="estimate-list-text">
-                                <div class="estimate-list-title">${vo.estimateTitle }...</div>
-                                <div class="estimate-list-content">${vo.estimateLineIntroducation}</div>
-                            </div>
-                            <div class="estimate-list-num">
-                                <div class="estimate-list-price bold">${vo.estimatePrice}원</div>
-                                <div class="estimate-list-review">${vo.estimateReviewCount} 평가</div>
+                                <div class="estimate-certification">인증계정</div>
+                                ${vo.estimateThumbnail}
+                                <div class="estimate-list-text">
+                                    <div class="estimate-list-title">${vo.estimateTitle }...</div>
+                                    <div class="estimate-list-content">${vo.estimateLineIntroducation}</div>
+                                </div>
+                                <div class="estimate-list-num">
+                                    <div class="estimate-list-price bold">${vo.estimatePrice}원</div>
+                                    <div class="estimate-list-review">${vo.estimateReviewCount} 평가</div>
 
-                            </div>
-                        </a>
+                                </div>
+                            </a>
                     	</c:forEach>
                     </div>
                     

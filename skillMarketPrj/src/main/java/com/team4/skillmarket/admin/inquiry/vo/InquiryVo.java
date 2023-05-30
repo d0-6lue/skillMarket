@@ -13,5 +13,6 @@ public class InquiryVo {
 	private String qnaEnrolldate;
 	private String qnaCatName;
 	private String questionAnswerContent;
+	private String qnaCommentStatus;
 
 }

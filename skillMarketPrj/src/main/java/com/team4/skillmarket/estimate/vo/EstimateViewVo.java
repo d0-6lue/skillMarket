@@ -12,5 +12,6 @@ public class EstimateViewVo {
 	private String estimateThumbnail;
 	private String businessRegistrationNumber;
 	private String estimateReviewCount;
+	private String estimateDisReview;
 	
 }

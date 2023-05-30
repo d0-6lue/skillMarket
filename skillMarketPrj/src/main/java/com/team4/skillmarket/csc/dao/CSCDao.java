@@ -371,7 +371,7 @@ public class CSCDao {
 
 	public List<InquiryVo> getInquiryList(Connection conn, MemberVo loginMember) throws Exception {
 		
-		String sql = "SELECT QNA_NO, MEMBER_NO, QNA_CAT_NO, QNA_TITLE, QNA_CONTENT, TO_CHAR(QNA_ENROLLDATE,'YYYY\"년\"MM\"월\"DD\"일\"') AS QNA_ENROLLDATE, QNA_CAT_NAME FROM ( SELECT Q.QNA_NO, Q.MEMBER_NO, Q.QNA_CAT_NO, Q.QNA_TITLE, Q.QNA_CONTENT, Q.QNA_ENROLLDATE, C.QNA_CAT_NAME FROM QNA Q JOIN QNA_CATEGORY C ON Q.QNA_CAT_NO = C.QNA_CAT_NO WHERE Q.MEMBER_NO = ? AND QNA_STATUS = 'Y' ORDER BY QNA_ENROLLDATE DESC)";
+		String sql = "SELECT QNA_NO, MEMBER_NO, QNA_CAT_NO, QNA_TITLE, QNA_CONTENT, TO_CHAR(QNA_ENROLLDATE,'YYYY\"년\"MM\"월\"DD\"일\"') AS QNA_ENROLLDATE, QNA_CAT_NAME, QNA_COMMENT_STATUS FROM ( SELECT Q.QNA_NO, Q.MEMBER_NO, Q.QNA_CAT_NO, Q.QNA_TITLE, Q.QNA_CONTENT, Q.QNA_ENROLLDATE, C.QNA_CAT_NAME, Q.QNA_COMMENT_STATUS FROM QNA Q JOIN QNA_CATEGORY C ON Q.QNA_CAT_NO = C.QNA_CAT_NO WHERE Q.MEMBER_NO = ? AND QNA_STATUS = 'Y' ORDER BY QNA_ENROLLDATE DESC)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, loginMember.getMemberNo());
 		ResultSet rs = pstmt.executeQuery();
@@ -385,7 +385,7 @@ public class CSCDao {
 			String qnaContent = rs.getString("QNA_CONTENT");
 			String qnaEnrolldate = rs.getString("QNA_ENROLLDATE");
 			String qnaCatName = rs.getString("QNA_CAT_NAME");
-			
+			String qnaCommentStatus = rs.getString("QNA_COMMENT_STATUS");
 			
 			InquiryVo vo = new InquiryVo();
 			
@@ -396,6 +396,7 @@ public class CSCDao {
 			vo.setQnaEnrolldate(qnaEnrolldate);
 			vo.setQnaNo(qnaNo);
 			vo.setQnaTitle(qnaTitle);
+			vo.setQnaCommentStatus(qnaCommentStatus);
 			
 			inquiryList.add(vo);
 		}

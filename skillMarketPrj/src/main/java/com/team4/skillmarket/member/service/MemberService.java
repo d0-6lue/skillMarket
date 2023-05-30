@@ -249,6 +249,26 @@ public class MemberService {
 		
 	}
 
+	public int checkLogin(MemberVo mvo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.checkLogin(conn, mvo);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public List<EstimateViewVo> getEstimateQNAList(ExpertVo loginExpert) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<EstimateViewVo> estimateList = dao.getEstimateQNAList(conn, loginExpert);
+
+		JDBCTemplate.close(conn);
+		
+		return estimateList;
+	}
+
 	
 
 }

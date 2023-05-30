@@ -147,7 +147,7 @@
                 <div class="m-img">
                     <img src="${root}/static/svg/로그인사진.svg" alt="로그인사진">
                 </div>
-                <form action="${root}/login" method="post">
+                <form action="${root}/login" method="post" onsubmit="return checkIdPwd();">
                 <div class="m-main">
                     <div class="close-btn" id="close-btn">
                         <span class="material-symbols-outlined">close</span>
@@ -217,6 +217,36 @@
             });
 
         }
+
+        function checkIdPwd(){
+            const id = document.querySelector("input[name=memberId]");
+            const pwd = document.querySelector("input[name=memberPwd]");
+            let result = false;
+
+            $.ajax({
+                url : "${root}/login-check",
+                type : "post",
+                data : {
+                    "memberId" : id.value,
+                    "memberPwd" : pwd.value
+                },
+                async: false,
+                success : function(date){
+                    if(date == '1'){
+                        result = true;
+                    }else{
+                        alert("해당 아이디 비밀번호가 없습니다.")
+                        result = false;
+                    }
+                },
+                error : function(er){
+                    console.log(er);
+                }
+            })
+
+            return result;
+        }
+
 
         function getCategory(type){
             $.ajax({

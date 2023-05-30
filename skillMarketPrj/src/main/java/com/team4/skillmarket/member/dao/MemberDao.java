@@ -674,6 +674,63 @@ public class MemberDao {
 		
 	}
 
+	public int checkLogin(Connection conn, MemberVo mvo) throws Exception {
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PWD = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, mvo.getMemberId());
+		pstmt.setString(2, mvo.getMemberPwd());
+		ResultSet rs = pstmt.executeQuery();
+		
+		int result = 0;
+		if(rs.next()) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
+	}
+
+	public List<EstimateViewVo> getEstimateQNAList(Connection conn, ExpertVo loginExpert) throws Exception {
+		String sql = "SELECT E.ESTIMATE_NO, SUBSTR(E.ESTIMATE_TITLE, 1, 12) ESTIMATE_TITLE, E.ESTIMATE_PRICE, SUBSTR(E.ESTIMATE_LINE_INTRODUCTION, 1 , 15) ESTIMATE_LINE_INTRODUCTION, E.ESTIMATE_THUMBNAIL, E.BUSINESS_REGISTRATION_NUMBER, (SELECT COUNT(*) FROM REVIEW R WHERE R.ESTIMATE_NO = E.ESTIMATE_NO AND REVIEW_STATUS = 'Y' AND REVIEW_COMMENT_STATUS = 'N') ESTIMATE_REVIEW_COUNT FROM ESTIMATE E WHERE E.FREELANCER_NO = ? AND E.ESTIMATE_STATUS = 'Y'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginExpert.getFreelancerNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<EstimateViewVo> estimateList = new ArrayList<>();
+		while(rs.next()) {
+			String estimateNo = rs.getString("ESTIMATE_NO");
+			String estimateTitle = rs.getString("ESTIMATE_TITLE");
+			String estimateLineIntroduction = rs.getString("ESTIMATE_LINE_INTRODUCTION");
+			String estimatePrice = rs.getString("ESTIMATE_PRICE");
+			String estimateThumbnail = rs.getString("ESTIMATE_THUMBNAIL");
+			String businessRegistrationNumber = rs.getString("BUSINESS_REGISTRATION_NUMBER");
+			String estimateDisreivew = rs.getString("ESTIMATE_REVIEW_COUNT");
+			
+			EstimateViewVo vo = new EstimateViewVo();
+			
+			vo.setBusinessRegistrationNumber(businessRegistrationNumber);
+			vo.setEstimateLineIntroducation(estimateLineIntroduction);
+			vo.setEstimateNo(estimateNo);
+			vo.setEstimatePrice(estimatePrice);
+			vo.setEstimateDisReview(estimateDisreivew);
+			vo.setEstimateThumbnail(estimateThumbnail);
+			vo.setEstimateTitle(estimateTitle);
+			
+			estimateList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return estimateList;
+	}
+
 	
 
 	
