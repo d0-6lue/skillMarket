@@ -104,11 +104,12 @@
 /* 프로젝트 설명 */
 .project-info {
     width: 200px;
-    height: 100px;
+    height: 400px;
 
     margin: 5px 5px;
 
     font-size: 18px;
+    word-wrap: break-word;
 }
 
 /* 유틸 하단 */
@@ -451,4 +452,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.image{
+    width: 125px;
+    height: 95px;
+}
+
+.image > img{
+    width: 125px;
+    height: 95px;
 }

@@ -217,3 +217,13 @@
     font-size: 28px;
     background-color: rgb(248,201,37);
 }
+
+.image{
+    width: 125px;
+    height: 95px;
+}
+
+.image > img{
+    width: 125px;
+    height: 95px;
+}

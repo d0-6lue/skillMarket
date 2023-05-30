@@ -22,7 +22,8 @@
             <div class="purchase-area">
 
                 <div class="project-info">
-                    <img src="${root}/static/img/thumbnail/${infoVo.estimateThumbnail}" alt="프로젝트 썸네일" class="project-thumbnail">
+                    ${infoVo.estimateThumbnail}
+                    <!-- <img src="${root}/static/img/thumbnail/${infoVo.estimateThumbnail}" alt="프로젝트 썸네일" class="project-thumbnail"> -->
                     <div class="project-info-text">
                         <div class="project-title bold">${infoVo.estimateTitle}</div>
                         <div class="project-explanation regular">

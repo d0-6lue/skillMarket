@@ -1,28 +1,31 @@
 /* 견적서 상세보기 css입니다~ */
 
 .main{
-    width: 100%;
+    width: 1000px;
     height: 100%;
+    margin: auto;
 }
 
 /*  메인 박스입니다 ~*/
 .esti-info-box{
-    width: 960px;
+    width: 1000px;
     height: 1800px;
+    margin: auto;
     display: flex;
     flex-direction: row;
     align-items : center;
-    margin: 10px auto;
 }
 
 
 /* 서비스 왼쪽영역 감싸는 칸 */
 .esti-info-main{
-    width: 570px;
+    width: 650px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+
+    margin-top: 50px;
 }
 
 /* 서비스 메뉴바 고정시키려고*/
@@ -50,13 +53,12 @@
     bottom: 0;
     max-width: 100%;
     max-height: 100%;
-    margin: auto;
 }
 
 /* 서비스 오른쪽 영역 감싸는 칸 */
 .esti-info-aside{
     position: relative;
-    width: 390px;
+    width: 350px;
     height: 100%;
 
 }
@@ -64,6 +66,9 @@
 
 /* 좋아요 감싸기  */
 .like-box{
+    height: 25px;
+    margin-top: 40px;
+
     display: flex;
     justify-content: flex-end;
 }
@@ -72,15 +77,13 @@
 .esti-pricelist-box {
     box-sizing: border-box;
     width: 360px;
-    margin: auto 45;
-    margin-top: 45px;
+    border: 2px solid black;
+    border-radius: 15px;
 }
 
 .price-list {
 box-sizing: border-box;
-width: 100%;
-border: 1px solid;
-padding: 30px;
+width: 350px;
 display: flex;
 flex-direction: column;
 }
@@ -126,37 +129,39 @@ width: 100%;
 .seller-profile-box{
     box-sizing: border-box;
     position: relative;
-    width: 360px;
+    width: 350px;
     height: 350px;
-    border: 1px solid;
-    margin: auto;
-    margin: 45px;
+    margin-top: 15px;
+    border: 2px solid black;
     display: flex;
     flex-direction: column;
+
+    border-radius: 15px;
 }
 
 .seller-name-box{
     width: 100%;
     height: 80px;
+    margin-top: 15px;
     text-align: center;
     font-size: 25px;
     background-color: #f2f2f2;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    border-radius: 15px;
 }
 
 .seller-name{
-    margin: 30px 0 0 -250px;
+    margin: 10px 10px;
+    align-self: center;
 }
 
 .wrapper {
-    margin: 0 auto;
     padding: 30px;
     max-width: 1170px;
 }
 
 .img-seller{
-    margin: -60px 160px;
     width: 100px;
     height: 100px;
     border: 1px solid rgb(0,0,0);
@@ -178,4 +183,30 @@ width: 100%;
 
 .seller-intro {
     margin-left: 20px;
+}
+
+
+
+.category-filter {
+    height: 25px;
+    font-size: 18px;
+}
+
+.project-thumbnail {
+    width: 640px;
+    height: 450px;
+
+    margin-top: 15px;
+}
+
+figure.image {
+    width: 640px;
+    height: 450px;
+}
+
+figure.image > img {
+    width: 640px;
+    height: 450px;
+
+    object-fit: cover;
 }
