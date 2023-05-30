@@ -1,0 +1,282 @@
+.header{
+
+    width: 100%;
+    background-color: #FFDF45;
+    /* border: 1px solid black; */
+    /* border-bottom: 1px solid rgb(0, 0, 0); */
+
+}
+
+.header-area{
+
+    width: 1000px;
+    margin: auto;
+}
+
+
+
+.header-detailarea{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+
+}
+
+.header-logo{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid black; */
+    margin-right: 80px;
+}
+
+.header-csc{
+    margin-left: 10px;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.header-logoimg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logoimg > img {
+    height: 80px;
+}
+
+.header-menu{
+    margin-left: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul{
+    list-style: none;
+    
+}
+
+.header-menu > ul > li{
+    float: left;
+    margin-right: 20px;
+}
+
+.header-menu >  ul > li > a {
+    /* color: black; */
+    color: #3258A3;
+    text-decoration: none;
+}
+
+#login-modal-add-btn{
+    cursor: pointer;
+    color: #3258A3;
+}
+
+.header-search{
+    width: 950px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.header-search-area{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 330px;
+    height: 30px;
+    border-radius: 22px;
+    border: 1px solid #7C7C7C;
+    background-color: white;
+}
+
+.header-search-area > input{
+    margin-left: 14px;
+    border: none;
+    outline: none;
+    width: 270px;
+    background-color: white;
+}
+
+.header-search-area > button{
+    margin-right: 10px;
+    border: none;
+    background-color: white;
+}
+
+main{
+    width: 1000px;
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+.notice-area{
+    margin-top: 80px;
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.notice-title-area{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notice-date{
+    margin-right: 70px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.notice-title{
+    font-size: 30px;
+}
+
+.notice-qcotent{
+    font-size: 20px;
+    margin-left: 20px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.notice-acotent{
+    font-size: 20px;
+    color: rgb(99, 99, 99);
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+.header-search a {
+    color: black;
+    text-decoration: none;
+}
+
+
+/* --------------------------------------------------------------------- */
+/* 로그인 모달 */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+.show {
+    display: block;
+}
+
+.modal-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 950px;
+    height: 600px;
+
+    background-color: white;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    
+    transform: translateX(-50%) translateY(-50%);
+    padding: 0;
+    border-radius: 10px;
+}
+
+.m-head{
+    display: flex;
+}
+
+.m-img > img{
+    width: 550px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    
+}
+
+.m-main{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+.close-btn{
+    font-size: 40px;
+    color: rgb(139, 139, 139);
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 25px;
+    margin-left: 310px;
+}
+
+.login-title{
+    font-size: 40px;
+    margin-top: 30px;
+    margin-bottom: 10px ;
+}
+
+input[name='memberId']{
+    padding-left: 10px;
+    margin-top: 20px;
+    width: 300px;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #929292;
+}
+
+input[name='memberPwd']{
+    padding-left: 10px;
+    margin-top: 20px;
+    width: 300px;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #929292;
+}
+
+.login-submit-btn{
+    margin-top: 10px;
+    width: 300px;
+    height: 50px;
+    border-radius: 6px;
+    border: none;
+    background-color: #F8C925;
+}
+
+.idpwd-search{
+    margin-top: 15px;
+    width: 300px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    font-size: 15px;
+    
+}
+
+.idpwd-search > a {
+    color: black;
+    text-decoration: none;
+}
+
+.join-move-btn{
+    margin-top: 30px;
+    width: 300px;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #3258A3;
+    background-color: white;
+    color: #3258A3;
+}
+

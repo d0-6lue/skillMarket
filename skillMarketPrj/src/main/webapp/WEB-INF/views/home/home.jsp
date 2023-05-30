@@ -35,17 +35,19 @@
 									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
 									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 4"></button>
+									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 5"></button>
+									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 6"></button>
+									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 7"></button>
 								</div>
 								<div class="carousel-inner">
-								  <div class="carousel-item active" data-bs-interval="4000">
-									<img src="${root}/static/svg/기본프로필.svg" class="d-block w-100" alt="...">
-								  </div>
-								  <div class="carousel-item" data-bs-interval="4000">
-									<img src="${root}/static/svg/기본프로필.svg" class="d-block w-100" alt="...">
-								  </div>
-								  <div class="carousel-item">
-									<img src="${root}/static/svg/기본프로필.svg" class="d-block w-100" alt="...">
-								  </div>
+								
+									<c:forEach items="${bList}" var="bvo">
+									  	<div class="carousel-item active" data-bs-interval="4000">
+											<img style="background-color: ${bvo.bannerBackgroundcolor};" src="${root}/static/img/banner/${bvo.bannerFile}" class="d-block w-100" alt="...">
+									  	</div>
+									</c:forEach>
+								  
 								</div>
 								<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 								  <span class="carousel-control-prev-icon" aria-hidden="true"></span>

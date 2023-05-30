@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team4.skillmarket.admin.banner.vo.BannerVo;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.home.service.HomeService;
 
@@ -23,8 +24,10 @@ public class HomeController extends HttpServlet {
 			HomeService hs = new HomeService();
 			List<EstimateCategoryVo> cList = hs.getCategory();
 			List<EstimateCategoryVo> pList = hs.getPopularCategoryList();
+			List<BannerVo> bList = hs.getBannerList();
 
 			if(cList.size() > 0) {
+				req.setAttribute("bList", bList);
 				req.setAttribute("pList", pList);
 				req.setAttribute("bigCategoryList", cList);
 				req.getRequestDispatcher("/WEB-INF/views/home/home.jsp").forward(req, resp);

@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="${root}/static/css/csc/faqdetail.css">
+<link rel="stylesheet" href="${root}/static/css/csc/inquirydetail.css">
 </head>
 <body>
 
@@ -44,7 +44,7 @@
     </div>
     
     <div class="header-search">
-        <div class="bold"><a href="${root}/csc">고객센터</a> > <a href="${root}/faq">FAQ</a></div>
+        <div class="bold"><a href="${root}/csc">고객센터</a> > <a href="${root}/inquiry-list">내 문의</a></div>
         <div class="header-search-area">
             <input type="text" placeholder="검색">
             <button>
@@ -61,10 +61,13 @@
     <main>
 
         <div class="notice-area">
-            <div class="notice-title bold">${fvo.faqCatName} > ${fvo.faqTitle}</div>
-
-            <div class="notice-qcotent">${fvo.faqQContent}</div>
-            <div class="notice-acotent">${fvo.faqAContent}</div>
+            <div class="notice-title-area">
+                <div class="notice-title bold">[${ivo.qnaCatName}] ${ivo.qnaTitle}</div>
+                <div class="notice-date">${ivo.qnaEnrolldate}</div>
+            </div>
+            <div class="notice-qcotent">${ivo.qnaContent}</div>
+            <hr>
+            <div class="notice-acotent">${ivo.questionAnswerContent}</div>
         </div>
 
     </main>

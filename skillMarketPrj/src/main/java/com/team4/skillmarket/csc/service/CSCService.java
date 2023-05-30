@@ -6,10 +6,12 @@ import java.util.List;
 import com.team4.skillmarket.admin.FAQ.vo.AdminFAQVo;
 import com.team4.skillmarket.admin.FAQ.vo.FAQCategoryVo;
 import com.team4.skillmarket.admin.inquiry.vo.InquiryCategoryVo;
+import com.team4.skillmarket.admin.inquiry.vo.InquiryVo;
 import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
 import com.team4.skillmarket.admin.notice.vo.noticeListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.csc.dao.CSCDao;
+import com.team4.skillmarket.member.vo.MemberVo;
 
 public class CSCService {
 	
@@ -147,6 +149,36 @@ public class CSCService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+		
+	}
+
+	public List<InquiryVo> getInquiryList(MemberVo loginMember) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<InquiryVo> InquiryList = dao.getInquiryList(conn, loginMember);
+		
+		JDBCTemplate.close(conn);
+		
+		return InquiryList;
+	}
+
+	public InquiryVo getInquiryByNo(String no, MemberVo loginMember, String comment) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		InquiryVo ivo = dao.getInquiryByNo(conn,no, loginMember,comment);
+		
+		JDBCTemplate.close(conn);
+		
+		return ivo;
+	}
+
+	public String checkInquiryComment(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		String comment = dao.ckeckInquiryComment(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return comment;
 		
 	}
 

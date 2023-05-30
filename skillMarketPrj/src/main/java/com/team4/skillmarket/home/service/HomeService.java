@@ -3,6 +3,7 @@ package com.team4.skillmarket.home.service;
 import java.sql.Connection;
 import java.util.List;
 
+import com.team4.skillmarket.admin.banner.vo.BannerVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 import com.team4.skillmarket.home.dao.HomeDao;
@@ -32,6 +33,17 @@ public class HomeService {
 		JDBCTemplate.close(conn);
 		
 		return pList;
+	}
+
+
+	public List<BannerVo> getBannerList() throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<BannerVo> bList = dao.getBannerList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return bList;
 	}
 
 }

@@ -10,9 +10,11 @@ import java.util.List;
 import com.team4.skillmarket.admin.FAQ.vo.AdminFAQVo;
 import com.team4.skillmarket.admin.FAQ.vo.FAQCategoryVo;
 import com.team4.skillmarket.admin.inquiry.vo.InquiryCategoryVo;
+import com.team4.skillmarket.admin.inquiry.vo.InquiryVo;
 import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
 import com.team4.skillmarket.admin.notice.vo.noticeListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
+import com.team4.skillmarket.member.vo.MemberVo;
 
 public class CSCDao {
 
@@ -365,6 +367,108 @@ public class CSCDao {
 		
 		return result;
 		
+	}
+
+	public List<InquiryVo> getInquiryList(Connection conn, MemberVo loginMember) throws Exception {
+		
+		String sql = "SELECT QNA_NO, MEMBER_NO, QNA_CAT_NO, QNA_TITLE, QNA_CONTENT, TO_CHAR(QNA_ENROLLDATE,'YYYY\"년\"MM\"월\"DD\"일\"') AS QNA_ENROLLDATE, QNA_CAT_NAME FROM ( SELECT Q.QNA_NO, Q.MEMBER_NO, Q.QNA_CAT_NO, Q.QNA_TITLE, Q.QNA_CONTENT, Q.QNA_ENROLLDATE, C.QNA_CAT_NAME FROM QNA Q JOIN QNA_CATEGORY C ON Q.QNA_CAT_NO = C.QNA_CAT_NO WHERE Q.MEMBER_NO = ? AND QNA_STATUS = 'Y' ORDER BY QNA_ENROLLDATE DESC)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getMemberNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<InquiryVo> inquiryList = new ArrayList<>();
+		while(rs.next()) {
+			String qnaNo = rs.getString("QNA_NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String qnaCatNo = rs.getString("QNA_CAT_NO");
+			String qnaTitle = rs.getString("QNA_TITLE");
+			String qnaContent = rs.getString("QNA_CONTENT");
+			String qnaEnrolldate = rs.getString("QNA_ENROLLDATE");
+			String qnaCatName = rs.getString("QNA_CAT_NAME");
+			
+			
+			InquiryVo vo = new InquiryVo();
+			
+			vo.setMemberNo(memberNo);
+			vo.setQnaCatName(qnaCatName);
+			vo.setQnaCatNo(qnaCatNo);
+			vo.setQnaContent(qnaContent);
+			vo.setQnaEnrolldate(qnaEnrolldate);
+			vo.setQnaNo(qnaNo);
+			vo.setQnaTitle(qnaTitle);
+			
+			inquiryList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return inquiryList;
+	}
+
+	public InquiryVo getInquiryByNo(Connection conn, String no, MemberVo loginMember, String comment) throws Exception {
+		
+		String sql = "SELECT Q.QNA_NO, Q.MEMBER_NO, Q.QNA_CAT_NO, Q.QNA_TITLE, Q.QNA_CONTENT, C.QNA_CAT_NAME, TO_CHAR(Q.QNA_ENROLLDATE,'YYYY\"년\"MM\"월\"DD\"일\"') AS QNA_ENROLLDATE, A.QUESTION_ANSWER_CONTENT FROM QNA Q JOIN QNA_CATEGORY C ON Q.QNA_CAT_NO = C.QNA_CAT_NO JOIN QUESTION_ANSWER A ON Q.QNA_NO = A.QNA_NO WHERE Q.QNA_NO = ? AND Q.MEMBER_NO = ? AND Q.QNA_STATUS = 'Y'";
+		
+		if(comment == null) {
+			sql = "SELECT Q.QNA_NO, Q.MEMBER_NO, Q.QNA_CAT_NO, Q.QNA_TITLE, Q.QNA_CONTENT, C.QNA_CAT_NAME, TO_CHAR(Q.QNA_ENROLLDATE,'YYYY\"년\"MM\"월\"DD\"일\"') AS QNA_ENROLLDATE FROM QNA Q JOIN QNA_CATEGORY C ON Q.QNA_CAT_NO = C.QNA_CAT_NO WHERE Q.QNA_NO = ? AND Q.MEMBER_NO = ? AND Q.QNA_STATUS = 'Y'";
+		}
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		pstmt.setString(2, loginMember.getMemberNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		InquiryVo ivo = null;
+		while(rs.next()) {
+			String qnaNo = rs.getString("QNA_NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String qnaCatNo = rs.getString("QNA_CAT_NO");
+			String qnaTitle = rs.getString("QNA_TITLE");
+			String qnaContent = rs.getString("QNA_CONTENT");
+			String qnaEnrolldate = rs.getString("QNA_ENROLLDATE");
+			String qnaCatName = rs.getString("QNA_CAT_NAME");
+			String questionAnswerContent = null;
+			if(comment != null) {
+				questionAnswerContent = rs.getString("QUESTION_ANSWER_CONTENT");
+			}
+			
+			ivo = new InquiryVo();
+			
+			ivo.setMemberNo(memberNo);
+			ivo.setQnaCatName(qnaCatName);
+			ivo.setQnaCatNo(qnaCatNo);
+			ivo.setQnaContent(qnaContent);
+			ivo.setQnaEnrolldate(qnaEnrolldate);
+			ivo.setQnaNo(qnaNo);
+			ivo.setQnaTitle(qnaTitle);
+			ivo.setQuestionAnswerContent(questionAnswerContent);
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return ivo;
+		
+	}
+
+	public String ckeckInquiryComment(Connection conn, String no) throws Exception {
+		
+		String sql = "SELECT QUESTION_ANSWER_CONTENT FROM QUESTION_ANSWER WHERE QNA_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		String comment = null;
+		if(rs.next()) {
+			comment = rs.getString("QUESTION_ANSWER_CONTENT");
+			
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return comment;
 	}
 
 }
