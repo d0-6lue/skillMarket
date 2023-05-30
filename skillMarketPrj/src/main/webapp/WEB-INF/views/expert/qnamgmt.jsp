@@ -51,7 +51,20 @@
 
                 <div class="qna-list-area">
 
-
+                    <div class="qna-grid-area">
+                    	<div class="qna-list">
+                            <div class="qna-dec bold">1</div>
+                            <img src="" alt="로고이미지">
+                            <div class="qna-list-text">
+                                <div class="qna-list-title">제목입니다...</div>
+                            </div>
+                            <div class="qna-list-num">
+                                <div class="qna-list-price bold">${vo.qnaPrice}원</div>
+                            </div>
+                            <a href="${root}/esti" class="qna-comment-btn bold">답변 하로 가기</a>
+                        </div>
+                    </div>
+                    
                 </div>
 
             </div>
