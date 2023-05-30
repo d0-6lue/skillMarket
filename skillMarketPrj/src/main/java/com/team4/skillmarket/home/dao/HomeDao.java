@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.skillmarket.admin.banner.vo.BannerVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 import com.team4.skillmarket.estimate.vo.EstimateCategoryVo;
 
@@ -72,6 +73,37 @@ public class HomeDao {
 		
 		return pList;
 		
+	}
+
+	public List<BannerVo> getBannerList(Connection conn) throws Exception {
+		
+		String sql = "SELECT * FROM BANNER WHERE BANNER_STATUS = 'Y'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<BannerVo> bList = new ArrayList<>();
+		while(rs.next()) {
+			String bannerNo = rs.getString("BANNER_NO");
+			String bannerBackgroundcolor = rs.getString("BANNER_BACKGROUNDCOLOR");
+			String bannerFile = rs.getString("BANNER_FILE");
+			String bannerEnrolldate = rs.getString("BANNER_ENROLLDATE");
+			String bannerStatus = rs.getString("BANNER_STATUS");
+			
+			BannerVo vo = new BannerVo();
+			
+			vo.setBannerBackgroundcolor(bannerBackgroundcolor);
+			vo.setBannerEnrolldate(bannerEnrolldate);
+			vo.setBannerFile(bannerFile);
+			vo.setBannerNo(bannerNo);
+			vo.setBannerStatus(bannerStatus);
+			
+			bList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return bList;
 	}
 
 }

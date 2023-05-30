@@ -32,6 +32,7 @@
                         	<li><a id="login-modal-add-btn">로그인</a></li>                        
                         </c:if>
                         <c:if test="${not empty loginMember}">
+                            <li><a href="${root}/inquiry-list">내 문의</a></li>
                         	<li><a href="${root}/logout">로그아웃</a></li>
                         </c:if>
                     </ul>
