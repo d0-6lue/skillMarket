@@ -40,7 +40,7 @@ public class inquiryListService {
 		
 		int result = dao.answerInquiry(vo,conn);
 		
-		if (result == 1) {
+		if (result==1&&dao.inquiryStatusUpdate(vo,conn) > 0) {
 			JDBCTemplate.commit(conn);
 		}
 		else {

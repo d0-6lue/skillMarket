@@ -31,16 +31,18 @@ $(document).ready(function() {
 
 
 
-    $("#submitBtn").click(function () {
+    $(".inquiry_edit_btn").click(function () {
         
         const Btnclass = $(this).attr("class");
 		const lastUnderscoreIndex = Btnclass.lastIndexOf("_");
 		const no = Btnclass.substring(lastUnderscoreIndex + 1);
 
-        console.log(no);
 
-        const answer =  $("inquiry_A_").val();
-
+        const answer =  $("#inquiry_A_"+no).val();
+        if (answer.length < 5  ) {
+            alert("5자 이상 적어주세요")
+            return;
+        }
         $.ajax({
             url: "/skillmarket/admin/inquiry/answer", // 이미지 업로드를 처리하는 서버 엔드포인트 URL
             type: "POST",
@@ -60,4 +62,7 @@ $(document).ready(function() {
             }
         })
     })
+
+    
+
 });

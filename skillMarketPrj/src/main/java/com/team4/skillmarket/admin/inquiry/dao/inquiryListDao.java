@@ -114,8 +114,9 @@ public class inquiryListDao {
 	
 	public int inquiryStatusUpdate(InquiryVo vo, Connection conn) throws Exception  {
 			
-		String sql = "UPDATE QNA SET QNA_STATUS = 'Y' WHERE QNA_NO = ?";
+		String sql = "UPDATE QNA SET QNA_COMMENT_STATUS = 'Y' WHERE QNA_NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getQnaNo());
 		int result =  pstmt.executeUpdate();
 		
 		return result;
