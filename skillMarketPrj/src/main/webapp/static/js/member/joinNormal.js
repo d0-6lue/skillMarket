@@ -63,6 +63,7 @@ idInputArea.addEventListener("change", function() {
 const idCheckBtn = document.querySelector("#duplicate-check-btn");
 idCheckBtn.addEventListener("click", function(){
     const memberId = document.querySelector("input[name=memberId").value;
+    const idCheckInput = document.querySelector("input[name=idCheckInput]");
     console.log(memberId);
     const idData = {
         'memberId' : memberId
@@ -75,8 +76,10 @@ idCheckBtn.addEventListener("click", function(){
         data : idData,
         success : function(e){
             if(e == 0){
-                alert("사용 불가능한 아이디입니다.")
+                $('input[name=idCheckInput]').attr('value',"");
+                alert("사용 불가능한 아이디입니다.");
             }else{
+                $('input[name=idCheckInput]').attr('value',1);
                 alert("사용가능한 아이디입니다.");
             }
 
@@ -181,8 +184,10 @@ nickCheckBtn.addEventListener("click", function(){
         data : NickData,
         success : function(e){
             if(e == 0){
+                $('input[name=nickCheckInput]').attr('value',"");
                 alert("사용 불가능한 닉네임입니다.")
             }else{
+                $('input[name=nickCheckInput]').attr('value',1);
                 alert("사용가능한 닉네임입니다.");
             }
 
@@ -257,8 +262,10 @@ emailCheckBtn.addEventListener("click", function(){
         data : EmailData,
         success : function(e){
             if(e == 0){
+                $('input[name=emailCheckInput]').attr('value',"");
                 alert("중복된 이메일입니다.")
             }else{
+                $('input[name=emailCheckInput]').attr('value',1);
                 alert("사용가능한 이메일입니다.");
             }
 
@@ -282,12 +289,12 @@ phoneInputArea.addEventListener("change", function(){
 
     const phoneString = phoneInputArea.value;
     if(phoneRegExp.test(phoneString) == false) {
-        phoneCheckAlter.innerText = "연락처 형식에 맞게 작성해주세요."
+        phoneCheckAlter.innerText = "연락처 형식에 맞게 작성해주세요.";
     }
     else if(phoneString.length > 11) {
         phoneCheckAlter.innerText = "연락처 형식에 맞게 작성해주세요.";
     }
-    else if(phoneString.length < 10) {
+    else if(phoneString.length < 11) {
         phoneCheckAlter.innerText = "연락처 형식에 맞게 작성해주세요.";
     }
     else {

@@ -75,7 +75,7 @@
 					<div class="main-category-detail">
 
 						<c:forEach items="${bigCategoryList}" var="cList">
-							<a class="main-category-detail-can" href="">
+							<a class="main-category-detail-can" href="${root}/category?category=${cList.estimateCatNo}">
 								<img src="${root}/static/svg/category/${cList.estimateCatFile}" alt="로고이미지">
 								<div class="bold">${cList.estimateCatName}</div>
 							</a>
