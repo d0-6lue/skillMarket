@@ -505,7 +505,7 @@ public class ChatDao {
 						
 						pstmt = null;
 						if(rs__.next()) {
-							updataQuotationSql = "UPDATE QUOTATION SET QUOTATION_OPTION_QUOANTITY = QUOTATION_OPTION_QUOANTITY + ?\r\n"
+							updataQuotationSql = "UPDATE QUOTATION_OPTION SET QUOTATION_OPTION_QUOANTITY = QUOTATION_OPTION_QUOANTITY + ?\r\n"
 							+ "WHERE ESTIMATE_OPTION_NO = ?";
 							
 							pstmt= conn.prepareStatement(updataQuotationSql);
@@ -588,7 +588,7 @@ public class ChatDao {
 					else if(result_ == 1 && "300".equals(category)) {
 						// 옵션 추가한 만큼 주문서 가격 이랑 기간 업데이트
 						updataQuotationSql = "UPDATE QUOTATION \r\n"
-						+ "SET QUOTATION_PERIOD = QUOTATION_PERIOD + (SELECT (ESTIMATE_OPTION_PERIOD * ?)\r\n"
+						+ "SET QUOTATION_PERIOD = QUOTATION_PERIOD + (SELECT (ESTIMATE_OPTION_QUANTITY * ?)\r\n"
 						+ "                                           FROM ESTIMATE_OPTION \r\n"
 						+ "                                           WHERE ESTIMATE_OPTION_NO = ?)\r\n"
 						+ ", QUOTATION_PRICE = QUOTATION_PRICE +(SELECT (ESTIMATE_OPTION_PRICE * ?)\r\n"
@@ -605,16 +605,16 @@ public class ChatDao {
 					}
 					else if (result_ == 1 && "400".equals(category)) {
 						// 옵션 취소한 만큼 주문서 가격 이랑 기간 업데이트
-						updataQuotationSql = "\"UPDATE QUOTATION \\r\\n\"\r\n"
-						+ "						+ \"SET QUOTATION_PERIOD = QUOTATION_PERIOD - (SELECT (ESTIMATE_OPTION_PERIOD * QUOTATION_OPTION_QUANTITY)\\r\\n\"\r\n"
-						+ "						+ \"                                           FROM QUOTATION_OPTION A\\r\\n\"\r\n"
-						+ "						+ \"                                            JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\\r\\n\"\r\n"
-						+ "						+ \"                                           WHERE QUOTATION_OPTION_NO = ?)\\r\\n\"\r\n"
-						+ "						+ \", QUOTATION_PRICE = QUOTATION_PRICE - (SELECT (ESTIMATE_OPTION_PRICE * QUOTATION_OPTION_QUANTITY)\\r\\n\"\r\n"
-						+ "						+ \"                                       FROM QUOTATION_OPTION A\\r\\n\"\r\n"
-						+ "						+ \"                                        JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\\r\\n\"\r\n"
-						+ "						+ \"                                       WHERE QUOTATION_OPTION_NO = ?)\\r\\n\"\r\n"
-						+ "						+ \"WHERE QUOTATION_NO = ?\";";
+						updataQuotationSql = "UPDATE QUOTATION\r\n"
+						+ "SET QUOTATION_PERIOD = QUOTATION_PERIOD - (SELECT (ESTIMATE_OPTION_QUANTITY * QUOTATION_OPTION_QUANTITY)\r\n"
+						+ "                                           FROM QUOTATION_OPTION A\r\n"
+						+ "                                            JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
+						+ "                                           WHERE QUOTATION_OPTION_NO = ?)\r\n"
+						+ ", QUOTATION_PRICE = QUOTATION_PRICE - (SELECT (ESTIMATE_OPTION_PRICE * QUOTATION_OPTION_QUANTITY)\r\n"
+						+ "                                       FROM QUOTATION_OPTION A\r\n"
+						+ "                                        JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
+						+ "                                       WHERE QUOTATION_OPTION_NO = ?)\r\n"
+						+ "WHERE QUOTATION_NO = ?";
 						
 						pstmt = conn.prepareStatement(updataQuotationSql);
 						pstmt.setString(1, optionNo);
