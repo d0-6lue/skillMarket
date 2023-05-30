@@ -31,7 +31,7 @@ public class AdminInquiryController extends HttpServlet{
 			int statusNCnt = 0;
 			for(inquiryListVo e: inquiryArrList) {
 				System.out.println(e.getQnaNo());
-				if (e.getQnaStatus().equals("X")) {
+				if (e.getQnaAnswerStatus().equals("N")) {
 					statusYCnt ++;
 					e.setQnaStatus("❌");
 				}else {

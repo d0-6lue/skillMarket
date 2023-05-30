@@ -12,11 +12,13 @@ public class inquiryListVo {
 	private String qnaContent;
 	private String qnaEnrolldate;
 	private String qnaStatus;
+	private String qnaAnswerStatus;
 	private String questionAnswerNo;
 	private String adminNo;
 	private String questionAnswerContent;
 	private String questionAnswerEnrolldate;
 	private String qnaCatName;
+	
 	
 	
 }

@@ -122,26 +122,53 @@
                     <h1>문의 처리</h1>
                     <div id="modal_div">
                         
-                    <select name="" id="cat_select_${ modal.qnaNo }">
-
-                        <c:forEach items="${inquiryCatList}" var="select">
-
-                            <c:if test="${ select.qnaCatNo eq modal.qnaCatNo}">
-                                <option value="${select.qnaCatNo}" selected>${select.qnaCatName}</option>
-                            </c:if>
-
-                            <c:if test="${ select.qnaCatNo ne modal.qnaCatNo}">
-                                <option value="${select.qnaCatNo}" selected>${select.qnaCatName}</option>
-                            </c:if>
-
-                        </c:forEach>
-
-                    </select>
                         
-                    <input id="titleInput_${ modal.qnaNo }" type="text" name="title" placeholder="제목" value="${ modal.qnaTitle }">
+                    <div>
+                        <div class="content_Q">
+                            <select name="" id="cat_select_${ modal.qnaNo }" disabled>
+    
+                                <c:forEach items="${inquiryCatList}" var="select">
+        
+                                    <c:if test="${ select.qnaCatNo eq modal.qnaCatNo}">
+                                        <option value="${select.qnaCatNo}" selected >${select.qnaCatName}</option>
+                                    </c:if>
+        
+                                    <c:if test="${ select.qnaCatNo ne modal.qnaCatNo}">
+                                        <option value="${select.qnaCatNo}" >${select.qnaCatName}</option>
+                                    </c:if>
+                                    
+                                </c:forEach>
+                                
+                            </select>
+
+                            <input id="titleInput_${ modal.qnaNo }" type="text" name="Q_title" placeholder="제목" value="${ modal.qnaTitle }" readonly>
+                        </div>
+                        
+                        <div id="inquiry_Q_${ modal.qnaNo }" class="inquiry_Q">
+                            ${ modal.qnaContent }
+                        </div>
+                    </div>
 
                     </div>
-                    <div id="inquiry_summernote_${ modal.qnaNo }">${ modal.qnaContent }</div>
+
+                    <div class="content_A">
+
+                        <input id="titleInput_${ modal.qnaNo }" type="text" name="A_title" placeholder="제목" value="답변하기" readonly>
+
+                        <c:if test="${empty modal.questionAnswerContent }">
+
+                            <textarea id="inquiry_A_${ modal.qnaNo }" class="inquiry_A"></textarea>
+
+                        </c:if>
+
+                        <c:if test="${not empty modal.questionAnswerContent }">
+
+                            <textarea id="inquiry_A_${ modal.qnaNo }" class="inquiry_A">${ modal.questionAnswerContent }</textarea>
+                            
+                        </c:if>
+
+                    </div>
+
 
                     <button id="submitBtn" class="inquiry_edit_btn_${ modal.qnaNo }">등록하기</button>
                 </div>

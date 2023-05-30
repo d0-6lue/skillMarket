@@ -30,12 +30,34 @@ $(document).ready(function() {
     })
 
 
-    $("submitBtn").click(function (){
 
-        const id = $(this).attr("id");
-        const lastUnderscoreIndex = id.lastIndexOf("_");
-        const no = id.substring(lastUnderscoreIndex + 1);
+    $("#submitBtn").click(function () {
+        
+        const Btnclass = $(this).attr("class");
+		const lastUnderscoreIndex = Btnclass.lastIndexOf("_");
+		const no = Btnclass.substring(lastUnderscoreIndex + 1);
 
+        console.log(no);
+
+        const answer =  $("inquiry_A_").val();
+
+        $.ajax({
+            url: "/skillmarket/admin/inquiry/answer", // 이미지 업로드를 처리하는 서버 엔드포인트 URL
+            type: "POST",
+            data: {
+                no:no,
+                answer:answer,
+                
+            },
+            success: function(ok) {
+                
+                alert("답변성공")
+                isUploading = false;
+            },
+            error: function(xhr, status, error) {
+                console.log("에러ㅠㅠ");
+                isUploading = false;
+            }
+        })
     })
-
 });
