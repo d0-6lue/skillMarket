@@ -119,11 +119,10 @@ main{
     position: relative;
 }
 
-.estimate-list > img{
+.image > img{
     border-radius: 6px;
     margin: auto;
     margin-top: 10px;
-    margin-bottom: 0px;
     border: 1px solid black;
     width: 130px;
     height: 90px;

@@ -39,10 +39,9 @@ public class ExpertQNAMgmtController extends HttpServlet{
 			}
 			
 			MemberService ms = new MemberService();
-			List<EstimateViewVo> estimateList = ms.getEstimateList(loginExpert);
-//			ms.get
+			List<EstimateViewVo> estimateList = ms.getEstimateQNAList(loginExpert);
 			
-//			req.setAttribute("estimateList", estimateList);
+			req.setAttribute("estimateList", estimateList);
 			req.getRequestDispatcher("/WEB-INF/views/expert/qnamgmt.jsp").forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.multipart.ExceededSizeException;
 import com.team4.skillmarket.expert.vo.ExpertVo;
 import com.team4.skillmarket.member.service.MemberService;
 import com.team4.skillmarket.member.vo.MemberVo;
@@ -45,7 +46,7 @@ public class MemberLoginController extends HttpServlet{
 				resp.sendRedirect(currentUrl);
 				
 			}else {
-				return;
+				throw new Exception();
 			}
 			
 			

@@ -66,7 +66,12 @@
             <div class="inquirylist">
             	<c:forEach items="${inquiryList}" var="vo">
             		<a class="inquiry-content" href="${root}/inquiry-detail?no=${vo.qnaNo}">
-                        <div class="inquiry-content-discomment bold">미답변</div>
+                        <c:if test="${vo.qnaCommentStatus eq 'N'}">
+                            <div class="inquiry-content-discomment bold">미답변</div>
+                        </c:if>
+                        <c:if test="${vo.qnaCommentStatus eq 'Y'}">
+                            <div class="inquiry-content-comment bold">답변완료</div>
+                        </c:if>
                         <div class="inquiry-content-title bold">[${vo.qnaCatName}] ${vo.qnaTitle}</div>
                         <div class="inquiry-content-date bold">${vo.qnaEnrolldate}</div>
                     </a>
