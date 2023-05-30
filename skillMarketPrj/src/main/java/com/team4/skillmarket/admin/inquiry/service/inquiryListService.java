@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.team4.skillmarket.admin.inquiry.dao.inquiryListDao;
+import com.team4.skillmarket.admin.inquiry.vo.InquiryVo;
 import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
@@ -31,6 +32,24 @@ public class inquiryListService {
 		JDBCTemplate.close(conn);
 		
 		return inquiryCatList;
+	}
+
+	public int answerInquiry(InquiryVo vo) throws Exception {
+
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.answerInquiry(vo,conn);
+		
+		if (result == 1) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 
 }

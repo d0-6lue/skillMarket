@@ -39,3 +39,93 @@
 .note-editing-area {
     max-height: 430;
 }
+
+
+/* 모달 */
+.modal-content, .modal-content {
+    position: fixed; /* 모달창을 고정 위치에 띄움 */
+    background-color: #fefefe; /* 모달창 배경색 */
+    width: 900px;
+    height: 850px;
+    padding: 20px;
+    border: 1px solid #888;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    display: grid;
+    grid-template-rows: 30px 1.2fr 0.5fr 7fr 1fr;
+    grid-template-areas: 
+        "cs cs cs"
+        "h1 h1 h1"
+        "dv dv dv"
+        "dc dc dc"
+        "sb sb sb"
+    ;
+    }
+
+div#modal_div {
+    height: 250px !important;
+}
+
+.inquiry_Q{
+    display: flex;
+    max-height: 145px;
+    overflow: scroll;
+    padding: 5;
+    margin-top: 5px;
+}
+
+.content_Q {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 3px solid #e9e9e9;
+}
+
+.content_Q > select {
+    padding: 5;
+    margin-left: 3;
+}
+
+.content_A {
+    grid-column: 3 span;
+    width: 100%;
+    padding: 5;
+}
+
+.content_A >input {
+    width: 100%;
+    font-size: 25px;
+    color: #242424;
+    font-weight: 700;
+    padding: 5;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #e9e9e9;
+}
+
+.modal #modal_div {
+    grid-template-columns: 1fr;
+}
+
+#modal_div input {
+    width: 100%;
+    font-size: 25px;
+    color: #242424;
+    font-weight: 700;
+    padding: 5PX;
+    padding-bottom: 10px;
+}
+
+
+
+.inquiry_A{
+    display: flex;
+    height: 250;
+    width: 100%;
+    overflow: scroll;
+    padding: 5;
+    margin-top: 5px;
+    border: 3px solid #e9e9e9;
+}

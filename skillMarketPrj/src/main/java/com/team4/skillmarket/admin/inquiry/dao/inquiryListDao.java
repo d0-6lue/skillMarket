@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.skillmarket.admin.inquiry.vo.InquiryVo;
 import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
@@ -40,6 +41,7 @@ public class inquiryListDao {
 			String qnaContent = rs.getString("QNA_CONTENT");
 			String qnaEnrolldate = rs.getString("QNA_ENROLLDATE");
 			String qnaStatus = rs.getString("QNA_STATUS");
+			String qnaAnswerStatus = rs.getString("QUESTION_ANSWER_STATUS");
 			String questionAnswerNo = rs.getString("QUESTION_ANSWER_NO");
 			String adminNo = rs.getString("ADMIN_NO");
 			String questionAnswerContent = rs.getString("QUESTION_ANSWER_CONTENT");
@@ -53,6 +55,7 @@ public class inquiryListDao {
 			ivo.setQnaContent(qnaContent);
 			ivo.setQnaEnrolldate(qnaEnrolldate);
 			ivo.setQnaStatus(qnaStatus);
+			ivo.setQnaAnswerStatus(qnaAnswerStatus);
 			ivo.setQuestionAnswerNo(questionAnswerNo);
 			ivo.setAdminNo(adminNo);
 			ivo.setQnaNo(qnaNo);
@@ -94,8 +97,30 @@ public class inquiryListDao {
 		return inquiryCatList;
 	}
 
+	public int answerInquiry(InquiryVo vo, Connection conn) throws Exception {
+		 
+		String sql = "INSERT INTO QUESTION_ANSWER (QUESTION_ANSWER_NO, ADMIN_NO, QNA_NO, QUESTION_ANSWER_CONTENT ) VALUES(SEQ_QUESTION_ANSWER.NEXTVAL , 100 , ? ,  ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getQnaNo());
+		pstmt.setString(2, vo.getQuestionAnswerContent());
+		int result = pstmt.executeUpdate();
+		
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+
 	
-	
+	public int inquiryStatusUpdate(InquiryVo vo, Connection conn) throws Exception  {
+			
+		String sql = "UPDATE QNA SET QNA_STATUS = 'Y' WHERE QNA_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		int result =  pstmt.executeUpdate();
+		
+		return result;
+		
+	}
 	
 }
 
