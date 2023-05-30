@@ -44,10 +44,10 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <span>${ statusNCnt }</span>
+                                                <span id="NCunt_${ statusNCnt }" class="NCunt">${ statusNCnt }</span>
                                             </td>
                                             <td>
-                                                <span>${ statusYCnt }</span>
+                                                <span id="YCunt_${ statusYCnt }">${ statusYCnt }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -170,7 +170,7 @@
                     </div>
 
 
-                    <button id="submitBtn" class="inquiry_edit_btn_${ modal.qnaNo }">등록하기</button>
+                    <button id="submitBtn_${ modal.qnaNo }" class="inquiry_edit_btn inquiry_edit_btn_${ modal.qnaNo }">등록하기</button>
                 </div>
             </div>
 
