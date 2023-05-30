@@ -33,7 +33,7 @@ public class EstimateOptionDao {
 		EstimateVo estimateVo = null;
 		
 		String getEstimateVoSql = "SELECT ESTIMATE_NO, ESTIMATE_TITLE, ESTIMATE_THUMBNAIL, ESTIMATE_DURATION, ESTIMATE_LINE_INTRODUCTION, ESTIMATE_PRICE, ESTIMATE_DETAIL, ESTIMATE_DETAIL_FILE,\r\n"
-				+ "TO_CHAR(ESTIMATE_ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, FREELANCER_CONTACT_TIME, MEMBER_NICK, MEMBER_PROFILE_PHOTO\r\n"
+				+ "TO_CHAR(ESTIMATE_ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, FREELANCER_CONTACT_TIME, A.FREELANCER_NO, MEMBER_NICK, MEMBER_PROFILE_PHOTO\r\n"
 				+ "FROM ESTIMATE A\r\n"
 				+ "    JOIN (SELECT * FROM FREELANCER A JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO) B \r\n"
 				+ "    ON A.FREELANCER_NO = B.FREELANCER_NO\r\n"
@@ -61,6 +61,7 @@ public class EstimateOptionDao {
 				String freelancerContactTime = rs.getString("FREELANCER_CONTACT_TIME");
 				String freelancerNick = rs.getString("MEMBER_NICK");
 				String freelancerProfile = rs.getString("MEMBER_PROFILE_PHOTO");
+				String freelancerNo = rs.getString("FREELANCER_NO");
 				
 				estimateVo = new EstimateVo();
 				
@@ -75,6 +76,7 @@ public class EstimateOptionDao {
 				estimateVo.setFreelancerContactTime(freelancerContactTime);
 				estimateVo.setMemberNick(freelancerNick);
 				estimateVo.setMemberProfile(freelancerProfile);
+				estimateVo.setFreelancerNo(freelancerNo);
 				
 			}
 			

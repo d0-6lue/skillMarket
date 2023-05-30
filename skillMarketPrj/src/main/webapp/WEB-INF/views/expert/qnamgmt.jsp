@@ -64,7 +64,7 @@
 	                            <div class="qna-list-num">
 	                                <div class="qna-list-price bold">${evo.estimatePrice}원</div>
 	                            </div>
-	                            <a href="${root}/esti" class="qna-comment-btn bold">답변 하로 가기</a>
+	                            <a href="${root}/esti?estimateNo=${evo.estimateNo}" class="qna-comment-btn bold">답변 하로 가기</a>
 	                        </div>
                     	</c:forEach>
                     </div>
