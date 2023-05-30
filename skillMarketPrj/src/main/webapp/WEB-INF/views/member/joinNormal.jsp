@@ -40,6 +40,7 @@
 
                     <div class="join-form-text">아이디</div>
                     <div>
+                        <input type="hidden" name="idCheckInput" value="">
                         <input type="text" class="join-form-input3" name="memberId" placeholder="아이디를 입력하세요."> 
                         <button id="duplicate-check-btn" class="duplication-btn yellow bold" type="button">중복확인</button>
                         <div id="check-id-availability"></div>
@@ -53,13 +54,15 @@
 
                     <div class="join-form-text">닉네임</div>
                     <div>
+                        <input type="hidden" name="nickCheckInput" value="">
                         <input type="text" class="join-form-input3" name="memberNick" placeholder="닉네임을 입력하세요.">
                         <button id="duplicate-check-nick-btn" class="duplication-btn yellow bold" type="button">중복확인</button>
-                        <div id="check-nick-availability"></div>
+                        <div id="check-nick-availability"></div>    
                     </div>
 
                     <div class="join-form-text">이메일</div>
                     <div>
+                        <input type="hidden" name="emailCheckInput" value="">
                         <input type="email" class="join-form-input3" name="memberEmail" placeholder="이메일를 입력하세요.">
                         <button id="duplicate-check-email-btn" class="duplication-btn yellow bold" type="button">중복확인</button>
                         <div id="check-email-availability"></div>
