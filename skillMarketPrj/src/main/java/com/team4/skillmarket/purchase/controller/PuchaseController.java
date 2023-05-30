@@ -37,12 +37,12 @@ public class PuchaseController extends HttpServlet {
 			}
 			
 			String no = req.getParameter("no");
-			
+			String seller = req.getParameter("seller");
 			//서비스
 			CashService cashService = new CashService();
 			
 			// 견적서 정보
-			InfoVo infoVo = perchaseService.getInfo(no);
+			InfoVo infoVo = perchaseService.getInfo(no, seller);
 			// 옵션 정보
 			List<OptionVo> optionList = perchaseService.getOptionList(no);
 			// 유저 캐시 정보

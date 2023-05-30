@@ -15,7 +15,7 @@ import com.team4.skillmarket.purchase.vo.WriteQuotationVo;
 
 public class PurchaseDao {
 
-	public InfoVo getInfo(Connection conn, String no) {
+	public InfoVo getInfo(Connection conn, String no, String seller) {
 
 		InfoVo infoVo = null;
 		
@@ -26,7 +26,7 @@ public class PurchaseDao {
 				+ "    JOIN ( SELECT FREELANCER_NO, MEMBER_NICK\r\n"
 				+ "            FROM FREELANCER A\r\n"
 				+ "                JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO\r\n"
-				+ "            WHERE FREELANCER_NO = 601\r\n"
+				+ "            WHERE FREELANCER_NO = ?\r\n"
 				+ "        ) B ON A.FREELANCER_NO = B.FREELANCER_NO\r\n"
 				+ "    JOIN ESTIMATE_CAT C ON A.ESTIMATE_CAT_NO = C.ESTIMATE_CAT_NO\r\n"
 				+ "WHERE ESTIMATE_NO = ?";
@@ -36,7 +36,8 @@ public class PurchaseDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, no);
+			pstmt.setString(1, seller);
+			pstmt.setString(2, no);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

@@ -54,7 +54,9 @@
                     <div class="estimate-grid-area">
                     	<c:forEach items="${estimateList}" var="vo">
                     		<a href="${root}/myestimate/edit?no=${vo.estimateNo}" class="estimate-list">
-                                <div class="estimate-certification">인증계정</div>
+                                <c:if test="empty {vo.buusinessRegistrationNumber}">
+                                    <div class="estimate-certification">인증계정</div>
+                                </c:if>
                                 ${vo.estimateThumbnail}
                                 <div class="estimate-list-text">
                                     <div class="estimate-list-title">${vo.estimateTitle }...</div>

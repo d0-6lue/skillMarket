@@ -168,7 +168,7 @@ public class EstimateTemplateWriteController extends HttpServlet {
             int result = estimateService.writeEstimate(estimateVo, estimateOptions, estimateFaqs);
 
             if (result > 0) {
-                resp.sendRedirect(req.getContextPath() + "/esti");
+                resp.sendRedirect(req.getContextPath() + "/expert/estimate-mgmt");
             } else {
                 throw new IllegalStateException("Failed to write the estimate...");
             }

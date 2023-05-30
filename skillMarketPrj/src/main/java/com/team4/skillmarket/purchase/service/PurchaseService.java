@@ -15,11 +15,11 @@ public class PurchaseService {
 
 	private final PurchaseDao purchaseDao = new PurchaseDao();
 	
-	public InfoVo getInfo(String no) {
+	public InfoVo getInfo(String no, String seller) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		InfoVo infoVo = purchaseDao.getInfo(conn, no);
+		InfoVo infoVo = purchaseDao.getInfo(conn, no, seller);
 		
 		JDBCTemplate.close(conn);
 		

@@ -111,7 +111,7 @@
                         </div>
                     
                         <div class="text-center mt-4">
-                        <button class="btn btn-primary" onclick="location.href='${root}/purchase?no=${estimateVo.estimateNo}'">구매하기</button>
+                        <button class="btn btn-primary" onclick="location.href='${root}/purchase?no=${estimateVo.estimateNo}&seller=${estimateVo.freelancerNo}'">구매하기</button>
                         </div>
                     </div>
                     </div>

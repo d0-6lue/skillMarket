@@ -33,16 +33,14 @@
 							<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 								<div class="carousel-indicators">
 									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 4"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 5"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 6"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 7"></button>
+									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 1"></button>
+									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 2"></button>
+									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 3"></button>
 								</div>
 								<div class="carousel-inner">
 								
 									<c:forEach items="${bList}" var="bvo">
+										
 									  	<div class="carousel-item active" data-bs-interval="4000">
 											<img style="background-color: ${bvo.bannerBackgroundcolor};" src="${root}/static/img/banner/${bvo.bannerFile}" class="d-block w-100" alt="...">
 									  	</div>
@@ -75,7 +73,7 @@
 					<div class="main-category-detail">
 
 						<c:forEach items="${bigCategoryList}" var="cList">
-							<a class="main-category-detail-can" href="${root}/category?category=${cList.estimateCatNo}">
+							<a class="main-category-detail-can" href="${root}/category?categoryNo=${cList.estimateCatNo}">
 								<img src="${root}/static/svg/category/${cList.estimateCatFile}" alt="로고이미지">
 								<div class="bold">${cList.estimateCatName}</div>
 							</a>
