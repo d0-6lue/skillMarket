@@ -29,9 +29,9 @@
                 <!-- 메인 서비스 등록한거 및 프로필보기~ -->
                 <div class="esti-info-main">
                     <div class="category-filter">IT.프로그래밍>홈페이지</div>
-                    <div class="profile-image-box"><img class="profile-img" src="${root}/static/png/사과.png"></div>
-
-                
+                    <div class="project-thumbnail">
+                        ${estimateVo.mainImage}
+                    </div>
                 <div class="scrollspy-fixed">
 
                     <!-- 서비스 영역 메뉴바 -->
@@ -88,54 +88,48 @@
                     </div>
 
                     <div class="esti-pricelist-box">
-                    <h2>사과 같은 홈페이지</h2>
+                    <h2>${estimateVo.estimateTitle}</h2>
                     <div pri></div>
                     <div class="price-list">
                         <br>
-                        <div class="price text-center">100,000,000원 (VAT 포함가)</div>
+                        <div class="price text-center">${estimateVo.estimatePrice}원 (VAT 포함가)</div>
                         <br>
                         <div class="service">홈페이지 제작</div>
-                        <div class="price-desc">사과 같은 홈페이지 제작해드립니다</div>
+                        <div class="price-desc">${estimateVo.estimateLineIntroduction}</div>
                     
                         <div class="row">
                         <div class="col-md-6">
                             <div class="jobdate-box">
                             <span>작업일</span>
-                            <span>1일</span>
+                            <span>${estimateVo.estimateDuration}일</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="modify-box text-right">
-                            <span>수정횟수</span>
-                            <span>5회</span>
                             </div>
                         </div>
                         </div>
                     
                         <div class="text-center mt-4">
-                        <button class="btn btn-primary">구매하기</button>
+                        <button class="btn btn-primary" onclick="location.href='${root}/purchase?no=${estimateVo.estimateNo}'">구매하기</button>
                         </div>
                     </div>
                     </div>
 
                     <div class="seller-profile-box">
                         <div class="seller-name-box">
-                            <p class="seller-name">홍길동</p>
+                            <div class="seller-name">판매자 : ${estimateVo.memberNick}</div>
+                            <img class="img-seller" src="${root}/static/img/profile/${estimateVo.memberProfile}">
                         </div>
                     
                         <div class="wrapper">
-                            <img class="img-seller" src="${root}/static/png/카톡 기본프로필.png">
                         </div>
                     
                         <div class="seller-container">
                             <div class="contact-available-time">
-                                <p><strong>연락가능시간 :</strong> 언제나 가능</p>
+                                <p><strong>연락가능시간 :</strong> ${estimateVo.freelancerContactTime}</p>
                             </div>
                             <div class="seller-intro">
-                                <p><strong>소개</strong></p>
-                                <br>
-                                <p>안녕하세요 홍길동입니다.</p>
-                                <p>사과 같은 홈페이지 만들어 드립니다.</p>
                             </div>
                         </div>
                     </div>

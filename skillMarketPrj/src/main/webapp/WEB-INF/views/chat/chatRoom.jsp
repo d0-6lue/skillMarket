@@ -38,7 +38,8 @@
                         <div class="chat-util-horizontal-border"></div>
                         <div class="project-info">
                             <div class="bold project-title">${sideInfo.title}</div>
-                            <img src="${root}/static/img/thumbnail/${sideInfo.thumbnail}" alt="프로젝트 홍보 이미지" class="project-thumbnail">
+                            ${sideInfo.thumbnail}
+                            <!-- <img src="${root}/static/img/thumbnail/${sideInfo.thumbnail}" alt="프로젝트 홍보 이미지" class="project-thumbnail"> -->
                             <div class="chat-util-horizontal-border_"></div>
                             <div class="regular project-info">
                                 ${sideInfo.lineIntroduce}

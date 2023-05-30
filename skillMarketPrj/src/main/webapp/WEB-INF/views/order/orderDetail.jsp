@@ -30,7 +30,8 @@
                 <div class="horizontal-border"></div>
 
                 <div class="project-info">
-                    <img src="${root}/static/img/thumbnail/${quotationVo.estimateThumbnail}" alt=프로젝트 홍보 이미지" class="project-info-img">
+                    ${quotationVo.estimateThumbnail}
+                    <!-- <img src="${root}/static/img/thumbnail/${quotationVo.estimateThumbnail}" alt=프로젝트 홍보 이미지" class="project-info-img"> -->
                     <div class="project-info-text">
                         <div class="project-title bold">${quotationVo.estimateTitle }</div>
                         <div class="seller-info horizontal-alignment">

@@ -124,6 +124,17 @@ Connection conn = JDBCTemplate.getConnection();
 		return list;
 		
 	}
+
+	public EstimateVo getEstimateVoByNo(String estimateNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		EstimateVo estimateVo = estimateOptionDao.getEstimateVoByNo(conn, estimateNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return estimateVo;
+	}
     
 
 

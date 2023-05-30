@@ -22,6 +22,8 @@ public class EstimateVo {
     private List<EstimateFaqVo> faqs; 
     private List<EstimateOptionVo> additionalOptions;
 	private String memberNick;
+	private String memberProfile;
+	private String freelancerContactTime;
 	private String reviewCount;
 	
 } 

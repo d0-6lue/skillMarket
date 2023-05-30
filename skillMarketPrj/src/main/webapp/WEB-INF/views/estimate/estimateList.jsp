@@ -91,7 +91,7 @@
                                             <div class="expert-badge">${estimate.estimateNo}</div>
                                         </div>
                                         <div class="expert-title">${estimate.estimateTitle}</div>
-                                        <div class="expert-account">${estimate.estimateLineIntroduction}</div>
+                                        <!-- <div class="expert-account">${estimate.estimateLineIntroduction}</div> -->
                                         <div class="expert-balance">${estimate.estimatePrice}원</div>
                                         <div class="heart-area">
                                             <div class="heart-icon">❤️</div>
@@ -165,13 +165,13 @@ for (let i = 0; i < cateList.length; i++) {
 
 $(document).ready(function () {
   for (let i = 0; i < middleCategories.length; i++) {
-    let middleCategoryDiv = $("<div class='middle-category'></div>");
-    let middleCategoryLink = $("<a></a>")
+    let middleCategoryDiv = $("<div class='middle-category bold'></div>");
+    let middleCategoryLink = $("<div></div>")
       .attr("href", '${root}/category?categoryNo=' + middleCategories[i].code)
       .text(middleCategories[i].name);
     middleCategoryDiv.append(middleCategoryLink);
 
-    let subCategoryUl = $("<ul class='sub-category'></ul>");
+    let subCategoryUl = $("<ul class='sub-category regular'></ul>");
     for (let j = 0; j < cateList.length; j++) {
       if (
         cateList[j].estimateCatScope === "3" &&

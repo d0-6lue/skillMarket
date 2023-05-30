@@ -135,16 +135,27 @@ public class EstimateDao {
 
 
 	public List<EstimateVo> selectEstimateList(Connection conn, PageVo pv, String categoryNo ) {
-	    String sql = "SELECT * FROM ( SELECT e.ESTIMATE_NO, e.ESTIMATE_TITLE, e.ESTIMATE_PRICE, e.ESTIMATE_ENROLL_DATE, e.ESTIMATE_THUMBNAIL, e.ESTIMATE_LINE_INTRODUCTION, m.MEMBER_NICK, COUNT(r.REVIEW_NO) AS REVIEW_COUNT, f.FREELANCER_NO, ROW_NUMBER() OVER (ORDER BY e.ESTIMATE_NO DESC) AS rn FROM estimate e JOIN freelancer f ON e.FREELANCER_NO = f.FREELANCER_NO JOIN member m ON f.MEMBER_NO = m.MEMBER_NO LEFT JOIN review r ON e.ESTIMATE_NO = r.ESTIMATE_NO AND r.REVIEW_STATUS = 'Y' WHERE f.MEMBER_NO = m.MEMBER_NO AND e.ESTIMATE_CAT_NO = ? GROUP BY e.ESTIMATE_NO, e.ESTIMATE_TITLE, e.ESTIMATE_PRICE, e.ESTIMATE_ENROLL_DATE, e.ESTIMATE_THUMBNAIL, e.ESTIMATE_LINE_INTRODUCTION, m.MEMBER_NICK, f.FREELANCER_NO ) WHERE rn >= ? AND rn <= ?";
+	    String sql = "SELECT *\r\n"
+	    		+ "FROM ESTIMATE A\r\n"
+	    		+ "    JOIN (\r\n"
+	    		+ "        SELECT ESTIMATE_CAT_NO,ABOVE_CAT_NO,ESTIMATE_CAT_NAME,ESTIMATE_CAT_SCOPE\r\n"
+	    		+ "        FROM ESTIMATE_CAT\r\n"
+	    		+ "        WHERE TO_CHAR(ABOVE_CAT_NO) LIKE ?\r\n"
+	    		+ "        OR ESTIMATE_CAT_NO = ?\r\n"
+	    		+ "    ) B ON A.ESTIMATE_CAT_NO = B.ESTIMATE_CAT_NO\r\n"
+	    		+ "    JOIN (\r\n"
+	    		+ "        SELECT *\r\n"
+	    		+ "        FROM FREELANCER A\r\n"
+	    		+ "            JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO\r\n"
+	    		+ "    ) C ON A.FREELANCER_NO = C.FREELANCER_NO ";
 	    List<EstimateVo> estimateList = new ArrayList<>();
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    
 	    try {
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, categoryNo);
-	        pstmt.setInt(2, pv.getBeginRow());
-	        pstmt.setInt(3, pv.getLastRow());
+	        pstmt.setString(1, categoryNo + "%");
+	        pstmt.setString(2, categoryNo);
 	        
 	        rs = pstmt.executeQuery();
 	        
@@ -156,14 +167,14 @@ public class EstimateDao {
 	            String estimateMainImage = rs.getString("ESTIMATE_THUMBNAIL");
 	            String estimateLineIntroduction = rs.getString("ESTIMATE_LINE_INTRODUCTION");
 	            String memberNick = rs.getString("MEMBER_NICK");
-	            String reviewCountStr = rs.getString("REVIEW_COUNT");
-	            String reviewCount;
-	            if (reviewCountStr == null) {
-	                reviewCount = "0";
-	            } else {
-	                reviewCount = reviewCountStr;
-	            }            
-	            System.out.println(reviewCount);
+//	            String reviewCountStr = rs.getString("REVIEW_COUNT");
+//	            String reviewCount;
+//	            if (reviewCountStr == null) {
+//	                reviewCount = "0";
+//	            } else {
+//	                reviewCount = reviewCountStr;
+//	            }            
+//	            System.out.println(reviewCount);
 	            String freelancerNo = rs.getString("FREELANCER_NO");
 	            
 	            EstimateVo estimateVo = new EstimateVo();
@@ -174,7 +185,7 @@ public class EstimateDao {
 	            estimateVo.setMainImage(estimateMainImage);
 	            estimateVo.setEstimateLineIntroduction(estimateLineIntroduction);
 	            estimateVo.setMemberNick(memberNick);
-	            estimateVo.setReviewCount(reviewCount);
+//	            estimateVo.setReviewCount(reviewCount);
 	            estimateVo.setFreelancerNo(freelancerNo);
 	            
 	            estimateList.add(estimateVo);

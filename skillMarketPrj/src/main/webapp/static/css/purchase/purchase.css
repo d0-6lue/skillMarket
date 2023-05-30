@@ -273,3 +273,14 @@
 .quantity-input {
     text-align: end;
 }
+
+.image{
+    width: 125px;
+    height: 95px;
+}
+
+.image > img{
+    width: 125px;
+    height: 95px;
+}
+
