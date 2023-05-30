@@ -103,4 +103,6 @@ main {
     font-size: 28px;
     background-color: rgb(248,201,37);
     border: 0px solid transparent;
+
+    border-radius: 15px;
 }

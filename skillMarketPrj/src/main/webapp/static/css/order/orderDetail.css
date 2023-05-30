@@ -216,6 +216,8 @@
     height: 65px;
     font-size: 28px;
     background-color: rgb(248,201,37);
+
+    border-radius: 15px;
 }
 
 .image{
@@ -227,3 +229,4 @@
     width: 125px;
     height: 95px;
 }
+

@@ -119,6 +119,11 @@ function purchaseDetailAreaToSp() {
     const chargeBtn = document.createElement("button");
     chargeBtn.classList.add("cash-charge-btn");
     chargeBtn.classList.add("regular");
+    chargeBtn.type = 'button';
+    const chargeUrl = getContextPath() + '/customer/cash-charge';
+    chargeBtn.addEventListener('click', ()=>{
+        window.open = chargeUrl;
+    });
     chargeBtn.innerText = "충전하기";
 
 

@@ -256,6 +256,7 @@
     background-color: rgb(248,201,37);
     border: 0px solid transparent;
     align-self: center;
+    border-radius: 15px;
 }
 
 
@@ -268,6 +269,7 @@
     background-color: rgb(248,201,37);
     border: 0px solid transparent;
     align-self: center;
+    border-radius: 15px;
 }
 
 .quantity-input {
