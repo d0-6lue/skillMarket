@@ -24,24 +24,29 @@ public class AdminInquiryController extends HttpServlet{
 			
 			inquiryListService is = new inquiryListService();
 			List<inquiryListVo> inquiryArrList = is.selectInquiryList();
+			List<inquiryListVo> inquiryCatList = is.selectInquiryCatList();
 			
 			//상태 체크
 			int statusYCnt = 0;
 			int statusNCnt = 0;
 			for(inquiryListVo e: inquiryArrList) {
-				if (e.getQnaStatus().equals("Y")) {
+				System.out.println(e.getQnaNo());
+				if (e.getQnaStatus().equals("X")) {
 					statusYCnt ++;
-					e.setQnaStatus("✔️");
+					e.setQnaStatus("❌");
 				}else {
 					statusNCnt ++;
-					e.setQnaStatus("❌");
+					e.setQnaStatus("✔️");
 				}
 			}
+			
+			System.out.println(inquiryArrList);
 			
 			
 			req.setAttribute("statusYCnt", statusYCnt);
 			req.setAttribute("statusNCnt", statusNCnt);
 			req.setAttribute("inquiryArrList", inquiryArrList);
+			req.setAttribute("inquiryCatList", inquiryCatList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/inquiry.jsp").forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();

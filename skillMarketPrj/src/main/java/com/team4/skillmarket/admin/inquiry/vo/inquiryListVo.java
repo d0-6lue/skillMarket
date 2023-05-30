@@ -16,6 +16,7 @@ public class inquiryListVo {
 	private String adminNo;
 	private String questionAnswerContent;
 	private String questionAnswerEnrolldate;
+	private String qnaCatName;
 	
 	
 }

@@ -1,0 +1,41 @@
+/*  */
+.note-modal-backdrop{
+    z-index: 1;
+}
+.note-editor.note-frame{
+    grid-area: sn;
+    resize: none;
+    justify-self: center;
+    align-self: center;
+    grid-column: span 3;
+    overflow: hidden;
+}
+
+
+
+.note-editable{
+    width: 836PX;
+    height: 100%;
+    /* max-height: 455.208; */
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.note-statusbar {
+    display: none;
+}
+
+
+.note-toolbar {
+    display: none;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable[contenteditable=false], .note-editor.note-airframe .note-editing-area .note-editable[contenteditable=false] {
+    background-color: #80808000;
+    
+}
+
+.note-editing-area {
+    max-height: 430;
+}

@@ -8,7 +8,9 @@ import com.team4.skillmarket.admin.inquiry.vo.inquiryListVo;
 import com.team4.skillmarket.common.db.JDBCTemplate;
 
 public class inquiryListService {
-
+	
+	private final inquiryListDao dao = new inquiryListDao();
+	
 	public List<inquiryListVo> selectInquiryList() throws Exception {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -18,6 +20,17 @@ public class inquiryListService {
 		JDBCTemplate.close(conn);
 		
 		return inquiryArrList;
+	}
+
+	public List<inquiryListVo> selectInquiryCatList() throws Exception {
+			
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<inquiryListVo> inquiryCatList = dao.selectInquiryCatList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return inquiryCatList;
 	}
 
 }

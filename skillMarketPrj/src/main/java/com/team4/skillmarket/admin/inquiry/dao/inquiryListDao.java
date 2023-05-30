@@ -69,6 +69,33 @@ public class inquiryListDao {
 		return inquiryArrList;
 	}
 
+	public List<inquiryListVo> selectInquiryCatList(Connection conn) throws Exception {
 
+		String sql = "SELECT * FROM QNA_CATEGORY";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<inquiryListVo> inquiryCatList = new ArrayList<>();
+		while (rs.next()) {
+			
+			String qnaCatNo = rs.getString("QNA_CAT_NO");
+			String qnaCatName = rs.getString("QNA_CAT_NAME");
+			
+			inquiryListVo vo = new inquiryListVo();
+			vo.setQnaCatNo(qnaCatNo);
+			vo.setQnaCatName(qnaCatName);
+			
+			inquiryCatList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return inquiryCatList;
+	}
+
+	
+	
+	
 }
 

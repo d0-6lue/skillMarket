@@ -86,7 +86,7 @@
                                     </thead>
                                     <tbody class="scroll_tbody">
                                         <c:forEach items="${ inquiryArrList }" var="list">
-                                            <tr>
+                                            <tr id="list_${list.qnaNo}">
                                                 <td>
                                                     <span>${list.qnaNo}</span>
                                                 </td>
@@ -112,8 +112,49 @@
 
     </div>
 	
+    <div>
+
+        <c:forEach items="${ inquiryArrList }" var="modal">
+    
+            <div id="myModal" class="modal inquiry_modal_${ modal.qnaNo }">
+                <div class="modal-content">
+                    <span class="close" id="close_${ modal.qnaNo }">&times;</span>
+                    <h1>문의 처리</h1>
+                    <div id="modal_div">
+                        
+                    <select name="" id="cat_select_${ modal.qnaNo }">
+
+                        <c:forEach items="${inquiryCatList}" var="select">
+
+                            <c:if test="${ select.qnaCatNo eq modal.qnaCatNo}">
+                                <option value="${select.qnaCatNo}" selected>${select.qnaCatName}</option>
+                            </c:if>
+
+                            <c:if test="${ select.qnaCatNo ne modal.qnaCatNo}">
+                                <option value="${select.qnaCatNo}" selected>${select.qnaCatName}</option>
+                            </c:if>
+
+                        </c:forEach>
+
+                    </select>
+                        
+                    <input id="titleInput_${ modal.qnaNo }" type="text" name="title" placeholder="제목" value="${ modal.qnaTitle }">
+
+                    </div>
+                    <div id="inquiry_summernote_${ modal.qnaNo }">${ modal.qnaContent }</div>
+
+                    <button id="submitBtn" class="inquiry_edit_btn_${ modal.qnaNo }">등록하기</button>
+                </div>
+            </div>
+
+        </c:forEach>
+
+    </div>
+    
 
 </body>
 </html>
 
 <link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
+<link rel="stylesheet" href="${root}/static/css/admin/inquiry.css">
+<script src="${root}/static/js/admin/inquiry.js"></script>
