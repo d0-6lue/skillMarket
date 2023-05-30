@@ -43,11 +43,11 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td class="NCunt">
                                                 <span id="NCunt_${ statusNCnt }" class="NCunt">${ statusNCnt }</span>
                                             </td>
-                                            <td>
-                                                <span id="YCunt_${ statusYCnt }">${ statusYCnt }</span>
+                                            <td class="YCunt">
+                                                <span id="YCunt_${ statusYCnt }" class="YCunt">${ statusYCnt }</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -85,7 +85,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="scroll_tbody">
+
                                         <c:forEach items="${ inquiryArrList }" var="list">
+
                                             <tr id="list_${list.qnaNo}">
                                                 <td>
                                                     <span>${list.qnaNo}</span>
@@ -94,11 +96,13 @@
                                                     <span>[${list.qnaCatNo}]${list.qnaTitle}</span>
                                                 </td>
                                                 <td>
-                                                    <span>${
+                                                    <span id="qnaStatus_${list.qnaNo}" class="qnaStatus">${
                                                         list.qnaStatus}</span>
                                                 </td>
                                             </tr>
+
                                         </c:forEach>
+                                        <tr id="msgTbody"></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -112,18 +116,21 @@
 
     </div>
 	
-    <div>
+    
+    <div id="div_area"> 
 
         <c:forEach items="${ inquiryArrList }" var="modal">
     
             <div id="myModal" class="modal inquiry_modal_${ modal.qnaNo }">
                 <div class="modal-content">
                     <span class="close" id="close_${ modal.qnaNo }">&times;</span>
-                    <h1>문의 처리</h1>
+                    <h1>
+                        문의 처리 
+                    </h1>
                     <div id="modal_div">
                         
                         
-                    <div>
+                    <div class="content_Q_area">
                         <div class="content_Q">
                             <select name="" id="cat_select_${ modal.qnaNo }" disabled>
     
@@ -140,8 +147,10 @@
                                 </c:forEach>
                                 
                             </select>
-
-                            <input id="titleInput_${ modal.qnaNo }" type="text" name="Q_title" placeholder="제목" value="${ modal.qnaTitle }" readonly>
+                            <div class="Q_title_header">
+                                <input id="titleInput_${ modal.qnaNo }" type="text" name="Q_title" placeholder="제목" value="${ modal.qnaTitle }" readonly>
+                                <span class="Q_title_header_info"><Strong>작성자</Strong>${ modal.memberId}<hr><Strong>작성시간</Strong>${ modal.qnaEnrolldate }</span>
+                            </div>
                         </div>
                         
                         <div id="inquiry_Q_${ modal.qnaNo }" class="inquiry_Q">
@@ -151,32 +160,46 @@
 
                     </div>
 
-                    <div class="content_A">
-
-                        <input id="titleInput_${ modal.qnaNo }" type="text" name="A_title" placeholder="제목" value="답변하기" readonly>
-
-                        <c:if test="${empty modal.questionAnswerContent }">
-
-                            <textarea id="inquiry_A_${ modal.qnaNo }" class="inquiry_A"></textarea>
-
-                        </c:if>
-
-                        <c:if test="${not empty modal.questionAnswerContent }">
-
-                            <textarea id="inquiry_A_${ modal.qnaNo }" class="inquiry_A">${ modal.questionAnswerContent }</textarea>
-                            
-                        </c:if>
-
+                    <div class="content_A_area">
+                        
+                        <div class="content_A">
+    
+                            <input id="titleInput_${ modal.qnaNo }" type="text" name="A_title" placeholder="제목" value="답변하기" readonly>
+    
+                            <c:if test="${empty modal.questionAnswerContent }">
+    
+                                <textarea id="inquiry_A_${ modal.qnaNo }" class="inquiry_A"></textarea>
+    
+                            </c:if>
+    
+                            <c:if test="${not empty modal.questionAnswerContent }">
+    
+                                <textarea id="inquiry_A_${ modal.qnaNo }" class="inquiry_A">${ modal.questionAnswerContent }</textarea>
+                                
+                            </c:if>
+    
+                        </div>
                     </div>
 
+                    <c:if test="${empty modal.questionAnswerContent }">
+                        <button id="submitBtn_${ modal.qnaNo }" class="inquiry_edit_btn inquiry_edit_btn_${ modal.qnaNo }">등록하기<input type="text" value="empty" style="display: none;"></button>
+                        
+                    </c:if>
 
-                    <button id="submitBtn_${ modal.qnaNo }" class="inquiry_edit_btn inquiry_edit_btn_${ modal.qnaNo }">등록하기</button>
+                    <c:if test="${ not empty modal.questionAnswerContent }">
+                        <button id="submitBtn_${ modal.qnaNo }" class="inquiry_edit_btn inquiry_edit_btn_${ modal.qnaNo }">답변 수정<input type="text" value="notEmpty" style="display: none;">
+                        </button>
+                        
+                    </c:if>
+
+
                 </div>
             </div>
-
         </c:forEach>
 
     </div>
+
+    
     
 
 </body>

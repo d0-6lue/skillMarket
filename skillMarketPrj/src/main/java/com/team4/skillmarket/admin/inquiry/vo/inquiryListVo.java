@@ -15,6 +15,7 @@ public class inquiryListVo {
 	private String qnaAnswerStatus;
 	private String questionAnswerNo;
 	private String adminNo;
+	private String memberId;
 	private String questionAnswerContent;
 	private String questionAnswerEnrolldate;
 	private String qnaCatName;

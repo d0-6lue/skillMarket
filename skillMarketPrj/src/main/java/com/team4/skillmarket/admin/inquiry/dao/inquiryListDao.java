@@ -14,20 +14,13 @@ import com.team4.skillmarket.common.db.JDBCTemplate;
 public class inquiryListDao {
 	
 	/*	
-	  	SELECT Q.*, 
-       	CASE 
-         WHEN A.QUESTION_ANSWER_CONTENT IS NULL 
-         THEN 'N' 
-         ELSE 'Y' 
-       	END AS QUESTION_ANSWER_STATUS,
-       	A.QUESTION_ANSWER_NO, A.ADMIN_NO, A.QUESTION_ANSWER_CONTENT , A.QUESTION_ANSWER_ENROLLDATE
-		FROM QNA Q
-		LEFT JOIN QUESTION_ANSWER A 
-		ON Q.QNA_NO = A.QNA_NO;
+	  	SELECT Q.*, CASE WHEN A.QUESTION_ANSWER_CONTENT IS NULL THEN 'N' ELSE 'Y' END AS QUESTION_ANSWER_STATUS, A.QUESTION_ANSWER_NO, A.ADMIN_NO, A.QUESTION_ANSWER_CONTENT , A.QUESTION_ANSWER_ENROLLDATE FROM QNA Q LEFT JOIN QUESTION_ANSWER A ON Q.QNA_NO = A.QNA_NO
+		
+		;
 	 */
 	public List<inquiryListVo> selectInquiryList(Connection conn) throws Exception {
 
-		String sql = "SELECT Q.*, CASE WHEN A.QUESTION_ANSWER_CONTENT IS NULL THEN 'N' ELSE 'Y' END AS QUESTION_ANSWER_STATUS, A.QUESTION_ANSWER_NO, A.ADMIN_NO, A.QUESTION_ANSWER_CONTENT , A.QUESTION_ANSWER_ENROLLDATE FROM QNA Q LEFT JOIN QUESTION_ANSWER A ON Q.QNA_NO = A.QNA_NO";
+		String sql = "SELECT Q.*, CASE WHEN A.QUESTION_ANSWER_CONTENT IS NULL THEN 'N' ELSE 'Y' END AS QUESTION_ANSWER_STATUS, A.QUESTION_ANSWER_NO, A.ADMIN_NO, A.QUESTION_ANSWER_CONTENT, A.QUESTION_ANSWER_ENROLLDATE, M.MEMBER_ID FROM QNA Q LEFT JOIN QUESTION_ANSWER A ON Q.QNA_NO = A.QNA_NO LEFT JOIN MEMBER M ON Q.MEMBER_NO = M.MEMBER_NO";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -44,6 +37,7 @@ public class inquiryListDao {
 			String qnaAnswerStatus = rs.getString("QUESTION_ANSWER_STATUS");
 			String questionAnswerNo = rs.getString("QUESTION_ANSWER_NO");
 			String adminNo = rs.getString("ADMIN_NO");
+			String memberId = rs.getString("MEMBER_ID");
 			String questionAnswerContent = rs.getString("QUESTION_ANSWER_CONTENT");
 			String questionAnswerEnrolldate = rs.getString("QUESTION_ANSWER_ENROLLDATE");
 			
@@ -58,6 +52,7 @@ public class inquiryListDao {
 			ivo.setQnaAnswerStatus(qnaAnswerStatus);
 			ivo.setQuestionAnswerNo(questionAnswerNo);
 			ivo.setAdminNo(adminNo);
+			ivo.setMemberId(memberId);
 			ivo.setQnaNo(qnaNo);
 			ivo.setQuestionAnswerContent(questionAnswerContent);
 			ivo.setQuestionAnswerEnrolldate(questionAnswerEnrolldate);
@@ -119,8 +114,23 @@ public class inquiryListDao {
 		pstmt.setString(1, vo.getQnaNo());
 		int result =  pstmt.executeUpdate();
 		
+		JDBCTemplate.close(pstmt);
+		
 		return result;
 		
+	}
+
+	public int updateAnswerInquiry(InquiryVo vo, Connection conn) throws Exception {
+
+		String sql = "UPDATE QUESTION_ANSWER SET QUESTION_ANSWER_CONTENT = ? WHERE QNA_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getQuestionAnswerContent());
+		pstmt.setString(2, vo.getQnaNo());
+		int result =  pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
 	}
 	
 }

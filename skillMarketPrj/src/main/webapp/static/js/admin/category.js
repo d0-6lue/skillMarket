@@ -24,7 +24,7 @@ $(document).ready(function() {
         console.log(id);
         console.log(className);
 
-        $("#meddle_cat_area_1").attr("id", clickCatArea);
+        $("#meddle_cat_area_1").attr("id", "clickCatArea");
 
 
         // .removeAttr("id").removeClass();

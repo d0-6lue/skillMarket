@@ -1,7 +1,3 @@
-.NCunt{
-    color: #e56c57;
-}
-
 #NCunt_0{
     color: #dddddd;
 }
@@ -10,6 +6,46 @@
 #YCunt_0{
     color: #dddddd;
 }
+
+span.NCunt{
+    color: #e56c57;
+}
+
+td.NCunt{
+    animation: 0.3s;
+}
+
+
+td.NCunt:hover{
+    background-color: #f2eaea;
+    border-radius: 10px 0 0 10px;
+    animation-name: example-animation;
+    animation-fill-mode: forwards;
+}
+td.NCunt:hover > span{
+    scale: 1.05;
+}
+
+td.YCunt{
+    animation: 0.3s;
+}
+
+td.YCunt:hover{
+    background-color: #e8e8e8;
+    border-radius: 0 10px 10px 0;
+    animation-name: example-animation;
+    animation-fill-mode: forwards;
+}
+td.YCunt:hover > span{
+    scale: 1.05;
+}
+
+@keyframes example-animation {
+    0% {}
+    100% {
+        padding: 10px;
+    }
+  }
 
 
 /*  */
@@ -54,6 +90,23 @@
     max-height: 430;
 }
 
+#div_area{
+    width: 100%;
+    height: 100%;
+}
+
+.modal, .noticeDetail {
+    display: none; /* 모달창은 처음에 숨김 */
+    position: relative;
+    z-index: 99; /* 다른 요소보다 위에 위치 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* 스크롤 가능하게 함 */
+    background-color: rgba(0,0,0,0.4); /* 배경을 어둡게 함 */
+    
+}
 
 /* 모달 */
 .modal-content, .modal-content {
@@ -68,7 +121,7 @@
     transform: translate(-50%, -50%);
     
     display: grid;
-    grid-template-rows: 30px 1.2fr 0.5fr 7fr 1fr;
+    grid-template-rows: 30px 1.2fr 0.5fr 4.6fr  1fr;
     grid-template-areas: 
         "cs cs cs"
         "h1 h1 h1"
@@ -111,7 +164,7 @@ div#modal_div {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
-    border-bottom: 3px solid #e9e9e9;
+    border-left: 10px solid #f7d661;
 }
 
 .content_Q > select {
@@ -132,11 +185,12 @@ div#modal_div {
     font-weight: 700;
     padding: 5;
     padding-bottom: 10px;
-    border-bottom: 3px solid #e9e9e9;
+    border-left: 10px solid #4566a7;
 }
 
 .modal #modal_div {
     grid-template-columns: 1fr;
+    border-bottom: 2px solid #e7e7e7;
 }
 
 #modal_div input {
@@ -154,8 +208,33 @@ div#modal_div {
     display: flex;
     height: 250;
     width: 100%;
+    height: 80%;
     overflow: scroll;
     padding: 5;
     margin-top: 5px;
     border: 3px solid #e9e9e9;
+}
+
+.content_A_area {
+    grid-column: 3 span;
+    width: 100%;
+    padding: 5;
+}
+
+.Q_title_header{
+    display: flex;
+    width: 100%;
+}
+
+.Q_title_header_info {
+    font-size: 15;
+    padding: 10;
+    color: #797979;
+    display: grid;
+    justify-items: end;
+}
+
+.Q_title_header_info hr{
+    color: #ffffff00;
+    margin: 10;
 }
