@@ -53,7 +53,7 @@
 
                     <div class="estimate-grid-area">
                     	<c:forEach items="${estimateList}" var="vo">
-                    		<a href="" class="estimate-list">
+                    		<a href="${root}/myestimate/edit?no=${vo.estimateNo}" class="estimate-list">
                             <div class="estimate-certification">인증계정</div>
                             <img src="" alt="로고이미지">
                             <div class="estimate-list-text">
