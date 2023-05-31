@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <form class="purchase-area" action="${root}/purchase" method="post">
+                <form class="purchase-area_" action="${root}/purchase" method="post">
                     <div class="purchase-table">
                         <div class="purchase-table-head horizontal-alignment">
                             <div class="purchase-item">항목</div>

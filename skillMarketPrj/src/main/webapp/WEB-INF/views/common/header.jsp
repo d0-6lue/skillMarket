@@ -321,7 +321,8 @@
                         const smallCategoryList = JSON.parse(sessionStorage.getItem('smallList' + midCategory.estimateCatNo));
 
                         smallCategoryList.forEach(smallCategory => {
-                            const detailSmlCategory = document.createElement('div');
+                            const detailSmlCategory = document.createElement('a');
+                            detailSmlCategory.href = '${root}/category?categoryNo=' + smallCategory.estimateCatNo;
                             detailSmlCategory.classList.add('detail-sml-category');
                             detailSmlCategory.classList.add('regular');
                             detailSmlCategory.innerText = smallCategory.estimateCatName;
