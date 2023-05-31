@@ -22,6 +22,7 @@
     align-items: center;
 
     background-color: rgb(252,216,45);
+    border-radius: 10px;
 }
 
 /* 오른쪽 유틸 상자 */
@@ -34,6 +35,7 @@
     justify-content: space-between;
 
     background-color: white;
+    border-radius: 10px;
 }
 
 /* 유틸 상단 */
@@ -104,7 +106,7 @@
 /* 프로젝트 설명 */
 .project-info {
     width: 200px;
-    height: 400px;
+    height: 250px;
 
     margin: 5px 5px;
 
@@ -130,6 +132,7 @@
     font-size: 25px;
 
     border: 0px;
+    border-radius: 15px;
 
     background-color: rgb(252,216,45);
 }
@@ -156,6 +159,7 @@
     overflow-y: auto;
 
     background-color: rgb(125, 200, 245);
+    border-radius: 10px;
 }
 
 /* 챗 클래스 */
@@ -243,22 +247,25 @@
 
 /* 채팅 인풋 */
 .chat-msg {
-    width: 560px;
-    height: 35px;
+    width: 570px;
+    height: 38px;
 
     border: 1px solid rgb(141, 141, 141);
+    border-radius: 5px;
 
     background-color: rgb(255, 255, 255);
 }
 
 /* 채팅 보내기 버튼 */
 .chat-send-btn {
-    width: 90px;
+    width: 80px;
     height: 40px;
 
     border: 0px solid transparent;
-    border-radius: 8px;
+    border-radius: 5px;
 
+    color: rgb(252,216,45);
+    text-shadow: (1px 1px 1px black);
     background-color: rgb(255, 255, 255);
 }
 
@@ -333,11 +340,12 @@
 .request-modal-wrap {
     width: 100%;
     height: 50%;
-    background-color: rgba(235, 200, 50, 0.88);
+    /* background-color: rgba(235, 200, 50, 0.88); */
+    background: linear-gradient(to right bottom, rgba(235, 200, 50, 0.88), white);
 }
 
 .modal-box {
-    width: 70%;
+    width: 1000px;
     height: 100%;
     margin: auto;
 
@@ -379,14 +387,24 @@
     margin: 10px 70px;
 }
 
+.request-modal-category {
+    padding-bottom: 15px;
+}
+#request-select {
+    height: 30px;
+    border-radius: 10px;
+}
 .request-modal-content {
     display: flex;
 }
 
 #request-content-textarea {
+    width: 650px;
+    height: 190px;
     resize: none;
 
     margin: 10px 5px;
+    border-radius: 15px;
 }
 
 .request-modal-changes {
@@ -412,14 +430,18 @@
     font-size: 24px;
 
     background-color: rgb(255, 255, 255);
+    border-radius: 15px;
 }
 
-.add-option-select {
-    width: 200px;
+.add-option-select, .delete-option-select {
+    height: 30px;
+    border-radius: 10px;
 }
 
 .quantity-input {
     width: 100px;
+    height: 30px;
+    border-radius: 10px;
     margin: 0px 20px;
 }
 
@@ -434,6 +456,7 @@
 
 .request-input {
     width: 100px;
+    border-radius: 10px;
 }
 
 
@@ -455,13 +478,13 @@
 }
 
 .image{
-    width: 125px;
-    height: 95px;
+    width: 200px;
+    height: 145px;
 }
 
 .image > img{
-    width: 125px;
-    height: 95px;
+    width: 200px;
+    height: 145px;
 }
 
 

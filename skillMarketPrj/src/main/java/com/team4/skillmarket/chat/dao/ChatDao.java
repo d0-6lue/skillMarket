@@ -495,8 +495,13 @@ public class ChatDao {
 						updataQuotationSql = "UPDATE QUOTATION SET QUOTATION_STATUS_NO = 4 WHERE QUOTATION_NO = ?";
 						pstmt = conn.prepareStatement(updataQuotationSql);
 						pstmt.setString(1, quotationNo);
+						
+						// 환불
 					}
 					else if("300".equals(category)) {
+						
+						// 캐시 차감
+						
 						// 기존에 같은 번호의 옵션이 있다면?
 						String CheckOptionSql = "SELECT QUOTATION_OPTION_NO, ESTIMATE_OPTION_NO, QUOTATION_NO, QUOTATION_OPTION_QUANTITY\r\n"
 								+ "FROM QUOTATION_OPTION WHERE ESTIMATE_OPTION_NO = ?";
@@ -505,6 +510,7 @@ public class ChatDao {
 						ResultSet rs__ = pstmt.executeQuery();
 						
 						pstmt = null;
+						// 기존 같은 옵션 수량 추가
 						if(rs__.next()) {
 							updataQuotationSql = "UPDATE QUOTATION_OPTION SET QUOTATION_OPTION_QUOANTITY = QUOTATION_OPTION_QUOANTITY + ?\r\n"
 							+ "WHERE ESTIMATE_OPTION_NO = ?";
@@ -515,6 +521,7 @@ public class ChatDao {
 							
 							pstmt.executeUpdate();
 						}
+						// 새로 추가
 						else {
 							updataQuotationSql = "INSERT INTO QUOTATION_OPTION\r\n"
 							+ "( QUOTATION_OPTION_NO, QUOTATION_NO, ESTIMATE_OPTION_NO, QUOTATION_OPTION_QUANTITY )\r\n"
@@ -547,10 +554,13 @@ public class ChatDao {
 						
 						int updateQuotationResult = pstmt.executeUpdate();
 						
+						// 주문서 옵션 삭제
 						pstmt = null;
 						updataQuotationSql = "DELETE FROM QUOTATION_OPTION WHERE QUOTATION_OPTION_NO = ?";
 						pstmt = conn.prepareStatement(updataQuotationSql);
 						pstmt.setString(1, optionNo);
+						
+						// 캐시 환불
 					}
 					else if("500".equals(category)) {
 						updataQuotationSql = "UPDATE QUOTATION SET QUOTATION_PERIOD = QUOTATION_PERIOD + ? WHERE QUOTATION_NO = ?";

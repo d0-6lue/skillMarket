@@ -60,8 +60,8 @@
 
                     </div>
                     <div class="chat-input-btn">
-                        <input type="text" class="regular chat-msg">
-                        <button class="chat-send-btn"></button>
+                        <input type="text" class="regular chat-msg" name="chat-msg">
+                        <button class="chat-send-btn">▶</button>
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@
                 <div class="modal-content">
 
                     <div class="request-modal-category">
-                        <span class="regular subhead">카테고리</span>
+                        <span class="bold subhead">카테고리</span>
                         <select name="request-category" id="request-select_">
                             <option value="" hidden>--요청하실 카테고리를 골라주세요--</option>
                             <c:forEach var="categoryVo" items="${categoryList }">
@@ -144,12 +144,12 @@
                     </div>
 
                     <div class="request-modal-content">
-                        <span class="regular subhead">내용</span>
-                        <textarea name="request-content-textarea" id="request-content-textarea_" cols="100" rows="13"></textarea>
+                        <span class="bold subhead">내용</span>
+                        <textarea name="request-content-textarea" id="request-content-textarea_"></textarea>
                     </div>
 
                     <div class="request-modal-changes">
-                        <span class="regular subhead change-title">변경사항</span>
+                        <span class="bold subhead change-title">변경사항</span>
                         <div class="change-area_ regular">
 
                         </div>
