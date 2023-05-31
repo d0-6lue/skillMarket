@@ -5,6 +5,13 @@
     flex-direction: column;
 }
 
+.purchase-area_ {
+    width: 900px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
 /* 수평 정렬 */
 .horizontal-alignment {
     display: flex;

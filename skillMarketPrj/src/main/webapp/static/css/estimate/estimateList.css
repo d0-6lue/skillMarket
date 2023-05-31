@@ -246,10 +246,10 @@ clear: both;
 }
 
 /* 이미지 크기 제한 */
-img {
+/* img {
     max-width: 200px !important;
     max-height: 200px !important;
-}
+} */
 
 .textcontent{
     width: 100%;

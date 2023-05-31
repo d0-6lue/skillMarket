@@ -122,7 +122,7 @@ function purchaseDetailAreaToSp() {
     chargeBtn.type = 'button';
     const chargeUrl = getContextPath() + '/customer/cash-charge';
     chargeBtn.addEventListener('click', ()=>{
-        window.open = chargeUrl;
+        window.open(chargeUrl);
     });
     chargeBtn.innerText = "충전하기";
 
@@ -400,9 +400,9 @@ function getContextPath(){
 
 const purchaseBtn = document.querySelector(".purchase-btn");
 purchaseBtn.addEventListener("click", () => {
+    
     const contextPath = getContextPath();
-
-    location.href = contextPath + "/purchase/completed";
+                location.href = contextPath + "/purchase/completed";
 })
 
 
@@ -433,6 +433,13 @@ function changeDeficientPoint() {
     if(deficient <= 0 ) { deficient = '0'; }
 
     document.querySelector(".deficient-point").innerText = deficient;
-
+    
+    const purchaseArea = document.querySelector('.purchase-btn');
+    if(deficient > 0) {
+        purchaseArea.disabled = true;
+    }
+    else {
+        purchaseArea.disabled = false;
+    }
 }
 changeDeficientPoint();
