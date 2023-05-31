@@ -73,6 +73,11 @@ main{
     text-decoration: none;
 }
 
+input[name='memberEmail']{
+    width: 400px;
+    height: 50px;
+}
+
 .findpwd-btn{
     width: 200px;
     height: 50px;
@@ -106,12 +111,29 @@ main{
 }
 
 .email-btn{
+    width: 100px;
+    height: 50px;
+    border-radius: 6px;
+    background-color: #F8C925;
+    border: none;
+    font-size: 15px;
+}
+
+.id-search-btn-area{
     margin-top: 60px;
     display: flex;
     justify-content: center;
 }
 
-.email-send-btn{
+input[name='keyNum']{
+    padding: 10px;
+    width: 400px;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #929292;
+}
+
+.id-search-btn{
     width: 400px;
     height: 60px;
     background-color: #F8C925;

@@ -1,6 +1,7 @@
 package com.team4.skillmarket.mail;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.Random;
 
@@ -19,11 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/mail")
+@WebServlet("/mail-id")
 public class MailServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String recipient = "j10345678@naver.com";
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String recipient = req.getParameter("memberEmail");
  
         // 1. 발신자의 메일 계정과 비밀번호 설정
         final String user = "j10345678@gmail.com";
@@ -94,6 +96,9 @@ public class MailServlet extends HttpServlet {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+        PrintWriter out = resp.getWriter();
+        out.write(AuthenticationKey + "");
+        
         HttpSession saveKey = req.getSession();
 		saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
     }

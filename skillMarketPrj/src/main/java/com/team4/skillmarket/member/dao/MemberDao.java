@@ -731,6 +731,72 @@ public class MemberDao {
 		return estimateList;
 	}
 
+	public String getIdByEmail(Connection conn, String memberEmail) throws Exception {
+		
+		String sql = "SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_EMAIL = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, memberEmail);
+		ResultSet rs = pstmt.executeQuery();
+		
+		String id = null;
+		if(rs.next()) {
+			String memberId = rs.getString("MEMBER_ID");
+			
+			id = memberId;
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return id;
+		
+	}
+
+	public String getPwdByIdEmail(Connection conn, MemberVo mvo) throws Exception {
+		
+		String sql = "SELECT MEMBER_PWD FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_EMAIL = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, mvo.getMemberId());
+		pstmt.setString(2, mvo.getMemberEmail());
+		ResultSet rs = pstmt.executeQuery();
+		
+		String pwd = null;
+		if(rs.next()) {
+			String memberpwd = rs.getString("MEMBER_PWD");
+			
+			pwd = memberpwd;
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return pwd;
+		
+	}
+
+	public int searchMemberByIdEmail(Connection conn, MemberVo mvo) throws Exception {
+		
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_EMAIL = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, mvo.getMemberId());
+		pstmt.setString(2, mvo.getMemberEmail());
+		ResultSet rs = pstmt.executeQuery();
+		
+		int result = 0;
+		if(rs.next()) {
+			result = 0;
+		}else {
+			result = 1;
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
+	}
+
 	
 
 	

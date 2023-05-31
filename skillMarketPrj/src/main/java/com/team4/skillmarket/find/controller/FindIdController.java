@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team4.skillmarket.member.service.MemberService;
+
 @WebServlet("/forgot-id")
 public class FindIdController extends HttpServlet{
 
@@ -17,5 +19,6 @@ public class FindIdController extends HttpServlet{
 		req.getRequestDispatcher("/WEB-INF/views/find/findid.jsp").forward(req, resp);
 		
 	}
+	
 	
 }

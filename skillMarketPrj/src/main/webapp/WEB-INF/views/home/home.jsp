@@ -28,34 +28,27 @@
 						<div class="banner-letter3 bold">02. 자유로운 거래방식</div>
 						<div class="banner-letter3 bold">03. 커뮤니티</div>
 					</div>
+
+					
 					<div class="banner-slice-area">
 						<div class="banner-slice">
-							<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-								<div class="carousel-indicators">
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 1"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 2"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 3"></button>
-								</div>
+							<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
 								<div class="carousel-inner">
-								
 									<c:forEach items="${bList}" var="bvo">
-										
-									  	<div class="carousel-item active" data-bs-interval="4000">
-											<img style="background-color: ${bvo.bannerBackgroundcolor};" src="${root}/static/img/banner/${bvo.bannerFile}" class="d-block w-100" alt="...">
-									  	</div>
-									</c:forEach>
-								  
+										<div class="carousel-item">
+										  <img style="background-color: ${bvo.bannerBackgroundcolor};" src="${root}/static/img/banner/${bvo.bannerFile}" class="d-block w-100" alt="...">
+										</div>
+	  								</c:forEach>
 								</div>
-								<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+								<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
 								  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 								  <span class="visually-hidden">Previous</span>
 								</button>
-								<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+								<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
 								  <span class="carousel-control-next-icon" aria-hidden="true"></span>
 								  <span class="visually-hidden">Next</span>
 								</button>
-							</div>
+							  </div>
 	
 						</div>
 
@@ -115,3 +108,15 @@
 
 </body>
 </html>
+
+<script>
+
+	const slideImg = document.querySelectorAll(".carousel-item");
+	slideImg[0].classList.add('active');
+
+	console.log(slideImg.length);
+	for(let i = 0; i < slideImg.length - 1; i++){
+		slideImg[i].setAttribute('data-bs-interval','4000')
+	}
+
+</script>

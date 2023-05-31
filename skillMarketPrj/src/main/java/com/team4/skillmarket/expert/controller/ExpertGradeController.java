@@ -30,7 +30,7 @@ public class ExpertGradeController extends HttpServlet{
 			}
 			
 			if(loginExpert == null) {
-				req.getSession().setAttribute("alertMsg", "로그인 먼저 해주세요");
+				req.getSession().setAttribute("alertMsg", "전문가 등록을 먼저 해주세요");
 				resp.sendRedirect(req.getContextPath() + "/expert/register");
 				
 				return;
