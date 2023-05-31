@@ -29,13 +29,12 @@
                         </c:if>
                     </div>
                     <div class="profile-nick bold">${loginMember.memberNick}</div>
-                    <a class="profile-btn bold" href="${root}/customer/request-list">의뢰인으로 변환</a>
+                    <a class="profile-btn bold" href="${root}/customer/order-list">의뢰인으로 변환</a>
                 </div>
                 <div class="nav-customer-title-area bold">
                     <div>마이페이지</div>
                 </div>
                 <ul>
-                    <li><a href="${root}/expert/request-list">제안서 관리</a></li>
                     <li><a href="${root}/expert/sale-list">판매 관리</a></li>
                     <li><a class="bold" href="${root}/expert/estimate-mgmt">견적서 관리</a></li>
                     <li><a href="${root}/expert/QNA-mgmt">전문가 Q&A 관리</a></li>
@@ -54,7 +53,7 @@
                     <div class="estimate-grid-area">
                     	<c:forEach items="${estimateList}" var="vo">
                     		<a href="${root}/myestimate/edit?no=${vo.estimateNo}" class="estimate-list">
-                                <c:if test="empty {vo.buusinessRegistrationNumber}">
+                                <c:if test="${not empty vo.businessRegistrationNumber}">
                                     <div class="estimate-certification">인증계정</div>
                                 </c:if>
                                 ${vo.estimateThumbnail}

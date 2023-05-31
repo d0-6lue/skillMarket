@@ -86,7 +86,7 @@
 					<div class="main-category-detail">
 
 						<c:forEach items="${pList}" var="pvo">
-							<a class="main-category-detail-can" href="${root}/category?category=${pvo.estimateCatNo}">
+							<a class="main-category-detail-can" href="${root}/category?categoryNo=${pvo.estimateCatNo}">
 								<img src="${root}/static/svg/category/${pvo.estimateCatFile}" alt="로고이미지">
 								<div class="bold">${pvo.estimateCatName}</div>
 							</a>

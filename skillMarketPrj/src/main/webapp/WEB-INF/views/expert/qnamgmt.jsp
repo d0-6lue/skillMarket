@@ -29,13 +29,12 @@
                         </c:if>
                     </div>
                     <div class="profile-nick bold">${loginMember.memberNick}</div>
-                    <a class="profile-btn bold" href="${root}/customer/request-list">의뢰인으로 변환</a>
+                    <a class="profile-btn bold" href="${root}/customer/order-list">의뢰인으로 변환</a>
                 </div>
                 <div class="nav-customer-title-area bold">
                     <div>마이페이지</div>
                 </div>
                 <ul>
-                    <li><a href="${root}/expert/request-list">제안서 관리</a></li>
                     <li><a href="${root}/expert/sale-list">판매 관리</a></li>
                     <li><a href="${root}/expert/estimate-mgmt">견적서 관리</a></li>
                     <li><a class="bold" href="${root}/expert/QNA-mgmt">전문가 Q&A 관리</a></li>

@@ -35,7 +35,6 @@
                     <div>마이페이지</div>
                 </div>
                 <ul>
-                    <li><a href="${root}/customer/request-list">제안서 관리</a></li>
                     <li><a class="bold" href="${root}/customer/order-list">구매 관리</a></li>
                     <li><a href="${root}/customer/cash">캐시</a></li>
                     <li><a href="${root}/customer/cash-charge">캐시 충전</a></li>
