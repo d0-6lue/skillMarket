@@ -269,6 +269,41 @@ public class MemberService {
 		return estimateList;
 	}
 
+	public String getIdByEmail(String memberEmail) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String id = dao.getIdByEmail(conn, memberEmail);
+		
+		JDBCTemplate.close(conn);
+		
+		return id;
+	}
+
+	public String getPwdByIdEmail(MemberVo mvo) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String pwd = dao.getPwdByIdEmail(conn, mvo);
+		
+		JDBCTemplate.close(conn);
+		
+		return pwd;
+		
+	}
+
+	public int searchMemberByIdEmail(MemberVo mvo) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.searchMemberByIdEmail(conn, mvo);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+		
+	}
+
 	
 
 }
