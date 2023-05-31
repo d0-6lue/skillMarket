@@ -231,7 +231,7 @@ div#modal_div {
     padding: 10;
     color: #797979;
     display: grid;
-    justify-items: end;
+    justify-items: center;
 }
 
 .Q_title_header_info hr{

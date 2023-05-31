@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.team4.skillmarket.admin.category.vo.AdminCategoryVo;
+import com.team4.skillmarket.admin.category.vo.CategoryEditVo;
 
 public class AdminCatagoryDao {
 
@@ -38,5 +39,25 @@ public class AdminCatagoryDao {
 			}
 			
 			return catArrList;
+	}
+
+	public int addCat(CategoryEditVo vo, Connection conn) {
+		
+//		INSERT INTO ESTIMATE_CAT(
+//			    ESTIMATE_CAT_NO,
+//			    ABOVE_CAT_NO,
+//			    ESTIMATE_CAT_NAME,
+//			    ESTIMATE_CAT_SCOPE
+//			)
+//			VALUES(
+//			    
+//
+//			)
+		
+		String sql = "";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		
+		return result;
 	}
 }

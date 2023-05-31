@@ -34,10 +34,6 @@ public class AdminBannerController extends HttpServlet{
 				throw new IllegalStateException("배너목록이 null");			
 			}
 			
-			for(BannerVo f : bannerList) {
-				System.out.println(f);
-			}
-			
 			req.setAttribute("bannerList", bannerList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/banner.jsp").forward(req, resp);
 
