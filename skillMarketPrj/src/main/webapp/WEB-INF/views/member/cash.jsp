@@ -35,7 +35,6 @@
                     <div>마이페이지</div>
                 </div>
                 <ul>
-                    <li><a href="${root}/customer/request-list">제안서 관리</a></li>
                     <li><a href="${root}/customer/order-list">구매 관리</a></li>
                     <li><a class="bold" href="${root}/customer/cash">캐시</a></li>
                     <li><a href="${root}/customer/cash-charge">캐시 충전</a></li>
@@ -83,6 +82,8 @@
                             <option value="" disabled selected hidden>전체상태</option>
                             <option value="충전">충전</option>
                             <option value="환불">환불</option>
+                            <option value="거래완료">거래완료</option>
+                            <option value="구매">구매</option>
                         </select>
                         <select id="cash-date1" class="cash-selectbox bold" name="orderDate1">
                             <option value="2023-06">2023-06</option>
