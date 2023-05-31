@@ -463,3 +463,8 @@
     width: 125px;
     height: 95px;
 }
+
+
+.quotation_status_no {
+    display: none;
+}

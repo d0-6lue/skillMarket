@@ -228,7 +228,7 @@
         }
     
         $(document).ready(function(){
-            console.log(cate1Array);
+            
         });
     
         /* 카테고리 배열 초기화 메서드 */

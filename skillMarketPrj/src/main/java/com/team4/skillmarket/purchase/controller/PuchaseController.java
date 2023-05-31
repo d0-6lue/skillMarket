@@ -48,10 +48,6 @@ public class PuchaseController extends HttpServlet {
 			// 유저 캐시 정보
 			UserCashVo userCash = cashService.getMemberCash(loginMember.getMemberNo());
 			
-			System.out.println(infoVo);
-			System.out.println(optionList);
-			System.out.println(userCash);
-			
 			if(infoVo == null || userCash == null) {
 				throw new IllegalStateException("구매페이지 조회 실패");
 			}

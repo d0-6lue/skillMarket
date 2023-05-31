@@ -207,7 +207,7 @@ public class PurchaseDao {
 				pstmt = null;
 				
 				String insertSalesLogSql = "INSERT INTO SALES_LOG \r\n"
-						+ "( SALES_LOG_NO, CATEGORY_NO, SALES, ENROLL_DATE, QUOTATION_NO )\r\n"
+						+ "( NO, CATEGORY_NO, SALES, ENROLL_DATE, QUOTATION_NO )\r\n"
 						+ "VALUES (SEQ_SALES_LOG_NO.NEXTVAL, 1, ?, DEFAULT, ?)";
 				
 				pstmt = conn.prepareStatement(insertSalesLogSql);
@@ -241,7 +241,10 @@ public class PurchaseDao {
 		
 		String quotationNo = null;
 		
-		String getQuotationSql = "SELECT QUOTATION_NO FROM QUOTATION WHERE ESTIMATE_NO = ? AND MEMBER_NO = ? AND QUOTATION_STATUS_NO = 1";
+		String getQuotationSql = "SELECT QUOTATION_NO, QUOTATION_ENROLL_DATE \r\n"
+				+ "FROM QUOTATION \r\n"
+				+ "WHERE ESTIMATE_NO = ? AND MEMBER_NO = ? AND QUOTATION_STATUS_NO = 1\r\n"
+				+ "ORDER BY QUOTATION_ENROLL_DATE DESC";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

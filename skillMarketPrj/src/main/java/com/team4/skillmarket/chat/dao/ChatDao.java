@@ -194,7 +194,7 @@ public class ChatDao {
 		
 		ChatRoomSideInfoVo sideInfo = null;
 		
-		String sql = "SELECT B.MEMBER_NICK AS BUYER, SELLER, ESTIMATE_TITLE, ESTIMATE_THUMBNAIL, ESTIMATE_LINE_INTRODUCTION\r\n"
+		String sql = "SELECT QUOTATION_STATUS_NO, B.MEMBER_NICK AS BUYER, SELLER, ESTIMATE_TITLE, ESTIMATE_THUMBNAIL, ESTIMATE_LINE_INTRODUCTION\r\n"
 				+ "FROM QUOTATION A\r\n"
 				+ "    JOIN MEMBER B ON A.MEMBER_NO = B.MEMBER_NO\r\n"
 				+ "    JOIN (\r\n"
@@ -219,6 +219,7 @@ public class ChatDao {
 			if(rs.next() ) {
 				sideInfo = new ChatRoomSideInfoVo();
 				
+				sideInfo.setQuotationStatus(rs.getString("QUOTATION_STATUS_NO"));
 				sideInfo.setSeller(rs.getString("SELLER"));
 				sideInfo.setTitle(rs.getString("ESTIMATE_TITLE"));
 				sideInfo.setThumbnail(rs.getString("ESTIMATE_THUMBNAIL"));
@@ -527,6 +528,26 @@ public class ChatDao {
 						
 					}
 					else if("400".equals(category)) {
+						// 옵션 취소한 만큼 주문서 가격 이랑 기간 업데이트
+						updataQuotationSql = "UPDATE QUOTATION\r\n"
+								+ "SET QUOTATION_PERIOD = QUOTATION_PERIOD - (SELECT (ESTIMATE_OPTION_QUANTITY * QUOTATION_OPTION_QUANTITY)\r\n"
+								+ "                                        FROM QUOTATION_OPTION A\r\n"
+								+ "                                            JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
+								+ "                                        WHERE QUOTATION_OPTION_NO = ?)\r\n"
+								+ ", QUOTATION_PRICE = QUOTATION_PRICE - (SELECT (ESTIMATE_OPTION_PRICE * QUOTATION_OPTION_QUANTITY)\r\n"
+								+ "                                    FROM QUOTATION_OPTION A\r\n"
+								+ "                                        JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
+								+ "                                    WHERE QUOTATION_OPTION_NO = ?)\r\n"
+								+ "WHERE QUOTATION_NO = ?";
+						
+						pstmt = conn.prepareStatement(updataQuotationSql);
+						pstmt.setString(1, optionNo);
+						pstmt.setString(2, optionNo);
+						pstmt.setString(3, quotationNo);
+						
+						int updateQuotationResult = pstmt.executeUpdate();
+						
+						pstmt = null;
 						updataQuotationSql = "DELETE FROM QUOTATION_OPTION WHERE QUOTATION_OPTION_NO = ?";
 						pstmt = conn.prepareStatement(updataQuotationSql);
 						pstmt.setString(1, optionNo);
@@ -563,7 +584,7 @@ public class ChatDao {
 						String sellerNo = infoMap.get("sellerNo");
 						
 						String insertCashSql = "INSERT INTO CASH_LOG(NO, MEMBER_NO, LOG_CATEGORY_NO, AMOUNT,PAYMENT_METHOD_NO) \r\n"
-								+ "VALUES (SEQ_CASH_LOG_NO.NEXTVAL, ?, 3, ?, NULL)";
+								+ "VALUES (SEQ_CASH_LOG_NO.NEXTVAL, ?, 3, ?, 5)";
 						pstmt = conn.prepareStatement(insertCashSql);
 						pstmt.setString(1, sellerNo);
 						pstmt.setString(2, quotationPrice);
@@ -583,6 +604,9 @@ public class ChatDao {
 						pstmt = conn.prepareStatement(insertSalesLogSql);
 						pstmt.setString(1, Long.toString( Math.round(Integer.parseInt(quotationPrice) * 0.15)) );
 						pstmt.setString(2, quotationNo_);
+						int insertSalesLogResult = pstmt.executeUpdate();
+						
+						result_ = insertCashResult * updateUserCashResult * insertSalesLogResult;
 						
 					}
 					else if(result_ == 1 && "300".equals(category)) {
@@ -602,27 +626,10 @@ public class ChatDao {
 						pstmt.setString(3, inputNo);
 						pstmt.setString(4, optionNo);
 						pstmt.setString(5, quotationNo);
-					}
-					else if (result_ == 1 && "400".equals(category)) {
-						// 옵션 취소한 만큼 주문서 가격 이랑 기간 업데이트
-						updataQuotationSql = "UPDATE QUOTATION\r\n"
-						+ "SET QUOTATION_PERIOD = QUOTATION_PERIOD - (SELECT (ESTIMATE_OPTION_QUANTITY * QUOTATION_OPTION_QUANTITY)\r\n"
-						+ "                                           FROM QUOTATION_OPTION A\r\n"
-						+ "                                            JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
-						+ "                                           WHERE QUOTATION_OPTION_NO = ?)\r\n"
-						+ ", QUOTATION_PRICE = QUOTATION_PRICE - (SELECT (ESTIMATE_OPTION_PRICE * QUOTATION_OPTION_QUANTITY)\r\n"
-						+ "                                       FROM QUOTATION_OPTION A\r\n"
-						+ "                                        JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO\r\n"
-						+ "                                       WHERE QUOTATION_OPTION_NO = ?)\r\n"
-						+ "WHERE QUOTATION_NO = ?";
 						
-						pstmt = conn.prepareStatement(updataQuotationSql);
-						pstmt.setString(1, optionNo);
-						pstmt.setString(2, optionNo);
-						pstmt.setString(3, quotationNo);
+						result_ = pstmt.executeUpdate();
 					}
 					
-					result_ = pstmt.executeUpdate();
 			//-----------------------------------------------------------------------------------------------------------------------------------------------------
 				}
 			}

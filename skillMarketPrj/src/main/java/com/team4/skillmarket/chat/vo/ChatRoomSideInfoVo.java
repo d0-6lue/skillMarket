@@ -13,6 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ChatRoomSideInfoVo {
 	
+	private String quotationStatus;
 	private String seller;
 	private String buyer;
 	private String title;
