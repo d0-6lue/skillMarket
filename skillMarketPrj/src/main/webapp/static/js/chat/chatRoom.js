@@ -258,7 +258,7 @@ function printChat(chatList, chatBox) {
         chatContent.classList.add("chat-contents");
         chatContent.classList.add("regular");
         if(chatVo.chatRequest == 'O') {
-        
+
             const requestArea = document.createElement("div");
             requestArea.classList.add("request_")
 
@@ -338,7 +338,6 @@ function printChat(chatList, chatBox) {
         lastChatNo = chatNo;
 
     }); // forEach
-
 }
 
 
@@ -814,3 +813,26 @@ function RefuseRequest(chatVo) {
 
     webSocket.send(JSON.stringify(msg));
 }
+
+function statusCheck() {
+
+    location.herf = "";
+
+    const statusNo = document.querySelector('.quotation_status_no').value;
+
+    if(statusNo == 2 || statusNo == 4) {
+        const requestBtn = document.querySelector('.request-btn');
+        const chatMsg = document.querySelector('.chat-msg');
+        const sendBtn = document.querySelector('.chat-send-btn');
+
+        requestBtn.disabled = true;
+        chatMsg.readOnly =true;
+    }
+    if(statusNo == 2) {
+
+    }
+    else if(statusNo == 4) {
+
+    }
+}
+statusCheck();

@@ -36,10 +36,6 @@ public class PurchaseCompleteController extends HttpServlet {
 			QuotationVo quotaionVo = purchaseSerivce.getQuotationInfo(quotationNo);
 			List<QuotationOptionVo> quotationOptionList = purchaseSerivce.getQuotationOptionList(quotationNo);
 			
-			if(quotaionVo == null || quotationOptionList.isEmpty()) {
-				throw new Exception();
-			}
-			
 			req.setAttribute("quotationVo", quotaionVo);
 			req.setAttribute("quotationOptionList", quotationOptionList);
 			req.getRequestDispatcher("/WEB-INF/views/purchase/purchaseCompleted.jsp").forward(req, resp);

@@ -26,7 +26,7 @@
 			<div class="chat-area">
 
                 <div class="chat-util">
-
+                    <input type='text' class="quotation_status_no" value='${sideInfo.quotationStatus}'></input>
                     <div class="chat-util-top">
                         <div class="chat-opponent">
                             <div class="bold opponent-category">판매자</div>

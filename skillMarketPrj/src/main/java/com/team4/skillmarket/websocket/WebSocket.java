@@ -43,11 +43,6 @@ public class WebSocket {
 		// ChatService
 		ChatService chatService = new ChatService();
 		
-		
-		// message 확인용
-		System.out.println("message = " + message);
-		
-		
 		// WebSocket 으로 온 message 를 JSON 으로
 		Gson gson = new Gson();
 		Map<String, String> messageMap = gson.fromJson(message, Map.class);
@@ -122,7 +117,6 @@ public class WebSocket {
 				
 				// 상대가 접속중이라면 상대의 채팅리스트 다시 보내기
 				Session r = (Session) usersMap.get(receiverKeyMap.toString());
-				System.out.println(r);
 				if( r!= null && r.isOpen() ) {
 					
 					// 채팅 리스트 가져오기
@@ -177,8 +171,6 @@ public class WebSocket {
 				s.getBasicRemote().sendText(reply_msg);
 				
 				// 상대가 접속중이라면 상대의 채팅리스트 다시 보내기
-				
-				System.out.println(r);
 				if( r!= null && r.isOpen() ) {
 					
 					// 채팅 리스트 가져오기
@@ -264,8 +256,6 @@ public class WebSocket {
 				s.getBasicRemote().sendText(reply_msg);
 				
 				// 상대가 접속중이라면 상대의 채팅리스트 다시 보내기
-				
-				System.out.println(r);
 				if( r!= null && r.isOpen() ) {
 					
 					// 채팅 리스트 가져오기
@@ -321,7 +311,6 @@ public class WebSocket {
 				// 채팅리스트 클라이언트로 보내기
 				s.getBasicRemote().sendText(reply_msg);
 				
-				System.out.println(r);
 				if( r!= null && r.isOpen() ) {
 					
 					// 채팅 리스트 가져오기
