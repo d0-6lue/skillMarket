@@ -95,14 +95,14 @@
                                     </thead>
                                     <tbody class="scroll_tbody">
                                         <c:forEach items="${ noticeArrList }" var="list">
-                                            <tr>
+                                            <tr id="notice_List_${ list.notiNo }" class="notice_List">
                                                 <td>
                                                     ${ list.notiNo }
                                                 </td>
                                                 <td>
-                                                    [${ list.notiCatNo }]${ list.notiTitle }
+                                                    [${ list.notiCatName }]${ list.notiTitle }
                                                 </td>
-                                                <td>
+                                                <td id="hit_${ list.notiNo }">
                                                     ${ list.notiHit }
                                                 </td>
                                             </tr>
@@ -125,14 +125,34 @@
 
         <div id="noticeDetail_${ modal.notiNo }" class="noticeDetail modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close" id="close_${ modal.notiNo }"">&times;</span>
                 <h1>공지 상세</h1>
                 <div id="modal_div">
-                    <div class="nDC">[${ modal.notiCatNo }]</div>
-                    <input type="text" placeholder="제목" value="${ modal.notiTitle }" readonly>
+
+                    <select name="" id="cat_select_detail_${ modal.notiNo }" class="cat_select_detail" disabled>
+                        <c:forEach items="${ noticeSelectList }" var="select">
+                       
+
+                            <c:if test="${ modal.notiCatNo eq select.notiCatNo }">
+                                <option id="cat_select_detail_option_${ modal.notiNo }" value="${ select.notiCatNo }"  class="nDC" selected>${ select.notiCatName }</option>
+                            </c:if>
+                            <c:if test="${ modal.notiCatNo ne select.notiCatNo }">
+                                <option id="cat_select_detail_option_${ modal.notiNo }" value="${ select.notiCatNo }"  class="nDC">${ select.notiCatName }</option>
+                            </c:if>
+                            
+                        </c:forEach>
+                    </select>
+
+                    <input type="text" id="cat_input_detail_${ modal.notiNo }" class="cat_input_detail" placeholder="제목" value="${ modal.notiTitle }" readonly>
                 </div>
-                <div id="noticeDetailContent_${ modal.notiNo }"><div>${ modal.notiContent }</div></div>
-                <button id="submitBtn1">수정하기</button>
+                <div id="noticeDetailContent_${ modal.notiNo }">${ modal.notiContent }</div>
+
+                <div id="submit_btn_area_"+${ modal.notiNo }    class="submit_btn_area">
+                    <button id="submit_btn_${ modal.notiNo }"class=" modal_btn_notice  submit_btn submit_btn_${ modal.notiNo }">수정하기</button>
+
+                    <button id="edit_btn_${ modal.notiNo }"class="modal_btn_notice  edit_btn" >등록하기</button>
+                </div>
+                
             </div>
         </div>
 
@@ -143,7 +163,7 @@
     <!-- 모달 -->
 	<div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" id="close_my">&times;</span>
             <h1>공지작성</h1>
             <div id="modal_div">
                 <select name="" id="cat_select">

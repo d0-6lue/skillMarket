@@ -55,7 +55,6 @@ public class AdminFAQEditController extends CacheHttpServlet {
 			
 	        Gson gson = new Gson();
 	        String update = gson.toJson(updateFAQList);
-	        resp.setContentType("application/json");
 	        resp.setCharacterEncoding("UTF-8");
 	        resp.getWriter().write(update);
 		    

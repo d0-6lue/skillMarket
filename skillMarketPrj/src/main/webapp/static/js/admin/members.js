@@ -82,4 +82,57 @@ window.onload = function() {
       $(".modal").css("display", "none"); // 모달창을 숨김
   });
 
+
+
+  $("#submitBtn").click(function () {
+
+    const Btnclass = $(this).attr("class");
+		const index = Btnclass.lastIndexOf("_");
+		const memberNo = Btnclass.substring(index + 1);
+
+
+
+    $.ajax({
+      url: "/skillmarket/admin/members/stop", // 이미지 업로드를 처리하는 서버 엔드포인트 URL
+      type: "POST",
+      // dataType: "json",
+      data: {
+        memberNo:memberNo,
+      },
+      success: function(ok) {
+          
+          alert("계정 정지 완료")
+
+      },
+      error: function(xhr, status, error) {
+          alert("실패...")
+      }
+
+    })
+  })
+
+
+  $("#reportMemberModal_open").click(function () {
+
+    console.log(1);
+    
+    $(".member_TR").each(function () {
+      const firstClass = $(".member_TR").attr("class").split(" ")[0];
+      const index = firstClass.lastIndexOf("_");
+      const memberNo = firstClass.substring(index + 1);
+      console.log(firstClass);
+      
+      if (memberNo === 3 || memberNo === 4) {
+        $("#member_TR_"+memberNo).show(); // 부모 <tr> 요소 보이기
+        // found = true; // 일치하는 회원을 찾았으므로 플래그 설정
+      } else {
+        $("#member_TR_"+memberNo).hide(); // 부모 <tr> 요소 숨기기
+      }
+
+    })
+   
+  
+  
+  })
+
 };

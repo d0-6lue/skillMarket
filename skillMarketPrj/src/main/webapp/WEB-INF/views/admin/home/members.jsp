@@ -8,7 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 관리</title>
-
+<link rel="stylesheet" href="${root}/static/css/admin/common/article.css">
+<link rel="stylesheet" href="${root}/static/css/admin/members.css">
 </head>
 <body>
 
@@ -129,7 +130,7 @@
 
     </div>
 
-    <div id="div_area">
+    <div id="div_area" >
         <c:forEach items="${ memberArrList }" var="modal">
 
         <div id="modal_memberDetail_${ modal.memberNo }" class="modal_memberDetail modal">
@@ -200,7 +201,7 @@
                         </div>
                     </div>
                 </div>
-                <button id="submitBtn">계정정지</button>
+                <button id="submitBtn" class="submitBtn_${ modal.memberNo }">계정정지</button>
             </div>
         </div>
 

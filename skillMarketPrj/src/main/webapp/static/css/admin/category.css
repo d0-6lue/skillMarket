@@ -96,10 +96,7 @@ article tbody.scroll_tbody tr {
 .meddle_cat_area:hover > span > span{scale: 1.5;}
 /*-------------------------------------*/
 
-/*  */
-.cat_box_first_td{
-    display: none;
-}
+
 
 
 /* thead */
@@ -130,8 +127,12 @@ article tbody.scroll_tbody tr {
         "sb sb sb";
 }
 
+
+
+
 .modal #modal_div{
-    grid-template-columns: 1fr ;
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr;
     border-bottom: none;
     height: 150
 }
@@ -140,6 +141,7 @@ article tbody.scroll_tbody tr {
     border-top: 3px solid #ececec;
     grid-area: in;
     padding: 30;
+
 }
 
 #titleInput_area > #titleInput {
@@ -163,7 +165,7 @@ div#add_cat_area {
 .add_cat_btn_S {
     display: flex;
     background-color: rgb(253, 235, 182);
-    width: 30%;
+    width: 90%;
     height: 70;
     padding: 10;
     border-radius: 10px;
@@ -179,29 +181,56 @@ div#add_cat_area {
 }
 
 div#add_cat_select_area {
-    height: 35;
+    grid-area: dv;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
+    align-items: center;
+    align-content: space-between;
 }
 
+/* div#add_scope_select_area {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+} */
 
 
 .cat_select_box {
     width: 80%;
+    height: 45;
     border-radius: 10px;
-    background-color: #f5f5f5;
+    background-color: #f3f3f3;
     cursor: pointer;
 }
 
 
 .cat_select_box:disabled{
-    background-color: #e9e9e9;
+    background-color: #f6f6f6;
     border-radius: 10px;
-    color: #353535;
+    color: #929292;
+    cursor: auto;
 }
 
 .checked {
     color: #353535;
     background-color: #ffce52
+}
+
+#span_area {
+    font-size: 20;
+    display: flex;
+    height: 40;
+    color: #999a98;
+    align-items: flex-end;
+    padding: 10;
+}
+
+article table {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }

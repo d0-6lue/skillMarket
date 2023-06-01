@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -46,11 +47,12 @@ public class NoticeUploadController extends HttpServlet{
 				if (!f.getName().equals("f")) {
 					continue;
 				}
+				UUID uuid = UUID.randomUUID();
 				String notice = "notice_"; // 파일 이름 규칙 ** 게시글 번호 추가예정
 				String orginName = f.getSubmittedFileName(); //원본 이름
 				String ext = orginName.substring(orginName.lastIndexOf(".")); // 파일 확장자 가져오기
 				
-				changeName = notice + i + ext; // 변경된 파일명 
+				changeName = notice + i + uuid + ext; // 변경된 파일명 
 				File target = new File(path + changeName); // 저장 경로 + 이름 ** file -> (java.io)
 				FileOutputStream os = new FileOutputStream(target); //파일 출력 스트림
 				

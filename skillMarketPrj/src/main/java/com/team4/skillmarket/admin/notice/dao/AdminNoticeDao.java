@@ -16,7 +16,7 @@ public class AdminNoticeDao {
 
 	public List<noticeListVo> selectNoticeList(Connection conn) throws Exception {
 		
-		String sql = "SELECT * FROM NOTICE ORDER BY NOTI_NO DESC";
+		String sql = "SELECT N.*, C.NOTI_CAT_NAME FROM NOTICE N LEFT JOIN NOTICE_CATEGORY C ON N.NOTI_CAT_NO = C.NOTI_CAT_NO ORDER BY NOTI_NO DESC";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
@@ -32,6 +32,7 @@ public class AdminNoticeDao {
 			String notiModifydate = rs.getString("NOTI_MODIFYDATE");
 			String notiStatus = rs.getString("NOTI_STATUS");
 			String notiHit = rs.getString("NOTI_HIT");
+			String notiCatName = rs.getString("NOTI_CAT_NAME");
 			
 			noticeListVo vo = new noticeListVo();
 			vo.setNotiNo(notiNo);
@@ -43,7 +44,9 @@ public class AdminNoticeDao {
 			vo.setNotiModifydate(notiModifydate);
 			vo.setNotiStatus(notiStatus);
 			vo.setNotiHit(notiHit);
-
+			vo.setNotiCatName(notiCatName);
+			
+			
 			noticeArrList.add(vo);
 		}
 		
@@ -103,8 +106,52 @@ public class AdminNoticeDao {
 			
 		}
 		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
 		
 		return newNotice;
+	}
+
+	public List<noticeListVo> noticeSelectList(Connection conn) throws Exception {
+
+		String sql = "SELECT * FROM NOTICE_CATEGORY";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<noticeListVo> noticeSelectList =  new ArrayList<>();
+		while (rs.next()) {
+			
+			String notiCatNo = rs.getString("NOTI_CAT_NO");
+			String notiCatName = rs.getString("NOTI_CAT_NAME");
+			
+			noticeListVo vo = new noticeListVo();
+			vo.setNotiCatNo(notiCatNo);
+			vo.setNotiCatName(notiCatName);
+			
+			noticeSelectList.add(vo);
+		}	
+		
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return noticeSelectList;
+	}
+
+	public int editNotice(noticeListVo vo, Connection conn) throws Exception {
+
+
+		String sql = "UPDATE NOTICE SET NOTI_CAT_NO = ?, NOTI_TITLE = ? , NOTI_CONTENT = ? , NOTI_MODIFYDATE = SYSDATE WHERE NOTI_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNotiCatNo());
+		pstmt.setString(2, vo.getNotiTitle());
+		pstmt.setString(3, vo.getNotiContent());
+		pstmt.setString(4, vo.getNotiNo());
+		int editNotice =  pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return editNotice;
 	}
 
 }

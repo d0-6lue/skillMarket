@@ -9,6 +9,8 @@ public class CategoryEditVo {
 	private String meddle;
 	private String small;
 	private String name;
-	
+	private String scope;
+	private String check;
+	private String aboveCatNo;
 	
 }
