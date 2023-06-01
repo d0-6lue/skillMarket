@@ -712,7 +712,7 @@ function checkRequest(event, chatVo) {
     requestSelect.options[no/100].selected = true;
     requestSelect.disabled = true;
 
-    const requestContent = document.querySelector("#request-content-textarea_")
+    const requestContent = document.querySelector("#request-content-textarea_");
     requestContent.value = chatVo.chatContent;
     requestContent.readOnly = true;
 

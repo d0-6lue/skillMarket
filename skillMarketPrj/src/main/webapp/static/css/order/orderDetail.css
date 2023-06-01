@@ -221,12 +221,12 @@
 }
 
 .image{
-    width: 125px;
-    height: 95px;
+    width: 250px;
+    height: 185px;
 }
 
 .image > img{
-    width: 125px;
-    height: 95px;
+    width: 250px;
+    height: 185px;
 }
 

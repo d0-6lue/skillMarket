@@ -404,6 +404,17 @@
     resize: none;
 
     margin: 10px 5px;
+    padding: 10px 5px;
+    border-radius: 15px;
+}
+
+#request-content-textarea_{
+    width: 650px;
+    height: 190px;
+    resize: none;
+
+    margin: 10px 5px;
+    padding: 10px 5px;
     border-radius: 15px;
 }
 

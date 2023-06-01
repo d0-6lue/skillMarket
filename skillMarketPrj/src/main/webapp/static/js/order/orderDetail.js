@@ -30,10 +30,12 @@ function computeProgress() {
     let today_ = new Date();
 
     today_ = today_.getFullYear() + "-" + 0+(today_.getMonth()+1) + "-" + today_.getDate();
+    startDay = startDay.getFullYear() + "-" + 0+(startDay.getMonth()+1) + "-" + startDay.getDate();
     const today = new Date(today_);
+    const startDay_ = new Date(startDay);
 
-    const totalDay = deadline.getTime() - startDay.getTime();
-    const progressDay = today.getTime() - startDay.getTime();
+    const totalDay = deadline.getTime() - startDay_.getTime();
+    const progressDay = today.getTime() - startDay_.getTime();
 
     const progress = document.querySelector(".progress-rate");
     progress.innerText = ( (progressDay / totalDay) * 10000 ).toFixed(2) + "%";
