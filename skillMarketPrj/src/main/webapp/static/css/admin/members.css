@@ -171,3 +171,6 @@ article tbody.scroll_tbody .tr_R10 {
     object-fit: cover;
 }
 
+#reportMemberModal_open{
+    color: #f56767 !important;;
+}

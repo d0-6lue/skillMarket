@@ -10,5 +10,7 @@ public class AdminCategoryVo {
 	private String estimateCatName;
 	private String estimateCatScope;
 	private String estimateCatFile;
+	private String totalViews;
+	
 	
 }

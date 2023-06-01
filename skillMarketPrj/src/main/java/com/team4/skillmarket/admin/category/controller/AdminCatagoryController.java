@@ -15,18 +15,25 @@ import com.team4.skillmarket.admin.category.vo.AdminCategoryVo;
 @WebServlet("/admin/category")
 public class AdminCatagoryController extends HttpServlet{
 	
+	private final AdminCatagoryService acs = new AdminCatagoryService();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
 			
-			AdminCatagoryService acs = new AdminCatagoryService();
+			
 			List<AdminCategoryVo> catArrList =  acs.selectCatList();
+			List<AdminCategoryVo> rankCat =  acs.rankCat();
+			
 			
 			if (catArrList == null) {
 				throw new Exception();
 			}
 			
+			
+			
+			req.setAttribute("rankCat", rankCat);
 			req.setAttribute("catArrList", catArrList);
 			req.getRequestDispatcher("/WEB-INF/views/admin/home/category.jsp").forward(req, resp);
 			

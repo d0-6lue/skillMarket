@@ -1,8 +1,9 @@
 $(document).ready(function() {
+    $(".cat_select_meddle_option").hide();
 
     let BMScheck = "";
-
     let flag = false;
+
 
     $(".meddle_cat_area").click(function () {
         
@@ -10,17 +11,38 @@ $(document).ready(function() {
          flag = true;
         setTimeout(() => flag = false , 200); //0.2초 후에
 
+        $(".cat_box_first_td").css("display","none")
+
+
+        const id = $(this).attr("id");
+		const lastUnderscoreIndex = id.lastIndexOf("_");
+		const nox = id.substring(lastUnderscoreIndex + 1);
+
+        
+        
+        $(".meddle_cat_area").each(function () {
+            if (!$(this).is("#meddle_cat_area_"+nox)) {
+                $(this).hide();
+            }
+            
+        })
+
+        console.log(nox);
         
 
+        console.log($("#meddle_cat_box_"+ nox ).css("display"));
+        
+        $("#meddle_cat_box_"+ nox ).css("display", "none");
+
         const meddleCatArea = $(this).attr("id")
-        const lastUnderscoreIndex = meddleCatArea.lastIndexOf("_");
-		const no = meddleCatArea.substring(lastUnderscoreIndex + 1);
+        const lI = meddleCatArea.lastIndexOf("_");
+		const no = meddleCatArea.substring(lI + 1);
         const name = $("#list_big_name_"+no).text();
         const tag =  $('#meddle_cat_area_'+no);
 
         const originHtml = $("#cat_THEAD").html();
 
-        const id = tag.attr('id'); // 아이디 가져오기
+        const idName = tag.attr('id'); // 아이디 가져오기
         const className = tag.attr('class'); // 클래스 가져오기
 
         console.log(id);
@@ -46,7 +68,7 @@ $(document).ready(function() {
             </th>
             <th>
                 <div>
-                    <input type="text" placeholder="카테고리 검색🔍"> 
+                    
                 </div>
             </th>
         </tr>
@@ -106,11 +128,13 @@ $(document).ready(function() {
                 $("#cat_select_big").prop("disabled", true);
                 $("#cat_select_meddle").prop("disabled", true);
             }
-            
+            $("#path_"+BMScheck).css("font-size","20");
+            $("#path_"+BMScheck).css("color","#999a98");
             BMScheck = "";
 
+            $("#titleInput").css("display" , "none")
             $(this).removeClass("checked");
-        }
+        }   
 
         else {
             
@@ -126,7 +150,9 @@ $(document).ready(function() {
             }
             
             BMScheck = no;
-
+            $("#path_"+BMScheck).css("font-size","25");
+            $("#path_"+BMScheck).css("color","#212529");
+            $("#titleInput").css("display" , "block")
             $(this).addClass("checked");
         }
             
@@ -163,6 +189,7 @@ $(document).ready(function() {
             }
         });
 
+
         $("#input_big").val(option);
         $("#path_big").text(name);
 
@@ -186,7 +213,8 @@ $(document).ready(function() {
               $(this).hide(); // 부모 <tr> 요소 숨기기
             }
         });
-        
+        console.log(option);
+        console.log(name);
         $("#input_meddle").val(option);
         $("#path_meddle").text(name);
 
@@ -211,50 +239,95 @@ $(document).ready(function() {
         
         const name = $("#titleInput").val()
 
-        console.log(BMScheck);
+        console.log(name === "");
 
+        if (name === "") {
+            console.log(BMScheck);
+            $("#path_"+BMScheck).text("새로운 카테고리");
+            return;
+        }
         $("#path_"+BMScheck).text(name);
-
+        
 
     })
 
+
+    function category() {
+    
+        const big =  $("#input_big").val();
+        const meddle =  $("#input_meddle").val();
+        const small =  $("#input_small").val();
+        const name = $("#titleInput").val()
+
+        console.log(BMScheck);
+    
+        console.log(big);
+        console.log(meddle);
+        console.log(name);
+    
+
+        if (name === "") {
+            alert("카테고리 이름을 채우세요😓")
+            return;
+        }
+    
+        $.ajax({
+            url: "/skillmarket/admin/category/edit", // 이미지 업로드를 처리하는 서버 엔드포인트 URL
+            type: "POST",
+            // dataType: "json",
+            data: {
+               big:big,
+               meddle:meddle,
+               name:name,
+               small:small,
+               BMScheck:BMScheck,
+            },
+            success: function(ok) {
+                
+                alert("카테고리추가 성공")
+    
+            },
+            error: function(xhr, status, error) {
+                alert("실패...")
+            }
+        })
+    }
+
+
+    $(".cat_box_td").click(function () {
+        
+        const id = $(this).attr("id");
+		const lastUnderscoreIndex = id.lastIndexOf("_");
+		const no = id.substring(lastUnderscoreIndex + 1);
+
+        $(".cat_box_td").css("display", "none")
+
+        $(".meddle_tr_"+no).css("display", "table");
+        console.log($("#meddle_tr_"+no).css());
+
+
+
+        $(".thead_center_size").text("")
+
+    })
+
+    $(".cat_box_td_m_").click(function () {
+        
+        const id = $(this).attr("id");
+		const lastUnderscoreIndex = id.lastIndexOf("_");
+		const no = id.substring(lastUnderscoreIndex + 1);
+        console.log(no);
+        const name = $(".cat_box_first_td_name_"+no)
+
+        $(".cat_box_td_m_").css("display", "none")
+
+        $(".small_tr_"+no).css("display", "table");
+        console.log($("#meddle_tr_"+no).css());
+        
+
+    })
 
 });
 
 
 
-
-function category() {
-
-    const big =  $("#input_big").val();
-    const meddle =  $("#input_meddle").val();
-    const small =  $("#input_small").val();
-    const name = $("#titleInput").val()
-
-
-    if (big === "" || meddle === "" || name === "") {
-        alert("모든 카테고리를 채우세요 😓")
-        return;
-    }
-
-    $.ajax({
-        url: "/skillmarket/admin/category/edit", // 이미지 업로드를 처리하는 서버 엔드포인트 URL
-        type: "POST",
-        dataType: "json",
-        data: {
-           big:big,
-           meddle:meddle,
-           name:name,
-        },
-        success: function(count) {
-            
-            alert("답변성공")
-            isUploading = false;
-
-        },
-        error: function(xhr, status, error) {
-            alert("실패...")
-            isUploading = false;
-        }
-    })
-}

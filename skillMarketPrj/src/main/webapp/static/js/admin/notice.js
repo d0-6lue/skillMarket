@@ -1,72 +1,136 @@
 window.onload = function() {
    
-	const tbody =  document.querySelectorAll("tbody tr");
-
-	tbody.forEach((e)=>{
-		e.addEventListener("click",(event)=>{
-			const bno = event.target.parentNode.children[0].innerText;
-			console.log(bno);
-
-			
 	
-			const noticeDetail = document.querySelectorAll(".noticeDetail");
-			
-			const selectModal =  document.getElementById("noticeDetail_"+ bno);
+	// 상세 모달 열기
+	$(".notice_List").click(function () {
+		
+		const id = $(this).attr("id");
+        const lastUnderscoreIndex = id.lastIndexOf("_");
+        const no = id.substring(lastUnderscoreIndex + 1);
 
-			
+		$("#noticeDetail_"+no).css("display", "block"); // 모달창을 보이게 함
 
-			$(selectModal).css("display", "block"); // 모달창을 보이게 함
-			$("#noticeDetailContent_" + bno).innerHTML = "${ modal.notiContent }";
-			
+		$('#noticeDetailContent_'+ no).summernote({
+			lang: 'ko-KR', // 한글 언어 설정
+			height: 475.219, // 에디터 높이 설정
+			toolbar: [
+				// 에디터 툴바 옵션 설정
+					['style', ['bold', 'italic', 'underline', 'clear']],
+					['font', ['strikethrough', 'superscript', 'subscript']],
+					['fontsize', ['fontsize']],
+					['color', ['color']],
+					['para', ['ul', 'ol', 'paragraph']],
+					['height', ['height']],
+					['insert', ['picture', 'link', 'video']],
+					['view', ['fullscreen', 'codeview']],
+			],
+			callbacks : {
+				onImageUpload : imageUpload
+			  }
+		});
 
-			// 모달창 닫기 버튼 클릭 시
-			$(".close").click(function() {
-				$("#noticeDetail_"+ bno).css("display", "none"); // 모달창을 숨김
-				$("#noticeDetail_"+ bno).find('.note-toolbar').css('display','none')
-			});
-			
-			// 썸머노트 에디터 초기화
-			$('#noticeDetailContent_'+ bno).summernote({
-				lang: 'ko-KR', // 한글 언어 설정
-				height: 475.219, // 에디터 높이 설정
-				toolbar: [
-					// 에디터 툴바 옵션 설정
-						['style', ['bold', 'italic', 'underline', 'clear']],
-						['font', ['strikethrough', 'superscript', 'subscript']],
-						['fontsize', ['fontsize']],
-						['color', ['color']],
-						['para', ['ul', 'ol', 'paragraph']],
-						['height', ['height']],
-						['insert', ['picture', 'link', 'video']],
-						['view', ['fullscreen', 'codeview']],
-				],
-			});
-			
-			$('#noticeDetailContent_'+ bno).summernote('disable');
-			
-			console.log($('#noticeDetailContent_'+ bno).find('disable'));
-
-			// 수정 버튼 클릭 시 썸머노트 에디터 활성화
-			const editButton = $("#noticeDetail_"+ bno).find('#submitBtn1');
-			console.log(editButton);
-			// const editButton = document.getElementById('submitBtn1');
-			editButton.click(function() {
-				$("#noticeDetail_"+ bno).find('.note-toolbar').css('display','block')
-				console.log($("#noticeDetail_"+ bno));
-				
-				const noticeDetailContent = document.getElementById('noticeDetailContent_'+ bno);
-				$('#noticeDetailContent_'+ bno).summernote('enable');
-				
-			});
-	
-		} )
-	
+		$('#noticeDetailContent_'+ no).summernote('disable');
 
 	})
 	
+
+
+	// 공지 수정
+	$(".submit_btn").click(function () {
+
+		console.log($(this).attr("class"));
+
+		const Btnclass = $(this).attr("class");
+		const index = Btnclass.lastIndexOf("_");
+		const classNo = Btnclass.substring(index + 1);
+		console.log(classNo);
+		
+
+		$('#noticeDetailContent_'+ classNo).summernote('disable');
+		$("#noticeDetail_"+ classNo).find('.note-toolbar').css('display','block');
+		$('#noticeDetailContent_'+ classNo).summernote('enable');
+		
+		$("#cat_select_detail_"+classNo).prop("disabled", false);
+		$("#cat_input_detail_"+classNo).prop("readonly", false);
+
+		$("button#submit_btn_"+classNo).css("display" , "none");
+		$("button#edit_btn_"+classNo).css("display" , "block");
+	})
 	
-	
-	
+	// 모달창 닫기 버튼 클릭 시
+	$(".close").click(function() {
+
+		const id = $(this).attr("id");
+        const lastUnderscoreIndex = id.lastIndexOf("_");
+        const no = id.substring(lastUnderscoreIndex + 1);
+
+		$("#noticeDetail_"+ no).css("display", "none"); // 모달창을 숨김
+		$("#noticeDetail_"+ no).find('.note-toolbar').css('display','none');
+		$('#noticeDetailContent_'+ no).summernote('disable');
+
+		$("#cat_select_detail_"+ no).prop("disabled", true);
+		$("#cat_input_detail_"+ no).prop("readonly", true);
+
+		$("button#submit_btn_"+no).css("display" , "block");
+		$("button#edit_btn_"+no).css("display" , "none");
+	});
+
+
+	$(".edit_btn").click(function () {
+		
+		//번호
+		//카테고리
+		//제목
+		//콘텐츠
+
+		console.log(123);
+
+		const id = $(this).attr("id");
+        const lastUnderscoreIndex = id.lastIndexOf("_");
+        const no = id.substring(lastUnderscoreIndex + 1);
+
+		const title = $("#cat_input_detail_"+no).val();
+		const select = $("#cat_select_detail_"+no).val();
+		const name = $(`#cat_select_detail_option_${no}:selected`).text();
+		const content = $("#noticeDetailContent_"+no).summernote('code');
+		const hit = $("#hit_"+no).text();
+
+		console.log(name);
+		
+		$.ajax({
+			url : '/skillmarket/admin/notice/edit',
+			type : 'post',
+			dataType: 'json',
+			data : {
+				no:no,
+				title:title,
+				select:select,
+				content:content,
+			},
+			success : function(update) {
+				alert("수정완료")
+
+				$("#notice_List_"+no).html(`
+					<td>
+						${ no }
+					</td>
+					<td>
+						[${ name }]${ title }
+					</td>
+					<td>
+						${ hit }
+					</td>
+				`);
+
+			},
+			error : function(error){
+				alert(error)
+			},
+		})
+		
+	})
+
+
 	
 	
 // 모달==========================================================================
@@ -130,7 +194,8 @@ window.onload = function() {
 
 
     // 모달창 닫기 버튼 클릭 시
-    $(".close").click(function() {
+    $("#close_my").click(function() {
+		console.log(123);
         $("#myModal").css("display", "none"); // 모달창을 숨김
     });
 
