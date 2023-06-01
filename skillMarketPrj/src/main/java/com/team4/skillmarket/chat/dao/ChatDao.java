@@ -490,13 +490,16 @@ public class ChatDao {
 						updataQuotationSql = "UPDATE QUOTATION SET QUOTATION_STATUS_NO = 2 WHERE QUOTATION_NO = ?";
 						pstmt = conn.prepareStatement(updataQuotationSql);
 						pstmt.setString(1, quotationNo);
+						
+						result_ = pstmt.executeUpdate();
 					}
 					else if("200".equals(category)) {
 						updataQuotationSql = "UPDATE QUOTATION SET QUOTATION_STATUS_NO = 4 WHERE QUOTATION_NO = ?";
 						pstmt = conn.prepareStatement(updataQuotationSql);
 						pstmt.setString(1, quotationNo);
 						
-						// 환불
+						result_ = pstmt.executeUpdate();
+						
 					}
 					else if("300".equals(category)) {
 						
@@ -531,6 +534,8 @@ public class ChatDao {
 							pstmt.setString(1, quotationNo);
 							pstmt.setString(2, optionNo);
 							pstmt.setString(3, inputNo);
+							
+							result_ = pstmt.executeUpdate();
 						}
 						
 					}
@@ -554,35 +559,78 @@ public class ChatDao {
 						
 						int updateQuotationResult = pstmt.executeUpdate();
 						
-						// 주문서 옵션 삭제
 						pstmt = null;
-						updataQuotationSql = "DELETE FROM QUOTATION_OPTION WHERE QUOTATION_OPTION_NO = ?";
-						pstmt = conn.prepareStatement(updataQuotationSql);
-						pstmt.setString(1, optionNo);
-						
 						// 캐시 환불
+						String insertCashLogSql = "INSERT INTO CASH_LOG \r\n"
+								+ "VALUES (SEQ_CASH_LOG_NO.NEXTVAL,  \r\n"
+								+ "        (SELECT MEMBER_NO FROM QUOTATION WHERE QUOTATION_NO = ?), 2,\r\n"
+								+ "        (SELECT (ESTIMATE_OPTION_PRICE * QUOTATION_OPTION_QUANTITY) FROM QUOTATION_OPTION A JOIN ESTIMATE_OPTION B ON A.ESTIMATE_OPTION_NO = B.ESTIMATE_OPTION_NO WHERE QUOTATION_OPTION_NO = ?), \r\n"
+								+ "        2, \r\n"
+								+ "        DEFAULT\r\n"
+								+ "        )";
+						
+						pstmt = conn.prepareStatement(insertCashLogSql);
+						pstmt.setString(1, quotationNo);
+						pstmt.setString(2, optionNo);
+						
+						int insertCashLogResult = pstmt.executeUpdate();
+						
+						
+						pstmt = null;
+						if(updateQuotationResult * insertCashLogResult == 1) {
+							// 주문서 옵션 삭제
+							updataQuotationSql = "DELETE FROM QUOTATION_OPTION WHERE QUOTATION_OPTION_NO = ?";
+							pstmt = conn.prepareStatement(updataQuotationSql);
+							pstmt.setString(1, optionNo);
+							
+							result_ = pstmt.executeUpdate();
+						}
+						
 					}
 					else if("500".equals(category)) {
 						updataQuotationSql = "UPDATE QUOTATION SET QUOTATION_PERIOD = QUOTATION_PERIOD + ? WHERE QUOTATION_NO = ?";
 						pstmt = conn.prepareStatement(updataQuotationSql);
 						pstmt.setString(1, inputNo);
 						pstmt.setString(2, quotationNo);
+						
+						result_ = pstmt.executeUpdate();
 					}
 					else if("600".equals(category)) {
 						updataQuotationSql = "UPDATE QUOTATION SET QUOTATION_PERIOD = QUOTATION_PERIOD - ? WHERE QUOTATION_NO = ?";
 						pstmt = conn.prepareStatement(updataQuotationSql);
 						pstmt.setString(1, inputNo);
 						pstmt.setString(2, quotationNo);
+						
+						result_ = pstmt.executeUpdate();
 					}
 					else if("700".equals(category)) {
 						// 수정 요청
 					}
 					else if("800".equals(category)) {
 						// 선금 요청
+						String insertCashLogSql = "INSERT INTO CASH_LOG \r\n"
+								+ "VALUES (SEQ_CASH_LOG_NO.NEXTVAL,  \r\n"
+								+ "        (SELECT MEMBER_NO FROM QUOTATION WHERE QUOTATION_NO = ?), 3,\r\n"
+								+ "        ?, \r\n"
+								+ "        2, \r\n"
+								+ "        DEFAULT\r\n"
+								+ "        )";
+						pstmt = conn.prepareStatement(insertCashLogSql);
+						pstmt.setString(1, quotationNo);
+						pstmt.setString(2, inputNo);
+						int insertCashLogResult = pstmt.executeUpdate();
+						
+						pstmt = null;
+						String updateUserCashSql = "UPDATE USER_CASH \r\n"
+								+ "SET CASH_MONEY = CASH_MONEY + ? \r\n"
+								+ "WHERE MEMBER_NO = (SELECT MEMBER_NO FROM QUOTATION WHERE QUOTATION_NO = ?)";
+						pstmt = conn.prepareStatement(updateUserCashSql);
+						pstmt.setString(1, inputNo);
+						pstmt.setString(2, quotationNo);
+						int updateUserCashResult = pstmt.executeUpdate();
+						
+						result_ = insertCashLogResult * updateUserCashResult;
 					}
-					
-					result_ = pstmt.executeUpdate();
-					
 					
 					pstmt = null;
 					if(result_ == 1 && "100".equals(category)) {
@@ -619,13 +667,69 @@ public class ChatDao {
 						result_ = insertCashResult * updateUserCashResult * insertSalesLogResult;
 						
 					}
+					else if(result_ == 1 && "200".equals(category)) {
+						// 환불
+						String insertCashLogSql = "INSERT INTO CASH_LOG \r\n"
+								+ "VALUES (SEQ_CASH_LOG_NO.NEXTVAL,  \r\n"
+								+ "        (SELECT MEMBER_NO FROM QUOTATION WHERE QUOTATION_NO = ?), 2,\r\n"
+								+ "        (SELECT QUOTATION_PRICE FROM QUOTATION WHERE QUOTATION_NO = ?), \r\n"
+								+ "        2, \r\n"
+								+ "        DEFAULT\r\n"
+								+ "        )";
+						pstmt = conn.prepareStatement(insertCashLogSql);
+						pstmt.setString(1, quotationNo);
+						pstmt.setString(2, quotationNo);
+						int insertCashLogResult = pstmt.executeUpdate();
+						
+						pstmt = null;
+						String updateUserCashSql = "UPDATE USER_CASH \r\n"
+								+ "SET CASH_MONEY = CASH_MONEY + (SELECT QUOTATION_PRICE FROM QUOTATION WHERE QUOTATION_NO = ?) \r\n"
+								+ "WHERE MEMBER_NO = (SELECT MEMBER_NO FROM QUOTATION WHERE QUOTATION_NO = ?)";
+						pstmt = conn.prepareStatement(updateUserCashSql);
+						pstmt.setString(1, quotationNo);
+						pstmt.setString(2, quotationNo);
+						int updateUserCashResult = pstmt.executeUpdate();
+						
+						result_ = insertCashLogResult * insertCashLogResult;
+						
+					}
 					else if(result_ == 1 && "300".equals(category)) {
+						
+						// 옵션 추가분만큼 캐시 감소
+						String insertCashLogSql = "INSERT INTO CASH_LOG \r\n"
+								+ "VALUES (SEQ_CASH_LOG_NO.NEXTVAL,  \r\n"
+								+ "        (SELECT MEMBER_NO FROM QUOTATION WHERE QUOTATION_NO = ?), 4,\r\n"
+								+ "        (SELECT (ESTIMATE_OPTION_PRICE * ?) FROM ESTIMATE_OPTION WHERE ESTIMATE_OPTION_NO = ?), \r\n"
+								+ "        4, \r\n"
+								+ "        DEFAULT\r\n"
+								+ "        )";
+						pstmt = conn.prepareStatement(insertCashLogSql);
+						pstmt.setString(1, quotationNo);
+						pstmt.setString(2, inputNo);
+						pstmt.setString(3, optionNo);
+						
+						int insertCashLogResult = pstmt.executeUpdate();
+						
+						pstmt = null;
+						String updateUserCashSql = "UPDATE USER_CASH \r\n"
+								+ "SET CASH_MONEY = CASH_MONEY + (SELECT ESTIMATE_OPTION_PRICE * ?\r\n"
+								+ "                              FROM ESTIMATE_OPTION\r\n"
+								+ "                              WHERE ESTIMATE_OPTION_NO = ?) \r\n"
+								+ "WHERE MEMBER_NO = (SELECT MEMBER_NO FROM QUOTATION WHERE QUOTATION_NO = ?)";
+						pstmt = conn.prepareStatement(updateUserCashSql);
+						pstmt.setString(1, inputNo);
+						pstmt.setString(2, optionNo);
+						pstmt.setString(3, quotationNo);
+						
+						int updateUserCashResult = pstmt.executeUpdate();
+						
+						pstmt = null;
 						// 옵션 추가한 만큼 주문서 가격 이랑 기간 업데이트
 						updataQuotationSql = "UPDATE QUOTATION \r\n"
 						+ "SET QUOTATION_PERIOD = QUOTATION_PERIOD + (SELECT (ESTIMATE_OPTION_QUANTITY * ?)\r\n"
 						+ "                                           FROM ESTIMATE_OPTION \r\n"
 						+ "                                           WHERE ESTIMATE_OPTION_NO = ?)\r\n"
-						+ ", QUOTATION_PRICE = QUOTATION_PRICE +(SELECT (ESTIMATE_OPTION_PRICE * ?)\r\n"
+						+ ", QUOTATION_PRICE = QUOTATION_PRICE + (SELECT (ESTIMATE_OPTION_PRICE * ?)\r\n"
 						+ "                                       FROM ESTIMATE_OPTION \r\n"
 						+ "                                       WHERE ESTIMATE_OPTION_NO = ?)\r\n"
 						+ "WHERE QUOTATION_NO = ?";
@@ -637,7 +741,9 @@ public class ChatDao {
 						pstmt.setString(4, optionNo);
 						pstmt.setString(5, quotationNo);
 						
-						result_ = pstmt.executeUpdate();
+						int updataQuotationResult = pstmt.executeUpdate();
+						
+						result_ = updataQuotationResult * updateUserCashResult * insertCashLogResult;
 					}
 					
 			//-----------------------------------------------------------------------------------------------------------------------------------------------------
