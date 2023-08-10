@@ -1,2 +1,2 @@
 # skillMarket
-kh_362class_pm / team4_SemiProject
+KH프로젝트 5-1팀 - SkillMarket
